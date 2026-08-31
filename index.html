@@ -2108,6 +2108,270 @@ input{
 }
 
 
+
+/* =========================
+   PANTALLA DE BIENVENIDA / APP
+========================= */
+.welcome-screen{
+    min-height:calc(100vh - 36px);
+}
+.welcome-screen .header{
+    padding-top:12px;
+}
+.welcome-screen .hero{
+    min-height:420px;
+}
+.welcome-feedback{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    margin:18px 5px 8px;
+    padding:14px 18px;
+    border-radius:14px;
+    background:white;
+    border:1px solid var(--borde);
+    color:var(--verde);
+    text-decoration:none;
+    font-size:10px;
+    font-weight:900;
+    letter-spacing:.5px;
+    transition:transform .2s ease,border-color .2s ease,background .2s ease;
+}
+.welcome-feedback:hover{
+    transform:translateY(-1px);
+    border-color:var(--verde3);
+    background:#fafbf8;
+}
+.welcome-feedback .punto{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--lima);
+    flex-shrink:0;
+}
+
+.app-shell-hidden{
+    display:none!important;
+}
+
+.main-dashboard{
+    padding-top:4px;
+}
+
+.weather-card{
+    position:relative;
+    overflow:hidden;
+    margin:6px 0 26px;
+    padding:20px 22px;
+    border-radius:24px;
+    background:linear-gradient(135deg,var(--verde),var(--verde2));
+    color:white;
+    box-shadow:0 18px 45px rgba(23,61,41,.18);
+}
+.weather-card::after{
+    content:"";
+    position:absolute;
+    width:180px;
+    height:180px;
+    right:-55px;
+    top:-75px;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(203,220,120,.25),transparent 68%);
+}
+.weather-head{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+}
+.weather-location{
+    font-size:10px;
+    font-weight:800;
+    letter-spacing:.8px;
+    opacity:.72;
+    text-transform:uppercase;
+}
+.weather-status{
+    margin-top:3px;
+    font-size:14px;
+    font-weight:900;
+}
+.weather-current{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-top:14px;
+}
+.weather-icon{
+    font-size:38px;
+    line-height:1;
+}
+.weather-temp{
+    font-size:36px;
+    line-height:1;
+    font-weight:900;
+    letter-spacing:-1.5px;
+}
+.weather-unit{
+    font-size:12px;
+    opacity:.72;
+    margin-left:2px;
+}
+.weather-extra{
+    font-size:10px;
+    line-height:1.6;
+    opacity:.76;
+}
+.weather-days{
+    position:relative;
+    z-index:2;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin-top:17px;
+    padding-top:15px;
+    border-top:1px solid rgba(255,255,255,.16);
+}
+.weather-day{
+    padding:9px 8px;
+    border-radius:13px;
+    background:rgba(255,255,255,.08);
+    text-align:center;
+}
+.weather-day strong{
+    display:block;
+    font-size:9px;
+    opacity:.72;
+    text-transform:uppercase;
+    letter-spacing:.4px;
+}
+.weather-day span{
+    display:block;
+    margin-top:4px;
+    font-size:15px;
+    font-weight:900;
+}
+.weather-day small{
+    display:block;
+    margin-top:2px;
+    font-size:9px;
+    opacity:.72;
+}
+.weather-loading{
+    font-size:10px;
+    opacity:.75;
+}
+
+.dashboard-title{
+    display:flex;
+    align-items:end;
+    justify-content:space-between;
+    margin:0 5px 13px;
+}
+.dashboard-title h2{
+    margin:0;
+    font-size:21px;
+    letter-spacing:-.7px;
+}
+.dashboard-title span{
+    color:var(--gris);
+    font-size:9px;
+    font-weight:800;
+}
+.dashboard-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:13px;
+    margin-bottom:32px;
+}
+.dashboard-card{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    min-height:148px;
+    padding:20px;
+    border:1px solid var(--borde);
+    border-radius:22px;
+    background:white;
+    color:var(--texto);
+    text-align:left;
+    font-family:inherit;
+    cursor:pointer;
+    box-shadow:var(--sombra);
+    transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+}
+.dashboard-card:hover{
+    transform:translateY(-3px);
+    border-color:var(--verde3);
+    box-shadow:0 20px 40px rgba(23,61,41,.13);
+}
+.dashboard-card:active{
+    transform:scale(.98);
+}
+.dashboard-card-icon{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:43px;
+    height:43px;
+    border-radius:14px;
+    background:#f1f5e9;
+    font-size:22px;
+}
+.dashboard-card strong{
+    display:block;
+    margin-top:18px;
+    color:var(--verde);
+    font-size:14px;
+    font-weight:900;
+}
+.dashboard-card span{
+    display:block;
+    margin-top:4px;
+    color:var(--gris);
+    font-size:9.5px;
+    line-height:1.45;
+    font-weight:700;
+}
+.dashboard-card-arrow{
+    position:absolute;
+    right:18px;
+    bottom:18px;
+    color:var(--verde3);
+    font-size:17px;
+    font-weight:900;
+}
+
+.dashboard-separator{
+    height:1px;
+    margin:0 5px 8px;
+    background:var(--borde);
+}
+
+@media(max-width:600px){
+    .welcome-screen .hero{
+        min-height:430px;
+    }
+    .weather-card{
+        padding:18px;
+        border-radius:21px;
+    }
+    .dashboard-grid{
+        gap:10px;
+    }
+    .dashboard-card{
+        min-height:140px;
+        padding:17px;
+        border-radius:19px;
+    }
+}
+
 /* =========================
    IMPRESION
 ========================= */
@@ -2162,6 +2426,8 @@ input{
 
 <!-- HEADER -->
 
+<div id="welcomeScreen" class="welcome-screen">
+
 <header class="header header-centrado">
 
     <img
@@ -2190,8 +2456,9 @@ input{
         </p>
 
         <a
-            href="#tipoTabs"
-            class="hero-btn">
+            href="#"
+            class="hero-btn"
+            onclick="abrirApp(); return false;">
 
             EMPEZAR →
 
@@ -2205,6 +2472,73 @@ input{
 
 </section>
 
+<a
+    href="mailto:lucasarias.agro@gmail.com?subject=Comentarios%20y%20sugerencias%20ForraGO"
+    class="welcome-feedback">
+    <span class="punto"></span>
+    COMENTARIOS Y SUGERENCIAS
+</a>
+
+</div>
+
+<!-- VISTA PRINCIPAL DE LA APP -->
+<div id="appShell" class="app-shell-hidden">
+
+<div class="main-dashboard">
+
+    <section class="weather-card" aria-label="Clima y pronóstico">
+        <div class="weather-head">
+            <div>
+                <div id="weatherLocation" class="weather-location">CLIMA</div>
+                <div id="weatherStatus" class="weather-status">Cargando pronóstico...</div>
+            </div>
+            <div id="weatherExtra" class="weather-extra">Actualizando datos</div>
+        </div>
+        <div class="weather-current">
+            <div id="weatherIcon" class="weather-icon">🌤️</div>
+            <div><span id="weatherTemp" class="weather-temp">--</span><span class="weather-unit">°C</span></div>
+        </div>
+        <div id="weatherDays" class="weather-days">
+            <div class="weather-day"><strong>Hoy</strong><span>--</span><small>--</small></div>
+            <div class="weather-day"><strong>Mañana</strong><span>--</span><small>--</small></div>
+            <div class="weather-day"><strong>Pasado</strong><span>--</span><small>--</small></div>
+        </div>
+    </section>
+
+    <div class="dashboard-title">
+        <h2>¿Qué querés hacer?</h2>
+        <span>FORRAGO</span>
+    </div>
+
+    <div class="dashboard-grid">
+        <button class="dashboard-card" onclick="irAForrajes()">
+            <div class="dashboard-card-icon">🌿</div>
+            <div><strong>Forrajes</strong><span>Evaluá producción para heno o pastoreo.</span></div>
+            <div class="dashboard-card-arrow">→</div>
+        </button>
+
+        <button class="dashboard-card" onclick="irASilajes()">
+            <div class="dashboard-card-icon">🌽</div>
+            <div><strong>Silajes</strong><span>Estimá rendimiento y ventana de cosecha.</span></div>
+            <div class="dashboard-card-arrow">→</div>
+        </button>
+
+        <button class="dashboard-card" onclick="abrirMisLotes()">
+            <div class="dashboard-card-icon">🗂️</div>
+            <div><strong>Mis lotes</strong><span>Guardá lotes y seguí su evolución.</span></div>
+            <div class="dashboard-card-arrow">→</div>
+        </button>
+
+        <button class="dashboard-card" onclick="irABiblioteca()">
+            <div class="dashboard-card-icon">📚</div>
+            <div><strong>Biblioteca</strong><span>Consultá fichas técnicas de los cultivos.</span></div>
+            <div class="dashboard-card-arrow">→</div>
+        </button>
+    </div>
+
+    <div class="dashboard-separator"></div>
+
+</div>
 
 <!-- VISTA CALCULADORA (Forraje / Silaje / Biblioteca) -->
 
@@ -3790,7 +4124,8 @@ input{
 
 <a
     href="mailto:lucasarias.agro@gmail.com?subject=Consulta%20ForraGO"
-    class="contacto-mini">
+    class="contacto-mini"
+    style="display:none!important;">
 
     <span class="punto"></span>
     ¿DUDAS O SUGERENCIAS? ESCRIBINOS →
@@ -3810,6 +4145,7 @@ input{
 
 </footer>
 
+</div>
 
 </div>
 
@@ -6522,6 +6858,113 @@ sincronizarAsesorSilo();
 actualizarCategoria("");
 actualizarCategoria("Silo");
 
+
+
+/* =========================================================
+   PANTALLA PRINCIPAL
+========================================================= */
+
+function abrirApp(){
+    const welcome=document.getElementById("welcomeScreen");
+    const shell=document.getElementById("appShell");
+
+    if(!welcome || !shell) return;
+
+    welcome.classList.add("app-shell-hidden");
+    shell.classList.remove("app-shell-hidden");
+    window.scrollTo({top:0,behavior:"smooth"});
+
+    cargarClima();
+}
+
+function irAForrajes(){
+    mostrarTipo("forraje");
+    document.getElementById("vistaCalculadora").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function irASilajes(){
+    mostrarTipo("silaje");
+    document.getElementById("vistaCalculadora").scrollIntoView({behavior:"smooth",block:"start"});
+}
+
+function irABiblioteca(){
+    document.getElementById("vistaCalculadora").scrollIntoView({behavior:"smooth",block:"start"});
+    setTimeout(function(){
+        const panel=document.getElementById("bibliotecaPanel");
+        if(panel && panel.style.display!=="block") toggleBiblioteca();
+        const el=document.querySelector(".biblioteca-toggle");
+        if(el) el.scrollIntoView({behavior:"smooth",block:"start"});
+    },250);
+}
+
+function codigoClima(codigo){
+    if(codigo===0) return ["☀️","Despejado"];
+    if([1,2].includes(codigo)) return ["🌤️","Parcialmente nublado"];
+    if(codigo===3) return ["☁️","Nublado"];
+    if([45,48].includes(codigo)) return ["🌫️","Niebla"];
+    if([51,53,55,56,57].includes(codigo)) return ["🌦️","Llovizna"];
+    if([61,63,65,66,67].includes(codigo)) return ["🌧️","Lluvia"];
+    if([71,73,75,77].includes(codigo)) return ["🌨️","Nieve"];
+    if([80,81,82].includes(codigo)) return ["🌦️","Chaparrones"];
+    if([95,96,99].includes(codigo)) return ["⛈️","Tormenta"];
+    return ["🌤️","Condiciones variables"];
+}
+
+function nombreDia(fecha,index){
+    if(index===0) return "Hoy";
+    if(index===1) return "Mañana";
+    const d=new Date(fecha+"T12:00:00");
+    return d.toLocaleDateString("es-AR",{weekday:"short"}).replace(".","");
+}
+
+function renderClima(data,lat,lon,nombre){
+    const current=data.current;
+    const daily=data.daily;
+    const info=codigoClima(current.weather_code);
+
+    document.getElementById("weatherLocation").textContent=nombre || "CLIMA";
+    document.getElementById("weatherStatus").textContent=info[1];
+    document.getElementById("weatherIcon").textContent=info[0];
+    document.getElementById("weatherTemp").textContent=Math.round(current.temperature_2m);
+    document.getElementById("weatherExtra").textContent=
+        "Máx "+Math.round(daily.temperature_2m_max[0])+"° · Mín "+Math.round(daily.temperature_2m_min[0])+"° · Viento "+Math.round(current.wind_speed_10m)+" km/h";
+
+    let html="";
+    for(let i=0;i<3;i++){
+        const c=codigoClima(daily.weather_code[i]);
+        html+=
+            '<div class="weather-day">'+
+                '<strong>'+nombreDia(daily.time[i],i)+'</strong>'+
+                '<span>'+c[0]+' '+Math.round(daily.temperature_2m_max[i])+'°</span>'+
+                '<small>'+Math.round(daily.temperature_2m_min[i])+'° · '+c[1]+'</small>'+
+            '</div>';
+    }
+    document.getElementById("weatherDays").innerHTML=html;
+}
+
+function cargarClima(){
+    const fallback={lat:-39.1000,lon:-67.0667,nombre:"Villa Regina"};
+    const usar=function(lat,lon,nombre){
+        const url="https://api.open-meteo.com/v1/forecast?latitude="+lat+"&longitude="+lon+"&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&forecast_days=3&timezone=auto";
+        fetch(url)
+            .then(function(r){if(!r.ok) throw new Error("weather"); return r.json();})
+            .then(function(data){renderClima(data,lat,lon,nombre);})
+            .catch(function(){
+                document.getElementById("weatherStatus").textContent="No se pudo actualizar";
+                document.getElementById("weatherExtra").textContent="Revisá tu conexión a internet";
+            });
+    };
+
+    if(navigator.geolocation){
+        navigator.geolocation.getCurrentPosition(
+            function(pos){usar(pos.coords.latitude,pos.coords.longitude,"Tu ubicación");},
+            function(){usar(fallback.lat,fallback.lon,fallback.nombre)},
+            {enableHighAccuracy:false,timeout:4500,maximumAge:900000}
+        );
+    }else{
+        usar(fallback.lat,fallback.lon,fallback.nombre);
+    }
+}
 
 /* =========================================================
    SPLASH SCREEN
