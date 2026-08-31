@@ -3,6 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#173d29">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="ForraGO">
+<link rel="manifest" href="manifest.json">
 
 <title>ForraGO | Inteligencia Forrajera</title>
 
@@ -79,21 +85,6 @@ body{
     max-width:1100px;
     margin:auto;
     padding:18px;
-}
-
-#paginaInicio{
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-}
-
-#vistaCalculadora.oculto{
-    display:none;
-}
-
-#paginaInicio.oculto{
-    display:none;
 }
 
 
@@ -2169,10 +2160,6 @@ input{
 <div class="app">
 
 
-<!-- PÁGINA DE INICIO (logo + hero) -->
-
-<div id="paginaInicio">
-
 <!-- HEADER -->
 
 <header class="header header-centrado">
@@ -2202,14 +2189,13 @@ input{
             en información útil para decidir.
         </p>
 
-        <button
-            type="button"
-            onclick="irACalculadora()"
+        <a
+            href="#tipoTabs"
             class="hero-btn">
 
             EMPEZAR →
 
-        </button>
+        </a>
 
     </div>
 
@@ -2219,13 +2205,10 @@ input{
 
 </section>
 
-</div>
-<!-- /paginaInicio -->
-
 
 <!-- VISTA CALCULADORA (Forraje / Silaje / Biblioteca) -->
 
-<div id="vistaCalculadora" class="oculto">
+<div id="vistaCalculadora">
 
 
 <!-- TITULO -->
@@ -6541,32 +6524,6 @@ actualizarCategoria("Silo");
 
 
 /* =========================================================
-   NAVEGACIÓN: PÁGINA DE INICIO → CALCULADORA
-
-   El botón EMPEZAR del hero deja de ser un ancla con
-   scroll y pasa a mostrar la vista de la calculadora
-   (Forraje/Silaje/Biblioteca/Mis lotes) como una
-   pantalla nueva.
-========================================================= */
-
-function irACalculadora(){
-
-    document
-        .getElementById("paginaInicio")
-        .classList
-        .add("oculto");
-
-    document
-        .getElementById("vistaCalculadora")
-        .classList
-        .remove("oculto");
-
-    window.scrollTo(0,0);
-
-}
-
-
-/* =========================================================
    SPLASH SCREEN
 
    Reutiliza la misma imagen del logo del header (no
@@ -6694,5 +6651,18 @@ if(scrollIndicador){
 
 </script>
 
+<script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+        navigator.serviceWorker.register("./service-worker.js")
+            .then(function () {
+                console.log("ForraGO PWA activa.");
+            })
+            .catch(function (error) {
+                console.warn("No se pudo activar la PWA:", error);
+            });
+    });
+}
+</script>
 </body>
 </html>
