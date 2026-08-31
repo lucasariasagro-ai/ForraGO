@@ -81,6 +81,21 @@ body{
     padding:18px;
 }
 
+#paginaInicio{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+}
+
+#vistaCalculadora.oculto{
+    display:none;
+}
+
+#paginaInicio.oculto{
+    display:none;
+}
+
 
 /* =========================
    HEADER
@@ -2154,6 +2169,10 @@ input{
 <div class="app">
 
 
+<!-- PÁGINA DE INICIO (logo + hero) -->
+
+<div id="paginaInicio">
+
 <!-- HEADER -->
 
 <header class="header header-centrado">
@@ -2183,13 +2202,14 @@ input{
             en información útil para decidir.
         </p>
 
-        <a
-            href="#tipoTabs"
+        <button
+            type="button"
+            onclick="irACalculadora()"
             class="hero-btn">
 
             EMPEZAR →
 
-        </a>
+        </button>
 
     </div>
 
@@ -2199,10 +2219,13 @@ input{
 
 </section>
 
+</div>
+<!-- /paginaInicio -->
+
 
 <!-- VISTA CALCULADORA (Forraje / Silaje / Biblioteca) -->
 
-<div id="vistaCalculadora">
+<div id="vistaCalculadora" class="oculto">
 
 
 <!-- TITULO -->
@@ -6515,6 +6538,32 @@ actualizarVentanaCosecha();
 sincronizarAsesorSilo();
 actualizarCategoria("");
 actualizarCategoria("Silo");
+
+
+/* =========================================================
+   NAVEGACIÓN: PÁGINA DE INICIO → CALCULADORA
+
+   El botón EMPEZAR del hero deja de ser un ancla con
+   scroll y pasa a mostrar la vista de la calculadora
+   (Forraje/Silaje/Biblioteca/Mis lotes) como una
+   pantalla nueva.
+========================================================= */
+
+function irACalculadora(){
+
+    document
+        .getElementById("paginaInicio")
+        .classList
+        .add("oculto");
+
+    document
+        .getElementById("vistaCalculadora")
+        .classList
+        .remove("oculto");
+
+    window.scrollTo(0,0);
+
+}
 
 
 /* =========================================================
