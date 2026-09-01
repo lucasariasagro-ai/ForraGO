@@ -2078,24 +2078,25 @@ input{
     position:relative;
     z-index:0;
     min-height:calc(100vh - 36px);
+    padding:22px 14px 30px;
 }
 .welcome-screen::before{
     content:"";
     position:absolute;
-    inset:-24px;
+    inset:0;
     z-index:-2;
     background-image:url(img/img_13.jpg);
     background-size:cover;
     background-position:center;
-    filter:blur(16px) saturate(1.05);
-    transform:scale(1.12);
+    filter:blur(18px) saturate(1.1);
+    transform:scale(1.15);
 }
 .welcome-screen::after{
     content:"";
     position:absolute;
-    inset:-24px;
+    inset:0;
     z-index:-1;
-    background:rgba(245,243,235,.78);
+    background:rgba(245,243,235,.42);
 }
 .welcome-screen .header{
     padding-top:12px;
