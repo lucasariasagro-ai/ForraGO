@@ -2083,31 +2083,31 @@ input{
     min-height:calc(100vh - 36px);
     padding:22px 14px 30px;
 }
-.welcome-screen::before{
-    content:"";
+.welcome-bg{
     position:absolute;
     inset:0;
-    z-index:-2;
-    background-image:url(img/img_13.jpg);
+    z-index:1;
+    background:
+        linear-gradient(rgba(245,243,235,.42),rgba(245,243,235,.42)),
+        url(img/img_13.jpg);
     background-size:cover;
     background-position:center;
     filter:blur(18px) saturate(1.1);
     transform:scale(1.15);
 }
-.welcome-screen::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    z-index:-1;
-    background:rgba(245,243,235,.42);
-}
 .welcome-screen .header{
+    position:relative;
+    z-index:2;
     padding-top:12px;
 }
 .welcome-screen .hero{
+    position:relative;
+    z-index:2;
     min-height:420px;
 }
 .welcome-feedback{
+    position:relative;
+    z-index:2;
     display:flex;
     align-items:center;
     justify-content:center;
@@ -2513,6 +2513,8 @@ input{
 <!-- HEADER -->
 
 <div id="welcomeScreen" class="welcome-screen">
+
+<div class="welcome-bg"></div>
 
 <header class="header header-centrado">
 
