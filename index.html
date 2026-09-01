@@ -8,6 +8,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="ForraGO">
+<link rel="manifest" href="manifest.json">
 
 <title>ForraGO | Inteligencia Forrajera</title>
 
@@ -2503,39 +2504,6 @@ input{
             <div class="weather-day"><strong>Pasado</strong><span>--</span><small>--</small></div>
         </div>
     </section>
-
-    <div class="dashboard-title">
-        <h2>¿Qué querés hacer?</h2>
-        <span>FORRAGO</span>
-    </div>
-
-    <div class="dashboard-grid">
-        <button class="dashboard-card" onclick="irAForrajes()">
-            <div class="dashboard-card-icon">🌿</div>
-            <div><strong>Forrajes</strong><span>Evaluá producción para heno o pastoreo.</span></div>
-            <div class="dashboard-card-arrow">→</div>
-        </button>
-
-        <button class="dashboard-card" onclick="irASilajes()">
-            <div class="dashboard-card-icon">🌽</div>
-            <div><strong>Silajes</strong><span>Estimá rendimiento y ventana de cosecha.</span></div>
-            <div class="dashboard-card-arrow">→</div>
-        </button>
-
-        <button class="dashboard-card" onclick="abrirMisLotes()">
-            <div class="dashboard-card-icon">🗂️</div>
-            <div><strong>Mis lotes</strong><span>Guardá lotes y seguí su evolución.</span></div>
-            <div class="dashboard-card-arrow">→</div>
-        </button>
-
-        <button class="dashboard-card" onclick="irABiblioteca()">
-            <div class="dashboard-card-icon">📚</div>
-            <div><strong>Biblioteca</strong><span>Consultá fichas técnicas de los cultivos.</span></div>
-            <div class="dashboard-card-arrow">→</div>
-        </button>
-    </div>
-
-    <div class="dashboard-separator"></div>
 
 </div>
 
@@ -7093,6 +7061,18 @@ if(scrollIndicador){
 
 </script>
 
-
+<script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+        navigator.serviceWorker.register("./service-worker.js")
+            .then(function () {
+                console.log("ForraGO PWA activa.");
+            })
+            .catch(function (error) {
+                console.warn("No se pudo activar la PWA:", error);
+            });
+    });
+}
+</script>
 </body>
 </html>
