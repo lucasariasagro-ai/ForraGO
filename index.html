@@ -2075,7 +2075,26 @@ input{
    PANTALLA DE BIENVENIDA / APP
 ========================= */
 .welcome-screen{
+    position:relative;
     min-height:calc(100vh - 36px);
+}
+.welcome-screen::before{
+    content:"";
+    position:absolute;
+    inset:-24px;
+    z-index:-2;
+    background-image:url(img/img_13.jpg);
+    background-size:cover;
+    background-position:center;
+    filter:blur(16px) saturate(1.05);
+    transform:scale(1.12);
+}
+.welcome-screen::after{
+    content:"";
+    position:absolute;
+    inset:-24px;
+    z-index:-1;
+    background:rgba(245,243,235,.78);
 }
 .welcome-screen .header{
     padding-top:12px;
