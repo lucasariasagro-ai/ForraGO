@@ -133,44 +133,6 @@ body{
     box-shadow:0 30px 75px rgba(23,61,41,.22);
 }
 
-.hero-scroll-indicador{
-    position:absolute;
-    left:50%;
-    bottom:22px;
-    transform:translateX(-50%);
-    z-index:3;
-    transition:opacity .3s ease;
-}
-
-.hero-scroll-indicador.oculto{
-    opacity:0;
-    pointer-events:none;
-}
-
-.hero-scroll-indicador span{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:34px;
-    height:34px;
-    border-radius:50%;
-    border:1.5px solid rgba(255,255,255,.55);
-    color:white;
-    font-size:15px;
-    animation:scroll-rebote 1.6s ease-in-out infinite;
-}
-
-@keyframes scroll-rebote{
-    0%,100%{
-        transform:translateY(0);
-        opacity:.7;
-    }
-    50%{
-        transform:translateY(7px);
-        opacity:1;
-    }
-}
-
 .campo{
     position:absolute;
     inset:0;
@@ -2162,9 +2124,9 @@ input{
 .weather-card{
     position:relative;
     overflow:hidden;
-    margin:6px 0 26px;
-    padding:24px 26px 22px;
-    border-radius:28px;
+    margin:6px 0 20px;
+    padding:14px 16px 12px;
+    border-radius:20px;
     background:var(--blanco);
     border:1px solid var(--borde);
     color:var(--texto);
@@ -2268,26 +2230,26 @@ input{
     display:flex;
     align-items:flex-start;
     justify-content:space-between;
-    gap:15px;
+    gap:12px;
 }
 .weather-location{
-    font-size:10px;
+    font-size:9px;
     font-weight:800;
-    letter-spacing:1.1px;
+    letter-spacing:1px;
     color:var(--verde3);
     text-transform:uppercase;
 }
 .weather-status{
-    margin-top:4px;
-    font-size:15px;
+    margin-top:2px;
+    font-size:12px;
     font-weight:800;
-    letter-spacing:-.2px;
+    letter-spacing:-.1px;
     color:var(--verde);
 }
 .weather-extra{
-    margin-top:2px;
-    font-size:10px;
-    line-height:1.6;
+    margin-top:1px;
+    font-size:9px;
+    line-height:1.5;
     color:var(--gris);
     text-align:right;
 }
@@ -2296,30 +2258,30 @@ input{
     z-index:2;
     display:flex;
     align-items:center;
-    gap:14px;
-    margin-top:18px;
+    gap:10px;
+    margin-top:10px;
 }
 .weather-icon{
     display:flex;
     align-items:center;
     justify-content:center;
-    width:56px;
-    height:56px;
-    border-radius:18px;
+    width:40px;
+    height:40px;
+    border-radius:13px;
     background:linear-gradient(135deg,rgba(203,220,120,.35),rgba(93,148,103,.16));
-    font-size:28px;
+    font-size:20px;
     line-height:1;
     flex-shrink:0;
 }
 .weather-temp{
-    font-size:38px;
+    font-size:26px;
     line-height:1;
     font-weight:900;
-    letter-spacing:-1.5px;
+    letter-spacing:-1px;
     color:var(--verde);
 }
 .weather-unit{
-    font-size:13px;
+    font-size:11px;
     color:var(--gris);
     margin-left:2px;
     font-weight:700;
@@ -2329,30 +2291,30 @@ input{
     z-index:2;
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:8px;
-    margin-top:19px;
-    padding-top:17px;
+    gap:6px;
+    margin-top:11px;
+    padding-top:10px;
     border-top:1px solid var(--borde);
 }
 .weather-day{
-    padding:10px 8px;
-    border-radius:15px;
+    padding:6px 6px;
+    border-radius:12px;
     background:var(--crema);
     border:1px solid var(--borde);
     text-align:center;
 }
 .weather-day strong{
     display:block;
-    font-size:9px;
+    font-size:8px;
     color:var(--gris);
     font-weight:800;
     text-transform:uppercase;
-    letter-spacing:.5px;
+    letter-spacing:.4px;
 }
 .weather-day span{
     display:block;
-    margin-top:5px;
-    font-size:15px;
+    margin-top:3px;
+    font-size:12px;
     font-weight:900;
     color:var(--verde);
 }
@@ -2566,9 +2528,6 @@ input{
 
     </div>
 
-    <div class="hero-scroll-indicador" id="scrollIndicador">
-        <span>↓</span>
-    </div>
 
 </section>
 
@@ -5834,6 +5793,11 @@ function abrirMisLotes(){
         "none";
 
     document.getElementById(
+        "weatherCard"
+    ).style.display=
+        "none";
+
+    document.getElementById(
         "vistaLotes"
     ).style.display=
         "block";
@@ -5869,6 +5833,11 @@ function cerrarMisLotes(){
 
     document.querySelector(
         ".hero"
+    ).style.display=
+        "";
+
+    document.getElementById(
+        "weatherCard"
     ).style.display=
         "";
 
@@ -7147,26 +7116,6 @@ if(heroParallax){
 
 }
 
-
-/* =========================================================
-   INDICADOR DE SCROLL DEL HERO
-========================================================= */
-
-const scrollIndicador=
-    document.getElementById("scrollIndicador");
-
-if(scrollIndicador){
-
-    window.addEventListener("scroll",function(){
-
-        scrollIndicador.classList.toggle(
-            "oculto",
-            window.scrollY>80
-        );
-
-    },{passive:true});
-
-}
 
 </script>
 
