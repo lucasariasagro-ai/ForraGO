@@ -882,6 +882,83 @@ body{
         0 18px 35px rgba(23,61,41,.18);
 }
 
+
+/* VER TODOS LOS CULTIVOS (chips pendientes) */
+
+.ver-todos-toggle{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    margin-top:14px;
+    padding:12px;
+    border-radius:14px;
+    cursor:pointer;
+    font-size:11.5px;
+    font-weight:700;
+    color:var(--verde2);
+    border:1.5px dashed var(--borde);
+    transition:border-color .2s ease, background .2s ease;
+}
+
+.ver-todos-toggle:hover{
+    border-color:var(--verde3);
+    background:#fafbf8;
+}
+
+.cultivos-extra-panel{
+    margin-top:10px;
+}
+
+.cultivos-chip-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:8px;
+}
+
+.cultivo-chip{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 12px;
+    border-radius:13px;
+    background:white;
+    border:1px solid var(--borde);
+}
+
+.cultivo-chip-icono{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:30px;
+    height:30px;
+    flex-shrink:0;
+    border-radius:9px;
+    background:var(--verde);
+    color:var(--lima);
+    font-weight:900;
+    font-size:13px;
+}
+
+.cultivo-chip-nombre{
+    flex:1;
+    font-size:11.5px;
+    font-weight:700;
+    color:var(--texto);
+}
+
+.cultivo-chip-badge{
+    font-size:8px;
+    font-weight:800;
+    letter-spacing:.3px;
+    text-transform:uppercase;
+    color:var(--gris);
+    background:var(--crema);
+    padding:4px 7px;
+    border-radius:20px;
+    white-space:nowrap;
+}
+
 .cultivo::after{
     content:"";
     position:absolute;
@@ -2969,6 +3046,57 @@ input{
 
         </div>
 
+
+    </div>
+
+
+    <!-- VER TODOS LOS CULTIVOS (pendientes de datos) -->
+
+    <div class="ver-todos-toggle" onclick="toggleCultivosExtra()">
+        <span>Ver todos los cultivos</span>
+        <span class="carga-flecha" id="cultivosExtraFlecha">▾</span>
+    </div>
+
+    <div id="cultivosExtraPanel" class="carga-panel cultivos-extra-panel">
+
+        <p class="biblioteca-intro">
+            Próximamente vamos a sumar los datos de rendimiento
+            y estado de estos cultivos a la calculadora.
+        </p>
+
+        <div class="cultivos-chip-grid">
+
+            <div class="cultivo-chip" data-cultivo="festuca">
+                <span class="cultivo-chip-icono">F</span>
+                <span class="cultivo-chip-nombre">Festuca</span>
+                <span class="cultivo-chip-badge">Próximamente</span>
+            </div>
+
+            <div class="cultivo-chip" data-cultivo="raygrass">
+                <span class="cultivo-chip-icono">R</span>
+                <span class="cultivo-chip-nombre">Raygrass</span>
+                <span class="cultivo-chip-badge">Próximamente</span>
+            </div>
+
+            <div class="cultivo-chip" data-cultivo="vicia">
+                <span class="cultivo-chip-icono">V</span>
+                <span class="cultivo-chip-nombre">Vicia</span>
+                <span class="cultivo-chip-badge">Próximamente</span>
+            </div>
+
+            <div class="cultivo-chip" data-cultivo="trebol">
+                <span class="cultivo-chip-icono">T</span>
+                <span class="cultivo-chip-nombre">Trébol blanco</span>
+                <span class="cultivo-chip-badge">Próximamente</span>
+            </div>
+
+            <div class="cultivo-chip" data-cultivo="centeno">
+                <span class="cultivo-chip-icono">C</span>
+                <span class="cultivo-chip-nombre">Centeno</span>
+                <span class="cultivo-chip-badge">Próximamente</span>
+            </div>
+
+        </div>
 
     </div>
 
@@ -5688,6 +5816,27 @@ function toggleBiblioteca(){
     const flecha=
         document.getElementById(
             "bibliotecaFlecha"
+        );
+
+    const abrir=
+        !panel.classList.contains("mostrar");
+
+    panel.classList.toggle("mostrar",abrir);
+    flecha.classList.toggle("abierto",abrir);
+
+}
+
+
+function toggleCultivosExtra(){
+
+    const panel=
+        document.getElementById(
+            "cultivosExtraPanel"
+        );
+
+    const flecha=
+        document.getElementById(
+            "cultivosExtraFlecha"
         );
 
     const abrir=
