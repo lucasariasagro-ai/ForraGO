@@ -883,7 +883,7 @@ body{
 }
 
 
-/* VER TODOS LOS CULTIVOS (chips pendientes) */
+/* VER TODOS LOS CULTIVOS */
 
 .ver-todos-toggle{
     display:flex;
@@ -891,19 +891,26 @@ body{
     justify-content:center;
     gap:8px;
     margin-top:14px;
-    padding:12px;
+    padding:13px;
     border-radius:14px;
     cursor:pointer;
     font-size:11.5px;
-    font-weight:700;
+    font-weight:800;
+    letter-spacing:.2px;
     color:var(--verde2);
-    border:1.5px dashed var(--borde);
-    transition:border-color .2s ease, background .2s ease;
+    background:var(--crema);
+    border:1.5px solid transparent;
+    transition:border-color .2s ease, transform .2s ease;
+}
+
+.ver-todos-toggle::before{
+    content:"🌱";
+    font-size:13px;
 }
 
 .ver-todos-toggle:hover{
     border-color:var(--verde3);
-    background:#fafbf8;
+    transform:translateY(-1px);
 }
 
 .cultivos-extra-panel{
@@ -912,32 +919,56 @@ body{
 
 .cultivos-chip-grid{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:8px;
+    grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
+    gap:10px;
 }
 
 .cultivo-chip{
+    position:relative;
     display:flex;
     align-items:center;
     gap:10px;
-    padding:10px 12px;
-    border-radius:13px;
+    padding:11px 13px;
+    border-radius:15px;
+    background:var(--crema);
+    border:1.5px solid transparent;
+    cursor:pointer;
+    transition:background .2s ease, border-color .2s ease, transform .15s ease, box-shadow .2s ease;
+}
+
+.cultivo-chip:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 22px rgba(23,61,41,.10);
+}
+
+.cultivo-chip.activo{
     background:white;
-    border:1px solid var(--borde);
+    border-color:var(--lima);
+    box-shadow:
+        0 10px 24px rgba(23,61,41,.12),
+        0 0 0 3px rgba(203,220,120,.22);
 }
 
 .cultivo-chip-icono{
     display:flex;
     align-items:center;
     justify-content:center;
-    width:30px;
-    height:30px;
+    width:32px;
+    height:32px;
     flex-shrink:0;
-    border-radius:9px;
-    background:var(--verde);
+    border-radius:10px;
+    background:linear-gradient(135deg,var(--verde),var(--verde2));
     color:var(--lima);
     font-weight:900;
     font-size:13px;
+    box-shadow:0 5px 12px rgba(23,61,41,.22);
+    transition:background .2s ease, color .2s ease;
+}
+
+.cultivo-chip.activo .cultivo-chip-icono{
+    background:linear-gradient(135deg,var(--lima),#dfe8ab);
+    color:var(--verde);
+    box-shadow:0 5px 12px rgba(203,220,120,.35);
 }
 
 .cultivo-chip-nombre{
@@ -945,18 +976,29 @@ body{
     font-size:11.5px;
     font-weight:700;
     color:var(--texto);
+    line-height:1.25;
 }
 
-.cultivo-chip-badge{
-    font-size:8px;
-    font-weight:800;
-    letter-spacing:.3px;
-    text-transform:uppercase;
-    color:var(--gris);
-    background:var(--crema);
-    padding:4px 7px;
-    border-radius:20px;
-    white-space:nowrap;
+.cultivo-chip .chip-check{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:19px;
+    height:19px;
+    flex-shrink:0;
+    border-radius:50%;
+    background:var(--lima);
+    color:var(--verde);
+    font-size:9px;
+    font-weight:900;
+    opacity:0;
+    transform:scale(.4);
+    transition:transform .25s cubic-bezier(.34,1.56,.64,1), opacity .2s ease;
+}
+
+.cultivo-chip.activo .chip-check{
+    opacity:1;
+    transform:scale(1);
 }
 
 .cultivo::after{
@@ -1748,6 +1790,18 @@ input{
     border-radius:11px;
     overflow:hidden;
     flex-shrink:0;
+}
+
+.biblioteca-thumb-letra{
+    width:100%;
+    height:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--verde);
+    color:var(--lima);
+    font-weight:900;
+    font-size:15px;
 }
 
 .biblioteca-flecha{
@@ -2862,6 +2916,81 @@ input{
             </div>
         </div>
 
+        <!-- FESTUCA ALTA -->
+        <div class="biblioteca-item" onclick="toggleFicha(this)">
+            <div class="biblioteca-item-cabecera">
+                <div class="biblioteca-thumb-wrap"><div class="biblioteca-thumb-letra">F</div></div>
+                <strong>Festuca alta</strong>
+                <span class="biblioteca-flecha">▾</span>
+            </div>
+            <div class="biblioteca-ficha">
+                <p><strong>Descripción:</strong> gramínea perenne (Festuca arundinacea), de alta persistencia y buena adaptación a suelos difíciles (salinos, alcalinos, con anegamientos temporarios). Suele consociarse con leguminosas como alfalfa o trébol blanco.</p>
+                <p><strong>Época de siembra:</strong> otoño; tolera también siembras de invierno por su resistencia al frío.</p>
+                <p><strong>Usos:</strong> pastoreo directo y heno; por su persistencia funciona como pastura de varios años.</p>
+                <p><strong>Rendimiento de referencia:</strong> 4.500 kg MS/ha/año (piso). Fuente: INTA Pergamino, ensayos de manejo agronómico plurianual (rango observado 4.500-7.000 kg MS/ha/año).</p>
+            </div>
+        </div>
+
+        <!-- RAYGRASS ANUAL -->
+        <div class="biblioteca-item" onclick="toggleFicha(this)">
+            <div class="biblioteca-item-cabecera">
+                <div class="biblioteca-thumb-wrap"><div class="biblioteca-thumb-letra">R</div></div>
+                <strong>Raygrass anual</strong>
+                <span class="biblioteca-flecha">▾</span>
+            </div>
+            <div class="biblioteca-ficha">
+                <p><strong>Descripción:</strong> gramínea anual de invierno (Lolium multiflorum), de rápida implantación y muy buena calidad forrajera, aunque con menor persistencia que otros verdeos.</p>
+                <p><strong>Época de siembra:</strong> otoño (marzo-abril), verdeo de invierno.</p>
+                <p><strong>Usos:</strong> pastoreo directo, muy palatable; también apto para heno.</p>
+                <p><strong>Rendimiento de referencia:</strong> 3.365 kg MS/ha (promedio de 21 cultivares evaluados). Fuente: INTA Informa (mejor cultivar de la evaluación: 3.607 kg MS/ha).</p>
+            </div>
+        </div>
+
+        <!-- VICIA VILLOSA -->
+        <div class="biblioteca-item" onclick="toggleFicha(this)">
+            <div class="biblioteca-item-cabecera">
+                <div class="biblioteca-thumb-wrap"><div class="biblioteca-thumb-letra">V</div></div>
+                <strong>Vicia villosa</strong>
+                <span class="biblioteca-flecha">▾</span>
+            </div>
+            <div class="biblioteca-ficha">
+                <p><strong>Descripción:</strong> leguminosa anual de otoño-invierno que fija nitrógeno al suelo; muy usada como cultivo de cobertura además de forraje. Existe un cultivar (Patagonia INTA) desarrollado especialmente para zonas frías del sur del país.</p>
+                <p><strong>Época de siembra:</strong> otoño (marzo a junio).</p>
+                <p><strong>Usos:</strong> pastoreo de invierno, cultivo de cobertura/servicio, sola o consociada con cereales de invierno.</p>
+                <p><strong>Rendimiento de referencia:</strong> 5.000 kg MS/ha, con inoculación y fertilización adecuadas. Fuente: Ing. Agr. F. Sánchez (Agroclave), en base a ensayos a campo.</p>
+            </div>
+        </div>
+
+        <!-- TRÉBOL BLANCO -->
+        <div class="biblioteca-item" onclick="toggleFicha(this)">
+            <div class="biblioteca-item-cabecera">
+                <div class="biblioteca-thumb-wrap"><div class="biblioteca-thumb-letra">T</div></div>
+                <strong>Trébol blanco</strong>
+                <span class="biblioteca-flecha">▾</span>
+            </div>
+            <div class="biblioteca-ficha">
+                <p><strong>Descripción:</strong> leguminosa perenne estolonífera (Trifolium repens), de alta calidad y palatabilidad, habitual en pasturas consociadas con gramíneas como raygrass o festuca.</p>
+                <p><strong>Época de siembra:</strong> otoño o fin de invierno/primavera, según zona.</p>
+                <p><strong>Usos:</strong> pastoreo directo (por su bajo porte no es apto para heno).</p>
+                <p><strong>Rendimiento de referencia:</strong> 5.000 kg MS/ha en el año de establecimiento, hasta 8.000 kg MS/ha en años siguientes. Fuente: Semillas Picasso / INTA Pergamino (cultivar Omega).</p>
+            </div>
+        </div>
+
+        <!-- CENTENO -->
+        <div class="biblioteca-item" onclick="toggleFicha(this)">
+            <div class="biblioteca-item-cabecera">
+                <div class="biblioteca-thumb-wrap"><div class="biblioteca-thumb-letra">C</div></div>
+                <strong>Centeno</strong>
+                <span class="biblioteca-flecha">▾</span>
+            </div>
+            <div class="biblioteca-ficha">
+                <p><strong>Descripción:</strong> cereal de invierno (Secale cereale), el más rústico de los verdeos invernales; tolera bien suelos livianos, sequía y bajas temperaturas, aunque pierde calidad rápido al pasar a estado reproductivo.</p>
+                <p><strong>Época de siembra:</strong> otoño (marzo a mayo), verdeo de invierno.</p>
+                <p><strong>Usos:</strong> pastoreo directo temprano y cultivo de cobertura.</p>
+                <p><strong>Rendimiento de referencia:</strong> 2.900 kg MS/ha. Fuente: INTA EEA Mercedes (Corrientes), evaluación de cultivares (rango 2.034-2.913 kg MS/ha).</p>
+            </div>
+        </div>
+
         <!-- MAÍZ -->
         <div class="biblioteca-item" onclick="toggleFicha(this)">
             <div class="biblioteca-item-cabecera">
@@ -3050,7 +3179,7 @@ input{
     </div>
 
 
-    <!-- VER TODOS LOS CULTIVOS (pendientes de datos) -->
+    <!-- MÁS CULTIVOS -->
 
     <div class="ver-todos-toggle" onclick="toggleCultivosExtra()">
         <span>Ver todos los cultivos</span>
@@ -3059,41 +3188,36 @@ input{
 
     <div id="cultivosExtraPanel" class="carga-panel cultivos-extra-panel">
 
-        <p class="biblioteca-intro">
-            Próximamente vamos a sumar los datos de rendimiento
-            y estado de estos cultivos a la calculadora.
-        </p>
-
         <div class="cultivos-chip-grid">
 
-            <div class="cultivo-chip" data-cultivo="festuca">
+            <div class="cultivo-chip" data-cultivo="festuca" onclick="seleccionar(this)">
                 <span class="cultivo-chip-icono">F</span>
-                <span class="cultivo-chip-nombre">Festuca</span>
-                <span class="cultivo-chip-badge">Próximamente</span>
+                <span class="cultivo-chip-nombre">Festuca alta</span>
+                <span class="chip-check">✓</span>
             </div>
 
-            <div class="cultivo-chip" data-cultivo="raygrass">
+            <div class="cultivo-chip" data-cultivo="raygrass" onclick="seleccionar(this)">
                 <span class="cultivo-chip-icono">R</span>
-                <span class="cultivo-chip-nombre">Raygrass</span>
-                <span class="cultivo-chip-badge">Próximamente</span>
+                <span class="cultivo-chip-nombre">Raygrass anual</span>
+                <span class="chip-check">✓</span>
             </div>
 
-            <div class="cultivo-chip" data-cultivo="vicia">
+            <div class="cultivo-chip" data-cultivo="vicia" onclick="seleccionar(this)">
                 <span class="cultivo-chip-icono">V</span>
-                <span class="cultivo-chip-nombre">Vicia</span>
-                <span class="cultivo-chip-badge">Próximamente</span>
+                <span class="cultivo-chip-nombre">Vicia villosa</span>
+                <span class="chip-check">✓</span>
             </div>
 
-            <div class="cultivo-chip" data-cultivo="trebol">
+            <div class="cultivo-chip" data-cultivo="trebol" onclick="seleccionar(this)">
                 <span class="cultivo-chip-icono">T</span>
                 <span class="cultivo-chip-nombre">Trébol blanco</span>
-                <span class="cultivo-chip-badge">Próximamente</span>
+                <span class="chip-check">✓</span>
             </div>
 
-            <div class="cultivo-chip" data-cultivo="centeno">
+            <div class="cultivo-chip" data-cultivo="centeno" onclick="seleccionar(this)">
                 <span class="cultivo-chip-icono">C</span>
                 <span class="cultivo-chip-nombre">Centeno</span>
-                <span class="cultivo-chip-badge">Próximamente</span>
+                <span class="chip-check">✓</span>
             </div>
 
         </div>
@@ -4407,6 +4531,36 @@ const cultivos={
         nombre:"Mijo",
         ms:{ tierno:18, medio:22, espiga:28 },
         referencia:4200
+    },
+
+    festuca:{
+        nombre:"Festuca alta",
+        ms:{ tierno:16, medio:20, espiga:27 },
+        referencia:4500
+    },
+
+    raygrass:{
+        nombre:"Raygrass anual",
+        ms:{ tierno:13, medio:17, espiga:22 },
+        referencia:3365
+    },
+
+    vicia:{
+        nombre:"Vicia villosa",
+        ms:{ tierno:13, medio:16, espiga:20 },
+        referencia:5000
+    },
+
+    trebol:{
+        nombre:"Trébol blanco",
+        ms:{ tierno:12, medio:15, espiga:18 },
+        referencia:5000
+    },
+
+    centeno:{
+        nombre:"Centeno",
+        ms:{ tierno:15, medio:19, espiga:25 },
+        referencia:2900
     }
 
 };
@@ -5050,7 +5204,9 @@ function pdfSilo(){
 function seleccionar(elemento){
 
     document
-        .querySelectorAll(".cultivos:not(.cultivos-silaje) .cultivo")
+        .querySelectorAll(
+            ".cultivos:not(.cultivos-silaje) .cultivo, .cultivos-chip-grid .cultivo-chip"
+        )
         .forEach(c=>{
             c.classList.remove("activo");
         });
