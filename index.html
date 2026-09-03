@@ -15,9 +15,18 @@
 <link rel="icon" type="image/png" sizes="32x32" href="img/img_01.png">
 <link rel="apple-touch-icon" sizes="180x180" href="img/img_02.png">
 
+<meta name="color-scheme" content="light only">
+<meta name="supported-color-schemes" content="light">
+<meta name="forced-color-adjust" content="none">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
+
 <style>
 
 :root{
+    color-scheme:light only;
     --hero-foto:url(img/img_03.jpg);
     --verde:#173d29;
     --verde2:#285d3d;
@@ -2543,6 +2552,22 @@ input{
     COMENTARIOS Y SUGERENCIAS
 </a>
 
+<footer class="footer">
+
+    <strong>ForraGO</strong>
+    · Inteligencia forrajera
+
+    <br>
+
+    Herramienta orientativa para evaluación
+    de productividad forrajera.
+
+    <br>
+
+    Versión de prueba
+
+</footer>
+
 </div>
 
 <!-- VISTA PRINCIPAL DE LA APP -->
@@ -4173,6 +4198,10 @@ input{
 
     Herramienta orientativa para evaluación
     de productividad forrajera.
+
+    <br>
+
+    Versión de prueba
 
 </footer>
 
@@ -7009,7 +7038,7 @@ function cargarClima(){
         navigator.geolocation.getCurrentPosition(
             function(pos){usar(pos.coords.latitude,pos.coords.longitude,"Tu ubicación");},
             function(){usar(fallback.lat,fallback.lon,fallback.nombre)},
-            {enableHighAccuracy:false,timeout:4500,maximumAge:900000}
+            {enableHighAccuracy:false,timeout:9000,maximumAge:900000}
         );
     }else{
         usar(fallback.lat,fallback.lon,fallback.nombre);
