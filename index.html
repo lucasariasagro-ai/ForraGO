@@ -2428,6 +2428,23 @@ input{
     pointer-events:none;
 }
 
+.weather-logo-mark{
+    position:absolute;
+    z-index:1;
+    top:14px;
+    right:14px;
+    width:26px;
+    height:26px;
+    object-fit:contain;
+    opacity:.16;
+    pointer-events:none;
+}
+
+.weather-card.clima-tormenta .weather-logo-mark{
+    opacity:.22;
+    filter:brightness(0) invert(1);
+}
+
 /* =========================
    CLIMA: FONDO SEGÚN CONDICIÓN
 ========================= */
@@ -2896,6 +2913,7 @@ input{
 <div class="main-dashboard">
 
     <section id="weatherCard" class="weather-card clima-despejado" aria-label="Clima y pronóstico">
+        <img class="weather-logo-mark" src="img/img_01.png" alt="" aria-hidden="true">
         <div class="weather-head">
             <div>
                 <div id="weatherLocation" class="weather-location">CLIMA</div>
