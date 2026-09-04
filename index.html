@@ -856,7 +856,7 @@ body{
     grid-template-columns:unset;
     grid-auto-flow:column;
     grid-template-rows:repeat(2,190px);
-    grid-auto-columns:calc((100% - 28px)/3);
+    grid-auto-columns:calc((100% - 28px)/3.18);
     overflow-x:auto;
     overflow-y:hidden;
     scroll-snap-type:x mandatory;
@@ -894,6 +894,7 @@ body{
     border:0;
     padding:0;
     appearance:none;
+    cursor:pointer;
     width:6px;
     height:6px;
     border-radius:50%;
@@ -1191,6 +1192,13 @@ body{
 
 .centeno-bg{
     background-image:url(img/img_18.jpg);
+}
+
+
+/* TRÉBOL ROJO — subir foto como img/img_19.jpg */
+
+.trebolrojo-bg{
+    background-image:url(img/img_19.jpg);
 }
 
 
@@ -3172,6 +3180,21 @@ input{
             </div>
         </div>
 
+        <!-- TRÉBOL ROJO -->
+        <div class="biblioteca-item" onclick="toggleFicha(this)">
+            <div class="biblioteca-item-cabecera">
+                <div class="biblioteca-thumb-wrap"><div class="biblioteca-thumb-letra">T</div></div>
+                <strong>Trébol rojo</strong>
+                <span class="biblioteca-flecha">▾</span>
+            </div>
+            <div class="biblioteca-ficha">
+                <p><strong>Descripción:</strong> leguminosa de porte erecto (Trifolium pratense), a diferencia del trébol blanco no es rastrera, lo que la hace apta para henificar. De vida productiva corta (2-3 años) pero muy alta calidad, con digestibilidad que puede superar a la alfalfa.</p>
+                <p><strong>Época de siembra:</strong> otoño, sola o junto a un cereal de invierno como acompañante.</p>
+                <p><strong>Usos:</strong> pastoreo, henificación (rollo/fardo) y como componente de pasturas mixtas con gramíneas (festuca, raygrass).</p>
+                <p><strong>Rendimiento de referencia:</strong> 5.000 kg MS/ha en el año de establecimiento, superando los 10.000 kg MS/ha en el año siguiente de producción. Fuente: Todo Agro; persistencia y calidad en mezcla con gramíneas documentada por INTA Pergamino.</p>
+            </div>
+        </div>
+
         <!-- MAÍZ -->
         <div class="biblioteca-item" onclick="toggleFicha(this)">
             <div class="biblioteca-item-cabecera">
@@ -3467,6 +3490,28 @@ input{
         </div>
 
 
+        <!-- TRÉBOL ROJO -->
+
+        <div
+            class="cultivo"
+            data-cultivo="trebolrojo"
+            onclick="seleccionar(this)">
+
+            <div class="campo-cultivo sinfoto-bg">T</div>
+
+            <div class="cultivo-info">
+
+                <strong>Trébol rojo</strong>
+
+            </div>
+
+            <div class="check">
+                ✓
+            </div>
+
+        </div>
+
+
     </div>
 
     <p class="cultivos-hint">← deslizá para ver más cultivos →</p>
@@ -3525,6 +3570,7 @@ input{
                         <option value="alfalfa">Alfalfa</option>
                         <option value="vicia">Vicia villosa</option>
                         <option value="trebol">Trébol blanco</option>
+                        <option value="trebolrojo">Trébol rojo</option>
                     </select>
                 </div>
 
@@ -4895,6 +4941,12 @@ const cultivos={
         nombre:"Centeno",
         ms:{ tierno:15, medio:19, espiga:25 },
         referencia:2900
+    },
+
+    trebolrojo:{
+        nombre:"Trébol rojo",
+        ms:{ tierno:14, medio:17, espiga:21 },
+        referencia:5000
     }
 
 };
