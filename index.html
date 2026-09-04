@@ -852,6 +852,68 @@ body{
     gap:14px;
 }
 
+.cultivos-scroll{
+    grid-template-columns:unset;
+    grid-auto-flow:column;
+    grid-template-rows:repeat(2,190px);
+    grid-auto-columns:calc((100% - 28px)/3.18);
+    overflow-x:auto;
+    overflow-y:hidden;
+    scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    padding-bottom:2px;
+}
+
+.cultivos-scroll::-webkit-scrollbar{
+    display:none;
+}
+
+.cultivos-scroll .cultivo{
+    scroll-snap-align:start;
+}
+
+.cultivos-hint{
+    margin:10px 0 0;
+    text-align:center;
+    font-size:9.5px;
+    font-weight:700;
+    letter-spacing:.3px;
+    color:var(--gris);
+}
+
+.cultivos-dots{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    margin-top:9px;
+}
+
+.cultivos-dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:var(--borde);
+    transition:background .25s ease, transform .25s ease, width .25s ease;
+}
+
+.cultivos-dot.activo{
+    background:var(--verde2);
+    width:16px;
+    border-radius:4px;
+}
+
+.sinfoto-bg{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:linear-gradient(135deg,var(--verde2),var(--verde));
+    color:rgba(203,220,120,.5);
+    font-weight:900;
+    font-size:64px;
+}
+
 .cultivo{
     position:relative;
     height:190px;
@@ -917,88 +979,107 @@ body{
     margin-top:10px;
 }
 
-.cultivos-chip-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(140px,1fr));
-    gap:10px;
+
+/* CONSOCIACIONES */
+
+.consoc-presets{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:16px;
 }
 
-.cultivo-chip{
-    position:relative;
-    display:flex;
-    align-items:center;
-    gap:10px;
-    padding:11px 13px;
-    border-radius:15px;
+.consoc-preset-chip{
+    padding:9px 13px;
+    border-radius:20px;
     background:var(--crema);
     border:1.5px solid transparent;
-    cursor:pointer;
-    transition:background .2s ease, border-color .2s ease, transform .15s ease, box-shadow .2s ease;
-}
-
-.cultivo-chip:hover{
-    transform:translateY(-2px);
-    box-shadow:0 10px 22px rgba(23,61,41,.10);
-}
-
-.cultivo-chip.activo{
-    background:white;
-    border-color:var(--lima);
-    box-shadow:
-        0 10px 24px rgba(23,61,41,.12),
-        0 0 0 3px rgba(203,220,120,.22);
-}
-
-.cultivo-chip-icono{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:32px;
-    height:32px;
-    flex-shrink:0;
-    border-radius:10px;
-    background:linear-gradient(135deg,var(--verde),var(--verde2));
-    color:var(--lima);
-    font-weight:900;
-    font-size:13px;
-    box-shadow:0 5px 12px rgba(23,61,41,.22);
-    transition:background .2s ease, color .2s ease;
-}
-
-.cultivo-chip.activo .cultivo-chip-icono{
-    background:linear-gradient(135deg,var(--lima),#dfe8ab);
-    color:var(--verde);
-    box-shadow:0 5px 12px rgba(203,220,120,.35);
-}
-
-.cultivo-chip-nombre{
-    flex:1;
-    font-size:11.5px;
+    font-size:10.5px;
     font-weight:700;
+    color:var(--verde2);
+    cursor:pointer;
+    transition:border-color .2s ease, transform .15s ease;
+}
+
+.consoc-preset-chip:hover{
+    border-color:var(--verde3);
+    transform:translateY(-1px);
+}
+
+.consoc-selects{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
+
+.consoc-campo label{
+    display:block;
+    margin-bottom:6px;
+    font-size:10px;
+    font-weight:800;
+    color:var(--verde2);
+}
+
+.consoc-campo select{
+    width:100%;
+    padding:12px 12px;
+    border-radius:12px;
+    border:2px solid var(--borde);
+    font-size:12.5px;
+    font-family:inherit;
     color:var(--texto);
-    line-height:1.25;
+    background:white;
 }
 
-.cultivo-chip .chip-check{
+.consoc-slider-wrap{
+    margin-top:16px;
+}
+
+.consoc-slider-top{
     display:flex;
-    align-items:center;
-    justify-content:center;
-    width:19px;
-    height:19px;
-    flex-shrink:0;
-    border-radius:50%;
-    background:var(--lima);
-    color:var(--verde);
-    font-size:9px;
-    font-weight:900;
-    opacity:0;
-    transform:scale(.4);
-    transition:transform .25s cubic-bezier(.34,1.56,.64,1), opacity .2s ease;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom:8px;
+    font-size:11px;
+    color:var(--gris);
 }
 
-.cultivo-chip.activo .chip-check{
-    opacity:1;
-    transform:scale(1);
+.consoc-slider-top strong{
+    font-size:13px;
+    color:var(--verde);
+}
+
+.consoc-slider-wrap input[type="range"]{
+    width:100%;
+    accent-color:var(--verde2);
+}
+
+.consoc-preview{
+    margin-top:16px;
+    padding:14px;
+    border-radius:13px;
+    background:white;
+    border:1.5px solid var(--borde);
+    font-size:11.5px;
+    line-height:1.6;
+    color:var(--gris);
+    transition:border-color .2s ease;
+}
+
+.consoc-preview.activo{
+    border-color:var(--lima);
+    color:var(--texto);
+}
+
+.consoc-preview strong{
+    color:var(--verde);
+}
+
+.consoc-nota{
+    margin:12px 0 0;
+    font-size:9.5px;
+    line-height:1.6;
+    color:var(--gris);
 }
 
 .cultivo::after{
@@ -2178,6 +2259,10 @@ input{
         height:165px;
     }
 
+    .cultivos-scroll{
+        grid-template-rows:repeat(2,165px);
+    }
+
     .panel,
     .resultado{
         padding:19px;
@@ -2201,6 +2286,10 @@ input{
 
     .cultivo{
         height:150px;
+    }
+
+    .cultivos-scroll{
+        grid-template-rows:repeat(2,150px);
     }
 
     .estados{
@@ -3040,7 +3129,7 @@ input{
     </label>
 
 
-    <div class="cultivos">
+    <div id="cultivosScroll" class="cultivos cultivos-scroll">
 
 
         <!-- ALFALFA -->
@@ -3176,49 +3265,203 @@ input{
         </div>
 
 
+        <!-- FESTUCA ALTA -->
+
+        <div
+            class="cultivo"
+            data-cultivo="festuca"
+            onclick="seleccionar(this)">
+
+            <div class="campo-cultivo sinfoto-bg">F</div>
+
+            <div class="cultivo-info">
+
+                <strong>Festuca alta</strong>
+
+            </div>
+
+            <div class="check">
+                ✓
+            </div>
+
+        </div>
+
+
+        <!-- RAYGRASS ANUAL -->
+
+        <div
+            class="cultivo"
+            data-cultivo="raygrass"
+            onclick="seleccionar(this)">
+
+            <div class="campo-cultivo sinfoto-bg">R</div>
+
+            <div class="cultivo-info">
+
+                <strong>Raygrass anual</strong>
+
+            </div>
+
+            <div class="check">
+                ✓
+            </div>
+
+        </div>
+
+
+        <!-- VICIA VILLOSA -->
+
+        <div
+            class="cultivo"
+            data-cultivo="vicia"
+            onclick="seleccionar(this)">
+
+            <div class="campo-cultivo sinfoto-bg">V</div>
+
+            <div class="cultivo-info">
+
+                <strong>Vicia villosa</strong>
+
+            </div>
+
+            <div class="check">
+                ✓
+            </div>
+
+        </div>
+
+
+        <!-- TRÉBOL BLANCO -->
+
+        <div
+            class="cultivo"
+            data-cultivo="trebol"
+            onclick="seleccionar(this)">
+
+            <div class="campo-cultivo sinfoto-bg">T</div>
+
+            <div class="cultivo-info">
+
+                <strong>Trébol blanco</strong>
+
+            </div>
+
+            <div class="check">
+                ✓
+            </div>
+
+        </div>
+
+
+        <!-- CENTENO -->
+
+        <div
+            class="cultivo"
+            data-cultivo="centeno"
+            onclick="seleccionar(this)">
+
+            <div class="campo-cultivo sinfoto-bg">C</div>
+
+            <div class="cultivo-info">
+
+                <strong>Centeno</strong>
+
+            </div>
+
+            <div class="check">
+                ✓
+            </div>
+
+        </div>
+
+
     </div>
 
+    <p class="cultivos-hint">← deslizá para ver más cultivos →</p>
 
-    <!-- MÁS CULTIVOS -->
+    <div class="cultivos-dots" id="cultivosDots"></div>
+
+
+    <!-- CONSOCIACIONES -->
 
     <div class="ver-todos-toggle" onclick="toggleCultivosExtra()">
-        <span>Ver todos los cultivos</span>
+        <span>Consociaciones</span>
         <span class="carga-flecha" id="cultivosExtraFlecha">▾</span>
     </div>
 
     <div id="cultivosExtraPanel" class="carga-panel cultivos-extra-panel">
 
-        <div class="cultivos-chip-grid">
+        <div id="consociacionBloque" class="consociacion-bloque">
 
-            <div class="cultivo-chip" data-cultivo="festuca" onclick="seleccionar(this)">
-                <span class="cultivo-chip-icono">F</span>
-                <span class="cultivo-chip-nombre">Festuca alta</span>
-                <span class="chip-check">✓</span>
+            <div class="consoc-presets">
+
+                <div class="consoc-preset-chip" onclick="aplicarPresetConsoc('festuca','trebol',30)">
+                    Festuca + Trébol
+                </div>
+
+                <div class="consoc-preset-chip" onclick="aplicarPresetConsoc('raygrass','trebol',30)">
+                    Raygrass + Trébol
+                </div>
+
+                <div class="consoc-preset-chip" onclick="aplicarPresetConsoc('avena','vicia',25)">
+                    Avena + Vicia
+                </div>
+
             </div>
 
-            <div class="cultivo-chip" data-cultivo="raygrass" onclick="seleccionar(this)">
-                <span class="cultivo-chip-icono">R</span>
-                <span class="cultivo-chip-nombre">Raygrass anual</span>
-                <span class="chip-check">✓</span>
+            <div class="consoc-selects">
+
+                <div class="consoc-campo">
+                    <label>Gramínea</label>
+                    <select id="consocGraminea" onchange="actualizarConsociacion()">
+                        <option value="">Elegir...</option>
+                        <option value="avena">Avena</option>
+                        <option value="triticale">Triticale</option>
+                        <option value="cebada">Cebada</option>
+                        <option value="moha">Moha</option>
+                        <option value="mijo">Mijo</option>
+                        <option value="festuca">Festuca alta</option>
+                        <option value="raygrass">Raygrass anual</option>
+                        <option value="centeno">Centeno</option>
+                    </select>
+                </div>
+
+                <div class="consoc-campo">
+                    <label>Leguminosa</label>
+                    <select id="consocLeguminosa" onchange="actualizarConsociacion()">
+                        <option value="">Elegir...</option>
+                        <option value="alfalfa">Alfalfa</option>
+                        <option value="vicia">Vicia villosa</option>
+                        <option value="trebol">Trébol blanco</option>
+                    </select>
+                </div>
+
             </div>
 
-            <div class="cultivo-chip" data-cultivo="vicia" onclick="seleccionar(this)">
-                <span class="cultivo-chip-icono">V</span>
-                <span class="cultivo-chip-nombre">Vicia villosa</span>
-                <span class="chip-check">✓</span>
+            <div class="consoc-slider-wrap">
+                <div class="consoc-slider-top">
+                    <span>% de leguminosa en la mezcla</span>
+                    <strong id="consocPorcentajeTexto">30%</strong>
+                </div>
+                <input
+                    type="range"
+                    id="consocSlider"
+                    min="10"
+                    max="90"
+                    step="5"
+                    value="30"
+                    oninput="actualizarConsociacion()">
             </div>
 
-            <div class="cultivo-chip" data-cultivo="trebol" onclick="seleccionar(this)">
-                <span class="cultivo-chip-icono">T</span>
-                <span class="cultivo-chip-nombre">Trébol blanco</span>
-                <span class="chip-check">✓</span>
+            <div id="consocPreview" class="consoc-preview">
+                Elegí las dos especies para ver la mezcla.
             </div>
 
-            <div class="cultivo-chip" data-cultivo="centeno" onclick="seleccionar(this)">
-                <span class="cultivo-chip-icono">C</span>
-                <span class="cultivo-chip-nombre">Centeno</span>
-                <span class="chip-check">✓</span>
-            </div>
+            <p class="consoc-nota">
+                ⓘ El estado del forraje que elijas abajo se aplica a
+                la mezcla en conjunto — cada especie puede estar,
+                en la realidad, en un estado distinto.
+            </p>
 
         </div>
 
@@ -5205,7 +5448,7 @@ function seleccionar(elemento){
 
     document
         .querySelectorAll(
-            ".cultivos:not(.cultivos-silaje) .cultivo, .cultivos-chip-grid .cultivo-chip"
+            ".cultivos:not(.cultivos-silaje) .cultivo"
         )
         .forEach(c=>{
             c.classList.remove("activo");
@@ -5216,7 +5459,266 @@ function seleccionar(elemento){
     cultivoActual=
         elemento.dataset.cultivo;
 
+    desactivarConsociacion();
+
+    guardarUltimaSeleccion({
+        tipo:"simple",
+        cultivo:cultivoActual
+    });
+
     sincronizarAsesor();
+}
+
+
+/* =========================
+   RECORDAR ÚLTIMA SELECCIÓN
+
+   Persistencia 100% local (localStorage), igual que
+   los lotes: guarda el último cultivo o consociación
+   elegido para no arrancar siempre en Alfalfa.
+========================= */
+
+const SELECCION_KEY="forrago_ultima_seleccion_v1";
+
+function guardarUltimaSeleccion(seleccion){
+
+    try{
+        localStorage.setItem(
+            SELECCION_KEY,
+            JSON.stringify(seleccion)
+        );
+    }
+    catch(e){
+        // si el storage no está disponible, seguimos sin recordar
+    }
+
+}
+
+
+function restaurarUltimaSeleccion(){
+
+    try{
+
+        const data=
+            localStorage.getItem(SELECCION_KEY);
+
+        if(!data) return;
+
+        const sel=
+            JSON.parse(data);
+
+        if(sel.tipo==="simple" && cultivos[sel.cultivo]){
+
+            const tarjeta=
+                document.querySelector(
+                    '.cultivos:not(.cultivos-silaje) .cultivo[data-cultivo="'+sel.cultivo+'"]'
+                );
+
+            if(tarjeta) seleccionar(tarjeta);
+
+        }
+        else if(
+            sel.tipo==="consociacion" &&
+            cultivos[sel.graminea] &&
+            cultivos[sel.leguminosa]
+        ){
+
+            document.getElementById("consocGraminea").value=sel.graminea;
+            document.getElementById("consocLeguminosa").value=sel.leguminosa;
+            document.getElementById("consocSlider").value=sel.porcentaje;
+
+            actualizarConsociacion();
+
+        }
+
+    }
+    catch(e){
+        // si algo salió mal, arrancamos con el default de siempre
+    }
+
+}
+
+
+/* =========================
+   CONSOCIACIONES
+========================= */
+
+function desactivarConsociacion(){
+
+    const preview=
+        document.getElementById("consocPreview");
+
+    preview.classList.remove("activo");
+
+}
+
+
+function aplicarPresetConsoc(graminea,leguminosa,porcLeguminosa){
+
+    document.getElementById("consocGraminea").value=graminea;
+    document.getElementById("consocLeguminosa").value=leguminosa;
+    document.getElementById("consocSlider").value=porcLeguminosa;
+
+    actualizarConsociacion();
+
+}
+
+
+function actualizarConsociacion(){
+
+    const claveGraminea=
+        document.getElementById("consocGraminea").value;
+
+    const claveLeguminosa=
+        document.getElementById("consocLeguminosa").value;
+
+    const slider=
+        document.getElementById("consocSlider");
+
+    const porcLeguminosa=
+        parseInt(slider.value,10);
+
+    const porcGraminea=
+        100-porcLeguminosa;
+
+    document.getElementById("consocPorcentajeTexto").textContent=
+        porcLeguminosa+"%";
+
+    const preview=
+        document.getElementById("consocPreview");
+
+    if(!claveGraminea||!claveLeguminosa){
+        preview.classList.remove("activo");
+        preview.textContent=
+            "Elegí las dos especies para ver la mezcla.";
+        return;
+    }
+
+    const graminea=
+        cultivos[claveGraminea];
+
+    const leguminosa=
+        cultivos[claveLeguminosa];
+
+    const pG=
+        porcGraminea/100;
+
+    const pL=
+        porcLeguminosa/100;
+
+    const msMezcla={
+        tierno:Math.round(graminea.ms.tierno*pG+leguminosa.ms.tierno*pL),
+        medio:Math.round(graminea.ms.medio*pG+leguminosa.ms.medio*pL),
+        espiga:Math.round(graminea.ms.espiga*pG+leguminosa.ms.espiga*pL)
+    };
+
+    const referenciaMezcla=
+        Math.round(graminea.referencia*pG+leguminosa.referencia*pL);
+
+    cultivos.consociacion={
+        nombre:
+            graminea.nombre+" + "+leguminosa.nombre,
+        ms:msMezcla,
+        referencia:referenciaMezcla
+    };
+
+    cultivoActual="consociacion";
+
+    document
+        .querySelectorAll(
+            ".cultivos:not(.cultivos-silaje) .cultivo"
+        )
+        .forEach(c=>{
+            c.classList.remove("activo");
+        });
+
+    preview.classList.add("activo");
+
+    preview.innerHTML=
+        "<strong>"+porcGraminea+"% "+graminea.nombre+
+        " · "+porcLeguminosa+"% "+leguminosa.nombre+
+        "</strong><br>"+
+        "MS estimado: "+msMezcla.tierno+"–"+msMezcla.espiga+"% según estado"+
+        " · Referencia: ~"+referenciaMezcla.toLocaleString("es-AR")+" kg MS/ha"+
+        " (ponderado de los datos de cada especie, no un ensayo de mezcla)";
+
+    guardarUltimaSeleccion({
+        tipo:"consociacion",
+        graminea:claveGraminea,
+        leguminosa:claveLeguminosa,
+        porcentaje:porcLeguminosa
+    });
+
+    sincronizarAsesor();
+
+}
+
+
+/* =========================
+   PUNTITOS DEL CARRUSEL DE CULTIVOS
+========================= */
+
+function generarDotsCultivos(){
+
+    const contenedor=
+        document.getElementById("cultivosScroll");
+
+    const dotsWrap=
+        document.getElementById("cultivosDots");
+
+    if(!contenedor||!dotsWrap) return;
+
+    const total=
+        contenedor.querySelectorAll(".cultivo").length;
+
+    const paginas=
+        Math.max(1,Math.ceil(total/3));
+
+    dotsWrap.innerHTML="";
+
+    for(let i=0;i<paginas;i++){
+
+        const dot=
+            document.createElement("span");
+
+        dot.className=
+            "cultivos-dot"+(i===0?" activo":"");
+
+        dotsWrap.appendChild(dot);
+
+    }
+
+}
+
+
+function actualizarDotsCultivos(){
+
+    const contenedor=
+        document.getElementById("cultivosScroll");
+
+    const dotsWrap=
+        document.getElementById("cultivosDots");
+
+    if(!contenedor||!dotsWrap) return;
+
+    const dots=
+        dotsWrap.querySelectorAll(".cultivos-dot");
+
+    if(!dots.length) return;
+
+    const maxScroll=
+        contenedor.scrollWidth-contenedor.clientWidth;
+
+    const fraccion=
+        maxScroll>0 ? contenedor.scrollLeft/maxScroll : 0;
+
+    const indice=
+        Math.round(fraccion*(dots.length-1));
+
+    dots.forEach(function(d,i){
+        d.classList.toggle("activo",i===indice);
+    });
+
 }
 
 
@@ -7349,6 +7851,26 @@ function cargarClima(){
         usar(fallback.lat,fallback.lon,fallback.nombre);
     }
 }
+
+/* =========================================================
+   INICIALIZACIÓN: carrusel de cultivos y última selección
+========================================================= */
+
+generarDotsCultivos();
+
+const scrollCultivos=
+    document.getElementById("cultivosScroll");
+
+if(scrollCultivos){
+    scrollCultivos.addEventListener(
+        "scroll",
+        actualizarDotsCultivos,
+        {passive:true}
+    );
+}
+
+restaurarUltimaSeleccion();
+
 
 /* =========================================================
    SPLASH SCREEN
