@@ -3003,8 +3003,6 @@ input{
         <span>Creá tus lotes y seguí su evolución en el tiempo</span>
     </div>
 
-    <span class="lotes-banner-flecha">→</span>
-
 </div>
 
 
@@ -3018,8 +3016,6 @@ input{
         <strong>Biblioteca de cultivos</strong>
         <span>Fichas técnicas de cada cultivo evaluable</span>
     </div>
-
-    <span class="carga-flecha" id="bibliotecaFlecha">▾</span>
 
 </div>
 
@@ -6674,16 +6670,10 @@ function toggleBiblioteca(){
             "bibliotecaPanel"
         );
 
-    const flecha=
-        document.getElementById(
-            "bibliotecaFlecha"
-        );
-
     const abrir=
         !panel.classList.contains("mostrar");
 
     panel.classList.toggle("mostrar",abrir);
-    flecha.classList.toggle("abierto",abrir);
 
 }
 
