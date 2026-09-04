@@ -863,6 +863,9 @@ body{
     -webkit-overflow-scrolling:touch;
     scrollbar-width:none;
     padding-bottom:2px;
+    touch-action:pan-y;
+    overscroll-behavior-x:contain;
+    scroll-behavior:smooth;
 }
 
 .cultivos-scroll::-webkit-scrollbar{
@@ -7930,6 +7933,59 @@ if(scrollCultivos){
         actualizarDotsCultivos,
         {passive:true}
     );
+
+    /*
+       En algunos celulares el navegador no toma el gesto horizontal
+       de un CSS Grid con overflow. Este respaldo hace que el dedo
+       arrastre el carrusel de forma explícita, sin afectar el scroll
+       vertical de la página.
+    */
+    let inicioX=0;
+    let inicioY=0;
+    let inicioScroll=0;
+    let arrastrando=false;
+    let gestoHorizontal=false;
+
+    scrollCultivos.addEventListener("touchstart",function(e){
+        if(!e.touches || !e.touches.length) return;
+        inicioX=e.touches[0].clientX;
+        inicioY=e.touches[0].clientY;
+        inicioScroll=scrollCultivos.scrollLeft;
+        arrastrando=true;
+        gestoHorizontal=false;
+    },{passive:true});
+
+    scrollCultivos.addEventListener("touchmove",function(e){
+        if(!arrastrando || !e.touches || !e.touches.length) return;
+
+        const dx=e.touches[0].clientX-inicioX;
+        const dy=e.touches[0].clientY-inicioY;
+
+        if(!gestoHorizontal){
+            const movimientoY=Math.abs(dy);
+            const movimientoX=Math.abs(dx);
+            if(movimientoX<8 && movimientoY<8) return;
+            if(movimientoX<=movimientoY){
+                arrastrando=false;
+                return;
+            }
+            gestoHorizontal=true;
+        }
+
+        e.preventDefault();
+        scrollCultivos.scrollLeft=inicioScroll-dx;
+    },{passive:false});
+
+    scrollCultivos.addEventListener("touchend",function(){
+        if(!arrastrando) return;
+        arrastrando=false;
+        gestoHorizontal=false;
+    },{passive:true});
+
+    scrollCultivos.addEventListener("touchcancel",function(){
+        arrastrando=false;
+        gestoHorizontal=false;
+    },{passive:true});
 }
 
 restaurarUltimaSeleccion();
