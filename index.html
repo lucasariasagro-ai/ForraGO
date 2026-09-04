@@ -5597,10 +5597,21 @@ function seleccionar(elemento){
             c.classList.remove("activo");
         });
 
-    elemento.classList.add("activo");
-
     cultivoActual=
         elemento.dataset.cultivo;
+
+    /* Con el carrusel infinito, cada cultivo existe dos
+       veces en el DOM (original + clon). Marcamos "activo"
+       en las dos copias para que se vea seleccionado sin
+       importar en cuál de las dos haya tocado el usuario. */
+
+    document
+        .querySelectorAll(
+            '.cultivos:not(.cultivos-silaje) .cultivo[data-cultivo="'+cultivoActual+'"]'
+        )
+        .forEach(c=>{
+            c.classList.add("activo");
+        });
 
     desactivarConsociacion();
 
@@ -5837,7 +5848,7 @@ function generarDotsCultivos(){
     if(!contenedor||!dotsWrap) return;
 
     const total=
-        contenedor.querySelectorAll(".cultivo").length;
+        contenedor.querySelectorAll(".cultivo:not([data-clon])").length;
 
     // En escritorio se ven 3 columnas; en celular 2.
     const columnasVisibles = window.matchMedia("(max-width:600px)").matches ? 2 : 3;
@@ -8029,6 +8040,49 @@ function cargarClima(){
 /* =========================================================
    INICIALIZACIÓN: carrusel de cultivos y última selección
 ========================================================= */
+
+function inicializarCarruselInfinito(){
+
+    const contenedor=
+        document.getElementById("cultivosScroll");
+
+    if(!contenedor) return;
+
+    if(contenedor.dataset.infinito) return;
+
+    contenedor.dataset.infinito="1";
+
+    const tarjetasOriginales=
+        Array.from(contenedor.querySelectorAll(".cultivo"));
+
+    tarjetasOriginales.forEach(function(tarjeta){
+
+        const clon=
+            tarjeta.cloneNode(true);
+
+        clon.setAttribute("data-clon","1");
+        clon.setAttribute("aria-hidden","true");
+
+        contenedor.appendChild(clon);
+
+    });
+
+    contenedor.addEventListener("scroll",function(){
+
+        const mitad=
+            contenedor.scrollWidth/2;
+
+        if(contenedor.scrollLeft>=mitad){
+
+            contenedor.scrollLeft-=mitad;
+
+        }
+
+    },{passive:true});
+
+}
+
+inicializarCarruselInfinito();
 
 generarDotsCultivos();
 
