@@ -2747,6 +2747,56 @@ input{
     }
 }
 
+
+/* =========================================================
+   CARRUSEL MÓVIL — 2 COLUMNAS x 2 FILAS
+   En pantallas chicas priorizamos tarjetas legibles.
+   Desktop queda exactamente igual.
+========================================================= */
+@media (max-width:600px){
+    .cultivos-scroll{
+        grid-template-columns:unset !important;
+        grid-auto-flow:column !important;
+        grid-template-rows:repeat(2,165px) !important;
+        grid-auto-columns:calc((100% - 9px)/2) !important;
+        column-gap:9px !important;
+        row-gap:9px !important;
+        overflow-x:auto !important;
+        overflow-y:hidden !important;
+        scroll-snap-type:x mandatory !important;
+        touch-action:pan-x !important;
+    }
+
+    .cultivos-scroll .cultivo{
+        width:auto !important;
+        min-width:0 !important;
+        height:165px !important;
+        scroll-snap-align:start !important;
+    }
+}
+
+@media (max-width:390px){
+    .cultivos-scroll{
+        grid-template-rows:repeat(2,150px) !important;
+        grid-auto-columns:calc((100% - 9px)/2) !important;
+    }
+
+    .cultivos-scroll .cultivo{
+        height:150px !important;
+        border-radius:18px;
+    }
+
+    .cultivo-info{
+        left:13px;
+        right:13px;
+        bottom:12px;
+    }
+
+    .cultivo-info strong{
+        font-size:15px;
+    }
+}
+
 </style>
 </head>
 
@@ -5737,9 +5787,10 @@ function generarDotsCultivos(){
     const total=
         contenedor.querySelectorAll(".cultivo").length;
 
-    // El carrusel muestra 3 columnas x 2 filas = 6 cultivos por página.
-    const paginas=
-        Math.max(1,Math.ceil(total/6));
+    // En escritorio se ven 3 columnas; en celular 2.
+    const columnasVisibles = window.matchMedia("(max-width:600px)").matches ? 2 : 3;
+    const columnasTotales = Math.ceil(total / 2);
+    const paginas = Math.max(1, columnasTotales - columnasVisibles + 1);
 
     dotsWrap.innerHTML="";
 
@@ -5755,7 +5806,7 @@ function generarDotsCultivos(){
 
         dot.addEventListener("click",function(){
             contenedor.scrollTo({
-                left:i*contenedor.clientWidth,
+                left:i * (contenedor.clientWidth / columnasVisibles),
                 behavior:"smooth"
             });
         });
@@ -5782,14 +5833,9 @@ function actualizarDotsCultivos(){
 
     if(!dots.length) return;
 
-    const maxScroll=
-        contenedor.scrollWidth-contenedor.clientWidth;
-
-    const fraccion=
-        maxScroll>0 ? contenedor.scrollLeft/maxScroll : 0;
-
-    const indice=
-        Math.max(0,Math.min(dots.length-1,Math.round(fraccion*(dots.length-1))));
+    const columnasVisibles = window.matchMedia("(max-width:600px)").matches ? 2 : 3;
+    const paso = contenedor.clientWidth / columnasVisibles;
+    const indice = Math.max(0, Math.min(dots.length-1, Math.round(contenedor.scrollLeft / paso)));
 
     dots.forEach(function(d,i){
         d.classList.toggle("activo",i===indice);
@@ -7933,6 +7979,11 @@ function cargarClima(){
 ========================================================= */
 
 generarDotsCultivos();
+
+window.addEventListener("resize", function(){
+    generarDotsCultivos();
+    actualizarDotsCultivos();
+});
 
 const scrollCultivos=
     document.getElementById("cultivosScroll");
