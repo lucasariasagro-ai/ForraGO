@@ -853,26 +853,34 @@ body{
 }
 
 .cultivos-scroll{
-    grid-template-columns:unset;
-    grid-auto-flow:column;
-    grid-template-rows:repeat(2,190px);
-    grid-auto-columns:calc((100% - 28px)/3.18);
+    display:flex;
+    gap:0;
     overflow-x:auto;
     overflow-y:hidden;
-    scroll-snap-type:x proximity;
+    scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch;
+    overscroll-behavior-x:contain;
     scrollbar-width:none;
     padding-bottom:2px;
-    touch-action:pan-y;
-    overscroll-behavior-x:contain;
-    scroll-behavior:smooth;
+    touch-action:pan-x pan-y;
 }
 
 .cultivos-scroll::-webkit-scrollbar{
     display:none;
 }
 
-.cultivos-scroll .cultivo{
+/* Cada página ocupa exactamente todo el ancho disponible.
+   Esto evita que el carrusel dependa de cómo el navegador
+   interpreta el grid en pantallas táctiles. */
+.cultivos-pagina{
+    flex:0 0 100%;
+    width:100%;
+    min-width:100%;
+    box-sizing:border-box;
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    grid-template-rows:repeat(2,190px);
+    gap:14px;
     scroll-snap-align:start;
 }
 
@@ -2301,7 +2309,7 @@ input{
         height:165px;
     }
 
-    .cultivos-scroll{
+    .cultivos-pagina{
         grid-template-rows:repeat(2,165px);
     }
 
@@ -2330,7 +2338,7 @@ input{
         height:150px;
     }
 
-    .cultivos-scroll{
+    .cultivos-pagina{
         grid-template-rows:repeat(2,150px);
     }
 
@@ -5724,6 +5732,39 @@ function actualizarConsociacion(){
    PUNTITOS DEL CARRUSEL DE CULTIVOS
 ========================= */
 
+function prepararCarruselCultivos(){
+
+    const contenedor=
+        document.getElementById("cultivosScroll");
+
+    if(!contenedor || contenedor.dataset.preparado==="1") return;
+
+    const tarjetas=Array.from(
+        contenedor.querySelectorAll(":scope > .cultivo")
+    );
+
+    if(!tarjetas.length) return;
+
+    const fragment=document.createDocumentFragment();
+
+    for(let i=0;i<tarjetas.length;i+=6){
+
+        const pagina=document.createElement("div");
+        pagina.className="cultivos-pagina";
+
+        tarjetas.slice(i,i+6).forEach(function(tarjeta){
+            pagina.appendChild(tarjeta);
+        });
+
+        fragment.appendChild(pagina);
+    }
+
+    contenedor.innerHTML="";
+    contenedor.appendChild(fragment);
+    contenedor.dataset.preparado="1";
+}
+
+
 function generarDotsCultivos(){
 
     const contenedor=
@@ -5734,26 +5775,27 @@ function generarDotsCultivos(){
 
     if(!contenedor||!dotsWrap) return;
 
-    const total=
-        contenedor.querySelectorAll(".cultivo").length;
-
     const paginas=
-        Math.max(1,Math.ceil(total/3));
+        contenedor.querySelectorAll(".cultivos-pagina").length;
 
     dotsWrap.innerHTML="";
 
     for(let i=0;i<paginas;i++){
 
-        const dot=
-            document.createElement("span");
+        const dot=document.createElement("span");
+        dot.className="cultivos-dot"+(i===0?" activo":"");
+        dot.setAttribute("role","button");
+        dot.setAttribute("aria-label","Ir a página "+(i+1));
 
-        dot.className=
-            "cultivos-dot"+(i===0?" activo":"");
+        dot.addEventListener("click",function(){
+            const pagina=contenedor.querySelectorAll(".cultivos-pagina")[i];
+            if(pagina){
+                pagina.scrollIntoView({behavior:"smooth",block:"nearest",inline:"start"});
+            }
+        });
 
         dotsWrap.appendChild(dot);
-
     }
-
 }
 
 
@@ -5772,19 +5814,12 @@ function actualizarDotsCultivos(){
 
     if(!dots.length) return;
 
-    const maxScroll=
-        contenedor.scrollWidth-contenedor.clientWidth;
-
-    const fraccion=
-        maxScroll>0 ? contenedor.scrollLeft/maxScroll : 0;
-
-    const indice=
-        Math.round(fraccion*(dots.length-1));
+    const ancho=contenedor.clientWidth;
+    const indice=ancho>0 ? Math.round(contenedor.scrollLeft/ancho) : 0;
 
     dots.forEach(function(d,i){
         d.classList.toggle("activo",i===indice);
     });
-
 }
 
 
@@ -7922,6 +7957,7 @@ function cargarClima(){
    INICIALIZACIÓN: carrusel de cultivos y última selección
 ========================================================= */
 
+prepararCarruselCultivos();
 generarDotsCultivos();
 
 const scrollCultivos=
@@ -7933,59 +7969,6 @@ if(scrollCultivos){
         actualizarDotsCultivos,
         {passive:true}
     );
-
-    /*
-       En algunos celulares el navegador no toma el gesto horizontal
-       de un CSS Grid con overflow. Este respaldo hace que el dedo
-       arrastre el carrusel de forma explícita, sin afectar el scroll
-       vertical de la página.
-    */
-    let inicioX=0;
-    let inicioY=0;
-    let inicioScroll=0;
-    let arrastrando=false;
-    let gestoHorizontal=false;
-
-    scrollCultivos.addEventListener("touchstart",function(e){
-        if(!e.touches || !e.touches.length) return;
-        inicioX=e.touches[0].clientX;
-        inicioY=e.touches[0].clientY;
-        inicioScroll=scrollCultivos.scrollLeft;
-        arrastrando=true;
-        gestoHorizontal=false;
-    },{passive:true});
-
-    scrollCultivos.addEventListener("touchmove",function(e){
-        if(!arrastrando || !e.touches || !e.touches.length) return;
-
-        const dx=e.touches[0].clientX-inicioX;
-        const dy=e.touches[0].clientY-inicioY;
-
-        if(!gestoHorizontal){
-            const movimientoY=Math.abs(dy);
-            const movimientoX=Math.abs(dx);
-            if(movimientoX<8 && movimientoY<8) return;
-            if(movimientoX<=movimientoY){
-                arrastrando=false;
-                return;
-            }
-            gestoHorizontal=true;
-        }
-
-        e.preventDefault();
-        scrollCultivos.scrollLeft=inicioScroll-dx;
-    },{passive:false});
-
-    scrollCultivos.addEventListener("touchend",function(){
-        if(!arrastrando) return;
-        arrastrando=false;
-        gestoHorizontal=false;
-    },{passive:true});
-
-    scrollCultivos.addEventListener("touchcancel",function(){
-        arrastrando=false;
-        gestoHorizontal=false;
-    },{passive:true});
 }
 
 restaurarUltimaSeleccion();
