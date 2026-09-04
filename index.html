@@ -1075,6 +1075,10 @@ body{
     color:var(--verde);
 }
 
+.consoc-preview.oculto{
+    display:none;
+}
+
 .consoc-nota{
     margin:12px 0 0;
     font-size:9.5px;
@@ -3453,14 +3457,13 @@ input{
                     oninput="actualizarConsociacion()">
             </div>
 
-            <div id="consocPreview" class="consoc-preview">
-                Elegí las dos especies para ver la mezcla.
-            </div>
+            <div id="consocPreview" class="consoc-preview oculto"></div>
 
-            <p class="consoc-nota">
-                ⓘ El estado del forraje que elijas abajo se aplica a
-                la mezcla en conjunto — cada especie puede estar,
-                en la realidad, en un estado distinto.
+            <p class="consoc-nota" id="consocNota">
+                ⓘ Elegí las dos especies para ver la mezcla. El estado
+                del forraje que elijas abajo se aplica a la mezcla en
+                conjunto — cada especie puede estar, en la realidad,
+                en un estado distinto.
             </p>
 
         </div>
@@ -5543,12 +5546,30 @@ function restaurarUltimaSeleccion(){
    CONSOCIACIONES
 ========================= */
 
+const NOTA_CONSOC_INCOMPLETA=
+    "ⓘ Elegí las dos especies para ver la mezcla. El estado del " +
+    "forraje que elijas abajo se aplica a la mezcla en conjunto — " +
+    "cada especie puede estar, en la realidad, en un estado distinto.";
+
+const NOTA_CONSOC_COMPLETA=
+    "ⓘ El estado del forraje que elijas abajo se aplica a la " +
+    "mezcla en conjunto — cada especie puede estar, en la " +
+    "realidad, en un estado distinto.";
+
+
 function desactivarConsociacion(){
 
     const preview=
         document.getElementById("consocPreview");
 
     preview.classList.remove("activo");
+    preview.classList.add("oculto");
+    preview.innerHTML="";
+
+    const nota=
+        document.getElementById("consocNota");
+
+    if(nota) nota.textContent=NOTA_CONSOC_INCOMPLETA;
 
 }
 
@@ -5587,10 +5608,14 @@ function actualizarConsociacion(){
     const preview=
         document.getElementById("consocPreview");
 
+    const nota=
+        document.getElementById("consocNota");
+
     if(!claveGraminea||!claveLeguminosa){
         preview.classList.remove("activo");
-        preview.textContent=
-            "Elegí las dos especies para ver la mezcla.";
+        preview.classList.add("oculto");
+        preview.innerHTML="";
+        if(nota) nota.textContent=NOTA_CONSOC_INCOMPLETA;
         return;
     }
 
@@ -5632,6 +5657,7 @@ function actualizarConsociacion(){
             c.classList.remove("activo");
         });
 
+    preview.classList.remove("oculto");
     preview.classList.add("activo");
 
     preview.innerHTML=
@@ -5641,6 +5667,8 @@ function actualizarConsociacion(){
         "MS estimado: "+msMezcla.tierno+"–"+msMezcla.espiga+"% según estado"+
         " · Referencia: ~"+referenciaMezcla.toLocaleString("es-AR")+" kg MS/ha"+
         " (ponderado de los datos de cada especie, no un ensayo de mezcla)";
+
+    if(nota) nota.textContent=NOTA_CONSOC_COMPLETA;
 
     guardarUltimaSeleccion({
         tipo:"consociacion",
