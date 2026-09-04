@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#173d29">
-<meta name="forrago-version" content="20260904-carrusel">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
@@ -857,10 +856,10 @@ body{
     grid-template-columns:unset;
     grid-auto-flow:column;
     grid-template-rows:repeat(2,190px);
-    grid-auto-columns:calc((100% - 28px)/3.18);
+    grid-auto-columns:calc((100% - 28px)/3);
     overflow-x:auto;
     overflow-y:hidden;
-    scroll-snap-type:x proximity;
+    scroll-snap-type:x mandatory;
     -webkit-overflow-scrolling:touch;
     scrollbar-width:none;
     padding-bottom:2px;
@@ -868,20 +867,6 @@ body{
 
 .cultivos-scroll::-webkit-scrollbar{
     display:none;
-}
-
-.cultivos-pagina{
-    flex:0 0 100%;
-    width:100%;
-    min-width:100%;
-    display:grid;
-    grid-template-columns:repeat(3,minmax(0,1fr));
-    grid-template-rows:repeat(2,190px);
-    gap:14px;
-    padding:0;
-    margin:0;
-    scroll-snap-align:start;
-    scroll-snap-stop:always;
 }
 
 .cultivos-scroll .cultivo{
@@ -906,6 +891,9 @@ body{
 }
 
 .cultivos-dot{
+    border:0;
+    padding:0;
+    appearance:none;
     width:6px;
     height:6px;
     border-radius:50%;
@@ -1132,77 +1120,77 @@ body{
 /* ALFALFA */
 
 .alfalfa-bg{
-    background-image:url("./img/img_04.jpg");
+    background-image:url(img/img_04.jpg);
 }
 
 
 /* AVENA */
 
 .avena-bg{
-    background-image:url("./img/img_05.jpg");
+    background-image:url(img/img_05.jpg);
 }
 
 
 /* TRITICALE */
 
 .triticale-bg{
-    background-image:url("./img/img_06.jpg");
+    background-image:url(img/img_06.jpg);
 }
 
 
 /* CEBADA */
 
 .cebada-bg{
-    background-image:url("./img/img_07.jpg");
+    background-image:url(img/img_07.jpg);
 }
 
 
 /* MOHA */
 
 .moha-bg{
-    background-image:url("./img/img_08.jpg");
+    background-image:url(img/img_08.jpg);
 }
 
 
 /* MIJO */
 
 .mijo-bg{
-    background-image:url("./img/img_09.jpg");
+    background-image:url(img/img_09.jpg);
 }
 
 
 /* FESTUCA ALTA — subir foto como img/img_14.jpg */
 
 .festuca-bg{
-    background-image:url("./img/img_14.jpg");
+    background-image:url(img/img_14.jpg);
 }
 
 
 /* RAYGRASS ANUAL — subir foto como img/img_15.jpg */
 
 .raygrass-bg{
-    background-image:url("./img/img_15.jpg");
+    background-image:url(img/img_15.jpg);
 }
 
 
 /* VICIA VILLOSA — subir foto como img/img_16.jpg */
 
 .vicia-bg{
-    background-image:url("./img/img_16.jpg");
+    background-image:url(img/img_16.jpg);
 }
 
 
 /* TRÉBOL BLANCO — subir foto como img/img_17.jpg */
 
 .trebol-bg{
-    background-image:url("./img/img_17.jpg");
+    background-image:url(img/img_17.jpg);
 }
 
 
 /* CENTENO — subir foto como img/img_18.jpg */
 
 .centeno-bg{
-    background-image:url("./img/img_18.jpg");
+    background-image:url(img/img_18.jpg);
 }
 
 
@@ -1210,14 +1198,14 @@ body{
 /* MAÍZ (silaje) */
 
 .maiz-bg{
-    background-image:url("./img/img_10.jpg");
+    background-image:url(img/img_10.jpg);
 }
 
 
 /* SORGO (silaje) */
 
 .sorgo-bg{
-    background-image:url("./img/img_11.jpg");
+    background-image:url(img/img_11.jpg);
 }
 
 /* TEXTO */
@@ -2313,9 +2301,8 @@ input{
         height:165px;
     }
 
-    .cultivos-pagina{
+    .cultivos-scroll{
         grid-template-rows:repeat(2,165px);
-        gap:10px;
     }
 
     .panel,
@@ -2343,9 +2330,8 @@ input{
         height:150px;
     }
 
-    .cultivos-pagina{
+    .cultivos-scroll{
         grid-template-rows:repeat(2,150px);
-        gap:9px;
     }
 
     .estados{
@@ -3328,7 +3314,7 @@ input{
             data-cultivo="festuca"
             onclick="seleccionar(this)">
 
-            <div class="campo-cultivo sinfoto-bg">F</div>
+            <div class="campo-cultivo festuca-bg"></div>
 
             <div class="cultivo-info">
 
@@ -3350,7 +3336,7 @@ input{
             data-cultivo="raygrass"
             onclick="seleccionar(this)">
 
-            <div class="campo-cultivo sinfoto-bg">R</div>
+            <div class="campo-cultivo raygrass-bg"></div>
 
             <div class="cultivo-info">
 
@@ -3372,7 +3358,7 @@ input{
             data-cultivo="vicia"
             onclick="seleccionar(this)">
 
-            <div class="campo-cultivo sinfoto-bg">V</div>
+            <div class="campo-cultivo vicia-bg"></div>
 
             <div class="cultivo-info">
 
@@ -3394,7 +3380,7 @@ input{
             data-cultivo="trebol"
             onclick="seleccionar(this)">
 
-            <div class="campo-cultivo sinfoto-bg">T</div>
+            <div class="campo-cultivo trebol-bg"></div>
 
             <div class="cultivo-info">
 
@@ -3416,7 +3402,7 @@ input{
             data-cultivo="centeno"
             onclick="seleccionar(this)">
 
-            <div class="campo-cultivo sinfoto-bg">C</div>
+            <div class="campo-cultivo centeno-bg"></div>
 
             <div class="cultivo-info">
 
@@ -5735,64 +5721,82 @@ function actualizarConsociacion(){
 
 
 /* =========================
-   CARRUSEL REAL DE CULTIVOS
-   6 tarjetas por página (3 x 2)
-========================= */
-function prepararCarruselCultivos(){
-    const contenedor=document.getElementById("cultivosScroll");
-    if(!contenedor || contenedor.dataset.preparado==="1") return;
-    const tarjetas=Array.from(contenedor.children).filter(function(el){
-        return el.classList && el.classList.contains("cultivo");
-    });
-    if(!tarjetas.length) return;
-    const fragment=document.createDocumentFragment();
-    for(let i=0;i<tarjetas.length;i+=6){
-        const pagina=document.createElement("div");
-        pagina.className="cultivos-pagina";
-        tarjetas.slice(i,i+6).forEach(function(tarjeta){ pagina.appendChild(tarjeta); });
-        fragment.appendChild(pagina);
-    }
-    contenedor.innerHTML="";
-    contenedor.appendChild(fragment);
-    contenedor.dataset.preparado="1";
-}
-
-/* =========================
    PUNTITOS DEL CARRUSEL DE CULTIVOS
 ========================= */
 
 function generarDotsCultivos(){
-    const contenedor=document.getElementById("cultivosScroll");
-    const dotsWrap=document.getElementById("cultivosDots");
+
+    const contenedor=
+        document.getElementById("cultivosScroll");
+
+    const dotsWrap=
+        document.getElementById("cultivosDots");
+
     if(!contenedor||!dotsWrap) return;
-    const paginas=contenedor.querySelectorAll(".cultivos-pagina");
+
+    const total=
+        contenedor.querySelectorAll(".cultivo").length;
+
+    // El carrusel muestra 3 columnas x 2 filas = 6 cultivos por página.
+    const paginas=
+        Math.max(1,Math.ceil(total/6));
+
     dotsWrap.innerHTML="";
-    paginas.forEach(function(pagina,i){
-        const dot=document.createElement("button");
+
+    for(let i=0;i<paginas;i++){
+
+        const dot=
+            document.createElement("button");
+
         dot.type="button";
-        dot.className="cultivos-dot"+(i===0?" activo":"");
-        dot.setAttribute("aria-label","Ver página "+(i+1)+" de "+paginas.length);
+        dot.className=
+            "cultivos-dot"+(i===0?" activo":"");
+        dot.setAttribute("aria-label","Ver página "+(i+1));
+
         dot.addEventListener("click",function(){
-            contenedor.scrollTo({left:pagina.offsetLeft,behavior:"smooth"});
+            contenedor.scrollTo({
+                left:i*contenedor.clientWidth,
+                behavior:"smooth"
+            });
         });
+
         dotsWrap.appendChild(dot);
-    });
+
+    }
+
 }
 
+
 function actualizarDotsCultivos(){
-    const contenedor=document.getElementById("cultivosScroll");
-    const dotsWrap=document.getElementById("cultivosDots");
+
+    const contenedor=
+        document.getElementById("cultivosScroll");
+
+    const dotsWrap=
+        document.getElementById("cultivosDots");
+
     if(!contenedor||!dotsWrap) return;
-    const paginas=Array.from(contenedor.querySelectorAll(".cultivos-pagina"));
-    const dots=dotsWrap.querySelectorAll(".cultivos-dot");
-    if(!paginas.length||!dots.length) return;
-    let indice=0,menor=Infinity;
-    paginas.forEach(function(pagina,i){
-        const distancia=Math.abs(contenedor.scrollLeft-pagina.offsetLeft);
-        if(distancia<menor){ menor=distancia; indice=i; }
+
+    const dots=
+        dotsWrap.querySelectorAll(".cultivos-dot");
+
+    if(!dots.length) return;
+
+    const maxScroll=
+        contenedor.scrollWidth-contenedor.clientWidth;
+
+    const fraccion=
+        maxScroll>0 ? contenedor.scrollLeft/maxScroll : 0;
+
+    const indice=
+        Math.max(0,Math.min(dots.length-1,Math.round(fraccion*(dots.length-1))));
+
+    dots.forEach(function(d,i){
+        d.classList.toggle("activo",i===indice);
     });
-    dots.forEach(function(dot,i){ dot.classList.toggle("activo",i===indice); });
+
 }
+
 
 /* =========================
    SELECCIONAR ESTADO
@@ -7928,7 +7932,6 @@ function cargarClima(){
    INICIALIZACIÓN: carrusel de cultivos y última selección
 ========================================================= */
 
-prepararCarruselCultivos();
 generarDotsCultivos();
 
 const scrollCultivos=
