@@ -2592,6 +2592,49 @@ input{
     font-weight:700;
 }
 
+/* BARRA DE RANGO TÉRMICO */
+
+.weather-range{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    gap:6px;
+    margin-top:9px;
+}
+.weather-range-label{
+    font-size:8px;
+    font-weight:800;
+    color:var(--gris);
+    flex-shrink:0;
+}
+.weather-range-track{
+    position:relative;
+    flex:1;
+    height:4px;
+    border-radius:10px;
+    background:linear-gradient(90deg,#7fb6d9,#cbdc78 50%,#e08a4f);
+}
+.weather-range-marker{
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:9px;
+    height:9px;
+    border:2px solid white;
+    border-radius:50%;
+    background:var(--verde);
+    box-shadow:0 2px 6px rgba(0,0,0,.25);
+    transform:translate(-50%,-50%);
+    transition:left .5s ease;
+}
+.weather-card.clima-tormenta .weather-range-label{
+    color:rgba(255,255,255,.65);
+}
+.weather-card.clima-tormenta .weather-range-marker{
+    border-color:#1e2731;
+}
+
 /* ALERTAS AGRO — solo aparecen si son relevantes */
 
 .weather-alerts{
@@ -2879,6 +2922,78 @@ input{
     }
 }
 
+
+/* =========================
+   CLIMA — IDENTIDAD FORRAGO
+   Fondo integrado: logo + cultivo
+========================= */
+.weather-card{
+    isolation:isolate;
+}
+.weather-card::before{
+    content:"";
+    position:absolute;
+    z-index:0;
+    left:10px;
+    top:8px;
+    width:108px;
+    height:54px;
+    background-image:url("img/img_02.png");
+    background-repeat:no-repeat;
+    background-position:left center;
+    background-size:contain;
+    opacity:.16;
+    pointer-events:none;
+    mix-blend-mode:multiply;
+}
+.weather-card::after{
+    content:"";
+    position:absolute;
+    z-index:0;
+    right:-22px;
+    bottom:-38px;
+    width:235px;
+    height:205px;
+    background-image:
+        linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.10) 55%,rgba(255,255,255,.30) 100%),
+        url("img/img_14.jpg");
+    background-size:cover,cover;
+    background-position:center,center;
+    background-repeat:no-repeat;
+    opacity:.12;
+    filter:grayscale(1) contrast(.85) brightness(1.08);
+    mix-blend-mode:multiply;
+    -webkit-mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.20) 18%,#000 58%,#000 100%);
+    mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.20) 18%,#000 58%,#000 100%);
+    pointer-events:none;
+}
+.weather-card > *{
+    position:relative;
+    z-index:2;
+}
+.weather-card .weather-head,
+.weather-card .weather-current,
+.weather-card .weather-alerts,
+.weather-card .weather-days{
+    position:relative;
+    z-index:2;
+}
+@media (max-width:600px){
+    .weather-card::before{
+        width:88px;
+        height:46px;
+        left:9px;
+        top:7px;
+        opacity:.13;
+    }
+    .weather-card::after{
+        width:175px;
+        height:155px;
+        right:-24px;
+        bottom:-30px;
+        opacity:.10;
+    }
+}
 </style>
 </head>
 
@@ -2970,7 +3085,6 @@ input{
 <div class="main-dashboard">
 
     <section id="weatherCard" class="weather-card clima-despejado" aria-label="Clima y pronóstico">
-        <img class="weather-logo-mark" src="img/img_02.png" alt="" aria-hidden="true">
         <div class="weather-head">
             <div>
                 <div id="weatherLocation" class="weather-location">CLIMA</div>
@@ -2982,7 +3096,6 @@ input{
             <div id="weatherIcon" class="weather-icon"></div>
             <div><span id="weatherTemp" class="weather-temp">--</span><span class="weather-unit">°C</span></div>
         </div>
-
         <div id="weatherAlerts" class="weather-alerts"></div>
         <div id="weatherDays" class="weather-days">
             <div class="weather-day"><strong>Hoy</strong><span>--</span><small>--</small></div>
@@ -8188,6 +8301,10 @@ function renderClima(data,lat,lon,nombre){
         );
         tarjetaClima.classList.add("clima-"+info[2]);
     }
+
+    const minHoy=daily.temperature_2m_min[0];
+    const maxHoy=daily.temperature_2m_max[0];
+
 
     const alertas=calcularAlertasClima(daily);
 
