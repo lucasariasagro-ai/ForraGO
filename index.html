@@ -15,18 +15,9 @@
 <link rel="icon" type="image/png" sizes="32x32" href="img/img_01.png">
 <link rel="apple-touch-icon" sizes="180x180" href="img/img_02.png">
 
-<meta name="color-scheme" content="light only">
-<meta name="supported-color-schemes" content="light">
-<meta name="forced-color-adjust" content="none">
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800;900&display=swap" rel="stylesheet">
-
 <style>
 
 :root{
-    color-scheme:light only;
     --hero-foto:url(img/img_03.jpg);
     --verde:#173d29;
     --verde2:#285d3d;
@@ -852,72 +843,6 @@ body{
     gap:14px;
 }
 
-.cultivos-scroll{
-    grid-template-columns:unset;
-    grid-auto-flow:column;
-    grid-template-rows:repeat(2,190px);
-    grid-auto-columns:calc((100% - 28px)/3.18);
-    overflow-x:auto;
-    overflow-y:hidden;
-    scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
-    padding-bottom:2px;
-}
-
-.cultivos-scroll::-webkit-scrollbar{
-    display:none;
-}
-
-.cultivos-scroll .cultivo{
-    scroll-snap-align:start;
-}
-
-.cultivos-hint{
-    margin:10px 0 0;
-    text-align:center;
-    font-size:9.5px;
-    font-weight:700;
-    letter-spacing:.3px;
-    color:var(--gris);
-}
-
-.cultivos-dots{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:6px;
-    margin-top:9px;
-}
-
-.cultivos-dot{
-    border:0;
-    padding:0;
-    appearance:none;
-    cursor:pointer;
-    width:6px;
-    height:6px;
-    border-radius:50%;
-    background:var(--borde);
-    transition:background .25s ease, transform .25s ease, width .25s ease;
-}
-
-.cultivos-dot.activo{
-    background:var(--verde2);
-    width:16px;
-    border-radius:4px;
-}
-
-.sinfoto-bg{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:linear-gradient(135deg,var(--verde2),var(--verde));
-    color:rgba(203,220,120,.5);
-    font-weight:900;
-    font-size:64px;
-}
-
 .cultivo{
     position:relative;
     height:190px;
@@ -946,148 +871,6 @@ body{
     box-shadow:
         0 0 0 3px rgba(203,220,120,.20),
         0 18px 35px rgba(23,61,41,.18);
-}
-
-
-/* VER TODOS LOS CULTIVOS */
-
-.ver-todos-toggle{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    margin-top:14px;
-    padding:13px;
-    border-radius:14px;
-    cursor:pointer;
-    font-size:11.5px;
-    font-weight:800;
-    letter-spacing:.2px;
-    color:var(--verde2);
-    background:var(--crema);
-    border:1.5px solid transparent;
-    transition:border-color .2s ease, transform .2s ease;
-}
-
-.ver-todos-toggle::before{
-    content:"🌱";
-    font-size:13px;
-}
-
-.ver-todos-toggle:hover{
-    border-color:var(--verde3);
-    transform:translateY(-1px);
-}
-
-.cultivos-extra-panel{
-    margin-top:10px;
-}
-
-
-/* CONSOCIACIONES */
-
-.consoc-presets{
-    display:flex;
-    flex-wrap:wrap;
-    gap:8px;
-    margin-bottom:16px;
-}
-
-.consoc-preset-chip{
-    padding:9px 13px;
-    border-radius:20px;
-    background:var(--crema);
-    border:1.5px solid transparent;
-    font-size:10.5px;
-    font-weight:700;
-    color:var(--verde2);
-    cursor:pointer;
-    transition:border-color .2s ease, transform .15s ease;
-}
-
-.consoc-preset-chip:hover{
-    border-color:var(--verde3);
-    transform:translateY(-1px);
-}
-
-.consoc-selects{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-
-.consoc-campo label{
-    display:block;
-    margin-bottom:6px;
-    font-size:10px;
-    font-weight:800;
-    color:var(--verde2);
-}
-
-.consoc-campo select{
-    width:100%;
-    padding:12px 12px;
-    border-radius:12px;
-    border:2px solid var(--borde);
-    font-size:12.5px;
-    font-family:inherit;
-    color:var(--texto);
-    background:white;
-}
-
-.consoc-slider-wrap{
-    margin-top:16px;
-}
-
-.consoc-slider-top{
-    display:flex;
-    justify-content:space-between;
-    align-items:baseline;
-    margin-bottom:8px;
-    font-size:11px;
-    color:var(--gris);
-}
-
-.consoc-slider-top strong{
-    font-size:13px;
-    color:var(--verde);
-}
-
-.consoc-slider-wrap input[type="range"]{
-    width:100%;
-    accent-color:var(--verde2);
-}
-
-.consoc-preview{
-    margin-top:16px;
-    padding:14px;
-    border-radius:13px;
-    background:white;
-    border:1.5px solid var(--borde);
-    font-size:11.5px;
-    line-height:1.6;
-    color:var(--gris);
-    transition:border-color .2s ease;
-}
-
-.consoc-preview.activo{
-    border-color:var(--lima);
-    color:var(--texto);
-}
-
-.consoc-preview strong{
-    color:var(--verde);
-}
-
-.consoc-preview.oculto{
-    display:none;
-}
-
-.consoc-nota{
-    margin:12px 0 0;
-    font-size:9.5px;
-    line-height:1.6;
-    color:var(--gris);
 }
 
 .cultivo::after{
@@ -1157,48 +940,6 @@ body{
 
 .mijo-bg{
     background-image:url(img/img_09.jpg);
-}
-
-
-/* FESTUCA ALTA — subir foto como img/img_14.jpg */
-
-.festuca-bg{
-    background-image:url(img/img_14.jpg);
-}
-
-
-/* RAYGRASS ANUAL — subir foto como img/img_15.jpg */
-
-.raygrass-bg{
-    background-image:url(img/img_15.jpg);
-}
-
-
-/* VICIA VILLOSA — subir foto como img/img_16.jpg */
-
-.vicia-bg{
-    background-image:url(img/img_16.jpg);
-}
-
-
-/* TRÉBOL BLANCO — subir foto como img/img_17.jpg */
-
-.trebol-bg{
-    background-image:url(img/img_17.jpg);
-}
-
-
-/* CENTENO — subir foto como img/img_18.jpg */
-
-.centeno-bg{
-    background-image:url(img/img_18.jpg);
-}
-
-
-/* TRÉBOL ROJO — subir foto como img/img_19.jpg */
-
-.trebolrojo-bg{
-    background-image:url(img/img_19.jpg);
 }
 
 
@@ -1923,18 +1664,6 @@ input{
     flex-shrink:0;
 }
 
-.biblioteca-thumb-letra{
-    width:100%;
-    height:100%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:var(--verde);
-    color:var(--lima);
-    font-weight:900;
-    font-size:15px;
-}
-
 .biblioteca-flecha{
     color:var(--gris);
     font-size:11px;
@@ -2309,10 +2038,6 @@ input{
         height:165px;
     }
 
-    .cultivos-scroll{
-        grid-template-rows:repeat(2,165px);
-    }
-
     .panel,
     .resultado{
         padding:19px;
@@ -2336,10 +2061,6 @@ input{
 
     .cultivo{
         height:150px;
-    }
-
-    .cultivos-scroll{
-        grid-template-rows:repeat(2,150px);
     }
 
     .estados{
@@ -2408,9 +2129,9 @@ input{
 .weather-card{
     position:relative;
     overflow:hidden;
-    margin:6px 0 16px;
-    padding:11px 13px 9px;
-    border-radius:18px;
+    margin:6px 0 20px;
+    padding:14px 16px 12px;
+    border-radius:20px;
     background:var(--blanco);
     border:1px solid var(--borde);
     color:var(--texto);
@@ -2426,23 +2147,6 @@ input{
     border-radius:50%;
     background:radial-gradient(circle,rgba(203,220,120,.30),transparent 70%);
     pointer-events:none;
-}
-
-.weather-logo-mark{
-    position:absolute;
-    z-index:1;
-    top:10px;
-    right:10px;
-    width:64px;
-    height:64px;
-    object-fit:contain;
-    opacity:.16;
-    pointer-events:none;
-}
-
-.weather-card.clima-tormenta .weather-logo-mark{
-    opacity:.22;
-    filter:brightness(0) invert(1);
 }
 
 /* =========================
@@ -2559,171 +2263,71 @@ input{
     z-index:2;
     display:flex;
     align-items:center;
-    gap:8px;
-    margin-top:7px;
+    gap:10px;
+    margin-top:10px;
 }
 .weather-icon{
     display:flex;
     align-items:center;
     justify-content:center;
-    width:32px;
-    height:32px;
-    border-radius:11px;
+    width:40px;
+    height:40px;
+    border-radius:13px;
     background:linear-gradient(135deg,rgba(203,220,120,.35),rgba(93,148,103,.16));
     font-size:20px;
     line-height:1;
     flex-shrink:0;
 }
-.weather-icon svg{
-    width:20px;
-    height:20px;
-}
 .weather-temp{
-    font-size:20px;
+    font-size:26px;
     line-height:1;
     font-weight:900;
     letter-spacing:-1px;
     color:var(--verde);
 }
 .weather-unit{
-    font-size:10px;
+    font-size:11px;
     color:var(--gris);
     margin-left:2px;
     font-weight:700;
 }
-
-/* BARRA DE RANGO TÉRMICO */
-
-.weather-range{
-    position:relative;
-    z-index:2;
-    display:flex;
-    align-items:center;
-    gap:6px;
-    margin-top:9px;
-}
-.weather-range-label{
-    font-size:8px;
-    font-weight:800;
-    color:var(--gris);
-    flex-shrink:0;
-}
-.weather-range-track{
-    position:relative;
-    flex:1;
-    height:4px;
-    border-radius:10px;
-    background:linear-gradient(90deg,#7fb6d9,#cbdc78 50%,#e08a4f);
-}
-.weather-range-marker{
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:9px;
-    height:9px;
-    border:2px solid white;
-    border-radius:50%;
-    background:var(--verde);
-    box-shadow:0 2px 6px rgba(0,0,0,.25);
-    transform:translate(-50%,-50%);
-    transition:left .5s ease;
-}
-.weather-card.clima-tormenta .weather-range-label{
-    color:rgba(255,255,255,.65);
-}
-.weather-card.clima-tormenta .weather-range-marker{
-    border-color:#1e2731;
-}
-
-/* ALERTAS AGRO — solo aparecen si son relevantes */
-
-.weather-alerts{
-    position:relative;
-    z-index:2;
-    display:flex;
-    flex-wrap:wrap;
-    gap:5px;
-    margin-top:8px;
-}
-.weather-alerts:empty{
-    display:none;
-    margin-top:0;
-}
-.weather-alert-pill{
-    display:flex;
-    align-items:center;
-    gap:4px;
-    padding:4px 9px;
-    border-radius:20px;
-    background:rgba(255,255,255,.75);
-    border:1px solid rgba(0,0,0,.06);
-    font-size:8.5px;
-    font-weight:800;
-    color:var(--verde2);
-    white-space:nowrap;
-}
-.weather-card.clima-tormenta .weather-alert-pill{
-    background:rgba(255,255,255,.12);
-    border-color:rgba(255,255,255,.18);
-    color:white;
-}
-
 .weather-days{
     position:relative;
     z-index:2;
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:5px;
-    margin-top:8px;
-    padding-top:8px;
+    gap:6px;
+    margin-top:11px;
+    padding-top:10px;
     border-top:1px solid var(--borde);
 }
 .weather-day{
-    padding:5px 4px;
-    border-radius:11px;
+    padding:6px 6px;
+    border-radius:12px;
     background:var(--crema);
     border:1px solid var(--borde);
     text-align:center;
 }
 .weather-day strong{
     display:block;
-    font-size:7.5px;
+    font-size:8px;
     color:var(--gris);
     font-weight:800;
     text-transform:uppercase;
     letter-spacing:.4px;
 }
-.weather-day-icon{
-    margin:3px auto 0;
-    width:15px;
-    height:15px;
-}
-.weather-day-icon svg{
-    width:100%;
-    height:100%;
-}
 .weather-day span{
     display:block;
-    margin-top:1px;
-    font-size:10.5px;
+    margin-top:3px;
+    font-size:12px;
     font-weight:900;
     color:var(--verde);
 }
 .weather-day small{
     display:block;
-    margin-top:1px;
-    font-size:8px;
+    margin-top:2px;
+    font-size:9px;
     color:var(--gris);
-}
-.weather-day-lluvia{
-    display:block;
-    margin-top:1px;
-    font-size:7.5px;
-    font-weight:800;
-    color:#3f7fa0;
-}
-.weather-card.clima-tormenta .weather-day-lluvia{
-    color:#8fd0ef;
 }
 .weather-loading{
     font-size:10px;
@@ -2872,128 +2476,6 @@ input{
     }
 }
 
-
-/* =========================================================
-   CARRUSEL MÓVIL — 2 COLUMNAS x 2 FILAS
-   En pantallas chicas priorizamos tarjetas legibles.
-   Desktop queda exactamente igual.
-========================================================= */
-@media (max-width:600px){
-    .cultivos-scroll{
-        grid-template-columns:unset !important;
-        grid-auto-flow:column !important;
-        grid-template-rows:repeat(2,165px) !important;
-        grid-auto-columns:calc((100% - 9px)/2) !important;
-        column-gap:9px !important;
-        row-gap:9px !important;
-        overflow-x:auto !important;
-        overflow-y:hidden !important;
-        scroll-snap-type:x mandatory !important;
-        touch-action:pan-x !important;
-    }
-
-    .cultivos-scroll .cultivo{
-        width:auto !important;
-        min-width:0 !important;
-        height:165px !important;
-        scroll-snap-align:start !important;
-    }
-}
-
-@media (max-width:390px){
-    .cultivos-scroll{
-        grid-template-rows:repeat(2,150px) !important;
-        grid-auto-columns:calc((100% - 9px)/2) !important;
-    }
-
-    .cultivos-scroll .cultivo{
-        height:150px !important;
-        border-radius:18px;
-    }
-
-    .cultivo-info{
-        left:13px;
-        right:13px;
-        bottom:12px;
-    }
-
-    .cultivo-info strong{
-        font-size:15px;
-    }
-}
-
-
-/* =========================
-   CLIMA — IDENTIDAD FORRAGO
-   Fondo integrado: logo + cultivo
-========================= */
-.weather-card{
-    isolation:isolate;
-}
-.weather-card::before{
-    content:"";
-    position:absolute;
-    z-index:0;
-    left:10px;
-    top:8px;
-    width:108px;
-    height:54px;
-    background-image:url("img/img_02.png");
-    background-repeat:no-repeat;
-    background-position:left center;
-    background-size:contain;
-    opacity:.16;
-    pointer-events:none;
-    mix-blend-mode:multiply;
-}
-.weather-card::after{
-    content:"";
-    position:absolute;
-    z-index:0;
-    right:-22px;
-    bottom:-38px;
-    width:235px;
-    height:205px;
-    background-image:
-        linear-gradient(90deg,rgba(255,255,255,0) 0%,rgba(255,255,255,.10) 55%,rgba(255,255,255,.30) 100%),
-        url("img/img_14.jpg");
-    background-size:cover,cover;
-    background-position:center,center;
-    background-repeat:no-repeat;
-    opacity:.12;
-    filter:grayscale(1) contrast(.85) brightness(1.08);
-    mix-blend-mode:multiply;
-    -webkit-mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.20) 18%,#000 58%,#000 100%);
-    mask-image:linear-gradient(180deg,transparent 0%,rgba(0,0,0,.20) 18%,#000 58%,#000 100%);
-    pointer-events:none;
-}
-.weather-card > *{
-    position:relative;
-    z-index:2;
-}
-.weather-card .weather-head,
-.weather-card .weather-current,
-.weather-card .weather-alerts,
-.weather-card .weather-days{
-    position:relative;
-    z-index:2;
-}
-@media (max-width:600px){
-    .weather-card::before{
-        width:88px;
-        height:46px;
-        left:9px;
-        top:7px;
-        opacity:.13;
-    }
-    .weather-card::after{
-        width:175px;
-        height:155px;
-        right:-24px;
-        bottom:-30px;
-        opacity:.10;
-    }
-}
 </style>
 </head>
 
@@ -3061,22 +2543,6 @@ input{
     COMENTARIOS Y SUGERENCIAS
 </a>
 
-<footer class="footer">
-
-    <strong>ForraGO</strong>
-    · Inteligencia forrajera
-
-    <br>
-
-    Herramienta orientativa para evaluación
-    de productividad forrajera.
-
-    <br>
-
-    Versión de prueba
-
-</footer>
-
 </div>
 
 <!-- VISTA PRINCIPAL DE LA APP -->
@@ -3093,10 +2559,9 @@ input{
             <div id="weatherExtra" class="weather-extra">Actualizando datos</div>
         </div>
         <div class="weather-current">
-            <div id="weatherIcon" class="weather-icon"></div>
+            <div id="weatherIcon" class="weather-icon">🌤️</div>
             <div><span id="weatherTemp" class="weather-temp">--</span><span class="weather-unit">°C</span></div>
         </div>
-        <div id="weatherAlerts" class="weather-alerts"></div>
         <div id="weatherDays" class="weather-days">
             <div class="weather-day"><strong>Hoy</strong><span>--</span><small>--</small></div>
             <div class="weather-day"><strong>Mañana</strong><span>--</span><small>--</small></div>
@@ -3175,6 +2640,8 @@ input{
         <span>Creá tus lotes y seguí su evolución en el tiempo</span>
     </div>
 
+    <span class="lotes-banner-flecha">→</span>
+
 </div>
 
 
@@ -3188,6 +2655,8 @@ input{
         <strong>Biblioteca de cultivos</strong>
         <span>Fichas técnicas de cada cultivo evaluable</span>
     </div>
+
+    <span class="carga-flecha" id="bibliotecaFlecha">▾</span>
 
 </div>
 
@@ -3291,96 +2760,6 @@ input{
             </div>
         </div>
 
-        <!-- FESTUCA ALTA -->
-        <div class="biblioteca-item" onclick="toggleFicha(this)">
-            <div class="biblioteca-item-cabecera">
-                <div class="biblioteca-thumb-wrap"><div class="campo-cultivo festuca-bg"></div></div>
-                <strong>Festuca alta</strong>
-                <span class="biblioteca-flecha">▾</span>
-            </div>
-            <div class="biblioteca-ficha">
-                <p><strong>Descripción:</strong> gramínea perenne (Festuca arundinacea), de alta persistencia y buena adaptación a suelos difíciles (salinos, alcalinos, con anegamientos temporarios). Suele consociarse con leguminosas como alfalfa o trébol blanco.</p>
-                <p><strong>Época de siembra:</strong> otoño; tolera también siembras de invierno por su resistencia al frío.</p>
-                <p><strong>Usos:</strong> pastoreo directo y heno; por su persistencia funciona como pastura de varios años.</p>
-                <p><strong>Rendimiento de referencia:</strong> 4.500 kg MS/ha/año (piso). Fuente: INTA Pergamino, ensayos de manejo agronómico plurianual (rango observado 4.500-7.000 kg MS/ha/año).</p>
-            </div>
-        </div>
-
-        <!-- RAYGRASS ANUAL -->
-        <div class="biblioteca-item" onclick="toggleFicha(this)">
-            <div class="biblioteca-item-cabecera">
-                <div class="biblioteca-thumb-wrap"><div class="campo-cultivo raygrass-bg"></div></div>
-                <strong>Raygrass anual</strong>
-                <span class="biblioteca-flecha">▾</span>
-            </div>
-            <div class="biblioteca-ficha">
-                <p><strong>Descripción:</strong> gramínea anual de invierno (Lolium multiflorum), de rápida implantación y muy buena calidad forrajera, aunque con menor persistencia que otros verdeos.</p>
-                <p><strong>Época de siembra:</strong> otoño (marzo-abril), verdeo de invierno.</p>
-                <p><strong>Usos:</strong> pastoreo directo, muy palatable; también apto para heno.</p>
-                <p><strong>Rendimiento de referencia:</strong> 3.365 kg MS/ha (promedio de 21 cultivares evaluados). Fuente: INTA Informa (mejor cultivar de la evaluación: 3.607 kg MS/ha).</p>
-            </div>
-        </div>
-
-        <!-- VICIA VILLOSA -->
-        <div class="biblioteca-item" onclick="toggleFicha(this)">
-            <div class="biblioteca-item-cabecera">
-                <div class="biblioteca-thumb-wrap"><div class="campo-cultivo vicia-bg"></div></div>
-                <strong>Vicia villosa</strong>
-                <span class="biblioteca-flecha">▾</span>
-            </div>
-            <div class="biblioteca-ficha">
-                <p><strong>Descripción:</strong> leguminosa anual de otoño-invierno que fija nitrógeno al suelo; muy usada como cultivo de cobertura además de forraje. Existe un cultivar (Patagonia INTA) desarrollado especialmente para zonas frías del sur del país.</p>
-                <p><strong>Época de siembra:</strong> otoño (marzo a junio).</p>
-                <p><strong>Usos:</strong> pastoreo de invierno, cultivo de cobertura/servicio, sola o consociada con cereales de invierno.</p>
-                <p><strong>Rendimiento de referencia:</strong> 5.000 kg MS/ha, con inoculación y fertilización adecuadas. Fuente: Ing. Agr. F. Sánchez (Agroclave), en base a ensayos a campo.</p>
-            </div>
-        </div>
-
-        <!-- TRÉBOL BLANCO -->
-        <div class="biblioteca-item" onclick="toggleFicha(this)">
-            <div class="biblioteca-item-cabecera">
-                <div class="biblioteca-thumb-wrap"><div class="campo-cultivo trebol-bg"></div></div>
-                <strong>Trébol blanco</strong>
-                <span class="biblioteca-flecha">▾</span>
-            </div>
-            <div class="biblioteca-ficha">
-                <p><strong>Descripción:</strong> leguminosa perenne estolonífera (Trifolium repens), de alta calidad y palatabilidad, habitual en pasturas consociadas con gramíneas como raygrass o festuca.</p>
-                <p><strong>Época de siembra:</strong> otoño o fin de invierno/primavera, según zona.</p>
-                <p><strong>Usos:</strong> pastoreo directo (por su bajo porte no es apto para heno).</p>
-                <p><strong>Rendimiento de referencia:</strong> 5.000 kg MS/ha en el año de establecimiento, hasta 8.000 kg MS/ha en años siguientes. Fuente: Semillas Picasso / INTA Pergamino (cultivar Omega).</p>
-            </div>
-        </div>
-
-        <!-- CENTENO -->
-        <div class="biblioteca-item" onclick="toggleFicha(this)">
-            <div class="biblioteca-item-cabecera">
-                <div class="biblioteca-thumb-wrap"><div class="campo-cultivo centeno-bg"></div></div>
-                <strong>Centeno</strong>
-                <span class="biblioteca-flecha">▾</span>
-            </div>
-            <div class="biblioteca-ficha">
-                <p><strong>Descripción:</strong> cereal de invierno (Secale cereale), el más rústico de los verdeos invernales; tolera bien suelos livianos, sequía y bajas temperaturas, aunque pierde calidad rápido al pasar a estado reproductivo.</p>
-                <p><strong>Época de siembra:</strong> otoño (marzo a mayo), verdeo de invierno.</p>
-                <p><strong>Usos:</strong> pastoreo directo temprano y cultivo de cobertura.</p>
-                <p><strong>Rendimiento de referencia:</strong> 2.900 kg MS/ha. Fuente: INTA EEA Mercedes (Corrientes), evaluación de cultivares (rango 2.034-2.913 kg MS/ha).</p>
-            </div>
-        </div>
-
-        <!-- TRÉBOL ROJO -->
-        <div class="biblioteca-item" onclick="toggleFicha(this)">
-            <div class="biblioteca-item-cabecera">
-                <div class="biblioteca-thumb-wrap"><div class="biblioteca-thumb-letra">T</div></div>
-                <strong>Trébol rojo</strong>
-                <span class="biblioteca-flecha">▾</span>
-            </div>
-            <div class="biblioteca-ficha">
-                <p><strong>Descripción:</strong> leguminosa de porte erecto (Trifolium pratense), a diferencia del trébol blanco no es rastrera, lo que la hace apta para henificar. De vida productiva corta (2-3 años) pero muy alta calidad, con digestibilidad que puede superar a la alfalfa.</p>
-                <p><strong>Época de siembra:</strong> otoño, sola o junto a un cereal de invierno como acompañante.</p>
-                <p><strong>Usos:</strong> pastoreo, henificación (rollo/fardo) y como componente de pasturas mixtas con gramíneas (festuca, raygrass).</p>
-                <p><strong>Rendimiento de referencia:</strong> 5.000 kg MS/ha en el año de establecimiento, superando los 10.000 kg MS/ha en el año siguiente de producción. Fuente: Todo Agro; persistencia y calidad en mezcla con gramíneas documentada por INTA Pergamino.</p>
-            </div>
-        </div>
-
         <!-- MAÍZ -->
         <div class="biblioteca-item" onclick="toggleFicha(this)">
             <div class="biblioteca-item-cabecera">
@@ -3430,7 +2809,7 @@ input{
     </label>
 
 
-    <div id="cultivosScroll" class="cultivos cultivos-scroll">
+    <div class="cultivos">
 
 
         <!-- ALFALFA -->
@@ -3565,228 +2944,6 @@ input{
 
         </div>
 
-
-        <!-- FESTUCA ALTA -->
-
-        <div
-            class="cultivo"
-            data-cultivo="festuca"
-            onclick="seleccionar(this)">
-
-            <div class="campo-cultivo festuca-bg"></div>
-
-            <div class="cultivo-info">
-
-                <strong>Festuca alta</strong>
-
-            </div>
-
-            <div class="check">
-                ✓
-            </div>
-
-        </div>
-
-
-        <!-- RAYGRASS ANUAL -->
-
-        <div
-            class="cultivo"
-            data-cultivo="raygrass"
-            onclick="seleccionar(this)">
-
-            <div class="campo-cultivo raygrass-bg"></div>
-
-            <div class="cultivo-info">
-
-                <strong>Raygrass anual</strong>
-
-            </div>
-
-            <div class="check">
-                ✓
-            </div>
-
-        </div>
-
-
-        <!-- VICIA VILLOSA -->
-
-        <div
-            class="cultivo"
-            data-cultivo="vicia"
-            onclick="seleccionar(this)">
-
-            <div class="campo-cultivo vicia-bg"></div>
-
-            <div class="cultivo-info">
-
-                <strong>Vicia villosa</strong>
-
-            </div>
-
-            <div class="check">
-                ✓
-            </div>
-
-        </div>
-
-
-        <!-- TRÉBOL BLANCO -->
-
-        <div
-            class="cultivo"
-            data-cultivo="trebol"
-            onclick="seleccionar(this)">
-
-            <div class="campo-cultivo trebol-bg"></div>
-
-            <div class="cultivo-info">
-
-                <strong>Trébol blanco</strong>
-
-            </div>
-
-            <div class="check">
-                ✓
-            </div>
-
-        </div>
-
-
-        <!-- CENTENO -->
-
-        <div
-            class="cultivo"
-            data-cultivo="centeno"
-            onclick="seleccionar(this)">
-
-            <div class="campo-cultivo centeno-bg"></div>
-
-            <div class="cultivo-info">
-
-                <strong>Centeno</strong>
-
-            </div>
-
-            <div class="check">
-                ✓
-            </div>
-
-        </div>
-
-
-        <!-- TRÉBOL ROJO -->
-
-        <div
-            class="cultivo"
-            data-cultivo="trebolrojo"
-            onclick="seleccionar(this)">
-
-            <div class="campo-cultivo sinfoto-bg">T</div>
-
-            <div class="cultivo-info">
-
-                <strong>Trébol rojo</strong>
-
-            </div>
-
-            <div class="check">
-                ✓
-            </div>
-
-        </div>
-
-
-    </div>
-
-    <p class="cultivos-hint">← deslizá para ver más cultivos →</p>
-
-    <div class="cultivos-dots" id="cultivosDots"></div>
-
-
-    <!-- CONSOCIACIONES -->
-
-    <div class="ver-todos-toggle" onclick="toggleCultivosExtra()">
-        <span>Consociaciones</span>
-        <span class="carga-flecha" id="cultivosExtraFlecha">▾</span>
-    </div>
-
-    <div id="cultivosExtraPanel" class="carga-panel cultivos-extra-panel">
-
-        <div id="consociacionBloque" class="consociacion-bloque">
-
-            <div class="consoc-presets">
-
-                <div class="consoc-preset-chip" onclick="aplicarPresetConsoc('festuca','trebol',30)">
-                    Festuca + Trébol
-                </div>
-
-                <div class="consoc-preset-chip" onclick="aplicarPresetConsoc('raygrass','trebol',30)">
-                    Raygrass + Trébol
-                </div>
-
-                <div class="consoc-preset-chip" onclick="aplicarPresetConsoc('avena','vicia',25)">
-                    Avena + Vicia
-                </div>
-
-            </div>
-
-            <div class="consoc-selects">
-
-                <div class="consoc-campo">
-                    <label>Gramínea</label>
-                    <select id="consocGraminea" onchange="actualizarConsociacion()">
-                        <option value="">Elegir...</option>
-                        <option value="avena">Avena</option>
-                        <option value="triticale">Triticale</option>
-                        <option value="cebada">Cebada</option>
-                        <option value="moha">Moha</option>
-                        <option value="mijo">Mijo</option>
-                        <option value="festuca">Festuca alta</option>
-                        <option value="raygrass">Raygrass anual</option>
-                        <option value="centeno">Centeno</option>
-                    </select>
-                </div>
-
-                <div class="consoc-campo">
-                    <label>Leguminosa</label>
-                    <select id="consocLeguminosa" onchange="actualizarConsociacion()">
-                        <option value="">Elegir...</option>
-                        <option value="alfalfa">Alfalfa</option>
-                        <option value="vicia">Vicia villosa</option>
-                        <option value="trebol">Trébol blanco</option>
-                        <option value="trebolrojo">Trébol rojo</option>
-                    </select>
-                </div>
-
-            </div>
-
-            <div class="consoc-slider-wrap">
-                <div class="consoc-slider-top">
-                    <span>% de leguminosa en la mezcla</span>
-                    <strong id="consocPorcentajeTexto">30%</strong>
-                </div>
-                <input
-                    type="range"
-                    id="consocSlider"
-                    min="10"
-                    max="90"
-                    step="5"
-                    value="30"
-                    oninput="actualizarConsociacion()">
-            </div>
-
-            <div id="consocPreview" class="consoc-preview oculto"></div>
-
-            <p class="consoc-nota" id="consocNota">
-                ⓘ Elegí las dos especies para ver la mezcla. El estado
-                del forraje que elijas abajo se aplica a la mezcla en
-                conjunto — cada especie puede estar, en la realidad,
-                en un estado distinto.
-            </p>
-
-        </div>
 
     </div>
 
@@ -5017,10 +4174,6 @@ input{
     Herramienta orientativa para evaluación
     de productividad forrajera.
 
-    <br>
-
-    Versión de prueba
-
 </footer>
 
 </div>
@@ -5097,42 +4250,6 @@ const cultivos={
         nombre:"Mijo",
         ms:{ tierno:18, medio:22, espiga:28 },
         referencia:4200
-    },
-
-    festuca:{
-        nombre:"Festuca alta",
-        ms:{ tierno:16, medio:20, espiga:27 },
-        referencia:4500
-    },
-
-    raygrass:{
-        nombre:"Raygrass anual",
-        ms:{ tierno:13, medio:17, espiga:22 },
-        referencia:3365
-    },
-
-    vicia:{
-        nombre:"Vicia villosa",
-        ms:{ tierno:13, medio:16, espiga:20 },
-        referencia:5000
-    },
-
-    trebol:{
-        nombre:"Trébol blanco",
-        ms:{ tierno:12, medio:15, espiga:18 },
-        referencia:5000
-    },
-
-    centeno:{
-        nombre:"Centeno",
-        ms:{ tierno:15, medio:19, espiga:25 },
-        referencia:2900
-    },
-
-    trebolrojo:{
-        nombre:"Trébol rojo",
-        ms:{ tierno:14, medio:17, espiga:21 },
-        referencia:5000
     }
 
 };
@@ -5776,320 +4893,17 @@ function pdfSilo(){
 function seleccionar(elemento){
 
     document
-        .querySelectorAll(
-            ".cultivos:not(.cultivos-silaje) .cultivo"
-        )
+        .querySelectorAll(".cultivos:not(.cultivos-silaje) .cultivo")
         .forEach(c=>{
             c.classList.remove("activo");
         });
+
+    elemento.classList.add("activo");
 
     cultivoActual=
         elemento.dataset.cultivo;
 
-    /* Con el carrusel infinito, cada cultivo existe dos
-       veces en el DOM (original + clon). Marcamos "activo"
-       en las dos copias para que se vea seleccionado sin
-       importar en cuál de las dos haya tocado el usuario. */
-
-    document
-        .querySelectorAll(
-            '.cultivos:not(.cultivos-silaje) .cultivo[data-cultivo="'+cultivoActual+'"]'
-        )
-        .forEach(c=>{
-            c.classList.add("activo");
-        });
-
-    desactivarConsociacion();
-
-    guardarUltimaSeleccion({
-        tipo:"simple",
-        cultivo:cultivoActual
-    });
-
     sincronizarAsesor();
-}
-
-
-/* =========================
-   RECORDAR ÚLTIMA SELECCIÓN
-
-   Persistencia 100% local (localStorage), igual que
-   los lotes: guarda el último cultivo o consociación
-   elegido para no arrancar siempre en Alfalfa.
-========================= */
-
-const SELECCION_KEY="forrago_ultima_seleccion_v1";
-
-function guardarUltimaSeleccion(seleccion){
-
-    try{
-        localStorage.setItem(
-            SELECCION_KEY,
-            JSON.stringify(seleccion)
-        );
-    }
-    catch(e){
-        // si el storage no está disponible, seguimos sin recordar
-    }
-
-}
-
-
-function restaurarUltimaSeleccion(){
-
-    try{
-
-        const data=
-            localStorage.getItem(SELECCION_KEY);
-
-        if(!data) return;
-
-        const sel=
-            JSON.parse(data);
-
-        if(sel.tipo==="simple" && cultivos[sel.cultivo]){
-
-            const tarjeta=
-                document.querySelector(
-                    '.cultivos:not(.cultivos-silaje) .cultivo[data-cultivo="'+sel.cultivo+'"]'
-                );
-
-            if(tarjeta) seleccionar(tarjeta);
-
-        }
-        else if(
-            sel.tipo==="consociacion" &&
-            cultivos[sel.graminea] &&
-            cultivos[sel.leguminosa]
-        ){
-
-            document.getElementById("consocGraminea").value=sel.graminea;
-            document.getElementById("consocLeguminosa").value=sel.leguminosa;
-            document.getElementById("consocSlider").value=sel.porcentaje;
-
-            actualizarConsociacion();
-
-        }
-
-    }
-    catch(e){
-        // si algo salió mal, arrancamos con el default de siempre
-    }
-
-}
-
-
-/* =========================
-   CONSOCIACIONES
-========================= */
-
-const NOTA_CONSOC_INCOMPLETA=
-    "ⓘ Elegí las dos especies para ver la mezcla. El estado del " +
-    "forraje que elijas abajo se aplica a la mezcla en conjunto — " +
-    "cada especie puede estar, en la realidad, en un estado distinto.";
-
-const NOTA_CONSOC_COMPLETA=
-    "ⓘ El estado del forraje que elijas abajo se aplica a la " +
-    "mezcla en conjunto — cada especie puede estar, en la " +
-    "realidad, en un estado distinto.";
-
-
-function desactivarConsociacion(){
-
-    const preview=
-        document.getElementById("consocPreview");
-
-    preview.classList.remove("activo");
-    preview.classList.add("oculto");
-    preview.innerHTML="";
-
-    const nota=
-        document.getElementById("consocNota");
-
-    if(nota) nota.textContent=NOTA_CONSOC_INCOMPLETA;
-
-}
-
-
-function aplicarPresetConsoc(graminea,leguminosa,porcLeguminosa){
-
-    document.getElementById("consocGraminea").value=graminea;
-    document.getElementById("consocLeguminosa").value=leguminosa;
-    document.getElementById("consocSlider").value=porcLeguminosa;
-
-    actualizarConsociacion();
-
-}
-
-
-function actualizarConsociacion(){
-
-    const claveGraminea=
-        document.getElementById("consocGraminea").value;
-
-    const claveLeguminosa=
-        document.getElementById("consocLeguminosa").value;
-
-    const slider=
-        document.getElementById("consocSlider");
-
-    const porcLeguminosa=
-        parseInt(slider.value,10);
-
-    const porcGraminea=
-        100-porcLeguminosa;
-
-    document.getElementById("consocPorcentajeTexto").textContent=
-        porcLeguminosa+"%";
-
-    const preview=
-        document.getElementById("consocPreview");
-
-    const nota=
-        document.getElementById("consocNota");
-
-    if(!claveGraminea||!claveLeguminosa){
-        preview.classList.remove("activo");
-        preview.classList.add("oculto");
-        preview.innerHTML="";
-        if(nota) nota.textContent=NOTA_CONSOC_INCOMPLETA;
-        return;
-    }
-
-    const graminea=
-        cultivos[claveGraminea];
-
-    const leguminosa=
-        cultivos[claveLeguminosa];
-
-    const pG=
-        porcGraminea/100;
-
-    const pL=
-        porcLeguminosa/100;
-
-    const msMezcla={
-        tierno:Math.round(graminea.ms.tierno*pG+leguminosa.ms.tierno*pL),
-        medio:Math.round(graminea.ms.medio*pG+leguminosa.ms.medio*pL),
-        espiga:Math.round(graminea.ms.espiga*pG+leguminosa.ms.espiga*pL)
-    };
-
-    const referenciaMezcla=
-        Math.round(graminea.referencia*pG+leguminosa.referencia*pL);
-
-    cultivos.consociacion={
-        nombre:
-            graminea.nombre+" + "+leguminosa.nombre,
-        ms:msMezcla,
-        referencia:referenciaMezcla
-    };
-
-    cultivoActual="consociacion";
-
-    document
-        .querySelectorAll(
-            ".cultivos:not(.cultivos-silaje) .cultivo"
-        )
-        .forEach(c=>{
-            c.classList.remove("activo");
-        });
-
-    preview.classList.remove("oculto");
-    preview.classList.add("activo");
-
-    preview.innerHTML=
-        "<strong>"+porcGraminea+"% "+graminea.nombre+
-        " · "+porcLeguminosa+"% "+leguminosa.nombre+
-        "</strong><br>"+
-        "MS estimado: "+msMezcla.tierno+"–"+msMezcla.espiga+"% según estado"+
-        " · Referencia: ~"+referenciaMezcla.toLocaleString("es-AR")+" kg MS/ha"+
-        " (ponderado de los datos de cada especie, no un ensayo de mezcla)";
-
-    if(nota) nota.textContent=NOTA_CONSOC_COMPLETA;
-
-    guardarUltimaSeleccion({
-        tipo:"consociacion",
-        graminea:claveGraminea,
-        leguminosa:claveLeguminosa,
-        porcentaje:porcLeguminosa
-    });
-
-    sincronizarAsesor();
-
-}
-
-
-/* =========================
-   PUNTITOS DEL CARRUSEL DE CULTIVOS
-========================= */
-
-function generarDotsCultivos(){
-
-    const contenedor=
-        document.getElementById("cultivosScroll");
-
-    const dotsWrap=
-        document.getElementById("cultivosDots");
-
-    if(!contenedor||!dotsWrap) return;
-
-    const total=
-        contenedor.querySelectorAll(".cultivo:not([data-clon])").length;
-
-    // En escritorio se ven 3 columnas; en celular 2.
-    const columnasVisibles = window.matchMedia("(max-width:600px)").matches ? 2 : 3;
-    const columnasTotales = Math.ceil(total / 2);
-    const paginas = Math.max(1, columnasTotales - columnasVisibles + 1);
-
-    dotsWrap.innerHTML="";
-
-    for(let i=0;i<paginas;i++){
-
-        const dot=
-            document.createElement("button");
-
-        dot.type="button";
-        dot.className=
-            "cultivos-dot"+(i===0?" activo":"");
-        dot.setAttribute("aria-label","Ver página "+(i+1));
-
-        dot.addEventListener("click",function(){
-            contenedor.scrollTo({
-                left:i * (contenedor.clientWidth / columnasVisibles),
-                behavior:"smooth"
-            });
-        });
-
-        dotsWrap.appendChild(dot);
-
-    }
-
-}
-
-
-function actualizarDotsCultivos(){
-
-    const contenedor=
-        document.getElementById("cultivosScroll");
-
-    const dotsWrap=
-        document.getElementById("cultivosDots");
-
-    if(!contenedor||!dotsWrap) return;
-
-    const dots=
-        dotsWrap.querySelectorAll(".cultivos-dot");
-
-    if(!dots.length) return;
-
-    const columnasVisibles = window.matchMedia("(max-width:600px)").matches ? 2 : 3;
-    const paso = contenedor.clientWidth / columnasVisibles;
-    const indice = Math.max(0, Math.min(dots.length-1, Math.round(contenedor.scrollLeft / paso)));
-
-    dots.forEach(function(d,i){
-        d.classList.toggle("activo",i===indice);
-    });
-
 }
 
 
@@ -6842,24 +5656,9 @@ function toggleBiblioteca(){
             "bibliotecaPanel"
         );
 
-    const abrir=
-        !panel.classList.contains("mostrar");
-
-    panel.classList.toggle("mostrar",abrir);
-
-}
-
-
-function toggleCultivosExtra(){
-
-    const panel=
-        document.getElementById(
-            "cultivosExtraPanel"
-        );
-
     const flecha=
         document.getElementById(
-            "cultivosExtraFlecha"
+            "bibliotecaFlecha"
         );
 
     const abrir=
@@ -7400,14 +6199,11 @@ function verFichaLote(id){
 
     if(ultima){
 
-        const totalUltimaMedicion=
-            ultima.msHa*lote.superficie;
-
         html+=
 
             '<div class="ficha-stat-caja">'+
-                '<span class="numero-grande">'+numero(totalUltimaMedicion)+'</span>'+
-                '<span class="etiqueta">KG MS TOTALES ('+numero(lote.superficie,2)+' HA) · ÚLTIMA MEDICIÓN ('+formatearFecha(ultima.fecha)+') · '+ultima.categoria+'</span>'+
+                '<span class="numero-grande">'+numero(ultima.msHa)+'</span>'+
+                '<span class="etiqueta">KG MS/HA · ÚLTIMA MEDICIÓN ('+formatearFecha(ultima.fecha)+') · '+ultima.categoria+'</span>'+
             '</div>'+
 
             '<div class="ficha-stats-fila">'+
@@ -8155,125 +6951,6 @@ function codigoClima(codigo){
     return ["🌤️","Condiciones variables","parcial"];
 }
 
-/* =========================
-   ÍCONOS DE CLIMA (SVG propios)
-
-   Reemplazan los emoji para que se vean iguales
-   en cualquier celular, con los colores de la app.
-========================= */
-
-const iconosClimaSVG={
-
-    despejado:`<svg viewBox="0 0 32 32">
-        <circle cx="16" cy="16" r="11" fill="var(--lima)" opacity=".18"/>
-        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)"/>
-        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(45 16 16)"/>
-        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(90 16 16)"/>
-        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(135 16 16)"/>
-        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(180 16 16)"/>
-        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(225 16 16)"/>
-        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(270 16 16)"/>
-        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(315 16 16)"/>
-        <circle cx="16" cy="16" r="7.4" fill="var(--lima)"/>
-        <circle cx="13.4" cy="13.4" r="2.6" fill="white" opacity=".38"/>
-    </svg>`,
-
-    parcial:`<svg viewBox="0 0 32 32">
-        <circle cx="12.5" cy="11" r="6.8" fill="var(--lima)" opacity=".2"/>
-        <circle cx="12.5" cy="11" r="5" fill="var(--lima)"/>
-        <circle cx="10.7" cy="9.4" r="1.7" fill="white" opacity=".4"/>
-        <path d="M9.5 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H9.5z" fill="var(--verde2)" opacity=".9" transform="translate(1.1,1.4)"/>
-        <path d="M9.5 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H9.5z" fill="var(--verde3)" transform="translate(-0.5,-0.6)"/>
-        <ellipse cx="10.5" cy="14.5" rx="3.6" ry="1.7" fill="white" opacity=".22" transform="rotate(-12 10.5 14.5) translate(-0.5,-0.6)"/>
-    </svg>`,
-
-    nublado:`<svg viewBox="0 0 32 32">
-        <path d="M8 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H8z" fill="var(--gris)" opacity=".85" transform="translate(1.3,1.6)"/>
-        <path d="M8 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H8z" fill="#c7cec2" transform="translate(-0.6,-0.7)"/>
-        <ellipse cx="9" cy="14" rx="3.8" ry="1.8" fill="white" opacity=".3" transform="rotate(-12 9 14) translate(-0.6,-0.7)"/>
-    </svg>`,
-
-    niebla:`<svg viewBox="0 0 32 32">
-        <path d="M9 18c-2.6 0-4.8-2-4.8-4.5 0-2.2 1.7-4.1 3.9-4.5.7-2.8 3.2-4.8 6.2-4.8 3.1 0 5.8 2.2 6.4 5.1 2.1.3 3.7 2.1 3.7 4.2 0 2.3-1.9 4.3-4.3 4.3H9z" fill="#c9cfc4"/>
-        <rect x="3" y="21" width="26" height="2.4" rx="1.2" fill="var(--gris)" opacity=".85"/>
-        <rect x="6" y="25.4" width="20" height="2.4" rx="1.2" fill="var(--gris)" opacity=".55"/>
-    </svg>`,
-
-    lluvia:`<svg viewBox="0 0 32 32">
-        <path d="M8 21c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#4d6f82" opacity=".85" transform="translate(1.1,1.3)"/>
-        <path d="M8 21c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#7fa0b3" transform="translate(-0.5,-0.6)"/>
-        <path d="M9.5 24.5c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/>
-        <path d="M17.5 25.8c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/>
-        <path d="M25 24.5c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/>
-    </svg>`,
-
-    nieve:`<svg viewBox="0 0 32 32">
-        <path d="M8 19c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#a9bfcc" opacity=".85" transform="translate(1.1,1.3)"/>
-        <path d="M8 19c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#d3e2ea" transform="translate(-0.5,-0.6)"/>
-        <g stroke="#5f97b8" stroke-width="1.3" stroke-linecap="round">
-            <line x1="8" y1="21" x2="8" y2="27"/><line x1="5.5" y1="22.5" x2="10.5" y2="25.5"/><line x1="10.5" y1="22.5" x2="5.5" y2="25.5"/>
-            <line x1="16" y1="22.5" x2="16" y2="28.5"/><line x1="13.3" y1="24" x2="18.7" y2="27"/><line x1="18.7" y1="24" x2="13.3" y2="27"/>
-            <line x1="24" y1="21" x2="24" y2="27"/><line x1="21.5" y1="22.5" x2="26.5" y2="25.5"/><line x1="26.5" y1="22.5" x2="21.5" y2="25.5"/>
-        </g>
-    </svg>`,
-
-    tormenta:`<svg viewBox="0 0 32 32">
-        <circle cx="17" cy="19" r="8" fill="var(--lima)" opacity=".18"/>
-        <path d="M8 18c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#2e3a40" opacity=".9" transform="translate(1.1,1.3)"/>
-        <path d="M8 18c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#4a5a63" transform="translate(-0.5,-0.6)"/>
-        <path d="M18.2 16.5l-5.6 7.7h4.1L14.8 30l7.3-9.6h-4.2l3.1-4.5-2.8.6z" fill="var(--lima)"/>
-    </svg>`
-
-};
-
-function iconoClimaSVG(clase){
-    return iconosClimaSVG[clase] || iconosClimaSVG.parcial;
-}
-
-
-/* =========================
-   ALERTAS AGRO
-
-   Solo se muestran cuando el dato es accionable —
-   en un día normal, sin lluvia ni viento ni heladas
-   a la vista, no aparece ninguna.
-========================= */
-
-function calcularAlertasClima(daily){
-
-    const alertas=[];
-
-    if(daily.precipitation_probability_max){
-        for(let i=0;i<3;i++){
-            const prob=daily.precipitation_probability_max[i];
-            if(prob>=50){
-                const dia=i===0?"hoy":(i===1?"mañana":nombreDia(daily.time[i],i).toLowerCase());
-                const mm=daily.precipitation_sum ? Math.round(daily.precipitation_sum[i]) : null;
-                alertas.push(
-                    "🌧️ "+prob+"% de lluvia "+dia+
-                    (mm ? " ("+mm+" mm)" : "")
-                );
-                break;
-            }
-        }
-    }
-
-    for(let i=0;i<3;i++){
-        if(daily.temperature_2m_min[i]<=2){
-            const dia=i===0?"esta noche":(i===1?"mañana":nombreDia(daily.time[i],i).toLowerCase());
-            alertas.push("❄️ Riesgo de helada "+dia);
-            break;
-        }
-    }
-
-    if(daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0]>=25){
-        alertas.push("💨 Viento fuerte hoy, no apto para pulverizar");
-    }
-
-    return alertas;
-
-}
-
 function nombreDia(fecha,index){
     if(index===0) return "Hoy";
     if(index===1) return "Mañana";
@@ -8288,10 +6965,10 @@ function renderClima(data,lat,lon,nombre){
 
     document.getElementById("weatherLocation").textContent=nombre || "CLIMA";
     document.getElementById("weatherStatus").textContent=info[1];
-    document.getElementById("weatherIcon").innerHTML=iconoClimaSVG(info[2]);
+    document.getElementById("weatherIcon").textContent=info[0];
     document.getElementById("weatherTemp").textContent=Math.round(current.temperature_2m);
     document.getElementById("weatherExtra").textContent=
-        "💨 "+Math.round(current.wind_speed_10m)+" km/h";
+        "Máx "+Math.round(daily.temperature_2m_max[0])+"° · Mín "+Math.round(daily.temperature_2m_min[0])+"° · Viento "+Math.round(current.wind_speed_10m)+" km/h";
 
     const tarjetaClima=document.getElementById("weatherCard");
     if(tarjetaClima){
@@ -8302,28 +6979,14 @@ function renderClima(data,lat,lon,nombre){
         tarjetaClima.classList.add("clima-"+info[2]);
     }
 
-    const minHoy=daily.temperature_2m_min[0];
-    const maxHoy=daily.temperature_2m_max[0];
-
-
-    const alertas=calcularAlertasClima(daily);
-
-    document.getElementById("weatherAlerts").innerHTML=
-        alertas.map(function(texto){
-            return '<span class="weather-alert-pill">'+texto+'</span>';
-        }).join("");
-
     let html="";
     for(let i=0;i<3;i++){
         const c=codigoClima(daily.weather_code[i]);
-        const prob=daily.precipitation_probability_max ? daily.precipitation_probability_max[i] : 0;
         html+=
             '<div class="weather-day">'+
                 '<strong>'+nombreDia(daily.time[i],i)+'</strong>'+
-                '<div class="weather-day-icon">'+iconoClimaSVG(c[2])+'</div>'+
-                '<span>'+Math.round(daily.temperature_2m_max[i])+'°</span>'+
-                '<small>'+Math.round(daily.temperature_2m_min[i])+'°</small>'+
-                (prob>=30 ? '<span class="weather-day-lluvia">💧'+prob+'%</span>' : '')+
+                '<span>'+c[0]+' '+Math.round(daily.temperature_2m_max[i])+'°</span>'+
+                '<small>'+Math.round(daily.temperature_2m_min[i])+'° · '+c[1]+'</small>'+
             '</div>';
     }
     document.getElementById("weatherDays").innerHTML=html;
@@ -8332,7 +6995,7 @@ function renderClima(data,lat,lon,nombre){
 function cargarClima(){
     const fallback={lat:-39.1000,lon:-67.0667,nombre:"Villa Regina"};
     const usar=function(lat,lon,nombre){
-        const url="https://api.open-meteo.com/v1/forecast?latitude="+lat+"&longitude="+lon+"&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,wind_gusts_10m_max&forecast_days=3&timezone=auto";
+        const url="https://api.open-meteo.com/v1/forecast?latitude="+lat+"&longitude="+lon+"&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&forecast_days=3&timezone=auto";
         fetch(url)
             .then(function(r){if(!r.ok) throw new Error("weather"); return r.json();})
             .then(function(data){renderClima(data,lat,lon,nombre);})
@@ -8346,80 +7009,12 @@ function cargarClima(){
         navigator.geolocation.getCurrentPosition(
             function(pos){usar(pos.coords.latitude,pos.coords.longitude,"Tu ubicación");},
             function(){usar(fallback.lat,fallback.lon,fallback.nombre)},
-            {enableHighAccuracy:false,timeout:9000,maximumAge:900000}
+            {enableHighAccuracy:false,timeout:4500,maximumAge:900000}
         );
     }else{
         usar(fallback.lat,fallback.lon,fallback.nombre);
     }
 }
-
-/* =========================================================
-   INICIALIZACIÓN: carrusel de cultivos y última selección
-========================================================= */
-
-function inicializarCarruselInfinito(){
-
-    const contenedor=
-        document.getElementById("cultivosScroll");
-
-    if(!contenedor) return;
-
-    if(contenedor.dataset.infinito) return;
-
-    contenedor.dataset.infinito="1";
-
-    const tarjetasOriginales=
-        Array.from(contenedor.querySelectorAll(".cultivo"));
-
-    tarjetasOriginales.forEach(function(tarjeta){
-
-        const clon=
-            tarjeta.cloneNode(true);
-
-        clon.setAttribute("data-clon","1");
-        clon.setAttribute("aria-hidden","true");
-
-        contenedor.appendChild(clon);
-
-    });
-
-    contenedor.addEventListener("scroll",function(){
-
-        const mitad=
-            contenedor.scrollWidth/2;
-
-        if(contenedor.scrollLeft>=mitad){
-
-            contenedor.scrollLeft-=mitad;
-
-        }
-
-    },{passive:true});
-
-}
-
-inicializarCarruselInfinito();
-
-generarDotsCultivos();
-
-window.addEventListener("resize", function(){
-    generarDotsCultivos();
-    actualizarDotsCultivos();
-});
-
-const scrollCultivos=
-    document.getElementById("cultivosScroll");
-
-if(scrollCultivos){
-    scrollCultivos.addEventListener(
-        "scroll",
-        actualizarDotsCultivos,
-        {passive:true}
-    );
-}
-
-restaurarUltimaSeleccion();
-
 
 /* =========================================================
    SPLASH SCREEN
