@@ -2574,6 +2574,10 @@ input{
     line-height:1;
     flex-shrink:0;
 }
+.weather-icon svg{
+    width:24px;
+    height:24px;
+}
 .weather-temp{
     font-size:26px;
     line-height:1;
@@ -2587,6 +2591,83 @@ input{
     margin-left:2px;
     font-weight:700;
 }
+
+/* BARRA DE RANGO TÉRMICO */
+
+.weather-range{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    margin-top:12px;
+}
+.weather-range-label{
+    font-size:9px;
+    font-weight:800;
+    color:var(--gris);
+    flex-shrink:0;
+}
+.weather-range-track{
+    position:relative;
+    flex:1;
+    height:5px;
+    border-radius:10px;
+    background:linear-gradient(90deg,#7fb6d9,#cbdc78 50%,#e08a4f);
+}
+.weather-range-marker{
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:11px;
+    height:11px;
+    border:2.5px solid white;
+    border-radius:50%;
+    background:var(--verde);
+    box-shadow:0 2px 6px rgba(0,0,0,.25);
+    transform:translate(-50%,-50%);
+    transition:left .5s ease;
+}
+.weather-card.clima-tormenta .weather-range-label{
+    color:rgba(255,255,255,.65);
+}
+.weather-card.clima-tormenta .weather-range-marker{
+    border-color:#1e2731;
+}
+
+/* ALERTAS AGRO — solo aparecen si son relevantes */
+
+.weather-alerts{
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin-top:11px;
+}
+.weather-alerts:empty{
+    display:none;
+    margin-top:0;
+}
+.weather-alert-pill{
+    display:flex;
+    align-items:center;
+    gap:5px;
+    padding:6px 10px;
+    border-radius:20px;
+    background:rgba(255,255,255,.75);
+    border:1px solid rgba(0,0,0,.06);
+    font-size:9.5px;
+    font-weight:800;
+    color:var(--verde2);
+    white-space:nowrap;
+}
+.weather-card.clima-tormenta .weather-alert-pill{
+    background:rgba(255,255,255,.12);
+    border-color:rgba(255,255,255,.18);
+    color:white;
+}
+
 .weather-days{
     position:relative;
     z-index:2;
@@ -2598,7 +2679,7 @@ input{
     border-top:1px solid var(--borde);
 }
 .weather-day{
-    padding:6px 6px;
+    padding:7px 6px;
     border-radius:12px;
     background:var(--crema);
     border:1px solid var(--borde);
@@ -2612,9 +2693,18 @@ input{
     text-transform:uppercase;
     letter-spacing:.4px;
 }
+.weather-day-icon{
+    margin:4px auto 0;
+    width:18px;
+    height:18px;
+}
+.weather-day-icon svg{
+    width:100%;
+    height:100%;
+}
 .weather-day span{
     display:block;
-    margin-top:3px;
+    margin-top:2px;
     font-size:12px;
     font-weight:900;
     color:var(--verde);
@@ -2624,6 +2714,16 @@ input{
     margin-top:2px;
     font-size:9px;
     color:var(--gris);
+}
+.weather-day-lluvia{
+    display:block;
+    margin-top:2px;
+    font-size:8.5px;
+    font-weight:800;
+    color:#3f7fa0;
+}
+.weather-card.clima-tormenta .weather-day-lluvia{
+    color:#8fd0ef;
 }
 .weather-loading{
     font-size:10px;
@@ -2922,9 +3022,17 @@ input{
             <div id="weatherExtra" class="weather-extra">Actualizando datos</div>
         </div>
         <div class="weather-current">
-            <div id="weatherIcon" class="weather-icon">🌤️</div>
+            <div id="weatherIcon" class="weather-icon"></div>
             <div><span id="weatherTemp" class="weather-temp">--</span><span class="weather-unit">°C</span></div>
         </div>
+        <div class="weather-range">
+            <span id="weatherRangeMin" class="weather-range-label">--°</span>
+            <div class="weather-range-track">
+                <div id="weatherRangeMarker" class="weather-range-marker"></div>
+            </div>
+            <span id="weatherRangeMax" class="weather-range-label">--°</span>
+        </div>
+        <div id="weatherAlerts" class="weather-alerts"></div>
         <div id="weatherDays" class="weather-days">
             <div class="weather-day"><strong>Hoy</strong><span>--</span><small>--</small></div>
             <div class="weather-day"><strong>Mañana</strong><span>--</span><small>--</small></div>
@@ -7983,6 +8091,101 @@ function codigoClima(codigo){
     return ["🌤️","Condiciones variables","parcial"];
 }
 
+/* =========================
+   ÍCONOS DE CLIMA (SVG propios)
+
+   Reemplazan los emoji para que se vean iguales
+   en cualquier celular, con los colores de la app.
+========================= */
+
+const iconosClimaSVG={
+
+    despejado:
+        '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="var(--lima)"/>'+
+        '<g stroke="var(--verde3)" stroke-width="1.8" stroke-linecap="round">'+
+        '<line x1="12" y1="1.5" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22.5"/>'+
+        '<line x1="1.5" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22.5" y2="12"/>'+
+        '<line x1="4.2" y1="4.2" x2="6" y2="6"/><line x1="18" y1="18" x2="19.8" y2="19.8"/>'+
+        '<line x1="19.8" y1="4.2" x2="18" y2="6"/><line x1="6" y1="18" x2="4.2" y2="19.8"/></g></svg>',
+
+    parcial:
+        '<svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="4" fill="var(--lima)"/>'+
+        '<path d="M6 18h10a4 4 0 0 0 .6-7.96A5.5 5.5 0 0 0 6.2 12.2 3.5 3.5 0 0 0 6 18z" fill="var(--verde3)"/></svg>',
+
+    nublado:
+        '<svg viewBox="0 0 24 24"><path d="M6 18h11a4 4 0 0 0 .3-7.98A6 6 0 0 0 5.9 12.5 3.5 3.5 0 0 0 6 18z" fill="var(--gris)"/></svg>',
+
+    niebla:
+        '<svg viewBox="0 0 24 24"><path d="M6 14h11a3.2 3.2 0 0 0 .2-6.4A5 5 0 0 0 7.4 8.8 3 3 0 0 0 6 14z" fill="var(--gris)"/>'+
+        '<g stroke="var(--gris)" stroke-width="1.6" stroke-linecap="round">'+
+        '<line x1="4" y1="18" x2="20" y2="18"/><line x1="6" y1="21" x2="18" y2="21"/></g></svg>',
+
+    lluvia:
+        '<svg viewBox="0 0 24 24"><path d="M6 13h11a3.5 3.5 0 0 0 .2-6.98A5.5 5.5 0 0 0 6.9 7.6 3.2 3.2 0 0 0 6 13z" fill="var(--verde3)"/>'+
+        '<g stroke="#3f7fa0" stroke-width="1.8" stroke-linecap="round">'+
+        '<line x1="8" y1="16" x2="6.5" y2="20"/><line x1="12" y1="16" x2="10.5" y2="20"/>'+
+        '<line x1="16" y1="16" x2="14.5" y2="20"/></g></svg>',
+
+    nieve:
+        '<svg viewBox="0 0 24 24"><path d="M6 13h11a3.5 3.5 0 0 0 .2-6.98A5.5 5.5 0 0 0 6.9 7.6 3.2 3.2 0 0 0 6 13z" fill="var(--gris)"/>'+
+        '<g stroke="#7fb6d9" stroke-width="1.6" stroke-linecap="round">'+
+        '<line x1="8" y1="16" x2="8" y2="20"/><line x1="6.5" y1="17" x2="9.5" y2="19"/><line x1="9.5" y1="17" x2="6.5" y2="19"/>'+
+        '<line x1="15" y1="16" x2="15" y2="20"/><line x1="13.5" y1="17" x2="16.5" y2="19"/><line x1="16.5" y1="17" x2="13.5" y2="19"/></g></svg>',
+
+    tormenta:
+        '<svg viewBox="0 0 24 24"><path d="M6 12h11a3.3 3.3 0 0 0 .2-6.6A5.2 5.2 0 0 0 6.8 6.9 3 3 0 0 0 6 12z" fill="var(--verde2)"/>'+
+        '<path d="M13 12l-3.5 5h2.7L11 21l4.5-6.2h-2.6L13 12z" fill="var(--lima)"/></svg>'
+
+};
+
+function iconoClimaSVG(clase){
+    return iconosClimaSVG[clase] || iconosClimaSVG.parcial;
+}
+
+
+/* =========================
+   ALERTAS AGRO
+
+   Solo se muestran cuando el dato es accionable —
+   en un día normal, sin lluvia ni viento ni heladas
+   a la vista, no aparece ninguna.
+========================= */
+
+function calcularAlertasClima(daily){
+
+    const alertas=[];
+
+    if(daily.precipitation_probability_max){
+        for(let i=0;i<3;i++){
+            const prob=daily.precipitation_probability_max[i];
+            if(prob>=50){
+                const dia=i===0?"hoy":(i===1?"mañana":nombreDia(daily.time[i],i).toLowerCase());
+                const mm=daily.precipitation_sum ? Math.round(daily.precipitation_sum[i]) : null;
+                alertas.push(
+                    "🌧️ "+prob+"% de lluvia "+dia+
+                    (mm ? " ("+mm+" mm)" : "")
+                );
+                break;
+            }
+        }
+    }
+
+    for(let i=0;i<3;i++){
+        if(daily.temperature_2m_min[i]<=2){
+            const dia=i===0?"esta noche":(i===1?"mañana":nombreDia(daily.time[i],i).toLowerCase());
+            alertas.push("❄️ Riesgo de helada "+dia);
+            break;
+        }
+    }
+
+    if(daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0]>=25){
+        alertas.push("💨 Viento fuerte hoy, no apto para pulverizar");
+    }
+
+    return alertas;
+
+}
+
 function nombreDia(fecha,index){
     if(index===0) return "Hoy";
     if(index===1) return "Mañana";
@@ -7997,10 +8200,10 @@ function renderClima(data,lat,lon,nombre){
 
     document.getElementById("weatherLocation").textContent=nombre || "CLIMA";
     document.getElementById("weatherStatus").textContent=info[1];
-    document.getElementById("weatherIcon").textContent=info[0];
+    document.getElementById("weatherIcon").innerHTML=iconoClimaSVG(info[2]);
     document.getElementById("weatherTemp").textContent=Math.round(current.temperature_2m);
     document.getElementById("weatherExtra").textContent=
-        "Máx "+Math.round(daily.temperature_2m_max[0])+"° · Mín "+Math.round(daily.temperature_2m_min[0])+"° · Viento "+Math.round(current.wind_speed_10m)+" km/h";
+        "💨 "+Math.round(current.wind_speed_10m)+" km/h";
 
     const tarjetaClima=document.getElementById("weatherCard");
     if(tarjetaClima){
@@ -8011,14 +8214,33 @@ function renderClima(data,lat,lon,nombre){
         tarjetaClima.classList.add("clima-"+info[2]);
     }
 
+    const minHoy=daily.temperature_2m_min[0];
+    const maxHoy=daily.temperature_2m_max[0];
+    let pct=maxHoy>minHoy ? ((current.temperature_2m-minHoy)/(maxHoy-minHoy))*100 : 50;
+    pct=Math.max(0,Math.min(100,pct));
+
+    document.getElementById("weatherRangeMin").textContent=Math.round(minHoy)+"°";
+    document.getElementById("weatherRangeMax").textContent=Math.round(maxHoy)+"°";
+    document.getElementById("weatherRangeMarker").style.left=pct+"%";
+
+    const alertas=calcularAlertasClima(daily);
+
+    document.getElementById("weatherAlerts").innerHTML=
+        alertas.map(function(texto){
+            return '<span class="weather-alert-pill">'+texto+'</span>';
+        }).join("");
+
     let html="";
     for(let i=0;i<3;i++){
         const c=codigoClima(daily.weather_code[i]);
+        const prob=daily.precipitation_probability_max ? daily.precipitation_probability_max[i] : 0;
         html+=
             '<div class="weather-day">'+
                 '<strong>'+nombreDia(daily.time[i],i)+'</strong>'+
-                '<span>'+c[0]+' '+Math.round(daily.temperature_2m_max[i])+'°</span>'+
-                '<small>'+Math.round(daily.temperature_2m_min[i])+'° · '+c[1]+'</small>'+
+                '<div class="weather-day-icon">'+iconoClimaSVG(c[2])+'</div>'+
+                '<span>'+Math.round(daily.temperature_2m_max[i])+'°</span>'+
+                '<small>'+Math.round(daily.temperature_2m_min[i])+'°</small>'+
+                (prob>=30 ? '<span class="weather-day-lluvia">💧'+prob+'%</span>' : '')+
             '</div>';
     }
     document.getElementById("weatherDays").innerHTML=html;
@@ -8027,7 +8249,7 @@ function renderClima(data,lat,lon,nombre){
 function cargarClima(){
     const fallback={lat:-39.1000,lon:-67.0667,nombre:"Villa Regina"};
     const usar=function(lat,lon,nombre){
-        const url="https://api.open-meteo.com/v1/forecast?latitude="+lat+"&longitude="+lon+"&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min&forecast_days=3&timezone=auto";
+        const url="https://api.open-meteo.com/v1/forecast?latitude="+lat+"&longitude="+lon+"&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,wind_gusts_10m_max&forecast_days=3&timezone=auto";
         fetch(url)
             .then(function(r){if(!r.ok) throw new Error("weather"); return r.json();})
             .then(function(data){renderClima(data,lat,lon,nombre);})
