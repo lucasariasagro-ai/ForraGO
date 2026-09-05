@@ -130,7 +130,7 @@ body {
 }
 
 /* =========================================================
-   HERO — BIENVENIDA (CON IMAGEN DE FONDO)
+   HERO — BIENVENIDA (CON IMAGEN MÁS VISIBLE)
 ========================================================= */
 
 .hero {
@@ -144,11 +144,12 @@ body {
     box-shadow:var(--sombra-hover);
 }
 
+/* Overlay más sutil para que se vea la imagen */
 .hero::after {
     content:"";
     position:absolute;
     inset:0;
-    background:linear-gradient(135deg, rgba(26,107,60,.75) 0%, rgba(13,71,39,.85) 100%);
+    background:linear-gradient(135deg, rgba(26,107,60,.55) 0%, rgba(13,71,39,.65) 100%);
     z-index:1;
 }
 
@@ -181,7 +182,7 @@ body {
 .hero p {
     max-width:440px;
     margin:22px 0 0;
-    color:rgba(255,255,255,.85);
+    color:rgba(255,255,255,.9);
     font-size:15px;
     line-height:1.7;
 }
@@ -227,15 +228,15 @@ body {
 .footer strong { color:var(--verde2); }
 
 /* =========================================================
-   BOTONES
+   BOTONES MODERNOS
 ========================================================= */
 
 .btn {
     display:inline-flex;
     align-items:center;
     gap:8px;
-    padding:14px 24px;
-    border-radius:var(--radio-peq);
+    padding:12px 20px;
+    border-radius:12px;
     border:none;
     font-family:inherit;
     font-size:11px;
@@ -254,9 +255,8 @@ body {
     transform:translateY(-2px);
     box-shadow:0 8px 24px rgba(26,107,60,.35);
 }
-.btn-primary:active {
-    transform:scale(.97);
-}
+.btn-primary:active { transform:scale(.97); }
+
 .btn-outline {
     background:transparent;
     color:var(--verde);
@@ -266,13 +266,34 @@ body {
     background:var(--verde-claro);
     border-color:var(--verde3);
 }
-.btn-ghost {
-    background:transparent;
-    color:var(--gris);
+
+/* BOTÓN VOLVER MODERNO */
+.btn-back {
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 18px;
+    border-radius:12px;
+    border:1.5px solid var(--borde);
+    background:var(--blanco);
+    color:var(--texto-suave);
+    font-family:inherit;
+    font-size:11px;
+    font-weight:600;
+    cursor:pointer;
+    transition:var(--transicion);
+    box-shadow:var(--sombra);
 }
-.btn-ghost:hover {
-    background:var(--gris-claro);
-    color:var(--texto);
+.btn-back:hover {
+    transform:translateX(-3px);
+    border-color:var(--verde3);
+    color:var(--verde);
+    box-shadow:var(--sombra-hover);
+}
+.btn-back::before {
+    content:"←";
+    font-size:14px;
+    font-weight:400;
 }
 
 /* =========================================================
@@ -672,7 +693,7 @@ body {
 }
 
 /* =========================================================
-   INPUTS
+   INPUTS MODERNOS
 ========================================================= */
 
 .datos {
@@ -691,6 +712,7 @@ body {
 .input-box:focus-within {
     border-color:var(--verde3);
     background:var(--blanco);
+    box-shadow:0 0 0 4px rgba(45,143,78,.1);
 }
 .input-box input {
     width:100%;
@@ -708,6 +730,59 @@ body {
     color:var(--gris);
     font-size:10px;
     font-weight:500;
+}
+
+/* INPUTS DE FORMULARIO MODERNOS */
+.form-group {
+    margin-bottom:18px;
+}
+.form-group label {
+    display:block;
+    font-size:11px;
+    font-weight:700;
+    color:var(--texto-suave);
+    margin-bottom:6px;
+    letter-spacing:.2px;
+}
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width:100%;
+    padding:14px 16px;
+    border-radius:12px;
+    border:1.5px solid var(--borde);
+    background:var(--fondo);
+    font-family:inherit;
+    font-size:14px;
+    color:var(--texto);
+    transition:var(--transicion);
+    appearance:none;
+}
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline:none;
+    border-color:var(--verde3);
+    background:var(--blanco);
+    box-shadow:0 0 0 4px rgba(45,143,78,.1);
+}
+.form-group textarea {
+    resize:vertical;
+    min-height:80px;
+}
+.form-group select {
+    cursor:pointer;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a8a7e' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat:no-repeat;
+    background-position:right 16px center;
+    padding-right:44px;
+}
+.form-group input[type="date"] {
+    color-scheme:light;
+}
+.form-group input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity:.5;
+    padding:4px;
 }
 
 @media(max-width:390px) {
@@ -951,10 +1026,10 @@ body {
 .carga-panel.mostrar { display:block; animation:aparecer .3s ease; }
 .carga-panel select {
     width:100%;
-    padding:12px 14px;
+    padding:14px 16px;
     border-radius:12px;
     border:1.5px solid var(--borde);
-    font-size:13px;
+    font-size:14px;
     font-family:inherit;
     background:var(--blanco);
     margin-bottom:14px;
@@ -1211,14 +1286,14 @@ body {
 }
 
 /* =========================================================
-   LOTES
+   LOTES MODERNOS
 ========================================================= */
 
 .lotes-banner {
     display:flex;
     align-items:center;
     gap:14px;
-    padding:16px 20px;
+    padding:18px 22px;
     border-radius:16px;
     background:var(--blanco);
     border:1.5px solid var(--borde);
@@ -1230,8 +1305,9 @@ body {
 .lotes-banner:hover {
     transform:translateY(-2px);
     border-color:var(--verde3);
+    box-shadow:var(--sombra-hover);
 }
-.lotes-banner-icono { font-size:24px; flex-shrink:0; }
+.lotes-banner-icono { font-size:26px; flex-shrink:0; }
 .lotes-banner-texto { flex:1; }
 .lotes-banner-texto strong {
     display:block;
@@ -1245,13 +1321,53 @@ body {
     font-weight:500;
 }
 
+.lotes-header {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:24px;
+    gap:12px;
+}
+.lotes-header h2 {
+    font-size:24px;
+    font-weight:800;
+    letter-spacing:-.6px;
+    color:var(--texto);
+    margin:0;
+}
+
+.lotes-nuevo-btn {
+    width:100%;
+    padding:18px;
+    border-radius:16px;
+    border:2px dashed var(--verde3);
+    background:var(--lima-claro);
+    color:var(--verde);
+    font-family:inherit;
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.3px;
+    cursor:pointer;
+    transition:var(--transicion);
+    margin-bottom:18px;
+}
+.lotes-nuevo-btn:hover {
+    background:#dce8c8;
+    border-color:var(--verde2);
+    transform:translateY(-2px);
+}
+
 .lote-card {
-    padding:20px;
+    padding:22px;
     border-radius:18px;
     background:var(--blanco);
     border:1px solid var(--borde);
     box-shadow:var(--sombra);
     margin-bottom:14px;
+    transition:var(--transicion);
+}
+.lote-card:hover {
+    box-shadow:var(--sombra-hover);
 }
 .lote-card-top {
     display:flex;
@@ -1259,28 +1375,28 @@ body {
     align-items:flex-start;
 }
 .lote-card-nombre {
-    font-size:16px;
+    font-size:17px;
     font-weight:800;
     color:var(--verde);
 }
 .lote-card-sub {
-    font-size:10.5px;
+    font-size:11px;
     color:var(--gris);
     font-weight:500;
     margin-top:2px;
 }
 .lote-card-badge {
-    padding:4px 12px;
+    padding:4px 14px;
     border-radius:30px;
-    font-size:8px;
+    font-size:8.5px;
     font-weight:800;
 }
 .lote-card-datos {
     display:grid;
     grid-template-columns:1fr 1fr;
-    gap:8px;
-    margin-top:14px;
-    padding-top:14px;
+    gap:10px;
+    margin-top:16px;
+    padding-top:16px;
     border-top:1px solid var(--borde);
 }
 .lote-card-dato span {
@@ -1292,53 +1408,62 @@ body {
 }
 .lote-card-dato strong {
     display:block;
-    font-size:12px;
+    font-size:13px;
     font-weight:700;
     margin-top:2px;
+    color:var(--texto);
 }
 .lote-card-botones {
     display:grid;
     grid-template-columns:1fr 1fr;
     gap:8px;
-    margin-top:14px;
+    margin-top:16px;
 }
 .lote-card-trabajar {
     grid-column:1 / -1;
-    padding:14px;
+    padding:15px;
     border:none;
     border-radius:12px;
-    background:var(--verde);
+    background:linear-gradient(135deg, var(--verde), var(--verde2));
     color:white;
     font-family:inherit;
-    font-size:10px;
+    font-size:10.5px;
     font-weight:700;
     cursor:pointer;
     transition:var(--transicion);
+    box-shadow:0 4px 16px rgba(26,107,60,.2);
 }
-.lote-card-trabajar:hover { background:var(--verde2); }
+.lote-card-trabajar:hover {
+    transform:translateY(-2px);
+    box-shadow:0 8px 24px rgba(26,107,60,.3);
+}
 .lote-card-mini-btn {
-    padding:10px;
-    border-radius:11px;
-    border:1px solid var(--borde);
+    padding:12px;
+    border-radius:12px;
+    border:1.5px solid var(--borde);
     background:var(--blanco);
     font-family:inherit;
-    font-size:9px;
-    font-weight:700;
+    font-size:9.5px;
+    font-weight:600;
     cursor:pointer;
     transition:var(--transicion);
     color:var(--texto-suave);
 }
-.lote-card-mini-btn:hover { background:var(--fondo); }
+.lote-card-mini-btn:hover {
+    background:var(--fondo);
+    border-color:var(--verde3);
+    transform:translateY(-1px);
+}
 
 .lote-activo-banner {
     display:flex;
     align-items:center;
     justify-content:space-between;
-    padding:14px 18px;
+    padding:14px 20px;
     border-radius:14px;
     background:var(--lima-claro);
     border:1.5px solid var(--lima);
-    font-size:11px;
+    font-size:12px;
     font-weight:700;
     color:var(--verde);
     margin-bottom:20px;
@@ -1347,11 +1472,12 @@ body {
     color:var(--verde3);
     cursor:pointer;
     text-decoration:underline;
+    font-weight:600;
 }
 
 .selector-lote {
     grid-column:1 / -1;
-    padding:18px;
+    padding:20px;
     border-radius:16px;
     background:var(--fondo);
     border:1px solid var(--borde);
@@ -1360,37 +1486,44 @@ body {
     font-size:12px;
     font-weight:700;
     color:var(--verde);
-    margin-bottom:12px;
+    margin-bottom:14px;
 }
 .selector-lote-item {
     display:block;
     width:100%;
-    padding:12px 16px;
-    margin-bottom:6px;
+    padding:14px 18px;
+    margin-bottom:8px;
     border-radius:12px;
     border:1.5px solid var(--borde);
     background:var(--blanco);
     font-family:inherit;
-    font-size:12px;
+    font-size:13px;
     font-weight:600;
     text-align:left;
     cursor:pointer;
     transition:var(--transicion);
 }
-.selector-lote-item:hover { border-color:var(--verde3); }
+.selector-lote-item:hover {
+    border-color:var(--verde3);
+    transform:translateX(4px);
+}
 .selector-lote-nuevo {
     display:block;
     width:100%;
-    padding:12px;
+    padding:14px;
     border-radius:12px;
     border:2px dashed var(--verde3);
     background:var(--lima-claro);
     font-family:inherit;
-    font-size:11px;
+    font-size:11.5px;
     font-weight:700;
     color:var(--verde);
     cursor:pointer;
-    margin-bottom:6px;
+    margin-bottom:8px;
+    transition:var(--transicion);
+}
+.selector-lote-nuevo:hover {
+    background:#dce8c8;
 }
 .selector-lote-cerrar {
     display:block;
@@ -1403,11 +1536,19 @@ body {
     font-weight:600;
     color:var(--gris);
     cursor:pointer;
+    transition:var(--transicion);
+}
+.selector-lote-cerrar:hover {
+    color:var(--texto-suave);
 }
 .selector-lote-activo-tag {
     font-size:8px;
     font-weight:800;
     color:var(--verde3);
+    background:var(--lima-claro);
+    padding:2px 10px;
+    border-radius:20px;
+    margin-left:8px;
 }
 
 /* =========================================================
@@ -1444,18 +1585,24 @@ body {
 }
 .asesor-campo input {
     width:100%;
-    padding:10px 14px;
-    border-radius:10px;
+    padding:12px 16px;
+    border-radius:12px;
     border:1.5px solid var(--borde);
     background:var(--blanco);
-    font-size:14px;
+    font-size:15px;
     font-weight:700;
     color:var(--verde);
     font-family:inherit;
+    transition:var(--transicion);
+}
+.asesor-campo input:focus {
+    outline:none;
+    border-color:var(--verde3);
+    box-shadow:0 0 0 4px rgba(45,143,78,.1);
 }
 
 /* =========================================================
-   CLIMA PREMIUM (SIN LOGO)
+   CLIMA PREMIUM
 ========================================================= */
 
 .weather-card-premium {
@@ -1734,12 +1881,17 @@ body {
 }
 .consoc-campo select {
     width:100%;
-    padding:10px 12px;
+    padding:12px 14px;
     border-radius:12px;
     border:1.5px solid var(--borde);
-    font-size:12px;
+    font-size:13px;
     font-family:inherit;
     background:var(--blanco);
+    transition:var(--transicion);
+}
+.consoc-campo select:focus {
+    outline:none;
+    border-color:var(--verde3);
 }
 .consoc-slider-wrap { margin-top:16px; }
 .consoc-slider-top {
@@ -1833,6 +1985,7 @@ body {
     .sello-credibilidad { font-size:9px; flex-wrap:wrap; }
     .cultivos-scroll { grid-template-rows:repeat(2,165px); }
     .cultivo { height:165px; }
+    .lotes-header h2 { font-size:20px; }
 }
 
 @media(max-width:390px) {
@@ -1841,6 +1994,9 @@ body {
     .cultivo-info strong { font-size:14px; }
     .weather-premium-temp { font-size:30px; }
     .weather-premium-icono { width:44px; height:44px; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea { font-size:13px; padding:12px 14px; }
 }
 
 /* =========================================================
@@ -1979,7 +2135,7 @@ body {
 <div id="appShell" class="app-shell-hidden">
 
     <!-- =========================================================
-       CLIMA PREMIUM (SIN LOGO)
+       CLIMA PREMIUM
     ========================================================= -->
 
     <section id="weatherCard" class="weather-card-premium clima-despejado" aria-label="Clima y pronóstico">
@@ -2677,7 +2833,7 @@ body {
 
     <div id="vistaLotes" style="display:none;">
         <div class="lotes-header">
-            <button class="lotes-volver" onclick="cerrarMisLotes()">← Volver</button>
+            <button class="btn-back" onclick="cerrarMisLotes()">Volver</button>
             <h2>Mis lotes</h2>
         </div>
         <div id="lotesLista">
@@ -2685,31 +2841,31 @@ body {
             <div id="lotesListaContenido"></div>
         </div>
         <div id="loteFormulario" style="display:none;">
-            <div class="lote-campo">
-                <label class="label">Nombre del lote</label>
+            <div class="form-group">
+                <label>Nombre del lote</label>
                 <input id="loteNombre" type="text" placeholder="Ej: Lote 1 - El Molino">
             </div>
-            <div class="lote-campo">
-                <label class="label">Superficie (ha)</label>
+            <div class="form-group">
+                <label>Superficie (hectáreas)</label>
                 <input id="loteSuperficie" type="number" min="0.01" step="0.01" value="1">
             </div>
-            <div class="lote-campo">
-                <label class="label">Tipo</label>
+            <div class="form-group">
+                <label>Tipo</label>
                 <select id="loteTipo" onchange="actualizarCultivosLoteForm()">
                     <option value="forraje">Forraje (heno / pastoreo)</option>
                     <option value="silaje">Silaje</option>
                 </select>
             </div>
-            <div class="lote-campo">
-                <label class="label">Cultivo</label>
+            <div class="form-group">
+                <label>Cultivo</label>
                 <select id="loteCultivo"></select>
             </div>
-            <div class="lote-campo">
-                <label class="label">Variedad</label>
+            <div class="form-group">
+                <label>Variedad (opcional)</label>
                 <input id="loteVariedad" type="text" placeholder="Ej: Salina">
             </div>
-            <div class="lote-campo">
-                <label class="label">Riego</label>
+            <div class="form-group">
+                <label>Riego</label>
                 <select id="loteRiego">
                     <option value="Secano">Secano</option>
                     <option value="Manto">Manto</option>
@@ -2718,20 +2874,20 @@ body {
                     <option value="Pivote">Pivote central</option>
                 </select>
             </div>
-            <div class="lote-campo">
-                <label class="label">Fecha de siembra</label>
+            <div class="form-group">
+                <label>Fecha de siembra</label>
                 <input id="loteFechaSiembra" type="date">
             </div>
-            <div class="lote-campo">
-                <label class="label">Año del cultivo</label>
+            <div class="form-group">
+                <label>Año del cultivo</label>
                 <input id="loteAnio" type="number" min="1" step="1" value="1">
             </div>
-            <div class="lote-campo">
-                <label class="label">Observaciones</label>
+            <div class="form-group">
+                <label>Observaciones</label>
                 <textarea id="loteObservaciones" rows="3" placeholder="Ej: suelo con salinidad"></textarea>
             </div>
             <button class="calcular" onclick="guardarLote()">GUARDAR LOTE →</button>
-            <button class="btn-secundario" style="margin-top:9px;width:100%;" onclick="cancelarFormularioLote()">CANCELAR</button>
+            <button class="btn-secundario" style="margin-top:10px;width:100%;" onclick="cancelarFormularioLote()">CANCELAR</button>
         </div>
         <div id="loteFicha" style="display:none;"></div>
         <div id="loteHistorial" style="display:none;"></div>
