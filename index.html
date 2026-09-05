@@ -3122,7 +3122,7 @@ input{
         <!-- FESTUCA ALTA -->
         <div class="biblioteca-item" onclick="toggleFicha(this)">
             <div class="biblioteca-item-cabecera">
-                <div class="biblioteca-thumb-wrap"><div class="biblioteca-thumb-letra">F</div></div>
+                <div class="biblioteca-thumb-wrap"><div class="campo-cultivo festuca-bg"></div></div>
                 <strong>Festuca alta</strong>
                 <span class="biblioteca-flecha">▾</span>
             </div>
@@ -3137,7 +3137,7 @@ input{
         <!-- RAYGRASS ANUAL -->
         <div class="biblioteca-item" onclick="toggleFicha(this)">
             <div class="biblioteca-item-cabecera">
-                <div class="biblioteca-thumb-wrap"><div class="biblioteca-thumb-letra">R</div></div>
+                <div class="biblioteca-thumb-wrap"><div class="campo-cultivo raygrass-bg"></div></div>
                 <strong>Raygrass anual</strong>
                 <span class="biblioteca-flecha">▾</span>
             </div>
@@ -3152,7 +3152,7 @@ input{
         <!-- VICIA VILLOSA -->
         <div class="biblioteca-item" onclick="toggleFicha(this)">
             <div class="biblioteca-item-cabecera">
-                <div class="biblioteca-thumb-wrap"><div class="biblioteca-thumb-letra">V</div></div>
+                <div class="biblioteca-thumb-wrap"><div class="campo-cultivo vicia-bg"></div></div>
                 <strong>Vicia villosa</strong>
                 <span class="biblioteca-flecha">▾</span>
             </div>
@@ -3167,7 +3167,7 @@ input{
         <!-- TRÉBOL BLANCO -->
         <div class="biblioteca-item" onclick="toggleFicha(this)">
             <div class="biblioteca-item-cabecera">
-                <div class="biblioteca-thumb-wrap"><div class="biblioteca-thumb-letra">T</div></div>
+                <div class="biblioteca-thumb-wrap"><div class="campo-cultivo trebol-bg"></div></div>
                 <strong>Trébol blanco</strong>
                 <span class="biblioteca-flecha">▾</span>
             </div>
@@ -3182,7 +3182,7 @@ input{
         <!-- CENTENO -->
         <div class="biblioteca-item" onclick="toggleFicha(this)">
             <div class="biblioteca-item-cabecera">
-                <div class="biblioteca-thumb-wrap"><div class="biblioteca-thumb-letra">C</div></div>
+                <div class="biblioteca-thumb-wrap"><div class="campo-cultivo centeno-bg"></div></div>
                 <strong>Centeno</strong>
                 <span class="biblioteca-flecha">▾</span>
             </div>
@@ -7228,11 +7228,14 @@ function verFichaLote(id){
 
     if(ultima){
 
+        const totalUltimaMedicion=
+            ultima.msHa*lote.superficie;
+
         html+=
 
             '<div class="ficha-stat-caja">'+
-                '<span class="numero-grande">'+numero(ultima.msHa)+'</span>'+
-                '<span class="etiqueta">KG MS/HA · ÚLTIMA MEDICIÓN ('+formatearFecha(ultima.fecha)+') · '+ultima.categoria+'</span>'+
+                '<span class="numero-grande">'+numero(totalUltimaMedicion)+'</span>'+
+                '<span class="etiqueta">KG MS TOTALES ('+numero(lote.superficie,2)+' HA) · ÚLTIMA MEDICIÓN ('+formatearFecha(ultima.fecha)+') · '+ultima.categoria+'</span>'+
             '</div>'+
 
             '<div class="ficha-stats-fila">'+
