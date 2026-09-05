@@ -130,7 +130,7 @@ body {
 }
 
 /* =========================================================
-   HERO — BIENVENIDA
+   HERO — BIENVENIDA (CON IMAGEN DE FONDO)
 ========================================================= */
 
 .hero {
@@ -138,9 +138,20 @@ body {
     min-height:380px;
     border-radius:var(--radio);
     overflow:hidden;
-    background:linear-gradient(135deg, #1a6b3c 0%, #0d4727 100%);
+    background-image:var(--hero-foto);
+    background-size:cover;
+    background-position:center;
     box-shadow:var(--sombra-hover);
 }
+
+.hero::after {
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(135deg, rgba(26,107,60,.75) 0%, rgba(13,71,39,.85) 100%);
+    z-index:1;
+}
+
 .hero-contenido {
     position:relative;
     z-index:2;
@@ -170,7 +181,7 @@ body {
 .hero p {
     max-width:440px;
     margin:22px 0 0;
-    color:rgba(255,255,255,.75);
+    color:rgba(255,255,255,.85);
     font-size:15px;
     line-height:1.7;
 }
@@ -193,16 +204,6 @@ body {
 .hero-btn:hover {
     transform:translateY(-2px);
     box-shadow:0 12px 35px rgba(0,0,0,.22);
-}
-.hero-bg-pattern {
-    position:absolute;
-    inset:0;
-    z-index:1;
-    opacity:.06;
-    background-image:
-        radial-gradient(circle at 20% 80%, var(--lima) 1px, transparent 1px),
-        radial-gradient(circle at 80% 20%, var(--lima) 1px, transparent 1px);
-    background-size:60px 60px;
 }
 
 @media(max-width:600px) {
@@ -571,12 +572,17 @@ body {
    ESTADO Y DESTINO
 ========================================================= */
 
-.estados, .destino {
+.estados {
     display:grid;
+    grid-template-columns:repeat(3,1fr);
     gap:10px;
 }
-.estados { grid-template-columns:repeat(3,1fr); }
-.destino { grid-template-columns:1fr 1fr; }
+
+.destino {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+}
 
 .estado-opcion, .destino-opcion {
     padding:16px 14px;
@@ -624,9 +630,45 @@ body {
 }
 .destino-opcion .emoji { margin-bottom:0; font-size:22px; }
 
+/* RESPONSIVE: 3 estados uno al lado del otro en celular */
 @media(max-width:600px) {
-    .estados { grid-template-columns:1fr 1fr; }
+    .estados {
+        grid-template-columns:1fr 1fr 1fr;
+        gap:6px;
+    }
+    .estado-opcion {
+        padding:12px 6px;
+        border-radius:12px;
+    }
+    .estado-opcion .emoji {
+        font-size:20px;
+    }
+    .estado-opcion strong {
+        font-size:9px;
+    }
+    .estado-opcion span {
+        font-size:7.5px;
+        display:none;
+    }
     .destino { grid-template-columns:1fr; }
+}
+
+@media(max-width:400px) {
+    .estados {
+        grid-template-columns:1fr 1fr 1fr;
+        gap:4px;
+    }
+    .estado-opcion {
+        padding:10px 4px;
+        border-radius:10px;
+    }
+    .estado-opcion .emoji {
+        font-size:18px;
+        margin-bottom:3px;
+    }
+    .estado-opcion strong {
+        font-size:8px;
+    }
 }
 
 /* =========================================================
@@ -1413,39 +1455,19 @@ body {
 }
 
 /* =========================================================
-   CLIMA PREMIUM
+   CLIMA PREMIUM (SIN LOGO)
 ========================================================= */
 
 .weather-card-premium {
     position:relative;
     overflow:hidden;
     margin:0 0 22px;
-    padding:28px 28px 22px;
+    padding:24px 28px 22px;
     border-radius:var(--radio);
     background:var(--blanco);
     border:1px solid var(--borde);
     box-shadow:var(--sombra);
     transition:background .6s ease, border-color .6s ease;
-}
-
-/* Logo marca de agua */
-.weather-logo-watermark {
-    position:absolute;
-    z-index:1;
-    right:16px;
-    top:16px;
-    width:76px;
-    height:auto;
-    opacity:.06;
-    pointer-events:none;
-    user-select:none;
-}
-.weather-card-premium.clima-tormenta .weather-logo-watermark {
-    opacity:.12;
-    filter:brightness(0) invert(1);
-}
-@media(max-width:600px) {
-    .weather-logo-watermark { width:56px; right:12px; top:12px; }
 }
 
 .weather-card-premium::before {
@@ -1516,20 +1538,20 @@ body {
     align-items:flex-start;
 }
 .weather-premium-icono {
-    width:60px;
-    height:60px;
+    width:56px;
+    height:56px;
     margin-bottom:2px;
 }
 .weather-premium-icono svg { width:100%; height:100%; }
 .weather-premium-temp {
-    font-size:44px;
+    font-size:42px;
     font-weight:900;
     letter-spacing:-2px;
     line-height:1;
 }
 .weather-premium-temp::after {
     content:"°C";
-    font-size:18px;
+    font-size:17px;
     font-weight:700;
     color:var(--gris);
     margin-left:2px;
@@ -1557,7 +1579,7 @@ body {
     gap:8px;
 }
 .weather-premium-day {
-    padding:12px 8px;
+    padding:10px 6px;
     border-radius:14px;
     background:var(--fondo);
     border:1px solid var(--borde);
@@ -1576,8 +1598,8 @@ body {
     color:var(--gris);
 }
 .weather-premium-day-icon {
-    width:28px;
-    height:28px;
+    width:26px;
+    height:26px;
     margin:4px auto 0;
 }
 .weather-premium-day-icon svg { width:100%; height:100%; }
@@ -1597,8 +1619,8 @@ body {
     display:flex;
     align-items:center;
     gap:10px;
-    margin-top:16px;
-    padding:12px 18px;
+    margin-top:14px;
+    padding:10px 16px;
     border-radius:14px;
     font-size:11px;
     font-weight:700;
@@ -1642,11 +1664,11 @@ body {
         gap:16px;
     }
     .weather-premium-main { align-items:center; text-align:center; }
-    .weather-premium-icono { width:52px; height:52px; }
-    .weather-premium-temp { font-size:36px; }
-    .weather-card-premium { padding:22px 18px 18px; }
-    .weather-premium-day { padding:8px 4px; }
-    .weather-premium-day-icon { width:24px; height:24px; }
+    .weather-premium-icono { width:48px; height:48px; }
+    .weather-premium-temp { font-size:34px; }
+    .weather-card-premium { padding:20px 16px 16px; }
+    .weather-premium-day { padding:6px 4px; }
+    .weather-premium-day-icon { width:22px; height:22px; }
     .weather-premium-day-temp { font-size:12px; }
 }
 
@@ -1892,6 +1914,11 @@ body {
     border-radius:4px;
 }
 
+/* Fix: hero image */
+:root {
+    --hero-foto:url(img/img_03.jpg);
+}
+
 </style>
 </head>
 
@@ -1922,7 +1949,6 @@ body {
     </header>
 
     <section class="hero">
-        <div class="hero-bg-pattern"></div>
         <div class="hero-contenido">
             <h1>
                 <span class="hero-palabra">Medí.</span><br>
@@ -1953,12 +1979,10 @@ body {
 <div id="appShell" class="app-shell-hidden">
 
     <!-- =========================================================
-       CLIMA PREMIUM
+       CLIMA PREMIUM (SIN LOGO)
     ========================================================= -->
 
     <section id="weatherCard" class="weather-card-premium clima-despejado" aria-label="Clima y pronóstico">
-
-        <img src="img/img_12.png" alt="ForraGO" class="weather-logo-watermark" loading="lazy" aria-hidden="true">
 
         <div class="weather-premium-grid">
 
