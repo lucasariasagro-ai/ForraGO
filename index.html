@@ -2410,11 +2410,13 @@ input{
     overflow:hidden;
     margin:6px 0 16px;
     padding:11px 13px 9px;
-    border-radius:18px;
+    border-radius:20px;
     background:var(--blanco);
     border:1px solid var(--borde);
     color:var(--texto);
-    box-shadow:var(--sombra);
+    box-shadow:
+        var(--sombra),
+        inset 0 1px 0 rgba(255,255,255,.6);
 }
 .weather-card::after{
     content:"";
@@ -2533,6 +2535,16 @@ input{
     justify-content:space-between;
     gap:12px;
 }
+.weather-greeting{
+    margin:0 0 3px;
+    font-size:9px;
+    font-weight:700;
+    color:var(--gris);
+    font-style:italic;
+}
+.weather-card.clima-tormenta .weather-greeting{
+    color:rgba(255,255,255,.6);
+}
 .weather-location{
     font-size:9px;
     font-weight:800;
@@ -2559,80 +2571,85 @@ input{
     z-index:2;
     display:flex;
     align-items:center;
-    gap:8px;
-    margin-top:7px;
+    gap:10px;
+    margin-top:8px;
 }
 .weather-icon{
     display:flex;
     align-items:center;
     justify-content:center;
-    width:32px;
-    height:32px;
-    border-radius:11px;
-    background:linear-gradient(135deg,rgba(203,220,120,.35),rgba(93,148,103,.16));
+    width:38px;
+    height:38px;
+    border-radius:50%;
+    background:linear-gradient(150deg,rgba(255,255,255,.9),rgba(203,220,120,.30));
+    box-shadow:
+        0 4px 12px rgba(23,61,41,.14),
+        inset 0 0 0 1px rgba(255,255,255,.6);
     font-size:20px;
     line-height:1;
     flex-shrink:0;
 }
+.weather-card.clima-tormenta .weather-icon{
+    background:linear-gradient(150deg,rgba(255,255,255,.16),rgba(203,220,120,.10));
+    box-shadow:
+        0 4px 12px rgba(0,0,0,.25),
+        inset 0 0 0 1px rgba(255,255,255,.14);
+}
 .weather-icon svg{
-    width:20px;
-    height:20px;
+    width:24px;
+    height:24px;
 }
 .weather-temp{
-    font-size:20px;
+    font-size:24px;
     line-height:1;
     font-weight:900;
     letter-spacing:-1px;
     color:var(--verde);
+    font-variant-numeric:tabular-nums;
 }
 .weather-unit{
-    font-size:10px;
+    font-size:11px;
     color:var(--gris);
     margin-left:2px;
     font-weight:700;
 }
 
-/* BARRA DE RANGO TÉRMICO */
+/* RECOMENDACIÓN DE VENTANA DE TRABAJO
+   Lectura ya procesada del pronóstico de 3 días —
+   no un dato más, sino la conclusión práctica. */
 
-.weather-range{
+.weather-insight{
     position:relative;
     z-index:2;
     display:flex;
     align-items:center;
-    gap:6px;
-    margin-top:9px;
+    gap:9px;
+    margin-top:10px;
+    padding:9px 12px;
+    border-radius:13px;
+    font-size:10px;
+    font-weight:700;
+    line-height:1.4;
 }
-.weather-range-label{
-    font-size:8px;
-    font-weight:800;
-    color:var(--gris);
+.weather-insight-icon{
+    font-size:15px;
     flex-shrink:0;
 }
-.weather-range-track{
-    position:relative;
-    flex:1;
-    height:4px;
-    border-radius:10px;
-    background:linear-gradient(90deg,#7fb6d9,#cbdc78 50%,#e08a4f);
+.weather-insight.tono-bueno{
+    background:rgba(93,148,103,.14);
+    color:var(--verde2);
 }
-.weather-range-marker{
-    position:absolute;
-    top:50%;
-    left:50%;
-    width:9px;
-    height:9px;
-    border:2px solid white;
-    border-radius:50%;
-    background:var(--verde);
-    box-shadow:0 2px 6px rgba(0,0,0,.25);
-    transform:translate(-50%,-50%);
-    transition:left .5s ease;
+.weather-insight.tono-atencion{
+    background:rgba(224,138,79,.16);
+    color:#8a5a2e;
 }
-.weather-card.clima-tormenta .weather-range-label{
-    color:rgba(255,255,255,.65);
+.weather-card.clima-tormenta .weather-insight.tono-bueno{
+    background:rgba(203,220,120,.14);
+    color:var(--lima);
 }
-.weather-card.clima-tormenta .weather-range-marker{
-    border-color:#1e2731;
+.weather-card.clima-tormenta .weather-insight.tono-atencion{
+    background:rgba(255,255,255,.14);
+    color:white;
 }
 
 /* ALERTAS AGRO — solo aparecen si son relevantes */
@@ -2725,6 +2742,33 @@ input{
 .weather-card.clima-tormenta .weather-day-lluvia{
     color:#8fd0ef;
 }
+
+/* SALIDA / PUESTA DE SOL */
+
+.weather-sun{
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:14px;
+    margin-top:9px;
+    padding-top:8px;
+    border-top:1px solid var(--borde);
+    font-size:9px;
+    font-weight:700;
+    color:var(--gris);
+}
+.weather-sun span{
+    display:flex;
+    align-items:center;
+    gap:4px;
+}
+.weather-card.clima-tormenta .weather-sun{
+    border-top-color:rgba(255,255,255,.16);
+    color:rgba(255,255,255,.65);
+}
+
 .weather-loading{
     font-size:10px;
     color:var(--gris);
@@ -3089,6 +3133,7 @@ input{
     <section id="weatherCard" class="weather-card clima-despejado" aria-label="Clima y pronóstico">
         <div class="weather-head">
             <div>
+                <div id="weatherGreeting" class="weather-greeting"></div>
                 <div id="weatherLocation" class="weather-location">CLIMA</div>
                 <div id="weatherStatus" class="weather-status">Cargando pronóstico...</div>
             </div>
@@ -3098,11 +3143,20 @@ input{
             <div id="weatherIcon" class="weather-icon"></div>
             <div><span id="weatherTemp" class="weather-temp">--</span><span class="weather-unit">°C</span></div>
         </div>
+        <div id="weatherInsight" class="weather-insight tono-bueno" style="display:none;">
+            <span id="weatherInsightIcon" class="weather-insight-icon">✅</span>
+            <span id="weatherInsightTexto">-</span>
+        </div>
         <div id="weatherAlerts" class="weather-alerts"></div>
         <div id="weatherDays" class="weather-days">
             <div class="weather-day"><strong>Hoy</strong><span>--</span><small>--</small></div>
             <div class="weather-day"><strong>Mañana</strong><span>--</span><small>--</small></div>
             <div class="weather-day"><strong>Pasado</strong><span>--</span><small>--</small></div>
+        </div>
+        <div id="weatherSun" class="weather-sun" style="display:none;">
+            <span>🌅 <span id="weatherSunrise">--:--</span></span>
+            <span>🌇 <span id="weatherSunset">--:--</span></span>
+            <span>☀️ <span id="weatherDayLength">--</span></span>
         </div>
     </section>
 
@@ -8283,11 +8337,53 @@ function nombreDia(fecha,index){
     return d.toLocaleDateString("es-AR",{weekday:"short"}).replace(".","");
 }
 
+function saludoSegunHora(){
+    const hora=new Date().getHours();
+    if(hora<6) return "Buenas noches 🌙";
+    if(hora<12) return "Buen día ☕";
+    if(hora<19) return "Buenas tardes";
+    return "Buenas noches";
+}
+
+function formatearHora(iso){
+    if(!iso) return "--:--";
+    const partes=iso.split("T");
+    return partes.length===2 ? partes[1] : "--:--";
+}
+
+/* Recomendación de ventana de trabajo: lee el pronóstico
+   de 3 días y devuelve una conclusión práctica en vez de
+   dejar que el productor cruce los datos por su cuenta. */
+
+function calcularInsightClima(daily){
+
+    if(daily.precipitation_probability_max){
+        for(let i=0;i<3;i++){
+            if(daily.precipitation_probability_max[i]>=50){
+                const dia=i===0?"hoy":(i===1?"mañana":nombreDia(daily.time[i],i).toLowerCase());
+                return {
+                    tono:"atencion",
+                    icono:"⚠️",
+                    texto:"Lluvia prevista para "+dia+" — programá el corte o la pulverización antes."
+                };
+            }
+        }
+    }
+
+    return {
+        tono:"bueno",
+        icono:"✅",
+        texto:"Ventana despejada los próximos 3 días — buen momento para cortar o pulverizar."
+    };
+
+}
+
 function renderClima(data,lat,lon,nombre){
     const current=data.current;
     const daily=data.daily;
     const info=codigoClima(current.weather_code);
 
+    document.getElementById("weatherGreeting").textContent=saludoSegunHora();
     document.getElementById("weatherLocation").textContent=nombre || "CLIMA";
     document.getElementById("weatherStatus").textContent=info[1];
     document.getElementById("weatherIcon").innerHTML=iconoClimaSVG(info[2]);
@@ -8304,9 +8400,13 @@ function renderClima(data,lat,lon,nombre){
         tarjetaClima.classList.add("clima-"+info[2]);
     }
 
-    const minHoy=daily.temperature_2m_min[0];
-    const maxHoy=daily.temperature_2m_max[0];
-
+    const insight=calcularInsightClima(daily);
+    const insightEl=document.getElementById("weatherInsight");
+    insightEl.classList.remove("tono-bueno","tono-atencion");
+    insightEl.classList.add("tono-"+insight.tono);
+    insightEl.style.display="flex";
+    document.getElementById("weatherInsightIcon").textContent=insight.icono;
+    document.getElementById("weatherInsightTexto").textContent=insight.texto;
 
     const alertas=calcularAlertasClima(daily);
 
@@ -8329,12 +8429,33 @@ function renderClima(data,lat,lon,nombre){
             '</div>';
     }
     document.getElementById("weatherDays").innerHTML=html;
+
+    if(daily.sunrise && daily.sunset){
+
+        const amanecer=formatearHora(daily.sunrise[0]);
+        const atardecer=formatearHora(daily.sunset[0]);
+
+        document.getElementById("weatherSunrise").textContent=amanecer;
+        document.getElementById("weatherSunset").textContent=atardecer;
+
+        const inicio=new Date(daily.sunrise[0]);
+        const fin=new Date(daily.sunset[0]);
+        const minutos=Math.round((fin-inicio)/60000);
+        const horasLuz=Math.floor(minutos/60);
+        const minLuz=minutos%60;
+
+        document.getElementById("weatherDayLength").textContent=
+            horasLuz+"h "+minLuz+"m";
+
+        document.getElementById("weatherSun").style.display="flex";
+
+    }
 }
 
 function cargarClima(){
     const fallback={lat:-39.1000,lon:-67.0667,nombre:"Villa Regina"};
     const usar=function(lat,lon,nombre){
-        const url="https://api.open-meteo.com/v1/forecast?latitude="+lat+"&longitude="+lon+"&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,wind_gusts_10m_max&forecast_days=3&timezone=auto";
+        const url="https://api.open-meteo.com/v1/forecast?latitude="+lat+"&longitude="+lon+"&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,wind_gusts_10m_max,sunrise,sunset&forecast_days=3&timezone=auto";
         fetch(url)
             .then(function(r){if(!r.ok) throw new Error("weather"); return r.json();})
             .then(function(data){renderClima(data,lat,lon,nombre);})
