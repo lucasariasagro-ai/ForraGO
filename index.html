@@ -68,7 +68,6 @@ html {
 
 body {
     background:
-        /* Overlay más suave para que se vea la imagen */
         linear-gradient(rgba(245,243,235,.72), rgba(245,243,235,.72)),
         url("img/img_13.jpg") center center / cover fixed no-repeat;
     color:var(--texto);
@@ -117,22 +116,22 @@ body {
 }
 
 /* =========================================================
-   HEADER
+   HEADER — LOGO MÁS GRANDE
 ========================================================= */
 
 .header {
     display:flex;
     align-items:center;
     justify-content:center;
-    padding:10px 0 30px;
+    padding:8px 0 18px;
 }
 .logo-principal {
-    height:100px;
+    height:130px;
     width:auto;
     max-width:100%;
 }
 @media(max-width:600px) {
-    .logo-principal { height:76px; }
+    .logo-principal { height:90px; }
 }
 
 /* =========================================================
@@ -220,18 +219,50 @@ body {
 }
 
 /* =========================================================
-   FOOTER
+   FOOTER — MÁS CERCA DE LA BIBLIOTECA
 ========================================================= */
 
 .footer {
-    padding:40px 0 10px;
+    padding:16px 0 4px;
     text-align:center;
     color:var(--gris);
     font-size:10px;
     line-height:1.8;
     letter-spacing:.2px;
+    margin-top:0;
 }
 .footer strong { color:var(--verde2); }
+
+/* =========================================================
+   SECCIÓN "¿QUÉ QUERÉS EVALUAR?" — MÁS CERCA DEL CLIMA
+========================================================= */
+
+.seccion {
+    display:flex;
+    align-items:end;
+    justify-content:space-between;
+    margin:12px 0 14px;
+}
+.seccion h2 {
+    font-size:24px;
+    font-weight:800;
+    letter-spacing:-.6px;
+    color:var(--texto);
+}
+.seccion p {
+    color:var(--gris);
+    font-size:12px;
+    font-weight:500;
+}
+.seccion-simple {
+    justify-content:center;
+    text-align:center;
+    margin:12px 0 16px;
+}
+.seccion-simple h2 {
+    font-size:22px;
+    font-weight:800;
+}
 
 /* =========================================================
    BOTONES MODERNOS
@@ -316,37 +347,6 @@ body {
 }
 .card:hover {
     box-shadow:var(--sombra-hover);
-}
-
-/* =========================================================
-   SECCIONES
-========================================================= */
-
-.seccion {
-    display:flex;
-    align-items:end;
-    justify-content:space-between;
-    margin:30px 0 20px;
-}
-.seccion h2 {
-    font-size:24px;
-    font-weight:800;
-    letter-spacing:-.6px;
-    color:var(--texto);
-}
-.seccion p {
-    color:var(--gris);
-    font-size:12px;
-    font-weight:500;
-}
-.seccion-simple {
-    justify-content:center;
-    text-align:center;
-    margin:36px 0 24px;
-}
-.seccion-simple h2 {
-    font-size:22px;
-    font-weight:800;
 }
 
 /* =========================================================
@@ -1150,7 +1150,7 @@ body {
     transform:translateY(-2px);
     border-color:var(--verde3);
 }
-.biblioteca-panel { margin-top:-14px; margin-bottom:26px; }
+.biblioteca-panel { margin-top:-14px; margin-bottom:16px; }
 .biblioteca-intro {
     font-size:11px;
     color:var(--gris);
@@ -1614,7 +1614,7 @@ body {
 .weather-card-premium {
     position:relative;
     overflow:hidden;
-    margin:0 0 22px;
+    margin:0 0 16px;
     padding:24px 28px 22px;
     border-radius:var(--radio);
     background:var(--blanco);
@@ -1944,14 +1944,14 @@ body {
     position:relative;
     min-height:calc(100vh - 40px);
 }
-.welcome-screen .header { padding-top:12px; }
+.welcome-screen .header { padding-top:4px; }
 .welcome-screen .hero { min-height:380px; }
 .welcome-feedback {
     display:flex;
     align-items:center;
     justify-content:center;
     gap:10px;
-    margin:20px 0 10px;
+    margin:16px 0 8px;
     padding:16px 20px;
     border-radius:14px;
     background:var(--blanco);
@@ -1992,6 +1992,9 @@ body {
     .cultivos-scroll { grid-template-rows:repeat(2,165px); }
     .cultivo { height:165px; }
     .lotes-header h2 { font-size:20px; }
+    .welcome-screen .header { padding-top:2px; }
+    .seccion-simple { margin:8px 0 12px; }
+    .seccion-simple h2 { font-size:20px; }
 }
 
 @media(max-width:390px) {
@@ -2189,14 +2192,18 @@ body {
     </section>
 
     <!-- =========================================================
+       "¿QUÉ QUERÉS EVALUAR?" — MÁS CERCA DEL CLIMA
+    ========================================================= -->
+
+    <div class="seccion seccion-simple">
+        <h2>¿Qué querés evaluar?</h2>
+    </div>
+
+    <!-- =========================================================
        CALCULADORA
     ========================================================= -->
 
     <div id="vistaCalculadora">
-
-        <div class="seccion seccion-simple">
-            <h2>¿Qué querés evaluar?</h2>
-        </div>
 
         <div class="tipo-tabs" id="tipoTabs">
             <button class="tipo-tab" data-tipo="forraje" onclick="mostrarTipo('forraje')">
@@ -2906,6 +2913,10 @@ body {
     </div>
 
     <div id="informeLotePrint" class="informe-lote-print"></div>
+
+    <!-- =========================================================
+       FOOTER — MÁS CERCA DE LA BIBLIOTECA
+    ========================================================= -->
 
     <footer class="footer">
         <strong>ForraGO</strong> · Inteligencia forrajera<br>
