@@ -62,9 +62,15 @@ html {
     -webkit-font-smoothing:antialiased;
 }
 
+/* =========================================================
+   FONDO DE PÁGINA CON img_13.jpg
+   ========================================================= */
+
 body {
     background:
-        linear-gradient(180deg, #f3f6f4 0%, #e8ede9 100%);
+        /* Overlay más suave para que se vea la imagen */
+        linear-gradient(rgba(245,243,235,.72), rgba(245,243,235,.72)),
+        url("img/img_13.jpg") center center / cover fixed no-repeat;
     color:var(--texto);
     font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;
     min-height:100vh;
@@ -144,12 +150,12 @@ body {
     box-shadow:var(--sombra-hover);
 }
 
-/* Overlay más sutil para que se vea la imagen */
+/* Overlay MÁS SUTIL para que se vea la imagen */
 .hero::after {
     content:"";
     position:absolute;
     inset:0;
-    background:linear-gradient(135deg, rgba(26,107,60,.55) 0%, rgba(13,71,39,.65) 100%);
+    background:linear-gradient(135deg, rgba(26,107,60,.35) 0%, rgba(13,71,39,.45) 100%);
     z-index:1;
 }
 
@@ -182,7 +188,7 @@ body {
 .hero p {
     max-width:440px;
     margin:22px 0 0;
-    color:rgba(255,255,255,.9);
+    color:rgba(255,255,255,.92);
     font-size:15px;
     line-height:1.7;
 }
