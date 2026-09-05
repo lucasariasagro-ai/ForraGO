@@ -2408,9 +2408,9 @@ input{
 .weather-card{
     position:relative;
     overflow:hidden;
-    margin:6px 0 20px;
-    padding:14px 16px 12px;
-    border-radius:20px;
+    margin:6px 0 16px;
+    padding:11px 13px 9px;
+    border-radius:18px;
     background:var(--blanco);
     border:1px solid var(--borde);
     color:var(--texto);
@@ -2559,34 +2559,34 @@ input{
     z-index:2;
     display:flex;
     align-items:center;
-    gap:10px;
-    margin-top:10px;
+    gap:8px;
+    margin-top:7px;
 }
 .weather-icon{
     display:flex;
     align-items:center;
     justify-content:center;
-    width:40px;
-    height:40px;
-    border-radius:13px;
+    width:32px;
+    height:32px;
+    border-radius:11px;
     background:linear-gradient(135deg,rgba(203,220,120,.35),rgba(93,148,103,.16));
     font-size:20px;
     line-height:1;
     flex-shrink:0;
 }
 .weather-icon svg{
-    width:24px;
-    height:24px;
+    width:20px;
+    height:20px;
 }
 .weather-temp{
-    font-size:26px;
+    font-size:20px;
     line-height:1;
     font-weight:900;
     letter-spacing:-1px;
     color:var(--verde);
 }
 .weather-unit{
-    font-size:11px;
+    font-size:10px;
     color:var(--gris);
     margin-left:2px;
     font-weight:700;
@@ -2599,11 +2599,11 @@ input{
     z-index:2;
     display:flex;
     align-items:center;
-    gap:8px;
-    margin-top:12px;
+    gap:6px;
+    margin-top:9px;
 }
 .weather-range-label{
-    font-size:9px;
+    font-size:8px;
     font-weight:800;
     color:var(--gris);
     flex-shrink:0;
@@ -2611,7 +2611,7 @@ input{
 .weather-range-track{
     position:relative;
     flex:1;
-    height:5px;
+    height:4px;
     border-radius:10px;
     background:linear-gradient(90deg,#7fb6d9,#cbdc78 50%,#e08a4f);
 }
@@ -2619,9 +2619,9 @@ input{
     position:absolute;
     top:50%;
     left:50%;
-    width:11px;
-    height:11px;
-    border:2.5px solid white;
+    width:9px;
+    height:9px;
+    border:2px solid white;
     border-radius:50%;
     background:var(--verde);
     box-shadow:0 2px 6px rgba(0,0,0,.25);
@@ -2642,8 +2642,8 @@ input{
     z-index:2;
     display:flex;
     flex-wrap:wrap;
-    gap:6px;
-    margin-top:11px;
+    gap:5px;
+    margin-top:8px;
 }
 .weather-alerts:empty{
     display:none;
@@ -2652,12 +2652,12 @@ input{
 .weather-alert-pill{
     display:flex;
     align-items:center;
-    gap:5px;
-    padding:6px 10px;
+    gap:4px;
+    padding:4px 9px;
     border-radius:20px;
     background:rgba(255,255,255,.75);
     border:1px solid rgba(0,0,0,.06);
-    font-size:9.5px;
+    font-size:8.5px;
     font-weight:800;
     color:var(--verde2);
     white-space:nowrap;
@@ -2673,30 +2673,30 @@ input{
     z-index:2;
     display:grid;
     grid-template-columns:repeat(3,1fr);
-    gap:6px;
-    margin-top:11px;
-    padding-top:10px;
+    gap:5px;
+    margin-top:8px;
+    padding-top:8px;
     border-top:1px solid var(--borde);
 }
 .weather-day{
-    padding:7px 6px;
-    border-radius:12px;
+    padding:5px 4px;
+    border-radius:11px;
     background:var(--crema);
     border:1px solid var(--borde);
     text-align:center;
 }
 .weather-day strong{
     display:block;
-    font-size:8px;
+    font-size:7.5px;
     color:var(--gris);
     font-weight:800;
     text-transform:uppercase;
     letter-spacing:.4px;
 }
 .weather-day-icon{
-    margin:4px auto 0;
-    width:18px;
-    height:18px;
+    margin:3px auto 0;
+    width:15px;
+    height:15px;
 }
 .weather-day-icon svg{
     width:100%;
@@ -2704,21 +2704,21 @@ input{
 }
 .weather-day span{
     display:block;
-    margin-top:2px;
-    font-size:12px;
+    margin-top:1px;
+    font-size:10.5px;
     font-weight:900;
     color:var(--verde);
 }
 .weather-day small{
     display:block;
-    margin-top:2px;
-    font-size:9px;
+    margin-top:1px;
+    font-size:8px;
     color:var(--gris);
 }
 .weather-day-lluvia{
     display:block;
-    margin-top:2px;
-    font-size:8.5px;
+    margin-top:1px;
+    font-size:7.5px;
     font-weight:800;
     color:#3f7fa0;
 }
@@ -8100,41 +8100,65 @@ function codigoClima(codigo){
 
 const iconosClimaSVG={
 
-    despejado:
-        '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5" fill="var(--lima)"/>'+
-        '<g stroke="var(--verde3)" stroke-width="1.8" stroke-linecap="round">'+
-        '<line x1="12" y1="1.5" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22.5"/>'+
-        '<line x1="1.5" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22.5" y2="12"/>'+
-        '<line x1="4.2" y1="4.2" x2="6" y2="6"/><line x1="18" y1="18" x2="19.8" y2="19.8"/>'+
-        '<line x1="19.8" y1="4.2" x2="18" y2="6"/><line x1="6" y1="18" x2="4.2" y2="19.8"/></g></svg>',
+    despejado:`<svg viewBox="0 0 32 32">
+        <circle cx="16" cy="16" r="11" fill="var(--lima)" opacity=".18"/>
+        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)"/>
+        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(45 16 16)"/>
+        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(90 16 16)"/>
+        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(135 16 16)"/>
+        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(180 16 16)"/>
+        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(225 16 16)"/>
+        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(270 16 16)"/>
+        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(315 16 16)"/>
+        <circle cx="16" cy="16" r="7.4" fill="var(--lima)"/>
+        <circle cx="13.4" cy="13.4" r="2.6" fill="white" opacity=".38"/>
+    </svg>`,
 
-    parcial:
-        '<svg viewBox="0 0 24 24"><circle cx="9" cy="9" r="4" fill="var(--lima)"/>'+
-        '<path d="M6 18h10a4 4 0 0 0 .6-7.96A5.5 5.5 0 0 0 6.2 12.2 3.5 3.5 0 0 0 6 18z" fill="var(--verde3)"/></svg>',
+    parcial:`<svg viewBox="0 0 32 32">
+        <circle cx="12.5" cy="11" r="6.8" fill="var(--lima)" opacity=".2"/>
+        <circle cx="12.5" cy="11" r="5" fill="var(--lima)"/>
+        <circle cx="10.7" cy="9.4" r="1.7" fill="white" opacity=".4"/>
+        <path d="M9.5 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H9.5z" fill="var(--verde2)" opacity=".9" transform="translate(1.1,1.4)"/>
+        <path d="M9.5 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H9.5z" fill="var(--verde3)" transform="translate(-0.5,-0.6)"/>
+        <ellipse cx="10.5" cy="14.5" rx="3.6" ry="1.7" fill="white" opacity=".22" transform="rotate(-12 10.5 14.5) translate(-0.5,-0.6)"/>
+    </svg>`,
 
-    nublado:
-        '<svg viewBox="0 0 24 24"><path d="M6 18h11a4 4 0 0 0 .3-7.98A6 6 0 0 0 5.9 12.5 3.5 3.5 0 0 0 6 18z" fill="var(--gris)"/></svg>',
+    nublado:`<svg viewBox="0 0 32 32">
+        <path d="M8 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H8z" fill="var(--gris)" opacity=".85" transform="translate(1.3,1.6)"/>
+        <path d="M8 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H8z" fill="#c7cec2" transform="translate(-0.6,-0.7)"/>
+        <ellipse cx="9" cy="14" rx="3.8" ry="1.8" fill="white" opacity=".3" transform="rotate(-12 9 14) translate(-0.6,-0.7)"/>
+    </svg>`,
 
-    niebla:
-        '<svg viewBox="0 0 24 24"><path d="M6 14h11a3.2 3.2 0 0 0 .2-6.4A5 5 0 0 0 7.4 8.8 3 3 0 0 0 6 14z" fill="var(--gris)"/>'+
-        '<g stroke="var(--gris)" stroke-width="1.6" stroke-linecap="round">'+
-        '<line x1="4" y1="18" x2="20" y2="18"/><line x1="6" y1="21" x2="18" y2="21"/></g></svg>',
+    niebla:`<svg viewBox="0 0 32 32">
+        <path d="M9 18c-2.6 0-4.8-2-4.8-4.5 0-2.2 1.7-4.1 3.9-4.5.7-2.8 3.2-4.8 6.2-4.8 3.1 0 5.8 2.2 6.4 5.1 2.1.3 3.7 2.1 3.7 4.2 0 2.3-1.9 4.3-4.3 4.3H9z" fill="#c9cfc4"/>
+        <rect x="3" y="21" width="26" height="2.4" rx="1.2" fill="var(--gris)" opacity=".85"/>
+        <rect x="6" y="25.4" width="20" height="2.4" rx="1.2" fill="var(--gris)" opacity=".55"/>
+    </svg>`,
 
-    lluvia:
-        '<svg viewBox="0 0 24 24"><path d="M6 13h11a3.5 3.5 0 0 0 .2-6.98A5.5 5.5 0 0 0 6.9 7.6 3.2 3.2 0 0 0 6 13z" fill="var(--verde3)"/>'+
-        '<g stroke="#3f7fa0" stroke-width="1.8" stroke-linecap="round">'+
-        '<line x1="8" y1="16" x2="6.5" y2="20"/><line x1="12" y1="16" x2="10.5" y2="20"/>'+
-        '<line x1="16" y1="16" x2="14.5" y2="20"/></g></svg>',
+    lluvia:`<svg viewBox="0 0 32 32">
+        <path d="M8 21c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#4d6f82" opacity=".85" transform="translate(1.1,1.3)"/>
+        <path d="M8 21c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#7fa0b3" transform="translate(-0.5,-0.6)"/>
+        <path d="M9.5 24.5c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/>
+        <path d="M17.5 25.8c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/>
+        <path d="M25 24.5c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/>
+    </svg>`,
 
-    nieve:
-        '<svg viewBox="0 0 24 24"><path d="M6 13h11a3.5 3.5 0 0 0 .2-6.98A5.5 5.5 0 0 0 6.9 7.6 3.2 3.2 0 0 0 6 13z" fill="var(--gris)"/>'+
-        '<g stroke="#7fb6d9" stroke-width="1.6" stroke-linecap="round">'+
-        '<line x1="8" y1="16" x2="8" y2="20"/><line x1="6.5" y1="17" x2="9.5" y2="19"/><line x1="9.5" y1="17" x2="6.5" y2="19"/>'+
-        '<line x1="15" y1="16" x2="15" y2="20"/><line x1="13.5" y1="17" x2="16.5" y2="19"/><line x1="16.5" y1="17" x2="13.5" y2="19"/></g></svg>',
+    nieve:`<svg viewBox="0 0 32 32">
+        <path d="M8 19c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#a9bfcc" opacity=".85" transform="translate(1.1,1.3)"/>
+        <path d="M8 19c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#d3e2ea" transform="translate(-0.5,-0.6)"/>
+        <g stroke="#5f97b8" stroke-width="1.3" stroke-linecap="round">
+            <line x1="8" y1="21" x2="8" y2="27"/><line x1="5.5" y1="22.5" x2="10.5" y2="25.5"/><line x1="10.5" y1="22.5" x2="5.5" y2="25.5"/>
+            <line x1="16" y1="22.5" x2="16" y2="28.5"/><line x1="13.3" y1="24" x2="18.7" y2="27"/><line x1="18.7" y1="24" x2="13.3" y2="27"/>
+            <line x1="24" y1="21" x2="24" y2="27"/><line x1="21.5" y1="22.5" x2="26.5" y2="25.5"/><line x1="26.5" y1="22.5" x2="21.5" y2="25.5"/>
+        </g>
+    </svg>`,
 
-    tormenta:
-        '<svg viewBox="0 0 24 24"><path d="M6 12h11a3.3 3.3 0 0 0 .2-6.6A5.2 5.2 0 0 0 6.8 6.9 3 3 0 0 0 6 12z" fill="var(--verde2)"/>'+
-        '<path d="M13 12l-3.5 5h2.7L11 21l4.5-6.2h-2.6L13 12z" fill="var(--lima)"/></svg>'
+    tormenta:`<svg viewBox="0 0 32 32">
+        <circle cx="17" cy="19" r="8" fill="var(--lima)" opacity=".18"/>
+        <path d="M8 18c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#2e3a40" opacity=".9" transform="translate(1.1,1.3)"/>
+        <path d="M8 18c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#4a5a63" transform="translate(-0.5,-0.6)"/>
+        <path d="M18.2 16.5l-5.6 7.7h4.1L14.8 30l7.3-9.6h-4.2l3.1-4.5-2.8.6z" fill="var(--lima)"/>
+    </svg>`
 
 };
 
