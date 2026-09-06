@@ -1828,7 +1828,7 @@ body {
 }
 .weather-card-premium > * { position:relative; z-index:2; }
 
-/* Estados climáticos */
+/* Estados climáticos - DÍA */
 .weather-card-premium.clima-despejado {
     background:linear-gradient(145deg, #fef9e7, #fdf2d0);
     border-color:#f0dfa0;
@@ -1872,6 +1872,87 @@ body {
 .weather-card-premium.clima-tormenta .weather-premium-day-temp { color:white; }
 .weather-card-premium.clima-tormenta .weather-premium-insight.tono-bueno { background:rgba(184,217,108,.16); color:var(--lima); }
 .weather-card-premium.clima-tormenta .weather-premium-insight.tono-atencion { background:rgba(255,255,255,.1); color:white; }
+
+/* Estados climáticos - NOCHE */
+.weather-card-premium.clima-noche-despejado {
+    background:linear-gradient(145deg, #1a212b, #2d3a45);
+    border-color:#2d3a45;
+    color:white;
+}
+.weather-card-premium.clima-noche-despejado .weather-premium-temp { color:#e8e3d0; }
+.weather-card-premium.clima-noche-despejado .weather-premium-temp::after { color:rgba(255,255,255,.4); }
+.weather-card-premium.clima-noche-despejado .weather-premium-extra { color:rgba(255,255,255,.5); }
+.weather-card-premium.clima-noche-despejado .weather-premium-desc { color:rgba(255,255,255,.8); }
+.weather-card-premium.clima-noche-despejado .weather-premium-day { background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.08); }
+.weather-card-premium.clima-noche-despejado .weather-premium-day-name { color:rgba(255,255,255,.4); }
+.weather-card-premium.clima-noche-despejado .weather-premium-day-temp { color:white; }
+.weather-card-premium.clima-noche-despejado .weather-premium-insight.tono-bueno { background:rgba(184,217,108,.12); color:#b8d96c; }
+.weather-card-premium.clima-noche-despejado .weather-premium-insight.tono-atencion { background:rgba(255,255,255,.08); color:white; }
+.weather-card-premium.clima-noche-despejado .weather-premium-alert { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.1); color:rgba(255,255,255,.8); }
+
+.weather-card-premium.clima-noche-parcial {
+    background:linear-gradient(145deg, #1f2933, #2d3a45);
+    border-color:#2d3a45;
+    color:white;
+}
+.weather-card-premium.clima-noche-parcial .weather-premium-temp { color:#e8e3d0; }
+.weather-card-premium.clima-noche-parcial .weather-premium-temp::after { color:rgba(255,255,255,.4); }
+.weather-card-premium.clima-noche-parcial .weather-premium-extra { color:rgba(255,255,255,.5); }
+.weather-card-premium.clima-noche-parcial .weather-premium-desc { color:rgba(255,255,255,.8); }
+.weather-card-premium.clima-noche-parcial .weather-premium-day { background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.08); }
+.weather-card-premium.clima-noche-parcial .weather-premium-day-name { color:rgba(255,255,255,.4); }
+.weather-card-premium.clima-noche-parcial .weather-premium-day-temp { color:white; }
+.weather-card-premium.clima-noche-parcial .weather-premium-insight.tono-bueno { background:rgba(184,217,108,.12); color:#b8d96c; }
+.weather-card-premium.clima-noche-parcial .weather-premium-insight.tono-atencion { background:rgba(255,255,255,.08); color:white; }
+.weather-card-premium.clima-noche-parcial .weather-premium-alert { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.1); color:rgba(255,255,255,.8); }
+
+.weather-card-premium.clima-noche-nublado {
+    background:linear-gradient(145deg, #1a212b, #26313a);
+    border-color:#2d3a45;
+    color:white;
+}
+.weather-card-premium.clima-noche-nublado .weather-premium-temp { color:#e0e0e0; }
+.weather-card-premium.clima-noche-nublado .weather-premium-temp::after { color:rgba(255,255,255,.4); }
+.weather-card-premium.clima-noche-nublado .weather-premium-extra { color:rgba(255,255,255,.4); }
+.weather-card-premium.clima-noche-nublado .weather-premium-desc { color:rgba(255,255,255,.7); }
+.weather-card-premium.clima-noche-nublado .weather-premium-day { background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.08); }
+.weather-card-premium.clima-noche-nublado .weather-premium-day-name { color:rgba(255,255,255,.4); }
+.weather-card-premium.clima-noche-nublado .weather-premium-day-temp { color:white; }
+.weather-card-premium.clima-noche-nublado .weather-premium-insight.tono-bueno { background:rgba(184,217,108,.12); color:#b8d96c; }
+.weather-card-premium.clima-noche-nublado .weather-premium-insight.tono-atencion { background:rgba(255,255,255,.08); color:white; }
+.weather-card-premium.clima-noche-nublado .weather-premium-alert { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.1); color:rgba(255,255,255,.8); }
+
+.weather-card-premium.clima-noche-lluvia {
+    background:linear-gradient(145deg, #141e26, #1f2c36);
+    border-color:#1f2c36;
+    color:white;
+}
+.weather-card-premium.clima-noche-lluvia .weather-premium-temp { color:#7fa0b3; }
+.weather-card-premium.clima-noche-lluvia .weather-premium-temp::after { color:rgba(255,255,255,.3); }
+.weather-card-premium.clima-noche-lluvia .weather-premium-extra { color:rgba(255,255,255,.4); }
+.weather-card-premium.clima-noche-lluvia .weather-premium-desc { color:rgba(255,255,255,.7); }
+.weather-card-premium.clima-noche-lluvia .weather-premium-day { background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.08); }
+.weather-card-premium.clima-noche-lluvia .weather-premium-day-name { color:rgba(255,255,255,.4); }
+.weather-card-premium.clima-noche-lluvia .weather-premium-day-temp { color:white; }
+.weather-card-premium.clima-noche-lluvia .weather-premium-insight.tono-bueno { background:rgba(184,217,108,.12); color:#b8d96c; }
+.weather-card-premium.clima-noche-lluvia .weather-premium-insight.tono-atencion { background:rgba(255,255,255,.08); color:white; }
+.weather-card-premium.clima-noche-lluvia .weather-premium-alert { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.1); color:rgba(255,255,255,.8); }
+
+.weather-card-premium.clima-noche-tormenta {
+    background:linear-gradient(145deg, #0d1117, #1a212b);
+    border-color:#0d1117;
+    color:white;
+}
+.weather-card-premium.clima-noche-tormenta .weather-premium-temp { color:white; }
+.weather-card-premium.clima-noche-tormenta .weather-premium-temp::after { color:rgba(255,255,255,.3); }
+.weather-card-premium.clima-noche-tormenta .weather-premium-extra { color:rgba(255,255,255,.4); }
+.weather-card-premium.clima-noche-tormenta .weather-premium-desc { color:rgba(255,255,255,.7); }
+.weather-card-premium.clima-noche-tormenta .weather-premium-day { background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.08); }
+.weather-card-premium.clima-noche-tormenta .weather-premium-day-name { color:rgba(255,255,255,.4); }
+.weather-card-premium.clima-noche-tormenta .weather-premium-day-temp { color:white; }
+.weather-card-premium.clima-noche-tormenta .weather-premium-insight.tono-bueno { background:rgba(184,217,108,.12); color:#b8d96c; }
+.weather-card-premium.clima-noche-tormenta .weather-premium-insight.tono-atencion { background:rgba(255,255,255,.08); color:white; }
+.weather-card-premium.clima-noche-tormenta .weather-premium-alert { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.1); color:rgba(255,255,255,.8); }
 
 .weather-premium-grid {
     display:grid;
@@ -2376,7 +2457,7 @@ body {
 <div id="appShell" class="app-shell-hidden">
 
     <!-- =========================================================
-       CLIMA PREMIUM
+       CLIMA PREMIUM CON DÍA/NOCHE
     ========================================================= -->
 
     <section id="weatherCard" class="weather-card-premium clima-despejado" aria-label="Clima y pronóstico">
@@ -3725,7 +3806,264 @@ function inicializarCarruselInfinito() {
 }
 
 /* =========================================================
-   MIS LOTES
+   CLIMA — FUNCIÓN CON DÍA/NOCHE
+========================================================= */
+
+function codigoClima(codigo, esDeNoche) {
+    if (codigo === 0) {
+        return esDeNoche ? ["🌙", "Despejado", "noche-despejado"] : ["☀️", "Despejado", "despejado"];
+    }
+    if ([1, 2].includes(codigo)) {
+        return esDeNoche ? ["🌤️", "Parcialmente nublado", "noche-parcial"] : ["🌤️", "Parcialmente nublado", "parcial"];
+    }
+    if (codigo === 3) {
+        return esDeNoche ? ["☁️", "Nublado", "noche-nublado"] : ["☁️", "Nublado", "nublado"];
+    }
+    if ([45, 48].includes(codigo)) {
+        return ["🌫️", "Niebla", esDeNoche ? "noche-niebla" : "niebla"];
+    }
+    if ([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82].includes(codigo)) {
+        return ["🌧️", "Lluvia", esDeNoche ? "noche-lluvia" : "lluvia"];
+    }
+    if ([71, 73, 75, 77].includes(codigo)) {
+        return ["🌨️", "Nieve", esDeNoche ? "noche-nieve" : "nieve"];
+    }
+    if ([95, 96, 99].includes(codigo)) {
+        return ["⛈️", "Tormenta", esDeNoche ? "noche-tormenta" : "tormenta"];
+    }
+    return esDeNoche ? ["🌙", "Despejado", "noche-despejado"] : ["☀️", "Despejado", "despejado"];
+}
+
+/* =========================================================
+   ÍCONOS CLIMA — INCLUYE DÍA Y NOCHE
+========================================================= */
+
+const iconosClimaSVG = {
+    despejado: `<svg viewBox="0 0 32 32">
+        <circle cx="16" cy="16" r="11" fill="var(--lima)" opacity=".18"/>
+        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)"/>
+        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(45 16 16)"/>
+        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(90 16 16)"/>
+        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(135 16 16)"/>
+        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(180 16 16)"/>
+        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(225 16 16)"/>
+        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(270 16 16)"/>
+        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(315 16 16)"/>
+        <circle cx="16" cy="16" r="7.4" fill="var(--lima)"/>
+        <circle cx="13.4" cy="13.4" r="2.6" fill="white" opacity=".38"/>
+    </svg>`,
+    parcial: `<svg viewBox="0 0 32 32">
+        <circle cx="12.5" cy="11" r="6.8" fill="var(--lima)" opacity=".2"/>
+        <circle cx="12.5" cy="11" r="5" fill="var(--lima)"/>
+        <circle cx="10.7" cy="9.4" r="1.7" fill="white" opacity=".4"/>
+        <path d="M9.5 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H9.5z" fill="var(--verde2)" opacity=".9" transform="translate(1.1,1.4)"/>
+        <path d="M9.5 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H9.5z" fill="var(--verde3)" transform="translate(-0.5,-0.6)"/>
+        <ellipse cx="10.5" cy="14.5" rx="3.6" ry="1.7" fill="white" opacity=".22" transform="rotate(-12 10.5 14.5) translate(-0.5,-0.6)"/>
+    </svg>`,
+    nublado: `<svg viewBox="0 0 32 32">
+        <path d="M8 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H8z" fill="var(--gris)" opacity=".85" transform="translate(1.3,1.6)"/>
+        <path d="M8 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H8z" fill="#c7cec2" transform="translate(-0.6,-0.7)"/>
+        <ellipse cx="9" cy="14" rx="3.8" ry="1.8" fill="white" opacity=".3" transform="rotate(-12 9 14) translate(-0.6,-0.7)"/>
+    </svg>`,
+    niebla: `<svg viewBox="0 0 32 32">
+        <path d="M9 18c-2.6 0-4.8-2-4.8-4.5 0-2.2 1.7-4.1 3.9-4.5.7-2.8 3.2-4.8 6.2-4.8 3.1 0 5.8 2.2 6.4 5.1 2.1.3 3.7 2.1 3.7 4.2 0 2.3-1.9 4.3-4.3 4.3H9z" fill="#c9cfc4"/>
+        <rect x="3" y="21" width="26" height="2.4" rx="1.2" fill="var(--gris)" opacity=".85"/>
+        <rect x="6" y="25.4" width="20" height="2.4" rx="1.2" fill="var(--gris)" opacity=".55"/>
+    </svg>`,
+    lluvia: `<svg viewBox="0 0 32 32">
+        <path d="M8 21c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#4d6f82" opacity=".85" transform="translate(1.1,1.3)"/>
+        <path d="M8 21c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#7fa0b3" transform="translate(-0.5,-0.6)"/>
+        <path d="M9.5 24.5c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/>
+        <path d="M17.5 25.8c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/>
+        <path d="M25 24.5c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/>
+    </svg>`,
+    nieve: `<svg viewBox="0 0 32 32">
+        <path d="M8 19c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#a9bfcc" opacity=".85" transform="translate(1.1,1.3)"/>
+        <path d="M8 19c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#d3e2ea" transform="translate(-0.5,-0.6)"/>
+        <g stroke="#5f97b8" stroke-width="1.3" stroke-linecap="round">
+            <line x1="8" y1="21" x2="8" y2="27"/><line x1="5.5" y1="22.5" x2="10.5" y2="25.5"/><line x1="10.5" y1="22.5" x2="5.5" y2="25.5"/>
+            <line x1="16" y1="22.5" x2="16" y2="28.5"/><line x1="13.3" y1="24" x2="18.7" y2="27"/><line x1="18.7" y1="24" x2="13.3" y2="27"/>
+            <line x1="24" y1="21" x2="24" y2="27"/><line x1="21.5" y1="22.5" x2="26.5" y2="25.5"/><line x1="26.5" y1="22.5" x2="21.5" y2="25.5"/>
+        </g>
+    </svg>`,
+    tormenta: `<svg viewBox="0 0 32 32">
+        <circle cx="17" cy="19" r="8" fill="var(--lima)" opacity=".18"/>
+        <path d="M8 18c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#2e3a40" opacity=".9" transform="translate(1.1,1.3)"/>
+        <path d="M8 18c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#4a5a63" transform="translate(-0.5,-0.6)"/>
+        <path d="M18.2 16.5l-5.6 7.7h4.1L14.8 30l7.3-9.6h-4.2l3.1-4.5-2.8.6z" fill="var(--lima)"/>
+    </svg>`,
+    'noche-despejado': `<svg viewBox="0 0 32 32">
+        <circle cx="16" cy="16" r="12" fill="#1a212b" opacity=".3"/>
+        <path d="M20 8c-4.4 0-8 3.6-8 8 0 4.4 3.6 8 8 8 1.8 0 3.5-.6 4.8-1.7-2.2 1.8-5.2 2.8-8.4 2.3-4.4-.7-7.8-4.5-8-8.8-.2-4.3 2.8-8.3 6.8-9.5.6-.2 1.2-.3 1.8-.3h.6c-.8 1.6-1.2 3.4-1.2 5.2 0 3.9 2.2 7.3 5.4 9.1-1.5.7-3.2 1.1-4.9 1.1-3.9 0-7.1-3.2-7.1-7.1 0-3.2 2.1-5.9 5.1-6.8z" fill="#e8e3d0" opacity=".9"/>
+        <circle cx="10" cy="20" r="2.5" fill="#e8e3d0" opacity=".08"/>
+        <circle cx="8" cy="14" r="1.8" fill="#e8e3d0" opacity=".06"/>
+        <circle cx="14" cy="10" r="1.5" fill="#e8e3d0" opacity=".05"/>
+    </svg>`,
+    'noche-parcial': `<svg viewBox="0 0 32 32">
+        <circle cx="9" cy="9" r="5.5" fill="#1a212b" opacity=".2"/>
+        <path d="M13 4c-3.6 0-6.5 2.9-6.5 6.5 0 3.6 2.9 6.5 6.5 6.5 1.5 0 2.8-.5 3.9-1.4-1.8 1.5-4.2 2.3-6.8 1.9-3.6-.6-6.3-3.7-6.5-7.2-.2-3.5 2.3-6.7 5.5-7.7.5-.2 1-.2 1.5-.2h.5c-.7 1.3-1 2.8-1 4.2 0 3.2 1.8 5.9 4.4 7.4-1.2.6-2.6.9-4 .9-3.2 0-5.8-2.6-5.8-5.8 0-2.6 1.7-4.8 4.1-5.5z" fill="#e8e3d0" opacity=".9" transform="translate(4,4)"/>
+        <path d="M6 22c-2.2 0-4-1.7-4-3.8 0-1.9 1.4-3.5 3.3-3.8.6-2.4 2.7-4.1 5.2-4.1 2.6 0 4.9 1.8 5.4 4.3 1.7.3 3.1 1.8 3.1 3.5 0 1.9-1.6 3.6-3.6 3.6H6z" fill="#c7cec2" transform="translate(4,4)"/>
+        <circle cx="10" cy="20" r="2" fill="#e8e3d0" opacity=".06"/>
+        <circle cx="6" cy="15" r="1.5" fill="#e8e3d0" opacity=".04"/>
+    </svg>`,
+    'noche-nublado': `<svg viewBox="0 0 32 32">
+        <rect x="3" y="4" width="26" height="24" rx="12" fill="#1a212b" opacity=".4"/>
+        <path d="M6 22c-2.2 0-4-1.7-4-3.8 0-1.9 1.4-3.5 3.3-3.8.6-2.4 2.7-4.1 5.2-4.1 2.6 0 4.9 1.8 5.4 4.3 1.7.3 3.1 1.8 3.1 3.5 0 1.9-1.6 3.6-3.6 3.6H6z" fill="#4a5a63" opacity=".9" transform="translate(2,2)"/>
+        <path d="M6 22c-2.2 0-4-1.7-4-3.8 0-1.9 1.4-3.5 3.3-3.8.6-2.4 2.7-4.1 5.2-4.1 2.6 0 4.9 1.8 5.4 4.3 1.7.3 3.1 1.8 3.1 3.5 0 1.9-1.6 3.6-3.6 3.6H6z" fill="#5a6b75" transform="translate(-0.8,-0.8)"/>
+        <circle cx="9" cy="14" rx="2.5" ry="1.2" fill="white" opacity=".08" transform="rotate(-12 9 14) translate(-0.8,-0.8)"/>
+    </svg>`,
+    'noche-lluvia': `<svg viewBox="0 0 32 32">
+        <path d="M4 20c-2 0-3.6-1.5-3.6-3.4 0-1.7 1.3-3.1 3-3.4.5-2.2 2.4-3.7 4.7-3.7 2.4 0 4.4 1.6 4.8 3.9 1.5.3 2.8 1.6 2.8 3.1 0 1.7-1.4 3.2-3.2 3.2H4z" fill="#4d6f82" opacity=".85" transform="translate(2,2)"/>
+        <path d="M4 20c-2 0-3.6-1.5-3.6-3.4 0-1.7 1.3-3.1 3-3.4.5-2.2 2.4-3.7 4.7-3.7 2.4 0 4.4 1.6 4.8 3.9 1.5.3 2.8 1.6 2.8 3.1 0 1.7-1.4 3.2-3.2 3.2H4z" fill="#7fa0b3" transform="translate(-0.5,-0.5)"/>
+        <path d="M5.5 23c0 1-0.8 1.8-1.8 1.8s-1.8-.8-1.8-1.8c0-1 1.8-3.7 1.8-3.7s1.8 2.7 1.8 3.7z" fill="#3f7fa0"/>
+        <path d="M12.5 24c0 1-0.8 1.8-1.8 1.8s-1.8-.8-1.8-1.8c0-1 1.8-3.7 1.8-3.7s1.8 2.7 1.8 3.7z" fill="#3f7fa0"/>
+        <path d="M19 23c0 1-0.8 1.8-1.8 1.8s-1.8-.8-1.8-1.8c0-1 1.8-3.7 1.8-3.7s1.8 2.7 1.8 3.7z" fill="#3f7fa0"/>
+    </svg>`,
+    'noche-tormenta': `<svg viewBox="0 0 32 32">
+        <rect x="2" y="2" width="28" height="28" rx="14" fill="#1a212b" opacity=".5"/>
+        <path d="M4 18c-2 0-3.6-1.5-3.6-3.4 0-1.7 1.3-3.1 3-3.4.5-2.2 2.4-3.7 4.7-3.7 2.4 0 4.4 1.6 4.8 3.9 1.5.3 2.8 1.6 2.8 3.1 0 1.7-1.4 3.2-3.2 3.2H4z" fill="#2e3a40" opacity=".9" transform="translate(2,2)"/>
+        <path d="M4 18c-2 0-3.6-1.5-3.6-3.4 0-1.7 1.3-3.1 3-3.4.5-2.2 2.4-3.7 4.7-3.7 2.4 0 4.4 1.6 4.8 3.9 1.5.3 2.8 1.6 2.8 3.1 0 1.7-1.4 3.2-3.2 3.2H4z" fill="#4a5a63" transform="translate(-0.5,-0.5)"/>
+        <path d="M15.5 13l-4.5 6.2h3.3L12.3 25l5.8-7.7h-3.4l2.5-3.6-2.2.5z" fill="#b8d96c" transform="translate(0.5,-0.5)"/>
+        <circle cx="18" cy="14" r="2" fill="white" opacity=".06"/>
+        <circle cx="22" cy="10" r="1.5" fill="white" opacity=".04"/>
+    </svg>`
+};
+
+function iconoClimaSVG(clase) {
+    return iconosClimaSVG[clase] || iconosClimaSVG.despejado;
+}
+
+function nombreDia(fecha, index) {
+    if (index === 0) return "Hoy";
+    if (index === 1) return "Mañana";
+    const d = new Date(fecha + "T12:00:00");
+    return d.toLocaleDateString("es-AR", { weekday: "short" }).replace(".", "");
+}
+
+function calcularAlertasClima(daily) {
+    const alertas = [];
+    if (daily.precipitation_probability_max) {
+        for (let i = 0; i < 3; i++) {
+            if (daily.precipitation_probability_max[i] >= 50) {
+                const dia = i === 0 ? "hoy" : (i === 1 ? "mañana" : nombreDia(daily.time[i], i).toLowerCase());
+                alertas.push("🌧️ " + daily.precipitation_probability_max[i] + "% de lluvia " + dia);
+                break;
+            }
+        }
+    }
+    for (let i = 0; i < 3; i++) {
+        if (daily.temperature_2m_min[i] <= 2) {
+            const dia = i === 0 ? "esta noche" : (i === 1 ? "mañana" : nombreDia(daily.time[i], i).toLowerCase());
+            alertas.push("❄️ Riesgo de helada " + dia);
+            break;
+        }
+    }
+    if (daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] >= 25) {
+        alertas.push("💨 Viento fuerte hoy, no apto para pulverizar");
+    }
+    return alertas;
+}
+
+function calcularInsightClima(daily) {
+    if (daily.precipitation_probability_max) {
+        for (let i = 0; i < 3; i++) {
+            if (daily.precipitation_probability_max[i] >= 50) {
+                const dia = i === 0 ? "hoy" : (i === 1 ? "mañana" : nombreDia(daily.time[i], i).toLowerCase());
+                return { tono: "atencion", icono: "⚠️", texto: "Lluvia prevista para " + dia + " — programá el corte antes." };
+            }
+        }
+    }
+    return { tono: "bueno", icono: "✅", texto: "Ventana despejada los próximos 3 días — buen momento para cortar." };
+}
+
+function renderClima(data, lat, lon, nombre) {
+    const current = data.current;
+    const daily = data.daily;
+    
+    // Detectar si es de noche (19:00 a 6:00)
+    const hora = new Date().getHours();
+    const esDeNoche = hora >= 19 || hora < 6;
+    
+    const info = codigoClima(current.weather_code, esDeNoche);
+    
+    document.getElementById("weatherIconPremium").innerHTML = iconoClimaSVG(info[2]);
+    document.getElementById("weatherTempPremium").textContent = Math.round(current.temperature_2m);
+    document.getElementById("weatherStatusPremium").textContent = info[1];
+    
+    const sensacion = current.apparent_temperature !== undefined ? Math.round(current.apparent_temperature) + "°C" : "--°C";
+    document.getElementById("weatherSensacion").textContent = "Sensación " + sensacion;
+    document.getElementById("weatherVientoPremium").textContent = Math.round(current.wind_speed_10m) + " km/h";
+    
+    const tarjeta = document.getElementById("weatherCard");
+    tarjeta.className = "weather-card-premium clima-" + info[2];
+    
+    const insight = calcularInsightClima(daily);
+    const insightEl = document.getElementById("weatherInsightPremium");
+    insightEl.className = "weather-premium-insight tono-" + insight.tono;
+    insightEl.style.display = "flex";
+    document.getElementById("weatherInsightIconPremium").textContent = insight.icono;
+    document.getElementById("weatherInsightTextoPremium").textContent = insight.texto;
+    
+    const alertas = calcularAlertasClima(daily);
+    document.getElementById("weatherAlertsPremium").innerHTML = alertas.map(t => '<span class="weather-premium-alert">' + t + '</span>').join("");
+    
+    for (let i = 0; i < 3; i++) {
+        const c = codigoClima(daily.weather_code[i], esDeNoche);
+        const diaNombre = i === 0 ? "Hoy" : (i === 1 ? "Mañana" : "Pasado");
+        const tempMax = Math.round(daily.temperature_2m_max[i]);
+        const tempMin = Math.round(daily.temperature_2m_min[i]);
+        document.getElementById("dayName" + i).textContent = diaNombre;
+        document.getElementById("dayIcon" + i).innerHTML = iconoClimaSVG(c[2]);
+        document.getElementById("dayTemp" + i).innerHTML = tempMax + "° <small>" + tempMin + "°</small>";
+    }
+}
+
+function cargarClima() {
+    const fallback = { lat: -39.1000, lon: -67.0667, nombre: "Villa Regina" };
+    const usar = function(lat, lon, nombre) {
+        const url = "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&current=temperature_2m,weather_code,wind_speed_10m,apparent_temperature&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,wind_gusts_10m_max&forecast_days=3&timezone=auto";
+        fetch(url).then(r => { if (!r.ok) throw new Error("weather"); return r.json(); }).then(data => renderClima(data, lat, lon, nombre)).catch(() => {
+            document.getElementById("weatherStatusPremium").textContent = "No se pudo actualizar";
+            document.getElementById("weatherVientoPremium").textContent = "-- km/h";
+            document.getElementById("weatherSensacion").textContent = "--°C";
+        });
+    };
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            pos => usar(pos.coords.latitude, pos.coords.longitude, "Tu ubicación"),
+            () => usar(fallback.lat, fallback.lon, fallback.nombre),
+            { enableHighAccuracy: false, timeout: 9000, maximumAge: 900000 }
+        );
+    } else {
+        usar(fallback.lat, fallback.lon, fallback.nombre);
+    }
+}
+
+/* =========================================================
+   APP / SPLASH
+========================================================= */
+
+function abrirApp() {
+    const welcome = document.getElementById("welcomeScreen");
+    const shell = document.getElementById("appShell");
+    if (!welcome || !shell) return;
+    welcome.classList.add("app-shell-hidden");
+    shell.classList.remove("app-shell-hidden");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    cargarClima();
+}
+
+document.getElementById("splashLogo").src = document.querySelector(".logo-principal").src;
+
+setTimeout(function() {
+    document.getElementById("splash").classList.add("oculto");
+    document.querySelectorAll(".hero-palabra").forEach(function(palabra, i) {
+        setTimeout(function() { palabra.classList.add("mostrar"); }, i * 230);
+    });
+}, 2000);
+
+/* =========================================================
+   MIS LOTES — FUNCIONES
 ========================================================= */
 
 const LOTES_KEY = "forrago_lotes_v1";
@@ -3911,19 +4249,11 @@ function verFichaLote(id) {
     const lotes = cargarLotes();
     const lote = lotes.find(l => l.id === id);
     if (!lote) return;
-
     const ultima = lote.mediciones.length ? lote.mediciones[lote.mediciones.length - 1] : null;
     const acumuladoKg = lote.mediciones.reduce((acc, m) => acc + (m.msTotal || 0), 0);
     const rollosAcumulados = lote.mediciones.reduce((acc, m) => acc + (m.rollos || 0), 0);
     const nombreCultivo = obtenerNombreCultivo(lote.cultivo, lote.tipo);
-
-    // Título
-    let html = '<div class="ficha-lote-titulo">' +
-        '<h3>' + escapeHtml(lote.nombre) + '</h3>' +
-        '<button class="lotes-volver" onclick="mostrarListaLotes()">Volver</button>' +
-        '</div>';
-
-    // Información del lote (grid)
+    let html = '<div class="ficha-lote-titulo"><h3>' + escapeHtml(lote.nombre) + '</h3><button class="lotes-volver" onclick="mostrarListaLotes()">Volver</button></div>';
     html += '<div class="ficha-lote-info">' +
         '<div class="ficha-lote-info-item"><span class="label">Cultivo</span><span class="value">' + nombreCultivo + '</span></div>' +
         '<div class="ficha-lote-info-item"><span class="label">Superficie</span><span class="value">' + numero(lote.superficie, 2) + ' ha</span></div>' +
@@ -3933,35 +4263,17 @@ function verFichaLote(id) {
         (lote.fechaSiembra ? '<div class="ficha-lote-info-item"><span class="label">Siembra</span><span class="value">' + formatearFecha(lote.fechaSiembra) + '</span></div>' : '') +
         (lote.observaciones ? '<div class="ficha-lote-info-item" style="grid-column:1 / -1;"><span class="label">Observaciones</span><span class="value" style="font-weight:400;color:var(--texto-suave);">' + escapeHtml(lote.observaciones) + '</span></div>' : '') +
         '</div>';
-
-    // Estadísticas destacadas
     if (ultima) {
         const totalUltimaMedicion = ultima.msHa * lote.superficie;
-        html += '<div class="ficha-stat-caja">' +
-            '<span class="numero-grande">' + numero(totalUltimaMedicion) + '</span>' +
-            '<span class="etiqueta">KG MS TOTALES (' + numero(lote.superficie, 2) + ' HA) · ÚLTIMA MEDICIÓN (' + formatearFecha(ultima.fecha) + ')</span>' +
-            '</div>';
-
+        html += '<div class="ficha-stat-caja"><span class="numero-grande">' + numero(totalUltimaMedicion) + '</span><span class="etiqueta">KG MS TOTALES (' + numero(lote.superficie, 2) + ' HA) · ÚLTIMA MEDICIÓN (' + formatearFecha(ultima.fecha) + ')</span></div>';
         html += '<div class="ficha-stats-fila">' +
-            '<div class="ficha-stat-card">' +
-            '<span class="stat-label">Producción acumulada</span>' +
-            '<span class="stat-value">' + numero(acumuladoKg) + ' kg MS</span>' +
-            '</div>' +
-            '<div class="ficha-stat-card">' +
-            '<span class="stat-label">Rollos estimados</span>' +
-            '<span class="stat-value destacado">' + (lote.tipo === "forraje" ? numero(rollosAcumulados, 1) : "-") + '</span>' +
-            '</div>' +
+            '<div class="ficha-stat-card"><span class="stat-label">Producción acumulada</span><span class="stat-value">' + numero(acumuladoKg) + ' kg MS</span></div>' +
+            '<div class="ficha-stat-card"><span class="stat-label">Rollos estimados</span><span class="stat-value destacado">' + (lote.tipo === "forraje" ? numero(rollosAcumulados, 1) : "-") + '</span></div>' +
             '</div>';
-
-        // Badge de rendimiento
-        html += '<div style="text-align:center;margin-bottom:16px;">' +
-            '<span class="lote-card-badge ' + ultima.clase + '" style="font-size:12px;padding:6px 18px;">' + ultima.categoria + '</span>' +
-            '</div>';
+        html += '<div style="text-align:center;margin-bottom:16px;"><span class="lote-card-badge ' + ultima.clase + '" style="font-size:12px;padding:6px 18px;">' + ultima.categoria + '</span></div>';
     } else {
         html += '<div class="lote-vacio">Este lote todavía no tiene mediciones.<br>Hacé una evaluación y guardala para empezar a ver datos.</div>';
     }
-
-    // Botones de acción
     html += '<div class="ficha-botones">' +
         '<button class="calcular btn-full" onclick="trabajarConLote(\'' + lote.id + '\')">➕ NUEVA MEDICIÓN</button>' +
         '<button class="btn-secundario" onclick="verHistorialLote(\'' + lote.id + '\')">📊 HISTORIAL</button>' +
@@ -3969,7 +4281,6 @@ function verFichaLote(id) {
         '<button class="btn-secundario" onclick="exportarInformeLote(\'' + lote.id + '\')">📄 INFORME PDF</button>' +
         '<button class="btn-secundario" style="color:#b3372c;border-color:#fde8e8;" onclick="eliminarLote(\'' + lote.id + '\')">🗑️ ELIMINAR</button>' +
         '</div>';
-
     document.getElementById("loteFicha").innerHTML = html;
     mostrarSubvistaLotes("loteFicha");
 }
@@ -3982,20 +4293,11 @@ function verHistorialLote(id) {
     if (lote.mediciones.length === 0) {
         html += '<div class="lote-vacio">Todavía no hay mediciones registradas.</div>';
     } else {
-        html += '<div class="historial-grafico">' +
-            graficoHistorial(lote.mediciones) +
-            '</div>' +
-            '<table class="historial-tabla">' +
-            '<thead><tr><th>Fecha</th><th>MS/ha</th><th>Rendimiento</th><th></th></tr></thead>' +
-            '<tbody>' +
+        html += '<div class="historial-grafico">' + graficoHistorial(lote.mediciones) + '</div>' +
+            '<table class="historial-tabla"><thead><tr><th>Fecha</th><th>MS/ha</th><th>Rendimiento</th><th></th></tr></thead><tbody>' +
             lote.mediciones.slice().reverse().map((m, idx) => {
                 const originalIdx = lote.mediciones.length - 1 - idx;
-                return '<tr>' +
-                    '<td>' + formatearFecha(m.fecha) + '</td>' +
-                    '<td><strong>' + numero(m.msHa) + ' kg</strong></td>' +
-                    '<td><span class="lote-card-badge ' + m.clase + '">' + m.categoria + '</span></td>' +
-                    '<td><button class="historial-borrar" onclick="eliminarMedicion(\'' + lote.id + '\',' + originalIdx + ')" title="Borrar medición">✕</button></td>' +
-                    '</tr>';
+                return '<tr><td>' + formatearFecha(m.fecha) + '</td><td><strong>' + numero(m.msHa) + ' kg</strong></td><td><span class="lote-card-badge ' + m.clase + '">' + m.categoria + '</span></td><td><button class="historial-borrar" onclick="eliminarMedicion(\'' + lote.id + '\',' + originalIdx + ')" title="Borrar medición">✕</button></td></tr>';
             }).join("") +
             '</tbody></table>';
     }
@@ -4135,155 +4437,6 @@ function exportarInformeLote(id) {
     window.print();
     document.body.classList.remove("imprimiendo-lote");
 }
-
-/* =========================================================
-   CLIMA
-========================================================= */
-
-function codigoClima(codigo) {
-    if (codigo === 0) return ["☀️", "Despejado", "despejado"];
-    if ([1, 2].includes(codigo)) return ["🌤️", "Parcialmente nublado", "parcial"];
-    if (codigo === 3) return ["☁️", "Nublado", "nublado"];
-    if ([45, 48].includes(codigo)) return ["🌫️", "Niebla", "niebla"];
-    if ([51, 53, 55, 56, 57].includes(codigo)) return ["🌦️", "Llovizna", "lluvia"];
-    if ([61, 63, 65, 66, 67].includes(codigo)) return ["🌧️", "Lluvia", "lluvia"];
-    if ([71, 73, 75, 77].includes(codigo)) return ["🌨️", "Nieve", "nieve"];
-    if ([80, 81, 82].includes(codigo)) return ["🌦️", "Chaparrones", "lluvia"];
-    if ([95, 96, 99].includes(codigo)) return ["⛈️", "Tormenta", "tormenta"];
-    return ["🌤️", "Condiciones variables", "parcial"];
-}
-
-const iconosClimaSVG = {
-    despejado: `<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="11" fill="var(--lima)" opacity=".18"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(45 16 16)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(90 16 16)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(135 16 16)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(180 16 16)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(225 16 16)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(270 16 16)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(315 16 16)"/><circle cx="16" cy="16" r="7.4" fill="var(--lima)"/><circle cx="13.4" cy="13.4" r="2.6" fill="white" opacity=".38"/></svg>`,
-    parcial: `<svg viewBox="0 0 32 32"><circle cx="12.5" cy="11" r="6.8" fill="var(--lima)" opacity=".2"/><circle cx="12.5" cy="11" r="5" fill="var(--lima)"/><circle cx="10.7" cy="9.4" r="1.7" fill="white" opacity=".4"/><path d="M9.5 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H9.5z" fill="var(--verde2)" opacity=".9" transform="translate(1.1,1.4)"/><path d="M9.5 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H9.5z" fill="var(--verde3)" transform="translate(-0.5,-0.6)"/><ellipse cx="10.5" cy="14.5" rx="3.6" ry="1.7" fill="white" opacity=".22" transform="rotate(-12 10.5 14.5) translate(-0.5,-0.6)"/></svg>`,
-    nublado: `<svg viewBox="0 0 32 32"><path d="M8 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H8z" fill="var(--gris)" opacity=".85" transform="translate(1.3,1.6)"/><path d="M8 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H8z" fill="#c7cec2" transform="translate(-0.6,-0.7)"/><ellipse cx="9" cy="14" rx="3.8" ry="1.8" fill="white" opacity=".3" transform="rotate(-12 9 14) translate(-0.6,-0.7)"/></svg>`,
-    niebla: `<svg viewBox="0 0 32 32"><path d="M9 18c-2.6 0-4.8-2-4.8-4.5 0-2.2 1.7-4.1 3.9-4.5.7-2.8 3.2-4.8 6.2-4.8 3.1 0 5.8 2.2 6.4 5.1 2.1.3 3.7 2.1 3.7 4.2 0 2.3-1.9 4.3-4.3 4.3H9z" fill="#c9cfc4"/><rect x="3" y="21" width="26" height="2.4" rx="1.2" fill="var(--gris)" opacity=".85"/><rect x="6" y="25.4" width="20" height="2.4" rx="1.2" fill="var(--gris)" opacity=".55"/></svg>`,
-    lluvia: `<svg viewBox="0 0 32 32"><path d="M8 21c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#4d6f82" opacity=".85" transform="translate(1.1,1.3)"/><path d="M8 21c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#7fa0b3" transform="translate(-0.5,-0.6)"/><path d="M9.5 24.5c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/><path d="M17.5 25.8c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/><path d="M25 24.5c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/></svg>`,
-    nieve: `<svg viewBox="0 0 32 32"><path d="M8 19c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#a9bfcc" opacity=".85" transform="translate(1.1,1.3)"/><path d="M8 19c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#d3e2ea" transform="translate(-0.5,-0.6)"/><g stroke="#5f97b8" stroke-width="1.3" stroke-linecap="round"><line x1="8" y1="21" x2="8" y2="27"/><line x1="5.5" y1="22.5" x2="10.5" y2="25.5"/><line x1="10.5" y1="22.5" x2="5.5" y2="25.5"/><line x1="16" y1="22.5" x2="16" y2="28.5"/><line x1="13.3" y1="24" x2="18.7" y2="27"/><line x1="18.7" y1="24" x2="13.3" y2="27"/><line x1="24" y1="21" x2="24" y2="27"/><line x1="21.5" y1="22.5" x2="26.5" y2="25.5"/><line x1="26.5" y1="22.5" x2="21.5" y2="25.5"/></g></svg>`,
-    tormenta: `<svg viewBox="0 0 32 32"><circle cx="17" cy="19" r="8" fill="var(--lima)" opacity=".18"/><path d="M8 18c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#2e3a40" opacity=".9" transform="translate(1.1,1.3)"/><path d="M8 18c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#4a5a63" transform="translate(-0.5,-0.6)"/><path d="M18.2 16.5l-5.6 7.7h4.1L14.8 30l7.3-9.6h-4.2l3.1-4.5-2.8.6z" fill="var(--lima)"/></svg>`
-};
-
-function iconoClimaSVG(clase) {
-    return iconosClimaSVG[clase] || iconosClimaSVG.parcial;
-}
-
-function nombreDia(fecha, index) {
-    if (index === 0) return "Hoy";
-    if (index === 1) return "Mañana";
-    const d = new Date(fecha + "T12:00:00");
-    return d.toLocaleDateString("es-AR", { weekday: "short" }).replace(".", "");
-}
-
-function calcularAlertasClima(daily) {
-    const alertas = [];
-    if (daily.precipitation_probability_max) {
-        for (let i = 0; i < 3; i++) {
-            if (daily.precipitation_probability_max[i] >= 50) {
-                const dia = i === 0 ? "hoy" : (i === 1 ? "mañana" : nombreDia(daily.time[i], i).toLowerCase());
-                alertas.push("🌧️ " + daily.precipitation_probability_max[i] + "% de lluvia " + dia);
-                break;
-            }
-        }
-    }
-    for (let i = 0; i < 3; i++) {
-        if (daily.temperature_2m_min[i] <= 2) {
-            const dia = i === 0 ? "esta noche" : (i === 1 ? "mañana" : nombreDia(daily.time[i], i).toLowerCase());
-            alertas.push("❄️ Riesgo de helada " + dia);
-            break;
-        }
-    }
-    if (daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] >= 25) {
-        alertas.push("💨 Viento fuerte hoy, no apto para pulverizar");
-    }
-    return alertas;
-}
-
-function calcularInsightClima(daily) {
-    if (daily.precipitation_probability_max) {
-        for (let i = 0; i < 3; i++) {
-            if (daily.precipitation_probability_max[i] >= 50) {
-                const dia = i === 0 ? "hoy" : (i === 1 ? "mañana" : nombreDia(daily.time[i], i).toLowerCase());
-                return { tono: "atencion", icono: "⚠️", texto: "Lluvia prevista para " + dia + " — programá el corte antes." };
-            }
-        }
-    }
-    return { tono: "bueno", icono: "✅", texto: "Ventana despejada los próximos 3 días — buen momento para cortar." };
-}
-
-function renderClima(data, lat, lon, nombre) {
-    const current = data.current;
-    const daily = data.daily;
-    const info = codigoClima(current.weather_code);
-    document.getElementById("weatherIconPremium").innerHTML = iconoClimaSVG(info[2]);
-    document.getElementById("weatherTempPremium").textContent = Math.round(current.temperature_2m);
-    document.getElementById("weatherStatusPremium").textContent = info[1];
-    const sensacion = current.apparent_temperature !== undefined ? Math.round(current.apparent_temperature) + "°C" : "--°C";
-    document.getElementById("weatherSensacion").textContent = "Sensación " + sensacion;
-    document.getElementById("weatherVientoPremium").textContent = Math.round(current.wind_speed_10m) + " km/h";
-    const tarjeta = document.getElementById("weatherCard");
-    tarjeta.className = "weather-card-premium clima-" + info[2];
-    const insight = calcularInsightClima(daily);
-    const insightEl = document.getElementById("weatherInsightPremium");
-    insightEl.className = "weather-premium-insight tono-" + insight.tono;
-    insightEl.style.display = "flex";
-    document.getElementById("weatherInsightIconPremium").textContent = insight.icono;
-    document.getElementById("weatherInsightTextoPremium").textContent = insight.texto;
-    const alertas = calcularAlertasClima(daily);
-    document.getElementById("weatherAlertsPremium").innerHTML = alertas.map(t => '<span class="weather-premium-alert">' + t + '</span>').join("");
-    for (let i = 0; i < 3; i++) {
-        const c = codigoClima(daily.weather_code[i]);
-        const diaNombre = i === 0 ? "Hoy" : (i === 1 ? "Mañana" : "Pasado");
-        const tempMax = Math.round(daily.temperature_2m_max[i]);
-        const tempMin = Math.round(daily.temperature_2m_min[i]);
-        document.getElementById("dayName" + i).textContent = diaNombre;
-        document.getElementById("dayIcon" + i).innerHTML = iconoClimaSVG(c[2]);
-        document.getElementById("dayTemp" + i).innerHTML = tempMax + "° <small>" + tempMin + "°</small>";
-    }
-}
-
-function cargarClima() {
-    const fallback = { lat: -39.1000, lon: -67.0667, nombre: "Villa Regina" };
-    const usar = function(lat, lon, nombre) {
-        const url = "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&current=temperature_2m,weather_code,wind_speed_10m,apparent_temperature&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,wind_gusts_10m_max&forecast_days=3&timezone=auto";
-        fetch(url).then(r => { if (!r.ok) throw new Error("weather"); return r.json(); }).then(data => renderClima(data, lat, lon, nombre)).catch(() => {
-            document.getElementById("weatherStatusPremium").textContent = "No se pudo actualizar";
-            document.getElementById("weatherVientoPremium").textContent = "-- km/h";
-            document.getElementById("weatherSensacion").textContent = "--°C";
-        });
-    };
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            pos => usar(pos.coords.latitude, pos.coords.longitude, "Tu ubicación"),
-            () => usar(fallback.lat, fallback.lon, fallback.nombre),
-            { enableHighAccuracy: false, timeout: 9000, maximumAge: 900000 }
-        );
-    } else {
-        usar(fallback.lat, fallback.lon, fallback.nombre);
-    }
-}
-
-/* =========================================================
-   APP / SPLASH
-========================================================= */
-
-function abrirApp() {
-    const welcome = document.getElementById("welcomeScreen");
-    const shell = document.getElementById("appShell");
-    if (!welcome || !shell) return;
-    welcome.classList.add("app-shell-hidden");
-    shell.classList.remove("app-shell-hidden");
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    cargarClima();
-}
-
-document.getElementById("splashLogo").src = document.querySelector(".logo-principal").src;
-
-setTimeout(function() {
-    document.getElementById("splash").classList.add("oculto");
-    document.querySelectorAll(".hero-palabra").forEach(function(palabra, i) {
-        setTimeout(function() { palabra.classList.add("mostrar"); }, i * 230);
-    });
-}, 2000);
 
 /* =========================================================
    INICIALIZACIÓN
