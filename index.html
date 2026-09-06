@@ -2510,10 +2510,10 @@ body {
     </section>
 
     <!-- =========================================================
-       "¿QUÉ QUERÉS EVALUAR?" — MÁS CERCA DEL CLIMA
+       "¿QUÉ QUERÉS EVALUAR?" — SOLO EN CALCULADORA PRINCIPAL
     ========================================================= -->
 
-    <div class="seccion seccion-simple">
+    <div id="tituloEvaluar" class="seccion seccion-simple">
         <h2>¿Qué querés evaluar?</h2>
     </div>
 
@@ -2542,6 +2542,11 @@ body {
 
         <div class="sello-credibilidad">
             <span>✓</span> Rendimientos de referencia verificados con fuentes INTA
+        </div>
+
+        <!-- TÍTULO "GESTIONÁ" — NUEVO, ARRIBA DE MIS LOTES Y AGENDA -->
+        <div class="seccion seccion-simple" style="margin:20px 0 12px;">
+            <h2>Gestioná</h2>
         </div>
 
         <!-- MIS LOTES -->
@@ -4126,6 +4131,9 @@ function guardarLotesStorage(lotes) {
 }
 
 function abrirMisLotes() {
+    // Ocultar el título "¿Qué querés evaluar?"
+    document.getElementById("tituloEvaluar").style.display = "none";
+    
     document.getElementById("vistaCalculadora").style.display = "none";
     document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "none");
     document.querySelector(".header").style.display = "none";
@@ -4137,6 +4145,9 @@ function abrirMisLotes() {
 }
 
 function cerrarMisLotes() {
+    // Mostrar el título "¿Qué querés evaluar?" nuevamente
+    document.getElementById("tituloEvaluar").style.display = "";
+    
     document.getElementById("vistaLotes").style.display = "none";
     document.getElementById("vistaCalculadora").style.display = "";
     document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "");
@@ -4491,6 +4502,38 @@ function exportarInformeLote(id) {
 }
 
 /* =========================================================
+   AGENDA DE CAMPO
+========================================================= */
+
+function abrirAgendaCampo() {
+    // Ocultar el título "¿Qué querés evaluar?"
+    document.getElementById("tituloEvaluar").style.display = "none";
+    
+    document.getElementById("vistaCalculadora").style.display = "none";
+    document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "none");
+    document.querySelector(".header").style.display = "none";
+    document.querySelector(".hero").style.display = "none";
+    document.getElementById("weatherCard").style.display = "none";
+    document.getElementById("vistaLotes").style.display = "none";
+    document.getElementById("vistaAgenda").style.display = "block";
+    renderAgendaCampo();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function cerrarAgendaCampo() {
+    // Mostrar el título "¿Qué querés evaluar?" nuevamente
+    document.getElementById("tituloEvaluar").style.display = "";
+    
+    document.getElementById("vistaAgenda").style.display = "none";
+    document.getElementById("vistaCalculadora").style.display = "";
+    document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "");
+    document.querySelector(".header").style.display = "";
+    document.querySelector(".hero").style.display = "";
+    document.getElementById("weatherCard").style.display = "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* =========================================================
    INICIALIZACIÓN
 ========================================================= */
 
@@ -4523,14 +4566,7 @@ if ("serviceWorker" in navigator) {
 
 <script>
 /* =========================================================================
-   AGENDA DE CAMPO
-   Módulo aislado — no modifica calcular(), guardarLote() ni nada existente.
-   Solo LEE lotes de localStorage (misma clave LOTES_KEY que ya usa la app)
-   y agrega el campo "trabajos" a cada lote la primera vez que se usa.
-========================================================================= */
-
-/* =========================================================================
-   1. ESTILOS — inyectados para no tocar el <style> del archivo principal
+   AGENDA DE CAMPO — MÓDULO COMPLETO
 ========================================================================= */
 
 (function inyectarEstilosAgenda() {
@@ -4717,7 +4753,6 @@ if ("serviceWorker" in navigator) {
     }
     .trabajo-form-panel.mostrar { display:block; animation:aparecer .3s ease; }
 
-    /* AGENDA INTELIGENTE — tarjeta por lote */
     .agenda-lote-card {
         margin-bottom:22px;
         padding-bottom:4px;
@@ -4732,42 +4767,6 @@ if ("serviceWorker" in navigator) {
     .agenda-lote-header strong { display:block; font-size:16px; font-weight:800; color:var(--verde); }
     .agenda-lote-header span { display:block; margin-top:2px; font-size:10.5px; color:var(--gris); }
 
-    .agenda-item {
-        display:flex;
-        align-items:flex-start;
-        gap:14px;
-        padding:18px 20px;
-        border-radius:16px;
-        background:var(--blanco);
-        border:1px solid var(--borde);
-        box-shadow:var(--sombra);
-        margin-bottom:12px;
-    }
-    .agenda-item.vencido { border-color:#e8b3a8; }
-    .agenda-icono { font-size:22px; flex-shrink:0; }
-    .agenda-info { flex:1; min-width:0; }
-    .agenda-info .lote-nombre { font-size:10px; font-weight:700; color:var(--verde2); text-transform:uppercase; letter-spacing:.4px; }
-    .agenda-info strong { display:block; margin-top:2px; font-size:14px; color:var(--texto); font-weight:800; }
-    .agenda-info .fecha-linea { margin-top:3px; font-size:11px; color:var(--gris); }
-    .agenda-alerta-linea {
-        display:flex;
-        align-items:center;
-        gap:6px;
-        margin-top:10px;
-        padding:8px 12px;
-        border-radius:10px;
-        background:#fdf0dc;
-        color:#b07a2e;
-        font-size:10.5px;
-        font-weight:700;
-    }
-    .agenda-alerta-linea.buena { background:var(--verde-claro); color:var(--verde2); }
-    .agenda-acciones-col {
-        display:flex;
-        flex-direction:column;
-        gap:6px;
-        flex-shrink:0;
-    }
     .agenda-vacia {
         text-align:center;
         padding:50px 20px;
@@ -4792,41 +4791,26 @@ if ("serviceWorker" in navigator) {
 })();
 
 /* =========================================================================
-   2. MODELO DE ETAPAS FENOLÓGICAS
-   Aproximación por días calendario. No reemplaza el criterio a campo.
+   MODELO DE ETAPAS FENOLÓGICAS
 ========================================================================= */
 
 const etapasFenologicas = {
-    // --- Anuales de invierno ---
-    avena:      { cicloDias: 90, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: ["helada"] }, { nombre: "Macollaje", desde: 15, riesgos: ["helada"] }, { nombre: "Encañazón", desde: 45, riesgos: ["hidrico"] }, { nombre: "Espigazón", desde: 75, riesgos: ["hidrico", "ventana_corte"] } ] },
-    triticale:  { cicloDias: 100, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: ["helada"] }, { nombre: "Macollaje", desde: 15, riesgos: ["helada"] }, { nombre: "Encañazón", desde: 50, riesgos: ["hidrico"] }, { nombre: "Espigazón", desde: 85, riesgos: ["hidrico", "ventana_corte"] } ] },
-    cebada:     { cicloDias: 95, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: ["helada"] }, { nombre: "Macollaje", desde: 15, riesgos: ["helada"] }, { nombre: "Encañazón", desde: 45, riesgos: ["hidrico"] }, { nombre: "Espigazón", desde: 80, riesgos: ["hidrico", "ventana_corte"] } ] },
-    centeno:    { cicloDias: 100, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: ["helada"] }, { nombre: "Macollaje", desde: 15, riesgos: ["helada"] }, { nombre: "Encañazón", desde: 50, riesgos: ["hidrico"] }, { nombre: "Espigazón", desde: 85, riesgos: ["hidrico", "ventana_corte"] } ] },
-    raygrass:   { cicloDias: 80, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: ["helada"] }, { nombre: "Macollaje", desde: 15, riesgos: ["helada"] }, { nombre: "Encañazón", desde: 40, riesgos: ["hidrico"] }, { nombre: "Espigazón", desde: 65, riesgos: ["hidrico", "ventana_corte"] } ] },
-    vicia:      { cicloDias: 90, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 15, riesgos: ["helada"] }, { nombre: "Prefloración", desde: 50, riesgos: ["hidrico"] }, { nombre: "Floración", desde: 75, riesgos: ["hidrico", "ventana_corte"] } ] },
-
-    // --- Anuales de verano ---
-    moha:  { cicloDias: 60, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: [] }, { nombre: "Macollaje", desde: 10, riesgos: ["hidrico"] }, { nombre: "Elongación", desde: 25, riesgos: ["hidrico"] }, { nombre: "Floración", desde: 45, riesgos: ["hidrico", "ventana_corte"] } ] },
-    mijo:  { cicloDias: 60, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: [] }, { nombre: "Macollaje", desde: 10, riesgos: ["hidrico"] }, { nombre: "Elongación", desde: 25, riesgos: ["hidrico"] }, { nombre: "Floración", desde: 45, riesgos: ["hidrico", "ventana_corte"] } ] },
-
-    // --- Perennes (ciclo de rebrote, no desde siembra) ---
-    alfalfa:    { cicloDias: 35, perenne: true, etapas: [ { nombre: "Rebrote", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 10, riesgos: ["hidrico"] }, { nombre: "Prefloración", desde: 25, riesgos: ["hidrico", "ventana_corte"] } ] },
-    festuca:    { cicloDias: 30, perenne: true, etapas: [ { nombre: "Rebrote", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 10, riesgos: ["hidrico"] }, { nombre: "Prefloración", desde: 22, riesgos: ["hidrico", "ventana_corte"] } ] },
-    trebol:     { cicloDias: 30, perenne: true, etapas: [ { nombre: "Rebrote", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 10, riesgos: ["hidrico"] }, { nombre: "Prefloración", desde: 22, riesgos: ["hidrico", "ventana_corte"] } ] },
+    avena: { cicloDias: 90, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: ["helada"] }, { nombre: "Macollaje", desde: 15, riesgos: ["helada"] }, { nombre: "Encañazón", desde: 45, riesgos: ["hidrico"] }, { nombre: "Espigazón", desde: 75, riesgos: ["hidrico", "ventana_corte"] } ] },
+    triticale: { cicloDias: 100, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: ["helada"] }, { nombre: "Macollaje", desde: 15, riesgos: ["helada"] }, { nombre: "Encañazón", desde: 50, riesgos: ["hidrico"] }, { nombre: "Espigazón", desde: 85, riesgos: ["hidrico", "ventana_corte"] } ] },
+    cebada: { cicloDias: 95, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: ["helada"] }, { nombre: "Macollaje", desde: 15, riesgos: ["helada"] }, { nombre: "Encañazón", desde: 45, riesgos: ["hidrico"] }, { nombre: "Espigazón", desde: 80, riesgos: ["hidrico", "ventana_corte"] } ] },
+    centeno: { cicloDias: 100, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: ["helada"] }, { nombre: "Macollaje", desde: 15, riesgos: ["helada"] }, { nombre: "Encañazón", desde: 50, riesgos: ["hidrico"] }, { nombre: "Espigazón", desde: 85, riesgos: ["hidrico", "ventana_corte"] } ] },
+    raygrass: { cicloDias: 80, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: ["helada"] }, { nombre: "Macollaje", desde: 15, riesgos: ["helada"] }, { nombre: "Encañazón", desde: 40, riesgos: ["hidrico"] }, { nombre: "Espigazón", desde: 65, riesgos: ["hidrico", "ventana_corte"] } ] },
+    vicia: { cicloDias: 90, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 15, riesgos: ["helada"] }, { nombre: "Prefloración", desde: 50, riesgos: ["hidrico"] }, { nombre: "Floración", desde: 75, riesgos: ["hidrico", "ventana_corte"] } ] },
+    moha: { cicloDias: 60, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: [] }, { nombre: "Macollaje", desde: 10, riesgos: ["hidrico"] }, { nombre: "Elongación", desde: 25, riesgos: ["hidrico"] }, { nombre: "Floración", desde: 45, riesgos: ["hidrico", "ventana_corte"] } ] },
+    mijo: { cicloDias: 60, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: [] }, { nombre: "Macollaje", desde: 10, riesgos: ["hidrico"] }, { nombre: "Elongación", desde: 25, riesgos: ["hidrico"] }, { nombre: "Floración", desde: 45, riesgos: ["hidrico", "ventana_corte"] } ] },
+    alfalfa: { cicloDias: 35, perenne: true, etapas: [ { nombre: "Rebrote", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 10, riesgos: ["hidrico"] }, { nombre: "Prefloración", desde: 25, riesgos: ["hidrico", "ventana_corte"] } ] },
+    festuca: { cicloDias: 30, perenne: true, etapas: [ { nombre: "Rebrote", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 10, riesgos: ["hidrico"] }, { nombre: "Prefloración", desde: 22, riesgos: ["hidrico", "ventana_corte"] } ] },
+    trebol: { cicloDias: 30, perenne: true, etapas: [ { nombre: "Rebrote", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 10, riesgos: ["hidrico"] }, { nombre: "Prefloración", desde: 22, riesgos: ["hidrico", "ventana_corte"] } ] },
     trebolrojo: { cicloDias: 30, perenne: true, etapas: [ { nombre: "Rebrote", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 10, riesgos: ["hidrico"] }, { nombre: "Prefloración", desde: 22, riesgos: ["hidrico", "ventana_corte"] } ] },
-
-    // --- Silaje ---
-    maiz:  { cicloDias: 130, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 20, riesgos: ["hidrico"] }, { nombre: "Floración", desde: 55, riesgos: ["hidrico"] }, { nombre: "Llenado de grano", desde: 85, riesgos: ["ventana_corte"] } ] },
+    maiz: { cicloDias: 130, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 20, riesgos: ["hidrico"] }, { nombre: "Floración", desde: 55, riesgos: ["hidrico"] }, { nombre: "Llenado de grano", desde: 85, riesgos: ["ventana_corte"] } ] },
     sorgo: { cicloDias: 120, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 20, riesgos: ["hidrico"] }, { nombre: "Panojamiento", desde: 50, riesgos: ["hidrico"] }, { nombre: "Grano pastoso", desde: 80, riesgos: ["ventana_corte"] } ] }
 };
 
-/* =========================================================================
-   3. CÁLCULO DE ETAPA ACTUAL — función pura, sin efectos secundarios
-========================================================================= */
-
-// Para perennes, la base del ciclo de rebrote es el último CORTE REALIZADO
-// (trabajo tipo "Corte" con estado "realizado"), nunca una medición/muestra.
-// Una medición es solo una foto del estado del lote, no reinicia el rebrote.
 function obtenerFechaBaseCiclo(lote, modelo) {
     if (modelo.perenne) {
         const cortes = (lote.trabajos || [])
@@ -4843,13 +4827,10 @@ function obtenerFechaBaseCiclo(lote, modelo) {
 function calcularEtapaActual(lote) {
     const modelo = etapasFenologicas[lote.cultivo];
     if (!modelo) return null;
-
     const base = obtenerFechaBaseCiclo(lote, modelo);
     if (!base) return null;
-
     const dias = Math.floor((Date.now() - new Date(base.fecha + "T00:00:00").getTime()) / 86400000);
     if (dias < 0) return null;
-
     const etapas = modelo.etapas;
     let indiceActual = 0;
     for (let i = 0; i < etapas.length; i++) {
@@ -4860,13 +4841,8 @@ function calcularEtapaActual(lote) {
     const diasHastaSiguiente = siguiente ? siguiente.desde - dias : null;
     const finalDeCiclo = siguiente ? siguiente.desde : modelo.cicloDias;
     const progreso = Math.max(0, Math.min(100, Math.round((dias / finalDeCiclo) * 100)));
-
     return { dias, actual, siguiente, diasHastaSiguiente, progreso, esPerenne: !!modelo.perenne, origenFecha: base.origen };
 }
-
-/* =========================================================================
-   4. MOTOR DE ALERTAS — cruza etapa + riego + clima
-========================================================================= */
 
 function hayLluviaEnDias(daily, cantidadDias) {
     if (!daily || !daily.precipitation_probability_max) return false;
@@ -4880,7 +4856,6 @@ function evaluarAlertaEtapa(lote, etapaInfo, daily) {
     if (!etapaInfo || !daily) return null;
     const riesgos = etapaInfo.actual.riesgos;
     const conRiego = lote.riego && lote.riego !== "Secano";
-
     if (riesgos.includes("helada")) {
         for (let i = 0; i < 3; i++) {
             if (daily.temperature_2m_min[i] <= 2) {
@@ -4888,14 +4863,12 @@ function evaluarAlertaEtapa(lote, etapaInfo, daily) {
             }
         }
     }
-
     if (riesgos.includes("ventana_corte") && etapaInfo.diasHastaSiguiente !== null && etapaInfo.diasHastaSiguiente <= 7) {
         if (hayLluviaEnDias(daily, 3)) {
             return { tono: "atencion", icono: "🌧️", texto: "Se acerca la ventana de corte y hay lluvia prevista — evaluá adelantarlo." };
         }
         return { tono: "bueno", icono: "✅", texto: "Ventana de corte cerca, próximos días despejados." };
     }
-
     if (riesgos.includes("hidrico")) {
         const lluviaProxima = hayLluviaEnDias(daily, 3);
         if (!conRiego && !lluviaProxima) {
@@ -4908,7 +4881,6 @@ function evaluarAlertaEtapa(lote, etapaInfo, daily) {
             return { tono: "bueno", icono: "🌧️", texto: "Lluvia prevista — podés postergar el riego." };
         }
     }
-
     return null;
 }
 
@@ -4918,11 +4890,9 @@ function evaluarAlertaTrabajo(trabajo, lote, daily) {
     if (!daily) return null;
     const hoy = new Date().toISOString().slice(0, 10);
     const dias = Math.round((new Date(trabajo.fechaPlan + "T00:00:00") - new Date(hoy + "T00:00:00")) / 86400000);
-    if (dias < 0 || dias > 2) return null; // solo tenemos pronóstico a 3 días
-
+    if (dias < 0 || dias > 2) return null;
     const lluviaEseDia = daily.precipitation_probability_max && daily.precipitation_probability_max[dias] >= 50;
     const vientoEseDia = daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[dias] >= 25;
-
     if (trabajo.tipo === "Corte" && lluviaEseDia) {
         return { tono: "atencion", texto: "Lluvia prevista ese día — puede complicar el corte." };
     }
@@ -4937,62 +4907,36 @@ function evaluarAlertaTrabajo(trabajo, lote, daily) {
     return null;
 }
 
-/* =========================================================================
-   5. RENDER: ETAPA FENOLÓGICA EN LA FICHA DEL LOTE
-========================================================================= */
-
 function renderEtapaFenologicaFicha(lote) {
     const modelo = etapasFenologicas[lote.cultivo];
     if (!modelo) return "";
-
     const base = obtenerFechaBaseCiclo(lote, modelo);
-
     if (!base) {
         const mensaje = modelo.perenne
             ? "⚠️ Registrá el último corte real (o cargá la fecha de siembra) para activar el seguimiento fenológico."
             : "⚠️ Cargá la fecha de siembra en este lote para activar el seguimiento fenológico.";
-        return '<div class="etapa-vacia">' +
-            '<span>' + mensaje + '</span>' +
-            '<button onclick="editarLote(\'' + lote.id + '\')">CARGAR</button>' +
-            '</div>';
+        return '<div class="etapa-vacia"><span>' + mensaje + '</span><button onclick="editarLote(\'' + lote.id + '\')">CARGAR</button></div>';
     }
-
     const etapaInfo = calcularEtapaActual(lote);
     if (!etapaInfo) return "";
-
     const alerta = evaluarAlertaEtapa(lote, etapaInfo, climaDiarioActual);
-
     const etiquetaDias = etapaInfo.esPerenne
         ? "Día " + etapaInfo.dias + " desde " + (etapaInfo.origenFecha === "corte" ? "el último corte" : "la siembra (sin cortes registrados)")
         : "Día " + etapaInfo.dias + " desde siembra";
-
-    let html = '<div class="etapa-caja">' +
-        '<div class="etapa-caja-top">' +
-        '<span class="etapa-nombre">🌿 ' + escapeHtml(etapaInfo.actual.nombre) + '</span>' +
-        '<span class="etapa-dias">' + etiquetaDias + '</span>' +
-        '</div>' +
-        '<div class="etapa-barra-fondo"><div class="etapa-barra-relleno" style="width:' + etapaInfo.progreso + '%;"></div></div>';
-
+    let html = '<div class="etapa-caja"><div class="etapa-caja-top"><span class="etapa-nombre">🌿 ' + escapeHtml(etapaInfo.actual.nombre) + '</span><span class="etapa-dias">' + etiquetaDias + '</span></div><div class="etapa-barra-fondo"><div class="etapa-barra-relleno" style="width:' + etapaInfo.progreso + '%;"></div></div>';
     if (etapaInfo.siguiente) {
         html += '<div class="etapa-siguiente">Próxima etapa: <strong>' + escapeHtml(etapaInfo.siguiente.nombre) + '</strong> en aprox. ' + etapaInfo.diasHastaSiguiente + ' días</div>';
     } else {
         html += '<div class="etapa-siguiente">Última etapa estimada del ciclo.</div>';
     }
-
     if (alerta) {
         html += '<div class="etapa-alerta tono-' + alerta.tono + '"><span>' + alerta.icono + '</span><span>' + escapeHtml(alerta.texto) + '</span></div>';
     } else if (!climaDiarioActual) {
         html += '<div class="etapa-alerta tono-bueno"><span>ℹ️</span><span>Abrí la app con el clima cargado para ver alertas de esta etapa.</span></div>';
     }
-
-    html += '<p style="margin-top:10px;font-size:9px;color:var(--gris);">Etapa estimada por días calendario — no reemplaza la observación a campo.</p>';
-    html += '</div>';
+    html += '<p style="margin-top:10px;font-size:9px;color:var(--gris);">Etapa estimada por días calendario — no reemplaza la observación a campo.</p></div>';
     return html;
 }
-
-/* =========================================================================
-   6. TRABAJOS: modelo, formulario y render en la ficha
-========================================================================= */
 
 function trabajosPendientes(lote) {
     return (lote.trabajos || []).filter(t => t.estado === "pendiente").sort((a, b) => a.fechaPlan.localeCompare(b.fechaPlan));
@@ -5001,46 +4945,17 @@ function trabajosPendientes(lote) {
 function renderTrabajosFicha(lote) {
     const pendientes = trabajosPendientes(lote);
     const hoy = new Date().toISOString().slice(0, 10);
-
-    let html = '<div class="trabajos-caja">' +
-        '<div class="trabajos-caja-titulo"><h4>🗓️ Trabajos pendientes</h4>' +
-        '<button class="trabajo-agregar-btn" onclick="toggleFormularioTrabajo(\'' + lote.id + '\')">➕ AGREGAR</button></div>';
-
+    let html = '<div class="trabajos-caja"><div class="trabajos-caja-titulo"><h4>🗓️ Trabajos pendientes</h4><button class="trabajo-agregar-btn" onclick="toggleFormularioTrabajo(\'' + lote.id + '\')">➕ AGREGAR</button></div>';
     if (pendientes.length === 0) {
         html += '<div class="trabajos-vacio">Sin trabajos programados para este lote.</div>';
     } else {
         pendientes.forEach(t => {
             const vencido = t.fechaPlan < hoy;
             const alerta = evaluarAlertaTrabajo(t, lote, climaDiarioActual);
-            html += '<div class="trabajo-item' + (vencido ? " vencido" : "") + '">' +
-                '<span class="trabajo-icono">' + (iconosTrabajo[t.tipo] || "📌") + '</span>' +
-                '<div class="trabajo-info">' +
-                '<strong>' + escapeHtml(t.tipo) + (t.producto ? " — " + escapeHtml(t.producto) : "") + '</strong>' +
-                '<span>' + formatearFecha(t.fechaPlan) + (t.notas ? " · " + escapeHtml(t.notas) : "") + '</span>' +
-                (alerta ? '<div class="trabajo-alerta-linea">' + (alerta.tono === "bueno" ? "✅" : "⚠️") + ' ' + escapeHtml(alerta.texto) + '</div>' : '') +
-                '</div>' +
-                '<span class="trabajo-fecha-badge' + (vencido ? " vencido" : "") + '">' + (vencido ? "VENCIDO" : formatearFecha(t.fechaPlan)) + '</span>' +
-                '<div class="trabajo-acciones">' +
-                '<button class="trabajo-btn-mini hecho" onclick="marcarTrabajoRealizado(\'' + lote.id + '\',\'' + t.id + '\')">✓ HECHO</button>' +
-                '<button class="trabajo-btn-mini borrar" onclick="eliminarTrabajo(\'' + lote.id + '\',\'' + t.id + '\')">🗑️</button>' +
-                '</div>' +
-                '</div>';
+            html += '<div class="trabajo-item' + (vencido ? " vencido" : "") + '"><span class="trabajo-icono">' + (iconosTrabajo[t.tipo] || "📌") + '</span><div class="trabajo-info"><strong>' + escapeHtml(t.tipo) + (t.producto ? " — " + escapeHtml(t.producto) : "") + '</strong><span>' + formatearFecha(t.fechaPlan) + (t.notas ? " · " + escapeHtml(t.notas) : "") + '</span>' + (alerta ? '<div class="trabajo-alerta-linea">' + (alerta.tono === "bueno" ? "✅" : "⚠️") + ' ' + escapeHtml(alerta.texto) + '</div>' : '') + '</div><span class="trabajo-fecha-badge' + (vencido ? " vencido" : "") + '">' + (vencido ? "VENCIDO" : formatearFecha(t.fechaPlan)) + '</span><div class="trabajo-acciones"><button class="trabajo-btn-mini hecho" onclick="marcarTrabajoRealizado(\'' + lote.id + '\',\'' + t.id + '\')">✓ HECHO</button><button class="trabajo-btn-mini borrar" onclick="eliminarTrabajo(\'' + lote.id + '\',\'' + t.id + '\')">🗑️</button></div></div>';
         });
     }
-
-    html += '<div id="trabajoFormPanel_' + lote.id + '" class="trabajo-form-panel">' +
-        '<div class="form-group"><label>Tipo de trabajo</label>' +
-        '<select id="trabajoTipo_' + lote.id + '" onchange="actualizarCampoProductoTrabajo(\'' + lote.id + '\')">' +
-        '<option value="Corte">Corte</option><option value="Aplicación">Aplicación</option><option value="Riego">Riego</option><option value="Siembra">Siembra</option><option value="Otro">Otro</option>' +
-        '</select></div>' +
-        '<div class="form-group" id="trabajoProductoGrupo_' + lote.id + '" style="display:none;">' +
-        '<label>Producto</label><input id="trabajoProducto_' + lote.id + '" type="text" placeholder="Ej: 2,4-D"></div>' +
-        '<div class="form-group"><label>Fecha planificada</label><input id="trabajoFecha_' + lote.id + '" type="date"></div>' +
-        '<div class="form-group"><label>Notas (opcional)</label><input id="trabajoNotas_' + lote.id + '" type="text" placeholder="Ej: dosis, observaciones"></div>' +
-        '<button class="calcular" onclick="guardarTrabajo(\'' + lote.id + '\')">GUARDAR TRABAJO →</button>' +
-        '</div>' +
-        '</div>';
-
+    html += '<div id="trabajoFormPanel_' + lote.id + '" class="trabajo-form-panel"><div class="form-group"><label>Tipo de trabajo</label><select id="trabajoTipo_' + lote.id + '" onchange="actualizarCampoProductoTrabajo(\'' + lote.id + '\')"><option value="Corte">Corte</option><option value="Aplicación">Aplicación</option><option value="Riego">Riego</option><option value="Siembra">Siembra</option><option value="Otro">Otro</option></select></div><div class="form-group" id="trabajoProductoGrupo_' + lote.id + '" style="display:none;"><label>Producto</label><input id="trabajoProducto_' + lote.id + '" type="text" placeholder="Ej: 2,4-D"></div><div class="form-group"><label>Fecha planificada</label><input id="trabajoFecha_' + lote.id + '" type="date"></div><div class="form-group"><label>Notas (opcional)</label><input id="trabajoNotas_' + lote.id + '" type="text" placeholder="Ej: dosis, observaciones"></div><button class="calcular" onclick="guardarTrabajo(\'' + lote.id + '\')">GUARDAR TRABAJO →</button></div></div>';
     return html;
 }
 
@@ -5063,26 +4978,18 @@ function guardarTrabajo(loteId) {
     const producto = document.getElementById("trabajoProducto_" + loteId).value.trim();
     const fecha = document.getElementById("trabajoFecha_" + loteId).value;
     const notas = document.getElementById("trabajoNotas_" + loteId).value.trim();
-
     if (!fecha) { alert("Elegí una fecha para el trabajo."); return; }
-
     const lotes = cargarLotes();
     const idx = lotes.findIndex(l => l.id === loteId);
     if (idx === -1) return;
     if (!lotes[idx].trabajos) lotes[idx].trabajos = [];
-
-    lotes[idx].trabajos.push({
-        id: String(Date.now()),
-        tipo,
-        producto: tipo === "Aplicación" ? producto : "",
-        fechaPlan: fecha,
-        fechaReal: null,
-        estado: "pendiente",
-        notas
-    });
-
+    lotes[idx].trabajos.push({ id: String(Date.now()), tipo, producto: tipo === "Aplicación" ? producto : "", fechaPlan: fecha, fechaReal: null, estado: "pendiente", notas });
     if (guardarLotesStorage(lotes)) {
-        verFichaLote(loteId);
+        if (document.getElementById("vistaAgenda").style.display !== "none") {
+            renderAgendaCampo();
+        } else {
+            verFichaLote(loteId);
+        }
     }
 }
 
@@ -5092,13 +4999,10 @@ function marcarTrabajoRealizado(loteId, trabajoId) {
     if (!lote) return;
     const trabajo = (lote.trabajos || []).find(t => t.id === trabajoId);
     if (!trabajo) return;
-
     const fechaReal = prompt("Fecha real (AAAA-MM-DD):", new Date().toISOString().slice(0, 10));
     if (fechaReal === null) return;
-
     trabajo.estado = "realizado";
     trabajo.fechaReal = fechaReal || new Date().toISOString().slice(0, 10);
-
     if (guardarLotesStorage(lotes)) {
         if (document.getElementById("vistaAgenda").style.display !== "none") {
             renderAgendaCampo();
@@ -5123,41 +5027,13 @@ function eliminarTrabajo(loteId, trabajoId) {
     }
 }
 
-/* =========================================================================
-   7. AGENDA INTELIGENTE — lista TODOS los lotes de "Mis lotes",
-   tengan o no trabajos cargados, con su etapa fenológica y sus trabajos.
-========================================================================= */
-
 function renderLoteAgendaCard(lote) {
     const nombreCultivo = obtenerNombreCultivo(lote.cultivo, lote.tipo);
-    let html = '<div class="agenda-lote-card">' +
-        '<div class="agenda-lote-header">' +
-        '<div><strong>' + escapeHtml(lote.nombre) + '</strong><span>' + nombreCultivo + ' · ' + numero(lote.superficie, 2) + ' ha</span></div>' +
-        '<button class="btn-secundario" onclick="verFichaLoteDesdeAgenda(\'' + lote.id + '\')">VER FICHA</button>' +
-        '</div>';
+    let html = '<div class="agenda-lote-card"><div class="agenda-lote-header"><div><strong>' + escapeHtml(lote.nombre) + '</strong><span>' + nombreCultivo + ' · ' + numero(lote.superficie, 2) + ' ha</span></div><button class="btn-secundario" onclick="verFichaLoteDesdeAgenda(\'' + lote.id + '\')">VER FICHA</button></div>';
     html += renderEtapaFenologicaFicha(lote);
     html += renderTrabajosFicha(lote);
     html += '</div>';
     return html;
-}
-
-function renderAgendaCampo() {
-    const lotes = cargarLotes();
-    const cont = document.getElementById("agendaContenido");
-
-    let html = "";
-
-    if (!climaDiarioActual) {
-        html += '<div class="agenda-sin-clima">ℹ️ El clima todavía no cargó — las alertas climáticas aparecerán apenas esté disponible.</div>';
-    }
-
-    if (lotes.length === 0) {
-        html += '<div class="agenda-vacia">Todavía no tenés lotes cargados.<br>Creá uno en <strong>Mis lotes</strong> para empezar a verlo acá.</div>';
-    } else {
-        lotes.forEach(lote => { html += renderLoteAgendaCard(lote); });
-    }
-
-    cont.innerHTML = html;
 }
 
 function verFichaLoteDesdeAgenda(loteId) {
@@ -5166,33 +5042,20 @@ function verFichaLoteDesdeAgenda(loteId) {
     verFichaLote(loteId);
 }
 
-function abrirAgendaCampo() {
-    document.getElementById("vistaCalculadora").style.display = "none";
-    document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "none");
-    document.querySelector(".header").style.display = "none";
-    document.querySelector(".hero").style.display = "none";
-    document.getElementById("weatherCard").style.display = "none";
-    document.getElementById("vistaLotes").style.display = "none";
-    document.getElementById("vistaAgenda").style.display = "block";
-    renderAgendaCampo();
-    window.scrollTo({ top: 0, behavior: "smooth" });
+function renderAgendaCampo() {
+    const lotes = cargarLotes();
+    const cont = document.getElementById("agendaContenido");
+    let html = "";
+    if (!climaDiarioActual) {
+        html += '<div class="agenda-sin-clima">ℹ️ El clima todavía no cargó — las alertas climáticas aparecerán apenas esté disponible.</div>';
+    }
+    if (lotes.length === 0) {
+        html += '<div class="agenda-vacia">Todavía no tenés lotes cargados.<br>Creá uno en <strong>Mis lotes</strong> para empezar a verlo acá.</div>';
+    } else {
+        lotes.forEach(lote => { html += renderLoteAgendaCard(lote); });
+    }
+    cont.innerHTML = html;
 }
-
-function cerrarAgendaCampo() {
-    document.getElementById("vistaAgenda").style.display = "none";
-    document.getElementById("vistaCalculadora").style.display = "";
-    document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "");
-    document.querySelector(".header").style.display = "";
-    document.querySelector(".hero").style.display = "";
-    document.getElementById("weatherCard").style.display = "";
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-/* =========================================================================
-   8. HOOK DE CLIMA
-   index.html llama a esta función (si existe) apenas termina de cargar
-   el pronóstico, para refrescar la agenda si está abierta en ese momento.
-========================================================================= */
 
 function onClimaActualizado() {
     if (document.getElementById("vistaAgenda") && document.getElementById("vistaAgenda").style.display !== "none") {
