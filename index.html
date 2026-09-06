@@ -1290,7 +1290,7 @@ body {
 }
 
 /* =========================================================
-   LOTES MODERNOS
+   LOTES — MODERNOS Y ESTÉTICOS
 ========================================================= */
 
 .lotes-banner {
@@ -1325,6 +1325,7 @@ body {
     font-weight:500;
 }
 
+/* HEADER DE LOTES */
 .lotes-header {
     display:flex;
     align-items:center;
@@ -1340,6 +1341,7 @@ body {
     margin:0;
 }
 
+/* BOTÓN NUEVO LOTE */
 .lotes-nuevo-btn {
     width:100%;
     padding:18px;
@@ -1361,6 +1363,7 @@ body {
     transform:translateY(-2px);
 }
 
+/* TARJETA DE LOTE EN LISTA */
 .lote-card {
     padding:22px;
     border-radius:18px;
@@ -1459,6 +1462,198 @@ body {
     transform:translateY(-1px);
 }
 
+/* =========================================================
+   FICHA DE LOTE — MODERNA Y ESTÉTICA
+========================================================= */
+
+.ficha-lote-titulo {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:20px;
+    gap:12px;
+}
+.ficha-lote-titulo h3 {
+    font-size:24px;
+    font-weight:800;
+    letter-spacing:-.5px;
+    color:var(--verde);
+    margin:0;
+}
+
+/* TARJETA DE INFORMACIÓN DEL LOTE */
+.ficha-lote-info {
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(140px, 1fr));
+    gap:12px;
+    background:var(--blanco);
+    padding:20px 22px;
+    border-radius:16px;
+    border:1px solid var(--borde);
+    box-shadow:var(--sombra);
+    margin-bottom:18px;
+}
+.ficha-lote-info-item {
+    display:flex;
+    flex-direction:column;
+}
+.ficha-lote-info-item .label {
+    font-size:8px;
+    text-transform:uppercase;
+    letter-spacing:.6px;
+    font-weight:700;
+    color:var(--gris);
+    margin-bottom:2px;
+}
+.ficha-lote-info-item .value {
+    font-size:14px;
+    font-weight:700;
+    color:var(--texto);
+}
+
+/* ESTADÍSTICAS DESTACADAS */
+.ficha-stat-caja {
+    padding:24px;
+    border-radius:18px;
+    background:linear-gradient(135deg, var(--verde), var(--verde2));
+    color:white;
+    text-align:center;
+    margin-bottom:16px;
+    box-shadow:0 8px 30px rgba(26,107,60,.2);
+}
+.ficha-stat-caja .numero-grande {
+    font-size:36px;
+    font-weight:900;
+    letter-spacing:-1.5px;
+    display:block;
+    line-height:1.1;
+}
+.ficha-stat-caja .etiqueta {
+    font-size:11px;
+    font-weight:600;
+    opacity:.85;
+    display:block;
+    margin-top:4px;
+}
+
+/* FILA DE ESTADÍSTICAS SECUNDARIAS */
+.ficha-stats-fila {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-bottom:18px;
+}
+.ficha-stat-card {
+    background:var(--blanco);
+    padding:16px 18px;
+    border-radius:14px;
+    border:1px solid var(--borde);
+    box-shadow:var(--sombra);
+    text-align:center;
+    transition:var(--transicion);
+}
+.ficha-stat-card:hover {
+    box-shadow:var(--sombra-hover);
+}
+.ficha-stat-card .stat-label {
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    font-weight:700;
+    color:var(--gris);
+}
+.ficha-stat-card .stat-value {
+    display:block;
+    font-size:20px;
+    font-weight:800;
+    color:var(--verde);
+    margin-top:4px;
+}
+.ficha-stat-card .stat-value.destacado {
+    color:var(--verde2);
+}
+
+/* BOTONES DE FICHA */
+.ficha-botones {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:6px;
+}
+.ficha-botones .btn-full {
+    grid-column:1 / -1;
+}
+
+/* HISTORIAL */
+.historial-tabla {
+    width:100%;
+    border-collapse:collapse;
+    margin-top:14px;
+    font-size:12px;
+}
+.historial-tabla th {
+    text-align:left;
+    padding:10px 8px;
+    color:var(--gris);
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:.6px;
+    font-weight:700;
+    border-bottom:2px solid var(--borde);
+}
+.historial-tabla td {
+    padding:12px 8px;
+    border-bottom:1px solid var(--borde);
+    color:var(--texto-suave);
+}
+.historial-tabla tr:hover td {
+    background:var(--fondo);
+}
+.historial-borrar {
+    border:none;
+    background:transparent;
+    font-size:14px;
+    cursor:pointer;
+    padding:4px 8px;
+    opacity:.4;
+    transition:var(--transicion);
+    border-radius:8px;
+}
+.historial-borrar:hover {
+    opacity:1;
+    background:#fde8e8;
+}
+
+/* GRÁFICO HISTORIAL */
+.historial-grafico {
+    margin-top:18px;
+    padding:20px;
+    border-radius:16px;
+    background:var(--blanco);
+    border:1px solid var(--borde);
+    box-shadow:var(--sombra);
+}
+.historial-grafico svg {
+    width:100%;
+    height:auto;
+}
+
+/* VACÍO */
+.lote-vacio {
+    text-align:center;
+    padding:50px 20px;
+    color:var(--gris);
+    font-size:13px;
+    line-height:1.8;
+    background:var(--blanco);
+    border-radius:16px;
+    border:1px dashed var(--borde);
+}
+.lote-vacio strong {
+    color:var(--verde);
+}
+
+/* BANNER LOTE ACTIVO */
 .lote-activo-banner {
     display:flex;
     align-items:center;
@@ -1479,6 +1674,7 @@ body {
     font-weight:600;
 }
 
+/* SELECTOR DE LOTE */
 .selector-lote {
     grid-column:1 / -1;
     padding:20px;
@@ -1993,6 +2189,14 @@ body {
     .welcome-screen .header { padding-top:2px; }
     .seccion-simple { margin:8px 0 12px; }
     .seccion-simple h2 { font-size:20px; }
+    .ficha-lote-titulo h3 { font-size:20px; }
+    .ficha-lote-info { grid-template-columns:1fr 1fr; padding:16px; }
+    .ficha-stat-caja .numero-grande { font-size:28px; }
+    .ficha-stats-fila { grid-template-columns:1fr; }
+    .ficha-botones { grid-template-columns:1fr; }
+    .ficha-botones .btn-full { grid-column:1; }
+    .historial-tabla { font-size:10px; }
+    .historial-tabla th, .historial-tabla td { padding:8px 4px; }
 }
 
 @media(max-width:390px) {
@@ -2004,6 +2208,7 @@ body {
     .form-group input,
     .form-group select,
     .form-group textarea { font-size:13px; padding:12px 14px; }
+    .ficha-lote-info { grid-template-columns:1fr; }
 }
 
 /* =========================================================
@@ -2080,6 +2285,35 @@ body {
 /* Fix: hero image */
 :root {
     --hero-foto:url(img/img_03.jpg);
+}
+
+/* BOTÓN VOLVER PARA FICHA */
+.lotes-volver {
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 18px;
+    border-radius:12px;
+    border:1.5px solid var(--borde);
+    background:var(--blanco);
+    color:var(--texto-suave);
+    font-family:inherit;
+    font-size:11px;
+    font-weight:600;
+    cursor:pointer;
+    transition:var(--transicion);
+    box-shadow:var(--sombra);
+}
+.lotes-volver:hover {
+    transform:translateX(-3px);
+    border-color:var(--verde3);
+    color:var(--verde);
+    box-shadow:var(--sombra-hover);
+}
+.lotes-volver::before {
+    content:"←";
+    font-size:14px;
+    font-weight:400;
 }
 
 </style>
@@ -2839,7 +3073,7 @@ body {
     </div>
 
     <!-- =========================================================
-       MIS LOTES
+       MIS LOTES — MODERNOS
     ========================================================= -->
 
     <div id="vistaLotes" style="display:none;">
@@ -3677,34 +3911,65 @@ function verFichaLote(id) {
     const lotes = cargarLotes();
     const lote = lotes.find(l => l.id === id);
     if (!lote) return;
+
     const ultima = lote.mediciones.length ? lote.mediciones[lote.mediciones.length - 1] : null;
     const acumuladoKg = lote.mediciones.reduce((acc, m) => acc + (m.msTotal || 0), 0);
     const rollosAcumulados = lote.mediciones.reduce((acc, m) => acc + (m.rollos || 0), 0);
     const nombreCultivo = obtenerNombreCultivo(lote.cultivo, lote.tipo);
-    let html = '<div class="ficha-lote-titulo"><h3>' + escapeHtml(lote.nombre) + '</h3><button class="lotes-volver" onclick="mostrarListaLotes()">← Volver</button></div>' +
-        '<div class="lote-card" style="margin-bottom:18px;"><div class="lote-card-datos" style="border-top:0;padding-top:0;grid-template-columns:1fr 1fr;">' +
-        '<div class="lote-card-dato"><span>Cultivo</span><strong>' + nombreCultivo + '</strong></div>' +
-        '<div class="lote-card-dato"><span>Superficie</span><strong>' + numero(lote.superficie, 2) + ' ha</strong></div>' +
-        '<div class="lote-card-dato"><span>Riego</span><strong>' + escapeHtml(lote.riego || "-") + '</strong></div>' +
-        '<div class="lote-card-dato"><span>Año del cultivo</span><strong>' + (lote.anio || 1) + '°</strong></div>' +
-        (lote.variedad ? '<div class="lote-card-dato"><span>Variedad</span><strong>' + escapeHtml(lote.variedad) + '</strong></div>' : '') +
-        (lote.fechaSiembra ? '<div class="lote-card-dato"><span>Fecha de siembra</span><strong>' + formatearFecha(lote.fechaSiembra) + '</strong></div>' : '') +
-        '</div>' +
-        (lote.observaciones ? '<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--borde);font-size:11px;color:var(--gris);"><strong style="color:var(--verde);">Observaciones: </strong>' + escapeHtml(lote.observaciones) + '</div>' : '') +
+
+    // Título
+    let html = '<div class="ficha-lote-titulo">' +
+        '<h3>' + escapeHtml(lote.nombre) + '</h3>' +
+        '<button class="lotes-volver" onclick="mostrarListaLotes()">Volver</button>' +
         '</div>';
+
+    // Información del lote (grid)
+    html += '<div class="ficha-lote-info">' +
+        '<div class="ficha-lote-info-item"><span class="label">Cultivo</span><span class="value">' + nombreCultivo + '</span></div>' +
+        '<div class="ficha-lote-info-item"><span class="label">Superficie</span><span class="value">' + numero(lote.superficie, 2) + ' ha</span></div>' +
+        '<div class="ficha-lote-info-item"><span class="label">Riego</span><span class="value">' + escapeHtml(lote.riego || "-") + '</span></div>' +
+        '<div class="ficha-lote-info-item"><span class="label">Año</span><span class="value">' + (lote.anio || 1) + '°</span></div>' +
+        (lote.variedad ? '<div class="ficha-lote-info-item"><span class="label">Variedad</span><span class="value">' + escapeHtml(lote.variedad) + '</span></div>' : '') +
+        (lote.fechaSiembra ? '<div class="ficha-lote-info-item"><span class="label">Siembra</span><span class="value">' + formatearFecha(lote.fechaSiembra) + '</span></div>' : '') +
+        (lote.observaciones ? '<div class="ficha-lote-info-item" style="grid-column:1 / -1;"><span class="label">Observaciones</span><span class="value" style="font-weight:400;color:var(--texto-suave);">' + escapeHtml(lote.observaciones) + '</span></div>' : '') +
+        '</div>';
+
+    // Estadísticas destacadas
     if (ultima) {
         const totalUltimaMedicion = ultima.msHa * lote.superficie;
-        html += '<div class="ficha-stat-caja"><span class="numero-grande">' + numero(totalUltimaMedicion) + '</span><span class="etiqueta">KG MS TOTALES (' + numero(lote.superficie, 2) + ' HA) · ÚLTIMA MEDICIÓN (' + formatearFecha(ultima.fecha) + ') · ' + ultima.categoria + '</span></div>' +
-            '<div class="ficha-stats-fila"><div class="lote-card"><span>Producción acumulada</span><strong>' + numero(acumuladoKg) + ' kg MS</strong></div>' +
-            '<div class="lote-card"><span>Rollos estimados (acum.)</span><strong>' + (lote.tipo === "forraje" ? numero(rollosAcumulados, 1) : "-") + '</strong></div></div>';
+        html += '<div class="ficha-stat-caja">' +
+            '<span class="numero-grande">' + numero(totalUltimaMedicion) + '</span>' +
+            '<span class="etiqueta">KG MS TOTALES (' + numero(lote.superficie, 2) + ' HA) · ÚLTIMA MEDICIÓN (' + formatearFecha(ultima.fecha) + ')</span>' +
+            '</div>';
+
+        html += '<div class="ficha-stats-fila">' +
+            '<div class="ficha-stat-card">' +
+            '<span class="stat-label">Producción acumulada</span>' +
+            '<span class="stat-value">' + numero(acumuladoKg) + ' kg MS</span>' +
+            '</div>' +
+            '<div class="ficha-stat-card">' +
+            '<span class="stat-label">Rollos estimados</span>' +
+            '<span class="stat-value destacado">' + (lote.tipo === "forraje" ? numero(rollosAcumulados, 1) : "-") + '</span>' +
+            '</div>' +
+            '</div>';
+
+        // Badge de rendimiento
+        html += '<div style="text-align:center;margin-bottom:16px;">' +
+            '<span class="lote-card-badge ' + ultima.clase + '" style="font-size:12px;padding:6px 18px;">' + ultima.categoria + '</span>' +
+            '</div>';
     } else {
-        html += '<div class="lote-vacio">Este lote todavía no tiene mediciones.</div>';
+        html += '<div class="lote-vacio">Este lote todavía no tiene mediciones.<br>Hacé una evaluación y guardala para empezar a ver datos.</div>';
     }
-    html += '<div class="ficha-botones"><button class="calcular" style="grid-column:1 / -1;" onclick="trabajarConLote(\'' + lote.id + '\')">➕ NUEVA MEDICIÓN</button>' +
-        '<button class="btn-secundario" onclick="verHistorialLote(\'' + lote.id + '\')">HISTORIAL</button>' +
-        '<button class="btn-secundario" onclick="editarLote(\'' + lote.id + '\')">EDITAR LOTE</button>' +
-        '<button class="btn-secundario" onclick="exportarInformeLote(\'' + lote.id + '\')">INFORME PDF</button>' +
-        '<button class="btn-secundario" style="color:#b3372c;" onclick="eliminarLote(\'' + lote.id + '\')">ELIMINAR LOTE</button></div>';
+
+    // Botones de acción
+    html += '<div class="ficha-botones">' +
+        '<button class="calcular btn-full" onclick="trabajarConLote(\'' + lote.id + '\')">➕ NUEVA MEDICIÓN</button>' +
+        '<button class="btn-secundario" onclick="verHistorialLote(\'' + lote.id + '\')">📊 HISTORIAL</button>' +
+        '<button class="btn-secundario" onclick="editarLote(\'' + lote.id + '\')">✏️ EDITAR</button>' +
+        '<button class="btn-secundario" onclick="exportarInformeLote(\'' + lote.id + '\')">📄 INFORME PDF</button>' +
+        '<button class="btn-secundario" style="color:#b3372c;border-color:#fde8e8;" onclick="eliminarLote(\'' + lote.id + '\')">🗑️ ELIMINAR</button>' +
+        '</div>';
+
     document.getElementById("loteFicha").innerHTML = html;
     mostrarSubvistaLotes("loteFicha");
 }
@@ -3713,16 +3978,63 @@ function verHistorialLote(id) {
     const lotes = cargarLotes();
     const lote = lotes.find(l => l.id === id);
     if (!lote) return;
-    let html = '<div class="ficha-lote-titulo"><h3>Historial — ' + escapeHtml(lote.nombre) + '</h3><button class="lotes-volver" onclick="verFichaLote(\'' + lote.id + '\')">← Volver</button></div>';
+    let html = '<div class="ficha-lote-titulo"><h3>Historial — ' + escapeHtml(lote.nombre) + '</h3><button class="lotes-volver" onclick="verFichaLote(\'' + lote.id + '\')">Volver</button></div>';
     if (lote.mediciones.length === 0) {
         html += '<div class="lote-vacio">Todavía no hay mediciones registradas.</div>';
     } else {
-        html += '<table class="historial-tabla"><thead><tr><th>Fecha</th><th>MS/ha</th><th>Rendimiento</th></tr></thead><tbody>' +
-            lote.mediciones.slice().reverse().map(m => '<tr><td>' + formatearFecha(m.fecha) + '</td><td>' + numero(m.msHa) + ' kg</td><td><span class="lote-card-badge ' + m.clase + '">' + m.categoria + '</span></td></tr>').join("") +
+        html += '<div class="historial-grafico">' +
+            graficoHistorial(lote.mediciones) +
+            '</div>' +
+            '<table class="historial-tabla">' +
+            '<thead><tr><th>Fecha</th><th>MS/ha</th><th>Rendimiento</th><th></th></tr></thead>' +
+            '<tbody>' +
+            lote.mediciones.slice().reverse().map((m, idx) => {
+                const originalIdx = lote.mediciones.length - 1 - idx;
+                return '<tr>' +
+                    '<td>' + formatearFecha(m.fecha) + '</td>' +
+                    '<td><strong>' + numero(m.msHa) + ' kg</strong></td>' +
+                    '<td><span class="lote-card-badge ' + m.clase + '">' + m.categoria + '</span></td>' +
+                    '<td><button class="historial-borrar" onclick="eliminarMedicion(\'' + lote.id + '\',' + originalIdx + ')" title="Borrar medición">✕</button></td>' +
+                    '</tr>';
+            }).join("") +
             '</tbody></table>';
     }
     document.getElementById("loteHistorial").innerHTML = html;
     mostrarSubvistaLotes("loteHistorial");
+}
+
+function graficoHistorial(mediciones) {
+    if (mediciones.length < 2) {
+        return '<p style="font-size:12px;color:var(--gris);text-align:center;margin:0;padding:10px 0;">Necesitás al menos 2 mediciones para ver el gráfico.</p>';
+    }
+    const w = 560,
+        h = 180,
+        pad = 30;
+    const valores = mediciones.map(m => m.msHa);
+    const max = Math.max.apply(null, valores) * 1.15 || 100;
+    const puntos = mediciones.map((m, i) => {
+        const x = pad + (i * ((w - pad * 2) / (mediciones.length - 1)));
+        const y = h - pad - ((m.msHa - 0) / (max - 0)) * (h - pad * 2);
+        return { x, y, valor: m.msHa };
+    });
+    const linea = puntos.map((p, i) => (i === 0 ? "M" : "L") + p.x + "," + p.y).join(" ");
+    const circulos = puntos.map(p => '<circle cx="' + p.x + '" cy="' + p.y + '" r="5" fill="#1a6b3c" stroke="white" stroke-width="2"/>').join("");
+    return '<svg viewBox="0 0 ' + w + ' ' + h + '" style="width:100%;height:auto;">' +
+        '<line x1="' + pad + '" y1="' + (h - pad) + '" x2="' + (w - pad) + '" y2="' + (h - pad) + '" stroke="#dce2de" stroke-width="1.5"/>' +
+        '<path d="' + linea + '" fill="none" stroke="#2d8f4e" stroke-width="3" stroke-linecap="round"/>' +
+        circulos +
+        '</svg>';
+}
+
+function eliminarMedicion(loteId, indice) {
+    if (!confirm("¿Borrar esta medición del historial?")) return;
+    const lotes = cargarLotes();
+    const idx = lotes.findIndex(l => l.id === loteId);
+    if (idx === -1) return;
+    lotes[idx].mediciones.splice(indice, 1);
+    if (guardarLotesStorage(lotes)) {
+        verHistorialLote(loteId);
+    }
 }
 
 function trabajarConLote(id) {
