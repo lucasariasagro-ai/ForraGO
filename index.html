@@ -2557,8 +2557,8 @@ body {
         <div class="lotes-banner" onclick="abrirAgendaCampo()">
             <span class="lotes-banner-icono">🗓️</span>
             <div class="lotes-banner-texto">
-                <strong>Agenda de campo</strong>
-                <span>Trabajos pendientes cruzados con clima, por lote</span>
+                <strong>Agenda Inteligente</strong>
+                <span>Fenología, clima y trabajos de todos tus lotes</span>
             </div>
         </div>
 
@@ -3247,7 +3247,7 @@ body {
     <div id="vistaAgenda" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarAgendaCampo()">Volver</button>
-            <h2>Agenda de campo</h2>
+            <h2>Agenda Inteligente</h2>
         </div>
         <div id="agendaContenido"></div>
     </div>
@@ -4303,8 +4303,6 @@ function verFichaLote(id) {
         (lote.observaciones ? '<div class="ficha-lote-info-item" style="grid-column:1 / -1;"><span class="label">Observaciones</span><span class="value" style="font-weight:400;color:var(--texto-suave);">' + escapeHtml(lote.observaciones) + '</span></div>' : '') +
         '</div>';
 
-    html += renderEtapaFenologicaFicha(lote);
-
     if (ultima) {
         const totalUltimaMedicion = ultima.msHa * lote.superficie;
         html += '<div class="ficha-stat-caja"><span class="numero-grande">' + numero(totalUltimaMedicion) + '</span><span class="etiqueta">KG MS TOTALES (' + numero(lote.superficie, 2) + ' HA) · ÚLTIMA MEDICIÓN (' + formatearFecha(ultima.fecha) + ')</span></div>';
@@ -4316,8 +4314,6 @@ function verFichaLote(id) {
     } else {
         html += '<div class="lote-vacio">Este lote todavía no tiene mediciones.<br>Hacé una evaluación y guardala para empezar a ver datos.</div>';
     }
-
-    html += renderTrabajosFicha(lote);
 
     html += '<div class="ficha-botones">' +
         '<button class="calcular btn-full" onclick="trabajarConLote(\'' + lote.id + '\')">➕ NUEVA MEDICIÓN</button>' +
@@ -4721,24 +4717,20 @@ if ("serviceWorker" in navigator) {
     }
     .trabajo-form-panel.mostrar { display:block; animation:aparecer .3s ease; }
 
-    /* AGENDA GLOBAL */
-    .agenda-resumen {
+    /* AGENDA INTELIGENTE — tarjeta por lote */
+    .agenda-lote-card {
+        margin-bottom:22px;
+        padding-bottom:4px;
+    }
+    .agenda-lote-header {
         display:flex;
-        gap:10px;
-        margin-bottom:20px;
+        align-items:center;
+        justify-content:space-between;
+        gap:12px;
+        margin-bottom:12px;
     }
-    .agenda-resumen-item {
-        flex:1;
-        padding:16px;
-        border-radius:16px;
-        background:var(--blanco);
-        border:1px solid var(--borde);
-        box-shadow:var(--sombra);
-        text-align:center;
-    }
-    .agenda-resumen-item .num { display:block; font-size:24px; font-weight:900; color:var(--verde); }
-    .agenda-resumen-item.critico .num { color:#b33c3c; }
-    .agenda-resumen-item .lbl { font-size:8.5px; font-weight:700; color:var(--gris); text-transform:uppercase; letter-spacing:.4px; }
+    .agenda-lote-header strong { display:block; font-size:16px; font-weight:800; color:var(--verde); }
+    .agenda-lote-header span { display:block; margin-top:2px; font-size:10.5px; color:var(--gris); }
 
     .agenda-item {
         display:flex;
@@ -5132,63 +5124,37 @@ function eliminarTrabajo(loteId, trabajoId) {
 }
 
 /* =========================================================================
-   7. AGENDA GLOBAL — vista nueva, cruza todos los lotes
+   7. AGENDA INTELIGENTE — lista TODOS los lotes de "Mis lotes",
+   tengan o no trabajos cargados, con su etapa fenológica y sus trabajos.
 ========================================================================= */
 
-function obtenerAgendaGlobal() {
-    const lotes = cargarLotes();
-    const hoy = new Date().toISOString().slice(0, 10);
-    const items = [];
-
-    lotes.forEach(lote => {
-        trabajosPendientes(lote).forEach(t => {
-            const vencido = t.fechaPlan < hoy;
-            const alerta = evaluarAlertaTrabajo(t, lote, climaDiarioActual);
-            items.push({ ...t, loteId: lote.id, loteNombre: lote.nombre, vencido, alerta });
-        });
-    });
-
-    items.sort((a, b) => {
-        if (a.vencido !== b.vencido) return a.vencido ? -1 : 1;
-        return a.fechaPlan.localeCompare(b.fechaPlan);
-    });
-
-    return items;
+function renderLoteAgendaCard(lote) {
+    const nombreCultivo = obtenerNombreCultivo(lote.cultivo, lote.tipo);
+    let html = '<div class="agenda-lote-card">' +
+        '<div class="agenda-lote-header">' +
+        '<div><strong>' + escapeHtml(lote.nombre) + '</strong><span>' + nombreCultivo + ' · ' + numero(lote.superficie, 2) + ' ha</span></div>' +
+        '<button class="btn-secundario" onclick="verFichaLoteDesdeAgenda(\'' + lote.id + '\')">VER FICHA</button>' +
+        '</div>';
+    html += renderEtapaFenologicaFicha(lote);
+    html += renderTrabajosFicha(lote);
+    html += '</div>';
+    return html;
 }
 
 function renderAgendaCampo() {
-    const items = obtenerAgendaGlobal();
-    const vencidos = items.filter(i => i.vencido).length;
-    const proximos = items.length - vencidos;
+    const lotes = cargarLotes();
     const cont = document.getElementById("agendaContenido");
 
-    let html = '<div class="agenda-resumen">' +
-        '<div class="agenda-resumen-item' + (vencidos > 0 ? " critico" : "") + '"><span class="num">' + vencidos + '</span><span class="lbl">Vencidos</span></div>' +
-        '<div class="agenda-resumen-item"><span class="num">' + proximos + '</span><span class="lbl">Próximos</span></div>' +
-        '</div>';
+    let html = "";
 
     if (!climaDiarioActual) {
         html += '<div class="agenda-sin-clima">ℹ️ El clima todavía no cargó — las alertas climáticas aparecerán apenas esté disponible.</div>';
     }
 
-    if (items.length === 0) {
-        html += '<div class="agenda-vacia">No tenés trabajos pendientes cargados.<br>Entrá a la ficha de un lote y agregá uno con <strong>➕ Agregar</strong>.</div>';
+    if (lotes.length === 0) {
+        html += '<div class="agenda-vacia">Todavía no tenés lotes cargados.<br>Creá uno en <strong>Mis lotes</strong> para empezar a verlo acá.</div>';
     } else {
-        items.forEach(item => {
-            html += '<div class="agenda-item' + (item.vencido ? " vencido" : "") + '">' +
-                '<span class="agenda-icono">' + (iconosTrabajo[item.tipo] || "📌") + '</span>' +
-                '<div class="agenda-info">' +
-                '<span class="lote-nombre">' + escapeHtml(item.loteNombre) + '</span>' +
-                '<strong>' + escapeHtml(item.tipo) + (item.producto ? " — " + escapeHtml(item.producto) : "") + '</strong>' +
-                '<div class="fecha-linea">' + (item.vencido ? "Venció el " : "Programado para el ") + formatearFecha(item.fechaPlan) + '</div>' +
-                (item.alerta ? '<div class="agenda-alerta-linea' + (item.alerta.tono === "bueno" ? " buena" : "") + '">' + (item.alerta.tono === "bueno" ? "✅" : "⚠️") + ' ' + escapeHtml(item.alerta.texto) + '</div>' : '') +
-                '</div>' +
-                '<div class="agenda-acciones-col">' +
-                '<button class="trabajo-btn-mini hecho" onclick="marcarTrabajoRealizado(\'' + item.loteId + '\',\'' + item.id + '\')">✓ HECHO</button>' +
-                '<button class="trabajo-btn-mini" onclick="verFichaLoteDesdeAgenda(\'' + item.loteId + '\')">VER LOTE</button>' +
-                '</div>' +
-                '</div>';
-        });
+        lotes.forEach(lote => { html += renderLoteAgendaCard(lote); });
     }
 
     cont.innerHTML = html;
