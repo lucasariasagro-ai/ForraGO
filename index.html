@@ -2553,6 +2553,15 @@ body {
             </div>
         </div>
 
+        <!-- AGENDA DE CAMPO -->
+        <div class="lotes-banner" onclick="abrirAgendaCampo()">
+            <span class="lotes-banner-icono">🗓️</span>
+            <div class="lotes-banner-texto">
+                <strong>Agenda de campo</strong>
+                <span>Trabajos pendientes cruzados con clima, por lote</span>
+            </div>
+        </div>
+
         <!-- BIBLIOTECA -->
         <div class="biblioteca-toggle" onclick="toggleBiblioteca()">
             <span class="lotes-banner-icono">📚</span>
@@ -3229,6 +3238,18 @@ body {
         </div>
         <div id="loteFicha" style="display:none;"></div>
         <div id="loteHistorial" style="display:none;"></div>
+    </div>
+
+    <!-- =========================================================
+       AGENDA DE CAMPO — NUEVO SEGMENTO
+    ========================================================= -->
+
+    <div id="vistaAgenda" style="display:none;">
+        <div class="lotes-header">
+            <button class="btn-back" onclick="cerrarAgendaCampo()">Volver</button>
+            <h2>Agenda de campo</h2>
+        </div>
+        <div id="agendaContenido"></div>
     </div>
 
     <!-- BANNER LOTE ACTIVO -->
@@ -3991,6 +4012,7 @@ function calcularInsightClima(daily) {
 function renderClima(data, lat, lon, nombre) {
     const current = data.current;
     const daily = data.daily;
+    climaDiarioActual = daily;
     
     // Detectar si es de noche (19:00 a 6:00)
     const hora = new Date().getHours();
@@ -4028,6 +4050,8 @@ function renderClima(data, lat, lon, nombre) {
         document.getElementById("dayIcon" + i).innerHTML = iconoClimaSVG(c[2]);
         document.getElementById("dayTemp" + i).innerHTML = tempMax + "° <small>" + tempMin + "°</small>";
     }
+
+    if (typeof onClimaActualizado === "function") onClimaActualizado();
 }
 
 function cargarClima() {
@@ -4082,6 +4106,7 @@ const LOTES_KEY = "forrago_lotes_v1";
 let loteEditandoId = null;
 let loteActivoId = null;
 let medicionPendienteSufijo = null;
+let climaDiarioActual = null;
 
 function cargarLotes() {
     try {
@@ -4102,7 +4127,7 @@ function guardarLotesStorage(lotes) {
 
 function abrirMisLotes() {
     document.getElementById("vistaCalculadora").style.display = "none";
-    document.querySelector(".lotes-banner").style.display = "none";
+    document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "none");
     document.querySelector(".header").style.display = "none";
     document.querySelector(".hero").style.display = "none";
     document.getElementById("weatherCard").style.display = "none";
@@ -4114,7 +4139,7 @@ function abrirMisLotes() {
 function cerrarMisLotes() {
     document.getElementById("vistaLotes").style.display = "none";
     document.getElementById("vistaCalculadora").style.display = "";
-    document.querySelector(".lotes-banner").style.display = "";
+    document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "");
     document.querySelector(".header").style.display = "";
     document.querySelector(".hero").style.display = "";
     document.getElementById("weatherCard").style.display = "";
@@ -4215,11 +4240,13 @@ function guardarLote() {
         fechaSiembra: document.getElementById("loteFechaSiembra").value,
         anio: parseInt(document.getElementById("loteAnio").value) || 1,
         observaciones: document.getElementById("loteObservaciones").value.trim(),
-        mediciones: []
+        mediciones: [],
+        trabajos: []
     };
     if (loteEditandoId) {
         const idx = lotes.findIndex(l => l.id === loteEditandoId);
         datosLote.mediciones = lotes[idx].mediciones;
+        datosLote.trabajos = lotes[idx].trabajos || [];
         lotes[idx] = datosLote;
     } else {
         lotes.push(datosLote);
@@ -4275,6 +4302,9 @@ function verFichaLote(id) {
         (lote.fechaSiembra ? '<div class="ficha-lote-info-item"><span class="label">Siembra</span><span class="value">' + formatearFecha(lote.fechaSiembra) + '</span></div>' : '') +
         (lote.observaciones ? '<div class="ficha-lote-info-item" style="grid-column:1 / -1;"><span class="label">Observaciones</span><span class="value" style="font-weight:400;color:var(--texto-suave);">' + escapeHtml(lote.observaciones) + '</span></div>' : '') +
         '</div>';
+
+    html += renderEtapaFenologicaFicha(lote);
+
     if (ultima) {
         const totalUltimaMedicion = ultima.msHa * lote.superficie;
         html += '<div class="ficha-stat-caja"><span class="numero-grande">' + numero(totalUltimaMedicion) + '</span><span class="etiqueta">KG MS TOTALES (' + numero(lote.superficie, 2) + ' HA) · ÚLTIMA MEDICIÓN (' + formatearFecha(ultima.fecha) + ')</span></div>';
@@ -4286,6 +4316,9 @@ function verFichaLote(id) {
     } else {
         html += '<div class="lote-vacio">Este lote todavía no tiene mediciones.<br>Hacé una evaluación y guardala para empezar a ver datos.</div>';
     }
+
+    html += renderTrabajosFicha(lote);
+
     html += '<div class="ficha-botones">' +
         '<button class="calcular btn-full" onclick="trabajarConLote(\'' + lote.id + '\')">➕ NUEVA MEDICIÓN</button>' +
         '<button class="btn-secundario" onclick="verHistorialLote(\'' + lote.id + '\')">📊 HISTORIAL</button>' +
@@ -4313,6 +4346,17 @@ function verHistorialLote(id) {
             }).join("") +
             '</tbody></table>';
     }
+
+    html += '<h3 style="margin-top:24px;color:var(--verde);font-size:15px;">Trabajos realizados</h3>';
+    const realizados = (lote.trabajos || []).filter(t => t.estado === "realizado").sort((a, b) => (b.fechaReal || "").localeCompare(a.fechaReal || ""));
+    if (realizados.length === 0) {
+        html += '<div class="lote-vacio" style="margin-top:10px;">Todavía no marcaste trabajos como realizados.</div>';
+    } else {
+        html += '<table class="historial-tabla"><thead><tr><th>Fecha real</th><th>Tipo</th><th>Planificado</th><th>Notas</th></tr></thead><tbody>' +
+            realizados.map(t => '<tr><td>' + formatearFecha(t.fechaReal) + '</td><td><strong>' + escapeHtml(t.tipo) + (t.producto ? " — " + escapeHtml(t.producto) : "") + '</strong></td><td>' + formatearFecha(t.fechaPlan) + '</td><td>' + escapeHtml(t.notas || "-") + '</td></tr>').join("") +
+            '</tbody></table>';
+    }
+
     document.getElementById("loteHistorial").innerHTML = html;
     mostrarSubvistaLotes("loteHistorial");
 }
@@ -4480,6 +4524,8 @@ if ("serviceWorker" in navigator) {
 }
 
 </script>
+
+<script src="agenda-campo.js"></script>
 
 </body>
 </html>
