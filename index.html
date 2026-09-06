@@ -4818,10 +4818,10 @@ const etapasFenologicas = {
     mijo:  { cicloDias: 60, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: [] }, { nombre: "Macollaje", desde: 10, riesgos: ["hidrico"] }, { nombre: "Elongación", desde: 25, riesgos: ["hidrico"] }, { nombre: "Floración", desde: 45, riesgos: ["hidrico", "ventana_corte"] } ] },
 
     // --- Perennes (ciclo de rebrote, no desde siembra) ---
-    alfalfa:    { cicloDias: 35, baseFecha: "ultimaMedicion", etapas: [ { nombre: "Rebrote", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 10, riesgos: ["hidrico"] }, { nombre: "Prefloración", desde: 25, riesgos: ["hidrico", "ventana_corte"] } ] },
-    festuca:    { cicloDias: 30, baseFecha: "ultimaMedicion", etapas: [ { nombre: "Rebrote", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 10, riesgos: ["hidrico"] }, { nombre: "Prefloración", desde: 22, riesgos: ["hidrico", "ventana_corte"] } ] },
-    trebol:     { cicloDias: 30, baseFecha: "ultimaMedicion", etapas: [ { nombre: "Rebrote", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 10, riesgos: ["hidrico"] }, { nombre: "Prefloración", desde: 22, riesgos: ["hidrico", "ventana_corte"] } ] },
-    trebolrojo: { cicloDias: 30, baseFecha: "ultimaMedicion", etapas: [ { nombre: "Rebrote", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 10, riesgos: ["hidrico"] }, { nombre: "Prefloración", desde: 22, riesgos: ["hidrico", "ventana_corte"] } ] },
+    alfalfa:    { cicloDias: 35, perenne: true, etapas: [ { nombre: "Rebrote", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 10, riesgos: ["hidrico"] }, { nombre: "Prefloración", desde: 25, riesgos: ["hidrico", "ventana_corte"] } ] },
+    festuca:    { cicloDias: 30, perenne: true, etapas: [ { nombre: "Rebrote", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 10, riesgos: ["hidrico"] }, { nombre: "Prefloración", desde: 22, riesgos: ["hidrico", "ventana_corte"] } ] },
+    trebol:     { cicloDias: 30, perenne: true, etapas: [ { nombre: "Rebrote", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 10, riesgos: ["hidrico"] }, { nombre: "Prefloración", desde: 22, riesgos: ["hidrico", "ventana_corte"] } ] },
+    trebolrojo: { cicloDias: 30, perenne: true, etapas: [ { nombre: "Rebrote", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 10, riesgos: ["hidrico"] }, { nombre: "Prefloración", desde: 22, riesgos: ["hidrico", "ventana_corte"] } ] },
 
     // --- Silaje ---
     maiz:  { cicloDias: 130, etapas: [ { nombre: "Emergencia", desde: 0, riesgos: ["helada"] }, { nombre: "Vegetativo", desde: 20, riesgos: ["hidrico"] }, { nombre: "Floración", desde: 55, riesgos: ["hidrico"] }, { nombre: "Llenado de grano", desde: 85, riesgos: ["ventana_corte"] } ] },
@@ -4832,17 +4832,30 @@ const etapasFenologicas = {
    3. CÁLCULO DE ETAPA ACTUAL — función pura, sin efectos secundarios
 ========================================================================= */
 
+// Para perennes, la base del ciclo de rebrote es el último CORTE REALIZADO
+// (trabajo tipo "Corte" con estado "realizado"), nunca una medición/muestra.
+// Una medición es solo una foto del estado del lote, no reinicia el rebrote.
+function obtenerFechaBaseCiclo(lote, modelo) {
+    if (modelo.perenne) {
+        const cortes = (lote.trabajos || [])
+            .filter(t => t.tipo === "Corte" && t.estado === "realizado" && t.fechaReal)
+            .sort((a, b) => b.fechaReal.localeCompare(a.fechaReal));
+        if (cortes.length) return { fecha: cortes[0].fechaReal, origen: "corte" };
+        if (lote.fechaSiembra) return { fecha: lote.fechaSiembra, origen: "siembra" };
+        return null;
+    }
+    if (lote.fechaSiembra) return { fecha: lote.fechaSiembra, origen: "siembra" };
+    return null;
+}
+
 function calcularEtapaActual(lote) {
     const modelo = etapasFenologicas[lote.cultivo];
     if (!modelo) return null;
 
-    let fechaBase = lote.fechaSiembra || null;
-    if (modelo.baseFecha === "ultimaMedicion" && lote.mediciones && lote.mediciones.length) {
-        fechaBase = lote.mediciones[lote.mediciones.length - 1].fecha;
-    }
-    if (!fechaBase) return null;
+    const base = obtenerFechaBaseCiclo(lote, modelo);
+    if (!base) return null;
 
-    const dias = Math.floor((Date.now() - new Date(fechaBase + "T00:00:00").getTime()) / 86400000);
+    const dias = Math.floor((Date.now() - new Date(base.fecha + "T00:00:00").getTime()) / 86400000);
     if (dias < 0) return null;
 
     const etapas = modelo.etapas;
@@ -4856,7 +4869,7 @@ function calcularEtapaActual(lote) {
     const finalDeCiclo = siguiente ? siguiente.desde : modelo.cicloDias;
     const progreso = Math.max(0, Math.min(100, Math.round((dias / finalDeCiclo) * 100)));
 
-    return { dias, actual, siguiente, diasHastaSiguiente, progreso, esPerenne: modelo.baseFecha === "ultimaMedicion" };
+    return { dias, actual, siguiente, diasHastaSiguiente, progreso, esPerenne: !!modelo.perenne, origenFecha: base.origen };
 }
 
 /* =========================================================================
@@ -4940,12 +4953,14 @@ function renderEtapaFenologicaFicha(lote) {
     const modelo = etapasFenologicas[lote.cultivo];
     if (!modelo) return "";
 
-    const usaSiembra = modelo.baseFecha !== "ultimaMedicion";
-    const faltaDato = usaSiembra ? !lote.fechaSiembra : (!lote.fechaSiembra && (!lote.mediciones || !lote.mediciones.length));
+    const base = obtenerFechaBaseCiclo(lote, modelo);
 
-    if (faltaDato) {
+    if (!base) {
+        const mensaje = modelo.perenne
+            ? "⚠️ Registrá el último corte real (o cargá la fecha de siembra) para activar el seguimiento fenológico."
+            : "⚠️ Cargá la fecha de siembra en este lote para activar el seguimiento fenológico.";
         return '<div class="etapa-vacia">' +
-            '<span>⚠️ Cargá la fecha de siembra en este lote para activar el seguimiento fenológico.</span>' +
+            '<span>' + mensaje + '</span>' +
             '<button onclick="editarLote(\'' + lote.id + '\')">CARGAR</button>' +
             '</div>';
     }
@@ -4955,10 +4970,14 @@ function renderEtapaFenologicaFicha(lote) {
 
     const alerta = evaluarAlertaEtapa(lote, etapaInfo, climaDiarioActual);
 
+    const etiquetaDias = etapaInfo.esPerenne
+        ? "Día " + etapaInfo.dias + " desde " + (etapaInfo.origenFecha === "corte" ? "el último corte" : "la siembra (sin cortes registrados)")
+        : "Día " + etapaInfo.dias + " desde siembra";
+
     let html = '<div class="etapa-caja">' +
         '<div class="etapa-caja-top">' +
         '<span class="etapa-nombre">🌿 ' + escapeHtml(etapaInfo.actual.nombre) + '</span>' +
-        '<span class="etapa-dias">' + (etapaInfo.esPerenne ? "Día " + etapaInfo.dias + " del rebrote" : "Día " + etapaInfo.dias + " desde siembra") + '</span>' +
+        '<span class="etapa-dias">' + etiquetaDias + '</span>' +
         '</div>' +
         '<div class="etapa-barra-fondo"><div class="etapa-barra-relleno" style="width:' + etapaInfo.progreso + '%;"></div></div>';
 
