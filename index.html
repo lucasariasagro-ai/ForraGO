@@ -262,6 +262,37 @@ body {
 }
 
 /* =========================================================
+   TÍTULOS — JERARQUÍA VISUAL
+========================================================= */
+
+/* Título principal "¿Qué querés evaluar?" */
+.titulo-principal h2 {
+    color: var(--verde);
+}
+
+/* Títulos secundarios "Gestioná" y "Explorá" */
+.titulo-secundario {
+    position: relative;
+    margin-bottom: 4px;
+}
+.titulo-secundario h2 {
+    color: var(--verde2);
+    font-weight: 700;
+    opacity: .85;
+}
+
+/* Línea decorativa debajo de los títulos secundarios */
+.titulo-secundario::after {
+    content: "";
+    display: block;
+    width: 44px;
+    height: 3px;
+    margin: 6px auto 0;
+    background: var(--lima);
+    border-radius: 4px;
+}
+
+/* =========================================================
    BOTONES MODERNOS
 ========================================================= */
 
@@ -2233,6 +2264,9 @@ body {
     .historial-tabla th, .historial-tabla td { padding:8px 4px; }
     .consoc-preset-chip { padding:10px 14px; font-size:10px; }
     .consoc-selects { grid-template-columns:1fr; }
+    .titulo-principal h2 { font-size:20px; }
+    .titulo-secundario h2 { font-size:17px; }
+    .titulo-secundario::after { width:32px; }
 }
 
 @media(max-width:390px) {
@@ -2530,7 +2564,7 @@ body {
        "¿QUÉ QUERÉS EVALUAR?" — SOLO EN CALCULADORA PRINCIPAL
     ========================================================= -->
 
-    <div id="tituloEvaluar" class="seccion seccion-simple">
+    <div id="tituloEvaluar" class="seccion seccion-simple titulo-principal">
         <h2>¿Qué querés evaluar?</h2>
     </div>
 
@@ -2561,8 +2595,8 @@ body {
             <span>✓</span> Rendimientos de referencia verificados con fuentes INTA
         </div>
 
-        <!-- TÍTULO "GESTIONÁ" — NUEVO, ARRIBA DE MIS LOTES Y AGENDA -->
-        <div class="seccion seccion-simple" style="margin:20px 0 12px;">
+        <!-- TÍTULO "GESTIONÁ" — CON LÍNEA DECORATIVA -->
+        <div class="seccion seccion-simple titulo-secundario" style="margin:20px 0 8px;">
             <h2>Gestioná</h2>
         </div>
 
@@ -2584,8 +2618,8 @@ body {
             </div>
         </div>
 
-        <!-- TÍTULO "EXPLORÁ" — ARRIBA DE BIBLIOTECA -->
-        <div class="seccion seccion-simple" style="margin:16px 0 12px;">
+        <!-- TÍTULO "EXPLORÁ" — CON LÍNEA DECORATIVA -->
+        <div class="seccion seccion-simple titulo-secundario" style="margin:16px 0 8px;">
             <h2>Explorá</h2>
         </div>
 
