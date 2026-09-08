@@ -262,9 +262,9 @@ body {
 }
 .titulo-secundario h2 {
     color: var(--verde2);
-    font-weight: 700;
-    opacity: .85;
-    text-align: center;
+    font-weight:700;
+    opacity:.85;
+    text-align:center;
 }
 
 /* =========================================================
@@ -272,37 +272,37 @@ body {
 ========================================================= */
 
 .check-verde {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: var(--verde2);
-    color: white;
-    font-size: 14px;
-    font-weight: 900;
-    flex-shrink: 0;
-    transition: transform .2s ease, background .2s ease, box-shadow .2s ease;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:24px;
+    height:24px;
+    border-radius:50%;
+    background:var(--verde2);
+    color:white;
+    font-size:14px;
+    font-weight:900;
+    flex-shrink:0;
+    transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
 }
 .destino-opcion:hover .check-verde {
-    transform: scale(1.1);
-    background: var(--verde);
+    transform:scale(1.1);
+    background:var(--verde);
 }
 .destino-opcion.activo .check-verde {
-    background: var(--verde);
-    box-shadow: 0 0 0 3px rgba(45,143,78,.25);
+    background:var(--verde);
+    box-shadow:0 0 0 3px rgba(45,143,78,.25);
 }
 .destino-opcion .check-verde {
-    background: var(--borde);
-    color: var(--blanco);
+    background:var(--borde);
+    color:var(--blanco);
 }
 .destino-opcion.activo .check-verde {
-    background: var(--verde2);
-    box-shadow: 0 0 0 3px rgba(45,143,78,.2);
+    background:var(--verde2);
+    box-shadow:0 0 0 3px rgba(45,143,78,.2);
 }
 .destino-opcion.activo:hover .check-verde {
-    background: var(--verde);
+    background:var(--verde);
 }
 
 /* =========================================================
@@ -1839,391 +1839,244 @@ body {
 }
 
 /* =========================================================
-   CLIMA PREMIUM
+   ROTADOR DE INFORMACIÓN
 ========================================================= */
 
-.weather-card-premium {
-    position:relative;
-    overflow:hidden;
-    margin:0 0 16px;
-    padding:24px 28px 22px;
-    border-radius:var(--radio);
+.rotador {
     background:var(--blanco);
+    border-radius:var(--radio);
+    padding:24px 28px;
     border:1px solid var(--borde);
     box-shadow:var(--sombra);
-    transition:background .6s ease, border-color .6s ease;
-}
-
-.weather-card-premium::before {
-    content:"";
-    position:absolute;
-    inset:0;
-    z-index:0;
-    opacity:.08;
-    background-image:radial-gradient(circle at 70% 20%, rgba(255,255,255,.5) 0%, transparent 50%);
-    pointer-events:none;
-}
-.weather-card-premium > * { position:relative; z-index:2; }
-
-.weather-card-premium.clima-despejado {
-    background:linear-gradient(145deg, #fef9e7, #fdf2d0);
-    border-color:#f0dfa0;
-}
-.weather-card-premium.clima-despejado .weather-premium-temp { color:#d48c2c; }
-
-.weather-card-premium.clima-parcial {
-    background:linear-gradient(145deg, #f3f8ee, #e5efe0);
-    border-color:#d3ddd0;
-}
-.weather-card-premium.clima-parcial .weather-premium-temp { color:var(--verde2); }
-
-.weather-card-premium.clima-nublado {
-    background:linear-gradient(145deg, #f0f1ef, #e0e3df);
-    border-color:#cdd1cb;
-}
-.weather-card-premium.clima-nublado .weather-premium-temp { color:#5a6b5e; }
-
-.weather-card-premium.clima-lluvia {
-    background:linear-gradient(145deg, #e8f0f5, #d3e1ea);
-    border-color:#c5d6e3;
-}
-.weather-card-premium.clima-lluvia .weather-premium-temp { color:#2b5a72; }
-
-.weather-card-premium.clima-nieve {
-    background:linear-gradient(145deg, #f5fafd, #e5f0f7);
-    border-color:#d5e6f0;
-}
-.weather-card-premium.clima-nieve .weather-premium-temp { color:#4f7b99; }
-
-.weather-card-premium.clima-tormenta {
-    background:linear-gradient(145deg, #2c3542, #1a212b);
-    border-color:#1e2731;
-    color:white;
-}
-.weather-card-premium.clima-tormenta .weather-premium-temp { color:white; }
-.weather-card-premium.clima-tormenta .weather-premium-extra { color:rgba(255,255,255,.6); }
-.weather-card-premium.clima-tormenta .weather-premium-desc { color:rgba(255,255,255,.8); }
-.weather-card-premium.clima-tormenta .weather-premium-day { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.1); }
-.weather-card-premium.clima-tormenta .weather-premium-day-name { color:rgba(255,255,255,.5); }
-.weather-card-premium.clima-tormenta .weather-premium-day-temp { color:white; }
-.weather-card-premium.clima-tormenta .weather-premium-insight.tono-bueno { background:rgba(184,217,108,.16); color:var(--lima); }
-.weather-card-premium.clima-tormenta .weather-premium-insight.tono-atencion { background:rgba(255,255,255,.1); color:white; }
-
-/* Noche */
-.weather-card-premium.clima-noche-despejado {
-    background:linear-gradient(145deg, #1a212b, #2d3a45);
-    border-color:#2d3a45;
-    color:white;
-}
-.weather-card-premium.clima-noche-despejado .weather-premium-temp { color:#e8e3d0; }
-.weather-card-premium.clima-noche-despejado .weather-premium-temp::after { color:rgba(255,255,255,.4); }
-.weather-card-premium.clima-noche-despejado .weather-premium-extra { color:rgba(255,255,255,.5); }
-.weather-card-premium.clima-noche-despejado .weather-premium-desc { color:rgba(255,255,255,.8); }
-.weather-card-premium.clima-noche-despejado .weather-premium-day { background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.08); }
-.weather-card-premium.clima-noche-despejado .weather-premium-day-name { color:rgba(255,255,255,.4); }
-.weather-card-premium.clima-noche-despejado .weather-premium-day-temp { color:white; }
-.weather-card-premium.clima-noche-despejado .weather-premium-insight.tono-bueno { background:rgba(184,217,108,.12); color:#b8d96c; }
-.weather-card-premium.clima-noche-despejado .weather-premium-insight.tono-atencion { background:rgba(255,255,255,.08); color:white; }
-.weather-card-premium.clima-noche-despejado .weather-premium-alert { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.1); color:rgba(255,255,255,.8); }
-
-.weather-card-premium.clima-noche-parcial {
-    background:linear-gradient(145deg, #1f2933, #2d3a45);
-    border-color:#2d3a45;
-    color:white;
-}
-.weather-card-premium.clima-noche-parcial .weather-premium-temp { color:#e8e3d0; }
-.weather-card-premium.clima-noche-parcial .weather-premium-temp::after { color:rgba(255,255,255,.4); }
-.weather-card-premium.clima-noche-parcial .weather-premium-extra { color:rgba(255,255,255,.5); }
-.weather-card-premium.clima-noche-parcial .weather-premium-desc { color:rgba(255,255,255,.8); }
-.weather-card-premium.clima-noche-parcial .weather-premium-day { background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.08); }
-.weather-card-premium.clima-noche-parcial .weather-premium-day-name { color:rgba(255,255,255,.4); }
-.weather-card-premium.clima-noche-parcial .weather-premium-day-temp { color:white; }
-.weather-card-premium.clima-noche-parcial .weather-premium-insight.tono-bueno { background:rgba(184,217,108,.12); color:#b8d96c; }
-.weather-card-premium.clima-noche-parcial .weather-premium-insight.tono-atencion { background:rgba(255,255,255,.08); color:white; }
-.weather-card-premium.clima-noche-parcial .weather-premium-alert { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.1); color:rgba(255,255,255,.8); }
-
-.weather-card-premium.clima-noche-nublado {
-    background:linear-gradient(145deg, #1a212b, #26313a);
-    border-color:#2d3a45;
-    color:white;
-}
-.weather-card-premium.clima-noche-nublado .weather-premium-temp { color:#e0e0e0; }
-.weather-card-premium.clima-noche-nublado .weather-premium-temp::after { color:rgba(255,255,255,.4); }
-.weather-card-premium.clima-noche-nublado .weather-premium-extra { color:rgba(255,255,255,.4); }
-.weather-card-premium.clima-noche-nublado .weather-premium-desc { color:rgba(255,255,255,.7); }
-.weather-card-premium.clima-noche-nublado .weather-premium-day { background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.08); }
-.weather-card-premium.clima-noche-nublado .weather-premium-day-name { color:rgba(255,255,255,.4); }
-.weather-card-premium.clima-noche-nublado .weather-premium-day-temp { color:white; }
-.weather-card-premium.clima-noche-nublado .weather-premium-insight.tono-bueno { background:rgba(184,217,108,.12); color:#b8d96c; }
-.weather-card-premium.clima-noche-nublado .weather-premium-insight.tono-atencion { background:rgba(255,255,255,.08); color:white; }
-.weather-card-premium.clima-noche-nublado .weather-premium-alert { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.1); color:rgba(255,255,255,.8); }
-
-.weather-card-premium.clima-noche-lluvia {
-    background:linear-gradient(145deg, #141e26, #1f2c36);
-    border-color:#1f2c36;
-    color:white;
-}
-.weather-card-premium.clima-noche-lluvia .weather-premium-temp { color:#7fa0b3; }
-.weather-card-premium.clima-noche-lluvia .weather-premium-temp::after { color:rgba(255,255,255,.3); }
-.weather-card-premium.clima-noche-lluvia .weather-premium-extra { color:rgba(255,255,255,.4); }
-.weather-card-premium.clima-noche-lluvia .weather-premium-desc { color:rgba(255,255,255,.7); }
-.weather-card-premium.clima-noche-lluvia .weather-premium-day { background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.08); }
-.weather-card-premium.clima-noche-lluvia .weather-premium-day-name { color:rgba(255,255,255,.4); }
-.weather-card-premium.clima-noche-lluvia .weather-premium-day-temp { color:white; }
-.weather-card-premium.clima-noche-lluvia .weather-premium-insight.tono-bueno { background:rgba(184,217,108,.12); color:#b8d96c; }
-.weather-card-premium.clima-noche-lluvia .weather-premium-insight.tono-atencion { background:rgba(255,255,255,.08); color:white; }
-.weather-card-premium.clima-noche-lluvia .weather-premium-alert { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.1); color:rgba(255,255,255,.8); }
-
-.weather-card-premium.clima-noche-tormenta {
-    background:linear-gradient(145deg, #0d1117, #1a212b);
-    border-color:#0d1117;
-    color:white;
-}
-.weather-card-premium.clima-noche-tormenta .weather-premium-temp { color:white; }
-.weather-card-premium.clima-noche-tormenta .weather-premium-temp::after { color:rgba(255,255,255,.3); }
-.weather-card-premium.clima-noche-tormenta .weather-premium-extra { color:rgba(255,255,255,.4); }
-.weather-card-premium.clima-noche-tormenta .weather-premium-desc { color:rgba(255,255,255,.7); }
-.weather-card-premium.clima-noche-tormenta .weather-premium-day { background:rgba(255,255,255,.06); border-color:rgba(255,255,255,.08); }
-.weather-card-premium.clima-noche-tormenta .weather-premium-day-name { color:rgba(255,255,255,.4); }
-.weather-card-premium.clima-noche-tormenta .weather-premium-day-temp { color:white; }
-.weather-card-premium.clima-noche-tormenta .weather-premium-insight.tono-bueno { background:rgba(184,217,108,.12); color:#b8d96c; }
-.weather-card-premium.clima-noche-tormenta .weather-premium-insight.tono-atencion { background:rgba(255,255,255,.08); color:white; }
-.weather-card-premium.clima-noche-tormenta .weather-premium-alert { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.1); color:rgba(255,255,255,.8); }
-
-.weather-premium-grid {
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:24px;
-    align-items:center;
-}
-.weather-premium-main {
+    min-height:140px;
     display:flex;
     flex-direction:column;
-    align-items:flex-start;
+    justify-content:center;
+    transition:background .6s ease, border-color .6s ease;
+    margin-bottom:16px;
+    position:relative;
+    overflow:hidden;
 }
-.weather-premium-icono {
-    width:56px;
-    height:56px;
-    margin-bottom:2px;
+
+.rotador-panel {
+    display:none;
+    animation:fadeRotador .5s ease;
+    text-align:center;
 }
-.weather-premium-icono svg { width:100%; height:100%; }
-.weather-premium-temp {
-    font-size:42px;
+
+.rotador-panel.activo {
+    display:block;
+}
+
+@keyframes fadeRotador {
+    from { opacity:0; transform:translateY(8px); }
+    to { opacity:1; transform:translateY(0); }
+}
+
+.rotador-dots {
+    display:flex;
+    justify-content:center;
+    gap:8px;
+    margin-top:14px;
+}
+
+.rotador-dot {
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    background:var(--borde);
+    border:none;
+    cursor:pointer;
+    transition:all .3s ease;
+    padding:0;
+    appearance:none;
+}
+
+.rotador-dot.activo {
+    background:var(--verde);
+    width:24px;
+    border-radius:4px;
+}
+
+.rotador-logo {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:4px;
+}
+
+.rotador-logo img {
+    height:60px;
+    width:auto;
+}
+
+.rotador-logo .subtitulo {
+    font-size:12px;
+    color:var(--gris);
+    font-weight:500;
+    letter-spacing:1px;
+}
+
+/* Clima panel */
+.rotador-clima-temp {
+    font-size:36px;
     font-weight:900;
-    letter-spacing:-2px;
+    color:var(--verde);
     line-height:1;
 }
-.weather-premium-temp::after {
-    content:"°C";
-    font-size:17px;
-    font-weight:700;
-    color:var(--gris);
-    margin-left:2px;
-}
-.weather-premium-desc {
-    font-size:14px;
-    font-weight:700;
-    color:var(--verde);
-    margin-top:2px;
-}
-.weather-premium-extra {
-    font-size:12px;
-    font-weight:500;
-    color:var(--gris);
-    margin-top:4px;
-    display:flex;
-    gap:6px;
-}
-.weather-premium-divider { opacity:.3; }
 
-.weather-premium-days {
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:8px;
-}
-.weather-premium-day {
-    padding:10px 6px;
-    border-radius:14px;
-    background:var(--fondo);
-    border:1px solid var(--borde);
-    text-align:center;
-    transition:var(--transicion);
-}
-.weather-premium-day:hover {
-    transform:translateY(-2px);
-    background:var(--blanco);
-}
-.weather-premium-day-name {
-    font-size:8.5px;
-    font-weight:700;
-    text-transform:uppercase;
-    letter-spacing:.6px;
-    color:var(--gris);
-}
-.weather-premium-day-icon {
-    width:26px;
-    height:26px;
-    margin:4px auto 0;
-}
-.weather-premium-day-icon svg { width:100%; height:100%; }
-.weather-premium-day-temp {
-    font-size:14px;
-    font-weight:800;
-    color:var(--verde);
-    margin-top:2px;
-}
-.weather-premium-day-temp small {
-    font-size:8.5px;
+.rotador-clima-temp small {
+    font-size:16px;
     font-weight:600;
     color:var(--gris);
 }
 
-.weather-premium-insight {
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-top:14px;
-    padding:10px 16px;
-    border-radius:14px;
-    font-size:11px;
+.rotador-clima-desc {
+    font-size:14px;
     font-weight:700;
-    line-height:1.4;
+    color:var(--texto-suave);
+    margin-top:2px;
 }
-.weather-premium-insight.tono-bueno {
-    background:var(--verde-claro);
-    color:var(--verde2);
-}
-.weather-premium-insight.tono-atencion {
-    background:#fdf0dc;
-    color:#b07a2e;
-}
-.weather-premium-insight-icon { font-size:16px; flex-shrink:0; }
 
-.weather-premium-alerts {
+.rotador-clima-extra {
+    font-size:12px;
+    color:var(--gris);
+    margin-top:2px;
+}
+
+.rotador-clima-dias {
     display:flex;
-    flex-wrap:wrap;
-    gap:6px;
+    justify-content:center;
+    gap:20px;
     margin-top:10px;
 }
-.weather-premium-alerts:empty { display:none; }
-.weather-premium-alert {
-    padding:4px 12px;
-    border-radius:30px;
-    background:rgba(255,255,255,.8);
-    border:1px solid var(--borde);
-    font-size:8.5px;
-    font-weight:700;
-    color:var(--verde2);
+
+.rotador-clima-dia {
+    text-align:center;
+    font-size:11px;
 }
-.weather-card-premium.clima-tormenta .weather-premium-alert {
-    background:rgba(255,255,255,.1);
-    border-color:rgba(255,255,255,.15);
-    color:white;
+
+.rotador-clima-dia .nombre {
+    font-weight:700;
+    color:var(--gris);
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+}
+
+.rotador-clima-dia .icono {
+    font-size:20px;
+    display:block;
+    margin:2px 0;
+}
+
+.rotador-clima-dia .temp {
+    font-weight:700;
+    color:var(--texto);
+    font-size:13px;
+}
+
+.rotador-clima-dia .temp small {
+    font-size:9px;
+    color:var(--gris);
+    font-weight:500;
+}
+
+/* Alertas panel */
+.rotador-alerta {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+}
+
+.rotador-alerta .titulo {
+    font-size:14px;
+    font-weight:800;
+    color:#b33c3c;
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+
+.rotador-alerta .mensaje {
+    font-size:13px;
+    color:var(--texto-suave);
+    font-weight:600;
+}
+
+.rotador-alerta .detalle {
+    font-size:11px;
+    color:var(--gris);
+}
+
+/* Última medición panel */
+.rotador-medicion .cultivo {
+    font-size:15px;
+    font-weight:800;
+    color:var(--verde);
+}
+
+.rotador-medicion .rendimiento {
+    font-size:28px;
+    font-weight:900;
+    color:var(--verde2);
+    line-height:1.2;
+}
+
+.rotador-medicion .rendimiento small {
+    font-size:14px;
+    font-weight:600;
+    color:var(--gris);
+}
+
+.rotador-medicion .categoria {
+    display:inline-block;
+    padding:4px 14px;
+    border-radius:30px;
+    font-size:9px;
+    font-weight:800;
+    margin-top:4px;
 }
 
 @media(max-width:600px) {
-    .weather-premium-grid {
-        grid-template-columns:1fr;
-        gap:16px;
+    .rotador {
+        padding:18px 16px;
+        min-height:120px;
     }
-    .weather-premium-main { align-items:center; text-align:center; }
-    .weather-premium-icono { width:48px; height:48px; }
-    .weather-premium-temp { font-size:34px; }
-    .weather-card-premium { padding:20px 16px 16px; }
-    .weather-premium-day { padding:6px 4px; }
-    .weather-premium-day-icon { width:22px; height:22px; }
-    .weather-premium-day-temp { font-size:12px; }
+    .rotador-clima-temp {
+        font-size:28px;
+    }
+    .rotador-clima-dias {
+        gap:12px;
+    }
+    .rotador-clima-dia .icono {
+        font-size:16px;
+    }
+    .rotador-clima-dia .temp {
+        font-size:11px;
+    }
+    .rotador-medicion .rendimiento {
+        font-size:22px;
+    }
+    .rotador-logo img {
+        height:44px;
+    }
+    .rotador-alerta .titulo {
+        font-size:12px;
+    }
+    .rotador-alerta .mensaje {
+        font-size:11px;
+    }
 }
 
 /* =========================================================
-   CONSOCIACIONES
+   CLIMA PREMIUM (oculto, reemplazado por rotador)
 ========================================================= */
 
-.ver-todos-toggle {
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:8px;
-    margin-top:16px;
-    padding:14px;
-    border-radius:14px;
-    cursor:pointer;
-    font-size:11.5px;
-    font-weight:700;
-    color:var(--verde2);
-    background:var(--fondo);
-    border:1.5px solid transparent;
-    transition:var(--transicion);
-}
-.ver-todos-toggle:hover {
-    border-color:var(--verde3);
-    transform:translateY(-1px);
-}
-.ver-todos-toggle::before { content:"🌱"; font-size:13px; }
-
-.cultivos-extra-panel { margin-top:12px; }
-
-.consoc-selects {
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-}
-.consoc-campo label {
-    display:block;
-    font-size:9px;
-    font-weight:700;
-    color:var(--verde2);
-    margin-bottom:4px;
-}
-.consoc-campo select {
-    width:100%;
-    padding:12px 14px;
-    border-radius:12px;
-    border:1.5px solid var(--borde);
-    font-size:13px;
-    font-family:inherit;
-    background:var(--blanco);
-    transition:var(--transicion);
-}
-.consoc-campo select:focus {
-    outline:none;
-    border-color:var(--verde3);
-}
-.consoc-slider-wrap { margin-top:16px; }
-.consoc-slider-top {
-    display:flex;
-    justify-content:space-between;
-    font-size:11px;
-    color:var(--gris);
-    margin-bottom:6px;
-}
-.consoc-slider-top strong { color:var(--verde); font-size:13px; }
-.consoc-slider-wrap input[type="range"] {
-    width:100%;
-    accent-color:var(--verde2);
-}
-.consoc-preview {
-    margin-top:16px;
-    padding:14px 18px;
-    border-radius:14px;
-    background:var(--blanco);
-    border:1.5px solid var(--borde);
-    font-size:11px;
-    line-height:1.6;
-    color:var(--gris);
-    transition:var(--transicion);
-}
-.consoc-preview.activo {
-    border-color:var(--lima);
-    color:var(--texto);
-}
-.consoc-preview.activo strong { color:var(--verde); }
-.consoc-preview.oculto { display:none; }
-.consoc-nota {
-    margin-top:12px;
-    font-size:9.5px;
-    color:var(--gris);
-    line-height:1.6;
+.weather-card-premium {
+    display:none;
 }
 
 /* =========================================================
@@ -2304,8 +2157,13 @@ body {
     .cultivos-scroll { grid-template-rows:repeat(2,150px); }
     .cultivo { height:150px; border-radius:16px; }
     .cultivo-info strong { font-size:14px; }
-    .weather-premium-temp { font-size:30px; }
-    .weather-premium-icono { width:44px; height:44px; }
+    .rotador { padding:14px 12px; min-height:100px; }
+    .rotador-clima-temp { font-size:24px; }
+    .rotador-clima-dias { gap:8px; }
+    .rotador-clima-dia .icono { font-size:14px; }
+    .rotador-clima-dia .temp { font-size:10px; }
+    .rotador-medicion .rendimiento { font-size:18px; }
+    .rotador-logo img { height:36px; }
     .form-group input,
     .form-group select,
     .form-group textarea { font-size:13px; padding:12px 14px; }
@@ -2321,7 +2179,7 @@ body {
     body { background:white; }
     .header, .hero, .seccion, .panel, .botones, .contacto-mini,
     .tipo-tabs, .sello-credibilidad, .biblioteca-toggle, .biblioteca-panel,
-    .carga-toggle, .carga-panel, .footer, .weather-card-premium {
+    .carga-toggle, .carga-panel, .footer, .rotador {
         display:none!important;
     }
     .resultado { display:block; border:none; box-shadow:none; }
@@ -2486,7 +2344,7 @@ body {
 }
 
 /* =========================================================
-   AGENDA — ESTILOS ADICIONALES
+   AGENDA — ESTILOS
 ========================================================= */
 
 .trabajos-caja { margin-bottom:18px; }
@@ -2738,50 +2596,79 @@ body {
 
 <div id="appShell" class="app-shell-hidden">
 
-    <!-- CLIMA PREMIUM -->
-    <section id="weatherCard" class="weather-card-premium clima-despejado" aria-label="Clima y pronóstico">
-        <div class="weather-premium-grid">
-            <div class="weather-premium-main">
-                <div class="weather-premium-icono" id="weatherIconPremium"></div>
-                <div class="weather-premium-temp" id="weatherTempPremium">--</div>
-                <div class="weather-premium-desc" id="weatherStatusPremium">Cargando...</div>
-                <div class="weather-premium-extra">
-                    <span id="weatherSensacion">--°C</span>
-                    <span class="weather-premium-divider">·</span>
-                    <span id="weatherVientoPremium">-- km/h</span>
-                </div>
-            </div>
-            <div class="weather-premium-days">
-                <div class="weather-premium-day" id="day0">
-                    <div class="weather-premium-day-name" id="dayName0">Hoy</div>
-                    <div class="weather-premium-day-icon" id="dayIcon0"></div>
-                    <div class="weather-premium-day-temp" id="dayTemp0">--°</div>
-                </div>
-                <div class="weather-premium-day" id="day1">
-                    <div class="weather-premium-day-name" id="dayName1">Mañana</div>
-                    <div class="weather-premium-day-icon" id="dayIcon1"></div>
-                    <div class="weather-premium-day-temp" id="dayTemp1">--°</div>
-                </div>
-                <div class="weather-premium-day" id="day2">
-                    <div class="weather-premium-day-name" id="dayName2">Pasado</div>
-                    <div class="weather-premium-day-icon" id="dayIcon2"></div>
-                    <div class="weather-premium-day-temp" id="dayTemp2">--°</div>
-                </div>
-            </div>
-        </div>
-        <div id="weatherInsightPremium" class="weather-premium-insight" style="display:none;">
-            <span id="weatherInsightIconPremium">✅</span>
-            <span id="weatherInsightTextoPremium">-</span>
-        </div>
-        <div id="weatherAlertsPremium" class="weather-premium-alerts"></div>
-    </section>
+    <!-- =========================================================
+       ROTADOR DE INFORMACIÓN (reemplaza al clima)
+    ========================================================= -->
 
-    <!-- TÍTULO "¿QUÉ QUERÉS EVALUAR?" -->
+    <div id="rotador" class="rotador">
+        <!-- Panel 1: LOGO -->
+        <div class="rotador-panel activo" data-panel="logo">
+            <div class="rotador-logo">
+                <img src="img/img_12.png" alt="ForraGO" id="rotadorLogo">
+                <span class="subtitulo">Inteligencia forrajera</span>
+            </div>
+        </div>
+
+        <!-- Panel 2: CLIMA + PRONÓSTICO -->
+        <div class="rotador-panel" data-panel="clima">
+            <div class="rotador-clima">
+                <div class="rotador-clima-temp" id="rotadorTemp">--<small>°C</small></div>
+                <div class="rotador-clima-desc" id="rotadorDesc">Cargando...</div>
+                <div class="rotador-clima-extra" id="rotadorExtra">-- km/h</div>
+                <div class="rotador-clima-dias" id="rotadorDias">
+                    <div class="rotador-clima-dia">
+                        <span class="nombre">Hoy</span>
+                        <span class="icono" id="rotadorIcon0">☀️</span>
+                        <span class="temp" id="rotadorTemp0">--<small>°</small></span>
+                    </div>
+                    <div class="rotador-clima-dia">
+                        <span class="nombre">Mañana</span>
+                        <span class="icono" id="rotadorIcon1">☀️</span>
+                        <span class="temp" id="rotadorTemp1">--<small>°</small></span>
+                    </div>
+                    <div class="rotador-clima-dia">
+                        <span class="nombre">Pasado</span>
+                        <span class="icono" id="rotadorIcon2">☀️</span>
+                        <span class="temp" id="rotadorTemp2">--<small>°</small></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel 3: ALERTAS CLIMÁTICAS -->
+        <div class="rotador-panel" data-panel="alertas" id="rotadorAlertas" style="display:none;">
+            <div class="rotador-alerta">
+                <div class="titulo" id="alertaTitulo">⚠️ Alerta meteorológica</div>
+                <div class="mensaje" id="alertaMensaje">-</div>
+                <div class="detalle" id="alertaDetalle">-</div>
+            </div>
+        </div>
+
+        <!-- Panel 4: ÚLTIMA MEDICIÓN -->
+        <div class="rotador-panel" data-panel="medicion" id="rotadorMedicion" style="display:none;">
+            <div class="rotador-medicion">
+                <div class="cultivo" id="medicionCultivo">-</div>
+                <div class="rendimiento" id="medicionRendimiento">-- <small>kg MS/ha</small></div>
+                <div class="categoria" id="medicionCategoria">-</div>
+            </div>
+        </div>
+
+        <!-- DOTS -->
+        <div class="rotador-dots" id="rotadorDots"></div>
+    </div>
+
+    <!-- =========================================================
+       "¿QUÉ QUERÉS EVALUAR?"
+    ========================================================= -->
+
     <div id="tituloEvaluar" class="seccion seccion-simple titulo-principal">
         <h2>¿Qué querés evaluar?</h2>
     </div>
 
-    <!-- CALCULADORA -->
+    <!-- =========================================================
+       CALCULADORA
+    ========================================================= -->
+
     <div id="vistaCalculadora">
         <div class="tipo-tabs" id="tipoTabs">
             <button class="tipo-tab" data-tipo="forraje" onclick="mostrarTipo('forraje')">
@@ -2833,7 +2720,10 @@ body {
         </div>
     </div>
 
-    <!-- BLOQUE FORRAJE -->
+    <!-- =========================================================
+       BLOQUE FORRAJE
+    ========================================================= -->
+
     <div id="bloqueForraje" class="bloque-tipo" style="display:none;">
         <section class="panel">
             <label class="label">Elegí el cultivo</label>
@@ -3121,7 +3011,10 @@ body {
         </section>
     </div>
 
-    <!-- BLOQUE SILAJE -->
+    <!-- =========================================================
+       BLOQUE SILAJE
+    ========================================================= -->
+
     <div id="bloqueSilaje" class="bloque-tipo" style="display:none;">
         <section class="panel">
             <label class="label">Elegí el cultivo</label>
@@ -3290,7 +3183,10 @@ body {
         </section>
     </div>
 
-    <!-- MIS LOTES -->
+    <!-- =========================================================
+       MIS LOTES
+    ========================================================= -->
+
     <div id="vistaLotes" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarMisLotes()">Volver</button>
@@ -3353,7 +3249,10 @@ body {
         <div id="loteHistorial" style="display:none;"></div>
     </div>
 
-    <!-- AGENDA DE CAMPO -->
+    <!-- =========================================================
+       AGENDA DE CAMPO
+    ========================================================= -->
+
     <div id="vistaAgenda" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarAgendaCampo()">Volver</button>
@@ -3370,7 +3269,10 @@ body {
         <div id="agendaContenido"></div>
     </div>
 
-    <!-- BIBLIOTECA -->
+    <!-- =========================================================
+       BIBLIOTECA
+    ========================================================= -->
+
     <div id="vistaBiblioteca" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarBiblioteca()">Volver</button>
@@ -3379,7 +3281,10 @@ body {
         <div id="bibliotecaContenido"></div>
     </div>
 
-    <!-- BANNER LOTE ACTIVO -->
+    <!-- =========================================================
+       BANNER LOTE ACTIVO
+    ========================================================= -->
+
     <div id="loteActivoBanner" class="lote-activo-banner" style="display:none;">
         <span id="loteActivoTexto"></span>
         <a onclick="salirDeLoteActivo()">Salir del lote</a>
@@ -3963,62 +3868,48 @@ function inicializarCarruselInfinito() {
 }
 
 // =========================================================
-// CLIMA
+// CLIMA — PARA EL ROTADOR
 // =========================================================
 
-function codigoClima(codigo, esDeNoche) {
-    if (codigo === 0) {
-        return esDeNoche ? ["🌙", "Despejado", "noche-despejado"] : ["☀️", "Despejado", "despejado"];
-    }
-    if ([1, 2].includes(codigo)) {
-        return esDeNoche ? ["🌤️", "Parcialmente nublado", "noche-parcial"] : ["🌤️", "Parcialmente nublado", "parcial"];
-    }
-    if (codigo === 3) {
-        return esDeNoche ? ["☁️", "Nublado", "noche-nublado"] : ["☁️", "Nublado", "nublado"];
-    }
-    if ([45, 48].includes(codigo)) {
-        return ["🌫️", "Niebla", esDeNoche ? "noche-niebla" : "niebla"];
-    }
-    if ([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82].includes(codigo)) {
-        return ["🌧️", "Lluvia", esDeNoche ? "noche-lluvia" : "lluvia"];
-    }
-    if ([71, 73, 75, 77].includes(codigo)) {
-        return ["🌨️", "Nieve", esDeNoche ? "noche-nieve" : "nieve"];
-    }
-    if ([95, 96, 99].includes(codigo)) {
-        return ["⛈️", "Tormenta", esDeNoche ? "noche-tormenta" : "tormenta"];
-    }
-    return esDeNoche ? ["🌙", "Despejado", "noche-despejado"] : ["☀️", "Despejado", "despejado"];
+function codigoClima(codigo) {
+    if (codigo === 0) return ["☀️", "Despejado", "despejado"];
+    if ([1, 2].includes(codigo)) return ["🌤️", "Parcialmente nublado", "parcial"];
+    if (codigo === 3) return ["☁️", "Nublado", "nublado"];
+    if ([45, 48].includes(codigo)) return ["🌫️", "Niebla", "niebla"];
+    if ([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82].includes(codigo)) return ["🌧️", "Lluvia", "lluvia"];
+    if ([71, 73, 75, 77].includes(codigo)) return ["🌨️", "Nieve", "nieve"];
+    if ([95, 96, 99].includes(codigo)) return ["⛈️", "Tormenta", "tormenta"];
+    return ["☀️", "Despejado", "despejado"];
 }
 
-const iconosClimaSVG = {
-    despejado: `<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="11" fill="var(--lima)" opacity=".18"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(45 16 16)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(90 16 16)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(135 16 16)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(180 16 16)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(225 16 16)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(270 16 16)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(315 16 16)"/><circle cx="16" cy="16" r="7.4" fill="var(--lima)"/><circle cx="13.4" cy="13.4" r="2.6" fill="white" opacity=".38"/></svg>`,
-    parcial: `<svg viewBox="0 0 32 32"><circle cx="12.5" cy="11" r="6.8" fill="var(--lima)" opacity=".2"/><circle cx="12.5" cy="11" r="5" fill="var(--lima)"/><circle cx="10.7" cy="9.4" r="1.7" fill="white" opacity=".4"/><path d="M9.5 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H9.5z" fill="var(--verde2)" opacity=".9" transform="translate(1.1,1.4)"/><path d="M9.5 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H9.5z" fill="var(--verde3)" transform="translate(-0.5,-0.6)"/><ellipse cx="10.5" cy="14.5" rx="3.6" ry="1.7" fill="white" opacity=".22" transform="rotate(-12 10.5 14.5) translate(-0.5,-0.6)"/></svg>`,
-    nublado: `<svg viewBox="0 0 32 32"><path d="M8 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H8z" fill="var(--gris)" opacity=".85" transform="translate(1.3,1.6)"/><path d="M8 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H8z" fill="#c7cec2" transform="translate(-0.6,-0.7)"/><ellipse cx="9" cy="14" rx="3.8" ry="1.8" fill="white" opacity=".3" transform="rotate(-12 9 14) translate(-0.6,-0.7)"/></svg>`,
-    niebla: `<svg viewBox="0 0 32 32"><path d="M9 18c-2.6 0-4.8-2-4.8-4.5 0-2.2 1.7-4.1 3.9-4.5.7-2.8 3.2-4.8 6.2-4.8 3.1 0 5.8 2.2 6.4 5.1 2.1.3 3.7 2.1 3.7 4.2 0 2.3-1.9 4.3-4.3 4.3H9z" fill="#c9cfc4"/><rect x="3" y="21" width="26" height="2.4" rx="1.2" fill="var(--gris)" opacity=".85"/><rect x="6" y="25.4" width="20" height="2.4" rx="1.2" fill="var(--gris)" opacity=".55"/></svg>`,
-    lluvia: `<svg viewBox="0 0 32 32"><path d="M8 21c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#4d6f82" opacity=".85" transform="translate(1.1,1.3)"/><path d="M8 21c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#7fa0b3" transform="translate(-0.5,-0.6)"/><path d="M9.5 24.5c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/><path d="M17.5 25.8c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/><path d="M25 24.5c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/></svg>`,
-    nieve: `<svg viewBox="0 0 32 32"><path d="M8 19c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#a9bfcc" opacity=".85" transform="translate(1.1,1.3)"/><path d="M8 19c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#d3e2ea" transform="translate(-0.5,-0.6)"/><g stroke="#5f97b8" stroke-width="1.3" stroke-linecap="round"><line x1="8" y1="21" x2="8" y2="27"/><line x1="5.5" y1="22.5" x2="10.5" y2="25.5"/><line x1="10.5" y1="22.5" x2="5.5" y2="25.5"/><line x1="16" y1="22.5" x2="16" y2="28.5"/><line x1="13.3" y1="24" x2="18.7" y2="27"/><line x1="18.7" y1="24" x2="13.3" y2="27"/><line x1="24" y1="21" x2="24" y2="27"/><line x1="21.5" y1="22.5" x2="26.5" y2="25.5"/><line x1="26.5" y1="22.5" x2="21.5" y2="25.5"/></g></svg>`,
-    tormenta: `<svg viewBox="0 0 32 32"><circle cx="17" cy="19" r="8" fill="var(--lima)" opacity=".18"/><path d="M8 18c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#2e3a40" opacity=".9" transform="translate(1.1,1.3)"/><path d="M8 18c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#4a5a63" transform="translate(-0.5,-0.6)"/><path d="M18.2 16.5l-5.6 7.7h4.1L14.8 30l7.3-9.6h-4.2l3.1-4.5-2.8.6z" fill="var(--lima)"/></svg>`,
-    'noche-despejado': `<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="#1a212b" opacity=".3"/><path d="M20 8c-4.4 0-8 3.6-8 8 0 4.4 3.6 8 8 8 1.8 0 3.5-.6 4.8-1.7-2.2 1.8-5.2 2.8-8.4 2.3-4.4-.7-7.8-4.5-8-8.8-.2-4.3 2.8-8.3 6.8-9.5.6-.2 1.2-.3 1.8-.3h.6c-.8 1.6-1.2 3.4-1.2 5.2 0 3.9 2.2 7.3 5.4 9.1-1.5.7-3.2 1.1-4.9 1.1-3.9 0-7.1-3.2-7.1-7.1 0-3.2 2.1-5.9 5.1-6.8z" fill="#e8e3d0" opacity=".9"/><circle cx="10" cy="20" r="2.5" fill="#e8e3d0" opacity=".08"/><circle cx="8" cy="14" r="1.8" fill="#e8e3d0" opacity=".06"/><circle cx="14" cy="10" r="1.5" fill="#e8e3d0" opacity=".05"/></svg>`,
-    'noche-parcial': `<svg viewBox="0 0 32 32"><circle cx="9" cy="9" r="5.5" fill="#1a212b" opacity=".2"/><path d="M13 4c-3.6 0-6.5 2.9-6.5 6.5 0 3.6 2.9 6.5 6.5 6.5 1.5 0 2.8-.5 3.9-1.4-1.8 1.5-4.2 2.3-6.8 1.9-3.6-.6-6.3-3.7-6.5-7.2-.2-3.5 2.3-6.7 5.5-7.7.5-.2 1-.2 1.5-.2h.5c-.7 1.3-1 2.8-1 4.2 0 3.2 1.8 5.9 4.4 7.4-1.2.6-2.6.9-4 .9-3.2 0-5.8-2.6-5.8-5.8 0-2.6 1.7-4.8 4.1-5.5z" fill="#e8e3d0" opacity=".9" transform="translate(4,4)"/><path d="M6 22c-2.2 0-4-1.7-4-3.8 0-1.9 1.4-3.5 3.3-3.8.6-2.4 2.7-4.1 5.2-4.1 2.6 0 4.9 1.8 5.4 4.3 1.7.3 3.1 1.8 3.1 3.5 0 1.9-1.6 3.6-3.6 3.6H6z" fill="#c7cec2" transform="translate(4,4)"/><circle cx="10" cy="20" r="2" fill="#e8e3d0" opacity=".06"/><circle cx="6" cy="15" r="1.5" fill="#e8e3d0" opacity=".04"/></svg>`,
-    'noche-nublado': `<svg viewBox="0 0 32 32"><rect x="3" y="4" width="26" height="24" rx="12" fill="#1a212b" opacity=".4"/><path d="M6 22c-2.2 0-4-1.7-4-3.8 0-1.9 1.4-3.5 3.3-3.8.6-2.4 2.7-4.1 5.2-4.1 2.6 0 4.9 1.8 5.4 4.3 1.7.3 3.1 1.8 3.1 3.5 0 1.9-1.6 3.6-3.6 3.6H6z" fill="#4a5a63" opacity=".9" transform="translate(2,2)"/><path d="M6 22c-2.2 0-4-1.7-4-3.8 0-1.9 1.4-3.5 3.3-3.8.6-2.4 2.7-4.1 5.2-4.1 2.6 0 4.9 1.8 5.4 4.3 1.7.3 3.1 1.8 3.1 3.5 0 1.9-1.6 3.6-3.6 3.6H6z" fill="#5a6b75" transform="translate(-0.8,-0.8)"/><circle cx="9" cy="14" rx="2.5" ry="1.2" fill="white" opacity=".08" transform="rotate(-12 9 14) translate(-0.8,-0.8)"/></svg>`,
-    'noche-lluvia': `<svg viewBox="0 0 32 32"><path d="M4 20c-2 0-3.6-1.5-3.6-3.4 0-1.7 1.3-3.1 3-3.4.5-2.2 2.4-3.7 4.7-3.7 2.4 0 4.4 1.6 4.8 3.9 1.5.3 2.8 1.6 2.8 3.1 0 1.7-1.4 3.2-3.2 3.2H4z" fill="#4d6f82" opacity=".85" transform="translate(2,2)"/><path d="M4 20c-2 0-3.6-1.5-3.6-3.4 0-1.7 1.3-3.1 3-3.4.5-2.2 2.4-3.7 4.7-3.7 2.4 0 4.4 1.6 4.8 3.9 1.5.3 2.8 1.6 2.8 3.1 0 1.7-1.4 3.2-3.2 3.2H4z" fill="#7fa0b3" transform="translate(-0.5,-0.5)"/><path d="M5.5 23c0 1-0.8 1.8-1.8 1.8s-1.8-.8-1.8-1.8c0-1 1.8-3.7 1.8-3.7s1.8 2.7 1.8 3.7z" fill="#3f7fa0"/><path d="M12.5 24c0 1-0.8 1.8-1.8 1.8s-1.8-.8-1.8-1.8c0-1 1.8-3.7 1.8-3.7s1.8 2.7 1.8 3.7z" fill="#3f7fa0"/><path d="M19 23c0 1-0.8 1.8-1.8 1.8s-1.8-.8-1.8-1.8c0-1 1.8-3.7 1.8-3.7s1.8 2.7 1.8 3.7z" fill="#3f7fa0"/></svg>`,
-    'noche-tormenta': `<svg viewBox="0 0 32 32"><rect x="2" y="2" width="28" height="28" rx="14" fill="#1a212b" opacity=".5"/><path d="M4 18c-2 0-3.6-1.5-3.6-3.4 0-1.7 1.3-3.1 3-3.4.5-2.2 2.4-3.7 4.7-3.7 2.4 0 4.4 1.6 4.8 3.9 1.5.3 2.8 1.6 2.8 3.1 0 1.7-1.4 3.2-3.2 3.2H4z" fill="#2e3a40" opacity=".9" transform="translate(2,2)"/><path d="M4 18c-2 0-3.6-1.5-3.6-3.4 0-1.7 1.3-3.1 3-3.4.5-2.2 2.4-3.7 4.7-3.7 2.4 0 4.4 1.6 4.8 3.9 1.5.3 2.8 1.6 2.8 3.1 0 1.7-1.4 3.2-3.2 3.2H4z" fill="#4a5a63" transform="translate(-0.5,-0.5)"/><path d="M15.5 13l-4.5 6.2h3.3L12.3 25l5.8-7.7h-3.4l2.5-3.6-2.2.5z" fill="#b8d96c" transform="translate(0.5,-0.5)"/><circle cx="18" cy="14" r="2" fill="white" opacity=".06"/><circle cx="22" cy="10" r="1.5" fill="white" opacity=".04"/></svg>`
-};
+function renderClimaRotador(data) {
+    const current = data.current;
+    const daily = data.daily;
+    climaDiarioActual = daily;
 
-function iconoClimaSVG(clase) {
-    return iconosClimaSVG[clase] || iconosClimaSVG.despejado;
-}
+    // Panel clima
+    const info = codigoClima(current.weather_code);
+    document.getElementById("rotadorTemp").innerHTML = Math.round(current.temperature_2m) + '<small>°C</small>';
+    document.getElementById("rotadorDesc").textContent = info[1];
+    document.getElementById("rotadorExtra").textContent = '💨 ' + Math.round(current.wind_speed_10m) + ' km/h';
 
-function nombreDia(fecha, index) {
-    if (index === 0) return "Hoy";
-    if (index === 1) return "Mañana";
-    const d = new Date(fecha + "T12:00:00");
-    return d.toLocaleDateString("es-AR", { weekday: "short" }).replace(".", "");
-}
+    // Pronóstico 3 días
+    const dias = ["Hoy", "Mañana", "Pasado"];
+    for (let i = 0; i < 3; i++) {
+        const c = codigoClima(daily.weather_code[i]);
+        document.getElementById("rotadorIcon" + i).textContent = c[0];
+        document.getElementById("rotadorTemp" + i).innerHTML = Math.round(daily.temperature_2m_max[i]) + '<small>°</small>';
+    }
 
-function calcularAlertasClima(daily) {
+    // Alertas
     const alertas = [];
+    for (let i = 0; i < 3; i++) {
+        if (daily.temperature_2m_min[i] <= 2) {
+            const dia = i === 0 ? "esta noche" : (i === 1 ? "mañana" : nombreDia(daily.time[i], i).toLowerCase());
+            alertas.push("❄️ Helada prevista para " + dia + " (mín: " + Math.round(daily.temperature_2m_min[i]) + "°C)");
+            break;
+        }
+    }
     if (daily.precipitation_probability_max) {
         for (let i = 0; i < 3; i++) {
             if (daily.precipitation_probability_max[i] >= 50) {
@@ -4028,92 +3919,171 @@ function calcularAlertasClima(daily) {
             }
         }
     }
-    for (let i = 0; i < 3; i++) {
-        if (daily.temperature_2m_min[i] <= 2) {
-            const dia = i === 0 ? "esta noche" : (i === 1 ? "mañana" : nombreDia(daily.time[i], i).toLowerCase());
-            alertas.push("❄️ Riesgo de helada " + dia);
-            break;
-        }
-    }
     if (daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] >= 25) {
         alertas.push("💨 Viento fuerte hoy, no apto para pulverizar");
     }
-    return alertas;
-}
 
-function calcularInsightClima(daily) {
-    if (daily.precipitation_probability_max) {
-        for (let i = 0; i < 3; i++) {
-            if (daily.precipitation_probability_max[i] >= 50) {
-                const dia = i === 0 ? "hoy" : (i === 1 ? "mañana" : nombreDia(daily.time[i], i).toLowerCase());
-                return { tono: "atencion", icono: "⚠️", texto: "Lluvia prevista para " + dia + " — programá el corte antes." };
+    const panelAlertas = document.getElementById("rotadorAlertas");
+    if (alertas.length > 0) {
+        panelAlertas.style.display = "";
+        document.getElementById("alertaTitulo").textContent = "⚠️ Alerta meteorológica";
+        document.getElementById("alertaMensaje").textContent = alertas[0];
+        document.getElementById("alertaDetalle").textContent = alertas.length > 1 ? alertas.slice(1).join(" · ") : "";
+    } else {
+        panelAlertas.style.display = "none";
+    }
+
+    // Última medición
+    const lotes = cargarLotes();
+    let ultimaMedicion = null;
+    let ultimoLote = null;
+    lotes.forEach(lote => {
+        if (lote.mediciones && lote.mediciones.length > 0) {
+            const ultima = lote.mediciones[lote.mediciones.length - 1];
+            if (!ultimaMedicion || ultima.fecha > ultimaMedicion.fecha) {
+                ultimaMedicion = ultima;
+                ultimoLote = lote;
             }
         }
-    }
-    return { tono: "bueno", icono: "✅", texto: "Ventana despejada los próximos 3 días — buen momento para cortar." };
-}
+    });
 
-function renderClima(data, lat, lon, nombre) {
-    const current = data.current;
-    const daily = data.daily;
-    climaDiarioActual = daily;
-    
-    const hora = new Date().getHours();
-    const esDeNoche = hora >= 19 || hora < 6;
-    const info = codigoClima(current.weather_code, esDeNoche);
-    
-    document.getElementById("weatherIconPremium").innerHTML = iconoClimaSVG(info[2]);
-    document.getElementById("weatherTempPremium").textContent = Math.round(current.temperature_2m);
-    document.getElementById("weatherStatusPremium").textContent = info[1];
-    
-    const sensacion = current.apparent_temperature !== undefined ? Math.round(current.apparent_temperature) + "°C" : "--°C";
-    document.getElementById("weatherSensacion").textContent = "Sensación " + sensacion;
-    document.getElementById("weatherVientoPremium").textContent = Math.round(current.wind_speed_10m) + " km/h";
-    
-    const tarjeta = document.getElementById("weatherCard");
-    tarjeta.className = "weather-card-premium clima-" + info[2];
-    
-    const insight = calcularInsightClima(daily);
-    const insightEl = document.getElementById("weatherInsightPremium");
-    insightEl.className = "weather-premium-insight tono-" + insight.tono;
-    insightEl.style.display = "flex";
-    document.getElementById("weatherInsightIconPremium").textContent = insight.icono;
-    document.getElementById("weatherInsightTextoPremium").textContent = insight.texto;
-    
-    const alertas = calcularAlertasClima(daily);
-    document.getElementById("weatherAlertsPremium").innerHTML = alertas.map(t => '<span class="weather-premium-alert">' + t + '</span>').join("");
-    
-    for (let i = 0; i < 3; i++) {
-        const c = codigoClima(daily.weather_code[i], esDeNoche);
-        const diaNombre = i === 0 ? "Hoy" : (i === 1 ? "Mañana" : "Pasado");
-        const tempMax = Math.round(daily.temperature_2m_max[i]);
-        const tempMin = Math.round(daily.temperature_2m_min[i]);
-        document.getElementById("dayName" + i).textContent = diaNombre;
-        document.getElementById("dayIcon" + i).innerHTML = iconoClimaSVG(c[2]);
-        document.getElementById("dayTemp" + i).innerHTML = tempMax + "° <small>" + tempMin + "°</small>";
+    const panelMedicion = document.getElementById("rotadorMedicion");
+    if (ultimoLote && ultimaMedicion) {
+        panelMedicion.style.display = "";
+        const nombreCultivo = obtenerNombreCultivo(ultimoLote.cultivo, ultimoLote.tipo);
+        document.getElementById("medicionCultivo").textContent = ultimoLote.nombre + " · " + nombreCultivo;
+        document.getElementById("medicionRendimiento").innerHTML = numero(ultimaMedicion.msHa) + ' <small>kg MS/ha</small>';
+        const badge = document.getElementById("medicionCategoria");
+        badge.textContent = ultimaMedicion.categoria;
+        badge.className = "categoria " + ultimaMedicion.clase;
+    } else {
+        panelMedicion.style.display = "none";
     }
 
-    if (typeof onClimaActualizado === "function") onClimaActualizado();
+    // Actualizar dots
+    actualizarDotsRotador();
+
+    // Iniciar rotador si no está corriendo
+    if (!window.rotadorInterval) {
+        iniciarRotador();
+    }
 }
 
-function cargarClima() {
-    const fallback = { lat: -39.1000, lon: -67.0667, nombre: "Villa Regina" };
-    const usar = function(lat, lon, nombre) {
-        const url = "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&current=temperature_2m,weather_code,wind_speed_10m,apparent_temperature&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,precipitation_sum,wind_gusts_10m_max&forecast_days=3&timezone=auto";
-        fetch(url).then(r => { if (!r.ok) throw new Error("weather"); return r.json(); }).then(data => renderClima(data, lat, lon, nombre)).catch(() => {
-            document.getElementById("weatherStatusPremium").textContent = "No se pudo actualizar";
-            document.getElementById("weatherVientoPremium").textContent = "-- km/h";
-            document.getElementById("weatherSensacion").textContent = "--°C";
+function nombreDia(fecha, index) {
+    if (index === 0) return "Hoy";
+    if (index === 1) return "Mañana";
+    const d = new Date(fecha + "T12:00:00");
+    return d.toLocaleDateString("es-AR", { weekday: "short" }).replace(".", "");
+}
+
+function cargarClimaRotador() {
+    const fallback = { lat: -39.1000, lon: -67.0667 };
+    const usar = function(lat, lon) {
+        const url = "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_gusts_10m_max&forecast_days=3&timezone=auto";
+        fetch(url).then(r => { if (!r.ok) throw new Error("weather"); return r.json(); }).then(data => renderClimaRotador(data)).catch(() => {
+            document.getElementById("rotadorTemp").innerHTML = '--<small>°C</small>';
+            document.getElementById("rotadorDesc").textContent = "No disponible";
         });
     };
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
-            pos => usar(pos.coords.latitude, pos.coords.longitude, "Tu ubicación"),
-            () => usar(fallback.lat, fallback.lon, fallback.nombre),
+            pos => usar(pos.coords.latitude, pos.coords.longitude),
+            () => usar(fallback.lat, fallback.lon),
             { enableHighAccuracy: false, timeout: 9000, maximumAge: 900000 }
         );
     } else {
-        usar(fallback.lat, fallback.lon, fallback.nombre);
+        usar(fallback.lat, fallback.lon);
+    }
+}
+
+// =========================================================
+// ROTADOR
+// =========================================================
+
+let panelActual = 0;
+let panelesActivos = [];
+
+function obtenerPanelesActivos() {
+    const panels = document.querySelectorAll('.rotador-panel');
+    const activos = [];
+    panels.forEach(p => {
+        if (p.dataset.panel === 'logo') activos.push(p);
+        if (p.dataset.panel === 'clima') activos.push(p);
+        if (p.dataset.panel === 'alertas' && p.style.display !== 'none') activos.push(p);
+        if (p.dataset.panel === 'medicion' && p.style.display !== 'none') activos.push(p);
+    });
+    return activos;
+}
+
+function actualizarDotsRotador() {
+    const dotsWrap = document.getElementById("rotadorDots");
+    const activos = obtenerPanelesActivos();
+    dotsWrap.innerHTML = "";
+    activos.forEach((p, i) => {
+        const dot = document.createElement("button");
+        dot.type = "button";
+        dot.className = "rotador-dot" + (i === panelActual ? " activo" : "");
+        dot.setAttribute("aria-label", "Panel " + (i + 1));
+        dot.addEventListener("click", function() {
+            mostrarPanel(i);
+        });
+        dotsWrap.appendChild(dot);
+    });
+}
+
+function mostrarPanel(index) {
+    const activos = obtenerPanelesActivos();
+    if (index >= activos.length) index = 0;
+    panelActual = index;
+
+    document.querySelectorAll('.rotador-panel').forEach(p => p.classList.remove('activo'));
+    if (activos[index]) {
+        activos[index].classList.add('activo');
+    }
+
+    document.querySelectorAll('.rotador-dot').forEach((d, i) => {
+        d.classList.toggle('activo', i === index);
+    });
+}
+
+function siguientePanel() {
+    const activos = obtenerPanelesActivos();
+    if (activos.length === 0) return;
+    panelActual = (panelActual + 1) % activos.length;
+    mostrarPanel(panelActual);
+}
+
+function iniciarRotador() {
+    if (window.rotadorInterval) clearInterval(window.rotadorInterval);
+
+    // Temporizaciones por panel
+    const tiempos = {
+        logo: 3500,
+        clima: 6000,
+        alertas: 5500,
+        medicion: 4500
+    };
+
+    let tiempoActual = 0;
+
+    function avanzar() {
+        const activos = obtenerPanelesActivos();
+        if (activos.length === 0) return;
+        const panel = activos[panelActual];
+        const tipo = panel.dataset.panel;
+        const duracion = tiempos[tipo] || 4500;
+        tiempoActual += duracion;
+        siguientePanel();
+        clearTimeout(window.rotadorTimeout);
+        window.rotadorTimeout = setTimeout(avanzar, duracion);
+    }
+
+    // Iniciar con el primer panel
+    const activos = obtenerPanelesActivos();
+    if (activos.length > 0) {
+        const primerTipo = activos[0].dataset.panel;
+        const duracion = tiempos[primerTipo] || 4500;
+        window.rotadorTimeout = setTimeout(avanzar, duracion);
     }
 }
 
@@ -4128,7 +4098,12 @@ function abrirApp() {
     welcome.classList.add("app-shell-hidden");
     shell.classList.remove("app-shell-hidden");
     window.scrollTo({ top: 0, behavior: "smooth" });
-    cargarClima();
+    cargarClimaRotador();
+
+    // Forzar actualización de dots después de que cargue el clima
+    setTimeout(() => {
+        actualizarDotsRotador();
+    }, 2000);
 }
 
 document.getElementById("splashLogo").src = document.querySelector(".logo-principal").src;
@@ -4172,7 +4147,7 @@ function abrirMisLotes() {
     document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "none");
     document.querySelector(".header").style.display = "none";
     document.querySelector(".hero").style.display = "none";
-    document.getElementById("weatherCard").style.display = "none";
+    document.getElementById("rotador").style.display = "none";
     document.getElementById("vistaLotes").style.display = "block";
     mostrarListaLotes();
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -4185,7 +4160,7 @@ function cerrarMisLotes() {
     document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "");
     document.querySelector(".header").style.display = "";
     document.querySelector(".hero").style.display = "";
-    document.getElementById("weatherCard").style.display = "";
+    document.getElementById("rotador").style.display = "";
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -4541,7 +4516,7 @@ function abrirBiblioteca() {
     document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "none");
     document.querySelector(".header").style.display = "none";
     document.querySelector(".hero").style.display = "none";
-    document.getElementById("weatherCard").style.display = "none";
+    document.getElementById("rotador").style.display = "none";
     document.getElementById("vistaLotes").style.display = "none";
     document.getElementById("vistaAgenda").style.display = "none";
     document.getElementById("vistaBiblioteca").style.display = "block";
@@ -4556,7 +4531,7 @@ function cerrarBiblioteca() {
     document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "");
     document.querySelector(".header").style.display = "";
     document.querySelector(".hero").style.display = "";
-    document.getElementById("weatherCard").style.display = "";
+    document.getElementById("rotador").style.display = "";
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -4622,7 +4597,7 @@ function abrirAgendaCampo() {
     document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "none");
     document.querySelector(".header").style.display = "none";
     document.querySelector(".hero").style.display = "none";
-    document.getElementById("weatherCard").style.display = "none";
+    document.getElementById("rotador").style.display = "none";
     document.getElementById("vistaLotes").style.display = "none";
     document.getElementById("vistaAgenda").style.display = "block";
     renderAgendaCampo();
@@ -4636,7 +4611,7 @@ function cerrarAgendaCampo() {
     document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "");
     document.querySelector(".header").style.display = "";
     document.querySelector(".hero").style.display = "";
-    document.getElementById("weatherCard").style.display = "";
+    document.getElementById("rotador").style.display = "";
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
