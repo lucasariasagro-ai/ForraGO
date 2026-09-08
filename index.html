@@ -4850,13 +4850,14 @@ if ("serviceWorker" in navigator) {
 })();
 
 const iconosTrabajo = { "Corte": "✂️", "Aplicación": "🧪", "Riego": "💧", "Siembra": "🌱", "Otro": "📌" };
-let climaDiarioActual = null;
 
 function trabajosPendientes(lote) {
-    return (lote.trabajos || []).filter(t => t.estado === "pendiente").sort((a, b) => a.fechaPlan.localeCompare(b.fechaPlan));
+    if (!lote.trabajos) return [];
+    return lote.trabajos.filter(t => t.estado === "pendiente").sort((a, b) => a.fechaPlan.localeCompare(b.fechaPlan));
 }
 
 function renderTrabajosFicha(lote) {
+    if (!lote.trabajos) lote.trabajos = [];
     const pendientes = trabajosPendientes(lote);
     const hoy = new Date().toISOString().slice(0, 10);
     let html = '<div class="trabajos-caja"><div class="trabajos-caja-titulo"><h4>🗓️ Trabajos pendientes</h4><button class="trabajo-agregar-btn" onclick="toggleFormularioTrabajo(\'' + lote.id + '\')">➕ AGREGAR</button></div>';
@@ -4878,32 +4879,42 @@ function toggleFormularioTrabajo(loteId) {
     if (!panel) return;
     panel.classList.toggle("mostrar");
     if (panel.classList.contains("mostrar")) {
-        document.getElementById("trabajoFecha_" + loteId).value = new Date().toISOString().slice(0, 10);
+        const fechaInput = document.getElementById("trabajoFecha_" + loteId);
+        if (fechaInput) fechaInput.value = new Date().toISOString().slice(0, 10);
     }
 }
 
 function actualizarCampoProductoTrabajo(loteId) {
-    const tipo = document.getElementById("trabajoTipo_" + loteId).value;
-    document.getElementById("trabajoProductoGrupo_" + loteId).style.display = tipo === "Aplicación" ? "" : "none";
+    const tipo = document.getElementById("trabajoTipo_" + loteId);
+    if (!tipo) return;
+    const grupo = document.getElementById("trabajoProductoGrupo_" + loteId);
+    if (grupo) grupo.style.display = tipo.value === "Aplicación" ? "" : "none";
 }
 
 function guardarTrabajo(loteId) {
-    const tipo = document.getElementById("trabajoTipo_" + loteId).value;
-    const producto = document.getElementById("trabajoProducto_" + loteId).value.trim();
-    const fecha = document.getElementById("trabajoFecha_" + loteId).value;
-    const notas = document.getElementById("trabajoNotas_" + loteId).value.trim();
-    if (!fecha) { alert("Elegí una fecha para el trabajo."); return; }
+    const tipo = document.getElementById("trabajoTipo_" + loteId);
+    const producto = document.getElementById("trabajoProducto_" + loteId);
+    const fecha = document.getElementById("trabajoFecha_" + loteId);
+    const notas = document.getElementById("trabajoNotas_" + loteId);
+    
+    if (!tipo || !fecha) return;
+    if (!fecha.value) { alert("Elegí una fecha para el trabajo."); return; }
+    
     const lotes = cargarLotes();
     const idx = lotes.findIndex(l => l.id === loteId);
     if (idx === -1) return;
     if (!lotes[idx].trabajos) lotes[idx].trabajos = [];
-    lotes[idx].trabajos.push({ id: String(Date.now()), tipo, producto: tipo === "Aplicación" ? producto : "", fechaPlan: fecha, fechaReal: null, estado: "pendiente", notas });
+    lotes[idx].trabajos.push({ 
+        id: String(Date.now()), 
+        tipo: tipo.value, 
+        producto: tipo.value === "Aplicación" ? (producto ? producto.value.trim() : "") : "", 
+        fechaPlan: fecha.value, 
+        fechaReal: null, 
+        estado: "pendiente", 
+        notas: notas ? notas.value.trim() : "" 
+    });
     if (guardarLotesStorage(lotes)) {
-        if (document.getElementById("vistaAgenda").style.display !== "none") {
-            renderAgendaCampo();
-        } else {
-            verFichaLote(loteId);
-        }
+        renderAgendaCampo();
     }
 }
 
@@ -4918,11 +4929,7 @@ function marcarTrabajoRealizado(loteId, trabajoId) {
     trabajo.estado = "realizado";
     trabajo.fechaReal = fechaReal || new Date().toISOString().slice(0, 10);
     if (guardarLotesStorage(lotes)) {
-        if (document.getElementById("vistaAgenda").style.display !== "none") {
-            renderAgendaCampo();
-        } else {
-            verFichaLote(loteId);
-        }
+        renderAgendaCampo();
     }
 }
 
@@ -4933,11 +4940,7 @@ function eliminarTrabajo(loteId, trabajoId) {
     if (!lote) return;
     lote.trabajos = (lote.trabajos || []).filter(t => t.id !== trabajoId);
     if (guardarLotesStorage(lotes)) {
-        if (document.getElementById("vistaAgenda").style.display !== "none") {
-            renderAgendaCampo();
-        } else {
-            verFichaLote(loteId);
-        }
+        renderAgendaCampo();
     }
 }
 
@@ -4965,7 +4968,6 @@ function evaluarAlertaTrabajo(trabajo, lote, daily) {
 function renderLoteAgendaCard(lote) {
     const nombreCultivo = obtenerNombreCultivo(lote.cultivo, lote.tipo);
     let html = '<div class="agenda-lote-card"><div class="agenda-lote-header"><div><strong>' + escapeHtml(lote.nombre) + '</strong><span>' + nombreCultivo + ' · ' + numero(lote.superficie, 2) + ' ha</span></div><button class="btn-secundario" onclick="verFichaLoteDesdeAgenda(\'' + lote.id + '\')">VER FICHA</button></div>';
-    // Aquí va SOLO la sección de trabajos, sin fenología
     html += renderTrabajosFicha(lote);
     html += '</div>';
     return html;
@@ -4980,6 +4982,7 @@ function verFichaLoteDesdeAgenda(loteId) {
 function renderAgendaCampo() {
     const lotes = cargarLotes();
     const cont = document.getElementById("agendaContenido");
+    if (!cont) return;
     let html = "";
     if (!climaDiarioActual) {
         html += '<div class="agenda-sin-clima">ℹ️ El clima todavía no cargó — las alertas climáticas aparecerán apenas esté disponible.</div>';
@@ -4997,7 +5000,6 @@ function onClimaActualizado() {
         renderAgendaCampo();
     }
 }
-
 </script>
 
 </body>
