@@ -1839,21 +1839,20 @@ body {
 }
 
 /* =========================================================
-   ROTADOR DE INFORMACIÓN
+   ROTADOR DE INFORMACIÓN — CORREGIDO
 ========================================================= */
 
 .rotador {
     background:var(--blanco);
     border-radius:var(--radio);
-    padding:24px 28px;
+    padding:20px 24px;
     border:1px solid var(--borde);
     box-shadow:var(--sombra);
-    min-height:140px;
-    height:140px;
+    min-height:155px;
     display:flex;
     flex-direction:column;
-    justify-content:center;
     align-items:center;
+    justify-content:center;
     transition:background .6s ease, border-color .6s ease;
     margin-bottom:16px;
     position:relative;
@@ -1862,31 +1861,17 @@ body {
 
 .rotador-panel {
     display:none;
-    animation:fadeRotador .5s ease;
     text-align:center;
     width:100%;
-    display:flex !important;
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    height:100%;
-    position:absolute;
-    top:0;
-    left:0;
-    padding:20px 28px;
-    opacity:0;
-    transition:opacity .5s ease;
-    pointer-events:none;
+    padding:4px 0;
 }
 
 .rotador-panel.activo {
-    opacity:1;
-    pointer-events:auto;
-    z-index:2;
-}
-
-.rotador-panel:not(.activo) {
-    z-index:1;
+    display:flex !important;
+    animation:fadeRotador .5s ease;
 }
 
 @keyframes fadeRotador {
@@ -1894,13 +1879,107 @@ body {
     to { opacity:1; transform:translateY(0); }
 }
 
+/* LOGO panel */
+.rotador-logo img {
+    height:76px;
+    width:auto;
+}
+
+/* CLIMA panel */
+.rotador-clima-temp {
+    font-size:40px;
+    font-weight:900;
+    color:var(--verde);
+    line-height:1;
+}
+
+.rotador-clima-temp small {
+    font-size:18px;
+    font-weight:600;
+    color:var(--gris);
+}
+
+.rotador-clima-desc {
+    font-size:15px;
+    font-weight:700;
+    color:var(--texto-suave);
+    margin-top:2px;
+}
+
+.rotador-clima-extra {
+    font-size:12px;
+    color:var(--gris);
+    margin-top:2px;
+}
+
+.rotador-clima-dias {
+    display:flex;
+    justify-content:center;
+    gap:24px;
+    margin-top:10px;
+}
+
+.rotador-clima-dia {
+    text-align:center;
+}
+
+.rotador-clima-dia .nombre {
+    font-weight:700;
+    color:var(--gris);
+    font-size:9px;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    display:block;
+}
+
+.rotador-clima-dia .icono {
+    font-size:22px;
+    display:block;
+    margin:2px 0;
+}
+
+.rotador-clima-dia .temp {
+    font-weight:700;
+    color:var(--texto);
+    font-size:14px;
+}
+
+.rotador-clima-dia .temp small {
+    font-size:9px;
+    color:var(--gris);
+    font-weight:500;
+}
+
+/* ALERTAS panel */
+.rotador-alerta {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:2px;
+    width:100%;
+}
+
+.rotador-alerta .icono-alerta {
+    font-size:32px;
+}
+
+.rotador-alerta .mensaje {
+    font-size:15px;
+    color:var(--texto-suave);
+    font-weight:700;
+}
+
+.rotador-alerta .detalle {
+    font-size:12px;
+    color:var(--gris);
+}
+
+/* DOTS */
 .rotador-dots {
     display:flex;
     justify-content:center;
     gap:8px;
-    margin-top:8px;
-    position:relative;
-    z-index:3;
+    margin-top:12px;
 }
 
 .rotador-dot {
@@ -1921,174 +2000,78 @@ body {
     border-radius:4px;
 }
 
-.rotador-logo {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-}
-
-.rotador-logo img {
-    height:80px;
-    width:auto;
-}
-
-/* Clima panel */
-.rotador-clima-temp {
-    font-size:36px;
-    font-weight:900;
-    color:var(--verde);
-    line-height:1;
-}
-
-.rotador-clima-temp small {
-    font-size:16px;
-    font-weight:600;
-    color:var(--gris);
-}
-
-.rotador-clima-desc {
-    font-size:14px;
-    font-weight:700;
-    color:var(--texto-suave);
-    margin-top:2px;
-}
-
-.rotador-clima-extra {
-    font-size:12px;
-    color:var(--gris);
-    margin-top:2px;
-}
-
-.rotador-clima-dias {
-    display:flex;
-    justify-content:center;
-    gap:20px;
-    margin-top:8px;
-}
-
-.rotador-clima-dia {
-    text-align:center;
-    font-size:11px;
-}
-
-.rotador-clima-dia .nombre {
-    font-weight:700;
-    color:var(--gris);
-    font-size:9px;
-    text-transform:uppercase;
-    letter-spacing:.5px;
-}
-
-.rotador-clima-dia .icono {
-    font-size:20px;
-    display:block;
-    margin:2px 0;
-}
-
-.rotador-clima-dia .temp {
-    font-weight:700;
-    color:var(--texto);
-    font-size:13px;
-}
-
-.rotador-clima-dia .temp small {
-    font-size:9px;
-    color:var(--gris);
-    font-weight:500;
-}
-
-/* Alertas panel */
-.rotador-alerta {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:4px;
-    width:100%;
-}
-
-.rotador-alerta .mensaje {
-    font-size:14px;
-    color:var(--texto-suave);
-    font-weight:700;
-}
-
-.rotador-alerta .detalle {
-    font-size:12px;
-    color:var(--gris);
-}
-
-.rotador-alerta .icono-alerta {
-    font-size:28px;
-}
-
+/* RESPONSIVE */
 @media(max-width:600px) {
     .rotador {
         padding:14px 16px;
-        min-height:120px;
-        height:120px;
-    }
-    .rotador-panel {
-        padding:12px 16px;
+        min-height:130px;
     }
     .rotador-logo img {
-        height:56px;
+        height:52px;
     }
     .rotador-clima-temp {
-        font-size:28px;
+        font-size:30px;
+    }
+    .rotador-clima-temp small {
+        font-size:14px;
+    }
+    .rotador-clima-desc {
+        font-size:13px;
     }
     .rotador-clima-dias {
-        gap:12px;
+        gap:14px;
     }
     .rotador-clima-dia .icono {
-        font-size:16px;
+        font-size:18px;
     }
     .rotador-clima-dia .temp {
-        font-size:11px;
-    }
-    .rotador-alerta .mensaje {
         font-size:12px;
     }
-    .rotador-alerta .detalle {
-        font-size:10px;
-    }
     .rotador-alerta .icono-alerta {
-        font-size:22px;
+        font-size:24px;
+    }
+    .rotador-alerta .mensaje {
+        font-size:13px;
+    }
+    .rotador-alerta .detalle {
+        font-size:11px;
     }
 }
 
 @media(max-width:390px) {
     .rotador {
         padding:10px 12px;
-        min-height:100px;
-        height:100px;
-    }
-    .rotador-panel {
-        padding:8px 12px;
+        min-height:110px;
     }
     .rotador-logo img {
-        height:44px;
+        height:40px;
     }
     .rotador-clima-temp {
-        font-size:22px;
+        font-size:24px;
+    }
+    .rotador-clima-temp small {
+        font-size:12px;
+    }
+    .rotador-clima-desc {
+        font-size:11px;
     }
     .rotador-clima-dias {
-        gap:8px;
+        gap:10px;
     }
     .rotador-clima-dia .icono {
-        font-size:14px;
+        font-size:15px;
     }
     .rotador-clima-dia .temp {
         font-size:10px;
     }
+    .rotador-alerta .icono-alerta {
+        font-size:20px;
+    }
     .rotador-alerta .mensaje {
-        font-size:10px;
+        font-size:11px;
     }
     .rotador-alerta .detalle {
-        font-size:9px;
-    }
-    .rotador-alerta .icono-alerta {
-        font-size:18px;
+        font-size:10px;
     }
 }
 
@@ -2616,18 +2599,18 @@ body {
 
     <div id="rotador" class="rotador">
         <!-- Panel 1: LOGO -->
-        <div class="rotador-panel activo" data-panel="logo" style="display:flex !important;">
+        <div class="rotador-panel activo" data-panel="logo">
             <div class="rotador-logo">
                 <img src="img/img_12.png" alt="ForraGO" id="rotadorLogo">
             </div>
         </div>
 
         <!-- Panel 2: CLIMA + PRONÓSTICO -->
-        <div class="rotador-panel" data-panel="clima" style="display:flex !important;">
+        <div class="rotador-panel" data-panel="clima">
             <div class="rotador-clima">
                 <div class="rotador-clima-temp" id="rotadorTemp">--<small>°C</small></div>
                 <div class="rotador-clima-desc" id="rotadorDesc">Cargando...</div>
-                <div class="rotador-clima-extra" id="rotadorExtra">-- km/h</div>
+                <div class="rotador-clima-extra" id="rotadorExtra">💨 -- km/h</div>
                 <div class="rotador-clima-dias" id="rotadorDias">
                     <div class="rotador-clima-dia">
                         <span class="nombre">Hoy</span>
@@ -2649,7 +2632,7 @@ body {
         </div>
 
         <!-- Panel 3: ALERTAS -->
-        <div class="rotador-panel" data-panel="alertas" id="rotadorAlertas" style="display:none !important;">
+        <div class="rotador-panel" data-panel="alertas" id="rotadorAlertas" style="display:none;">
             <div class="rotador-alerta">
                 <div class="icono-alerta" id="alertaIcono">⚠️</div>
                 <div class="mensaje" id="alertaMensaje">-</div>
@@ -3905,8 +3888,10 @@ function renderClimaRotador(data) {
         document.getElementById("rotadorTemp" + i).innerHTML = Math.round(daily.temperature_2m_max[i]) + '<small>°</small>';
     }
 
-    // Alertas (sin título "alerta meteorológica")
+    // Alertas (sin título)
     const alertas = [];
+    
+    // Helada
     for (let i = 0; i < 3; i++) {
         if (daily.temperature_2m_min[i] <= 2) {
             const dia = i === 0 ? "esta noche" : (i === 1 ? "mañana" : nombreDia(daily.time[i], i).toLowerCase());
@@ -3914,6 +3899,8 @@ function renderClimaRotador(data) {
             break;
         }
     }
+    
+    // Lluvia
     if (daily.precipitation_probability_max) {
         for (let i = 0; i < 3; i++) {
             if (daily.precipitation_probability_max[i] >= 50) {
@@ -3923,18 +3910,37 @@ function renderClimaRotador(data) {
             }
         }
     }
+    
+    // Viento fuerte
     if (daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] >= 25) {
         alertas.push({ icono: "💨", texto: "Viento fuerte hoy, no apto para pulverizar" });
+    }
+    
+    // Ventana buena para aplicación (sin viento y sin lluvia en los próximos 2 días)
+    if (daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] < 25 && daily.wind_gusts_10m_max[1] < 25) {
+        const lluviaHoy = daily.precipitation_probability_max && daily.precipitation_probability_max[0] < 30;
+        const lluviaManana = daily.precipitation_probability_max && daily.precipitation_probability_max[1] < 30;
+        if (lluviaHoy && lluviaManana) {
+            alertas.push({ icono: "✅", texto: "Buenas condiciones para aplicación los próximos 2 días" });
+        }
+    }
+    
+    // Ventana mala para aplicación (viento o lluvia)
+    if (daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] >= 25) {
+        // Ya tenemos alerta de viento
+    }
+    if (daily.precipitation_probability_max && daily.precipitation_probability_max[0] >= 50) {
+        // Ya tenemos alerta de lluvia
     }
 
     const panelAlertas = document.getElementById("rotadorAlertas");
     if (alertas.length > 0) {
-        panelAlertas.style.display = "flex !important";
+        panelAlertas.style.display = "flex";
         document.getElementById("alertaIcono").textContent = alertas[0].icono;
         document.getElementById("alertaMensaje").textContent = alertas[0].texto;
         document.getElementById("alertaDetalle").textContent = alertas.length > 1 ? alertas.slice(1).map(a => a.icono + " " + a.texto).join(" · ") : "";
     } else {
-        panelAlertas.style.display = "none !important";
+        panelAlertas.style.display = "none";
     }
 
     // Actualizar dots
@@ -3978,7 +3984,6 @@ function cargarClimaRotador() {
 // =========================================================
 
 let panelActual = 0;
-let panelesActivos = [];
 
 function obtenerPanelesActivos() {
     const panels = document.querySelectorAll('.rotador-panel');
@@ -3986,8 +3991,7 @@ function obtenerPanelesActivos() {
     panels.forEach(p => {
         if (p.dataset.panel === 'logo') activos.push(p);
         if (p.dataset.panel === 'clima') activos.push(p);
-        if (p.dataset.panel === 'alertas' && p.style.display !== 'none' && p.style.display !== 'none !important') {
-            // Verificar si realmente tiene contenido visible
+        if (p.dataset.panel === 'alertas' && p.style.display !== 'none') {
             const mensaje = p.querySelector('.rotador-alerta .mensaje');
             if (mensaje && mensaje.textContent !== '-' && mensaje.textContent.trim() !== '') {
                 activos.push(p);
