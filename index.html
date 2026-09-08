@@ -62,10 +62,6 @@ html {
     -webkit-font-smoothing:antialiased;
 }
 
-/* =========================================================
-   FONDO DE PÁGINA CON img_13.jpg — SIN OVERLAY
-========================================================= */
-
 body {
     background: url("img/img_13.jpg") center center / cover fixed no-repeat;
     color:var(--texto);
@@ -114,7 +110,7 @@ body {
 }
 
 /* =========================================================
-   HEADER — LOGO MÁS GRANDE
+   HEADER
 ========================================================= */
 
 .header {
@@ -133,7 +129,7 @@ body {
 }
 
 /* =========================================================
-   HERO — BIENVENIDA (CON IMAGEN MÁS VISIBLE)
+   HERO
 ========================================================= */
 
 .hero {
@@ -216,7 +212,7 @@ body {
 }
 
 /* =========================================================
-   FOOTER — NUEVO TEXTO
+   FOOTER
 ========================================================= */
 
 .footer {
@@ -231,7 +227,7 @@ body {
 .footer strong { color:var(--verde2); }
 
 /* =========================================================
-   SECCIÓN "¿QUÉ QUERÉS EVALUAR?" — MÁS CERCA DEL CLIMA
+   SECCIÓN
 ========================================================= */
 
 .seccion {
@@ -261,16 +257,9 @@ body {
     font-weight:800;
 }
 
-/* =========================================================
-   TÍTULOS — JERARQUÍA VISUAL
-========================================================= */
-
-/* Título principal "¿Qué querés evaluar?" */
 .titulo-principal h2 {
     color: var(--verde);
 }
-
-/* Títulos secundarios "Gestioná" y "Explorá" — centrados, sin línea */
 .titulo-secundario h2 {
     color: var(--verde2);
     font-weight: 700;
@@ -279,7 +268,7 @@ body {
 }
 
 /* =========================================================
-   CHECK VERDE PERSONALIZADO (reemplazo de emojis)
+   CHECK VERDE PERSONALIZADO
 ========================================================= */
 
 .check-verde {
@@ -317,7 +306,7 @@ body {
 }
 
 /* =========================================================
-   BOTONES MODERNOS
+   BOTONES
 ========================================================= */
 
 .btn {
@@ -681,7 +670,6 @@ body {
 }
 .destino-opcion .emoji { margin-bottom:0; font-size:22px; }
 
-/* RESPONSIVE: 3 estados uno al lado del otro en celular */
 @media(max-width:600px) {
     .estados {
         grid-template-columns:1fr 1fr 1fr;
@@ -723,7 +711,7 @@ body {
 }
 
 /* =========================================================
-   INPUTS MODERNOS
+   INPUTS
 ========================================================= */
 
 .datos {
@@ -762,7 +750,6 @@ body {
     font-weight:500;
 }
 
-/* INPUTS DE FORMULARIO MODERNOS */
 .form-group {
     margin-bottom:18px;
 }
@@ -1154,7 +1141,7 @@ body {
 .btn-lote:hover { background:#e0edd0; }
 
 /* =========================================================
-   BIBLIOTECA — BOTÓN
+   BIBLIOTECA
 ========================================================= */
 
 .biblioteca-toggle {
@@ -1264,7 +1251,7 @@ body {
 }
 
 /* =========================================================
-   CONSOCIACIONES — BOTONES CON RECUADRO
+   CONSOCIACIONES
 ========================================================= */
 
 .consoc-presets {
@@ -1305,7 +1292,7 @@ body {
 }
 
 /* =========================================================
-   LOTES — MODERNOS Y ESTÉTICOS
+   LOTES
 ========================================================= */
 
 .lotes-banner {
@@ -1346,6 +1333,7 @@ body {
     justify-content:space-between;
     margin-bottom:24px;
     gap:12px;
+    flex-wrap:wrap;
 }
 .lotes-header h2 {
     font-size:24px;
@@ -1353,6 +1341,34 @@ body {
     letter-spacing:-.6px;
     color:var(--texto);
     margin:0;
+}
+.lotes-header-filtros {
+    display:flex;
+    gap:8px;
+    align-items:center;
+    flex-wrap:wrap;
+}
+.lotes-header-filtros select {
+    padding:8px 14px;
+    border-radius:10px;
+    border:1.5px solid var(--borde);
+    background:var(--blanco);
+    font-family:inherit;
+    font-size:11px;
+    font-weight:600;
+    color:var(--texto-suave);
+    cursor:pointer;
+}
+.lotes-header-badge {
+    padding:4px 12px;
+    border-radius:20px;
+    background:#fde8e8;
+    color:#b33c3c;
+    font-size:10px;
+    font-weight:800;
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
 }
 
 .lotes-nuevo-btn {
@@ -1475,7 +1491,7 @@ body {
 }
 
 /* =========================================================
-   FICHA DE LOTE — MODERNA Y ESTÉTICA
+   FICHA DE LOTE
 ========================================================= */
 
 .ficha-lote-titulo {
@@ -1656,6 +1672,24 @@ body {
 }
 .lote-vacio strong {
     color:var(--verde);
+}
+.lote-vacio .btn-ir-lotes {
+    display:inline-block;
+    margin-top:12px;
+    padding:10px 24px;
+    border-radius:12px;
+    background:var(--verde);
+    color:white;
+    border:none;
+    font-family:inherit;
+    font-size:11px;
+    font-weight:700;
+    cursor:pointer;
+    transition:var(--transicion);
+}
+.lote-vacio .btn-ir-lotes:hover {
+    transform:scale(1.03);
+    background:var(--verde2);
 }
 
 .lote-activo-banner {
@@ -2193,7 +2227,7 @@ body {
 }
 
 /* =========================================================
-   WELCOME / FEEDBACK
+   WELCOME
 ========================================================= */
 
 .welcome-screen {
@@ -2235,7 +2269,7 @@ body {
 .app-shell-hidden { display:none!important; }
 
 /* =========================================================
-   RESPONSIVE EXTRA
+   RESPONSIVE
 ========================================================= */
 
 @media(max-width:600px) {
@@ -2244,10 +2278,11 @@ body {
     .resultado { padding:20px; }
     .botones { grid-template-columns:1fr 1fr; gap:8px; }
     .btn-secundario { padding:12px; font-size:8px; }
-    .sello-credibilidad { display:none; }
     .cultivos-scroll { grid-template-rows:repeat(2,165px); }
     .cultivo { height:165px; }
     .lotes-header h2 { font-size:20px; }
+    .lotes-header-filtros { width:100%; }
+    .lotes-header-filtros select { flex:1; }
     .welcome-screen .header { padding-top:2px; }
     .seccion-simple { margin:8px 0 12px; }
     .seccion-simple h2 { font-size:20px; }
@@ -2294,7 +2329,7 @@ body {
 }
 
 /* =========================================================
-   CARRUSEL MÓVIL
+   CARRUSEL
 ========================================================= */
 
 @media(max-width:600px) {
@@ -2450,6 +2485,201 @@ body {
     #bibliotecaContenido .biblioteca-thumb-wrap { width:30px; height:30px; }
 }
 
+/* =========================================================
+   AGENDA — ESTILOS ADICIONALES
+========================================================= */
+
+.trabajos-caja { margin-bottom:18px; }
+.trabajos-caja-titulo {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:10px;
+}
+.trabajos-caja-titulo h4 {
+    font-size:13px;
+    font-weight:800;
+    color:var(--texto);
+}
+.trabajo-agregar-btn {
+    padding:8px 14px;
+    border-radius:10px;
+    border:1.5px dashed var(--verde3);
+    background:var(--lima-claro);
+    color:var(--verde);
+    font-family:inherit;
+    font-size:9.5px;
+    font-weight:700;
+    cursor:pointer;
+    transition:var(--transicion);
+}
+.trabajo-agregar-btn:hover { background:#dce8c8; }
+
+.trabajo-item {
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:14px 16px;
+    border-radius:14px;
+    background:var(--blanco);
+    border:1px solid var(--borde);
+    margin-bottom:8px;
+}
+.trabajo-item.vencido { border-color:#e8b3a8; background:#fdf3f1; }
+.trabajo-icono { font-size:18px; flex-shrink:0; margin-top:1px; }
+.trabajo-info { flex:1; min-width:0; }
+.trabajo-info strong { display:block; font-size:12.5px; color:var(--texto); font-weight:700; }
+.trabajo-info span { display:block; margin-top:2px; font-size:10px; color:var(--gris); }
+.trabajo-fecha-badge {
+    font-size:8.5px;
+    font-weight:800;
+    padding:3px 9px;
+    border-radius:20px;
+    background:var(--fondo);
+    color:var(--gris);
+    white-space:nowrap;
+}
+.trabajo-fecha-badge.vencido { background:#fde8e8; color:#b33c3c; }
+.trabajo-alerta-linea {
+    margin-top:6px;
+    font-size:10px;
+    font-weight:700;
+    color:#b07a2e;
+    display:flex;
+    align-items:center;
+    gap:5px;
+}
+.trabajo-acciones {
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+    flex-shrink:0;
+}
+.trabajo-btn-mini {
+    padding:7px 10px;
+    border-radius:9px;
+    border:1.5px solid var(--borde);
+    background:var(--blanco);
+    font-family:inherit;
+    font-size:8.5px;
+    font-weight:700;
+    cursor:pointer;
+    color:var(--texto-suave);
+    white-space:nowrap;
+}
+.trabajo-btn-mini.hecho { border-color:var(--verde3); color:var(--verde); background:var(--verde-claro); }
+.trabajo-btn-mini.borrar:hover { background:#fde8e8; color:#b33c3c; }
+.trabajo-btn-mini.historial { border-color:var(--borde); background:var(--fondo); color:var(--texto-suave); }
+.trabajo-btn-mini.historial:hover { background:var(--blanco); border-color:var(--verde3); }
+.trabajos-vacio {
+    text-align:center;
+    padding:20px;
+    color:var(--gris);
+    font-size:11px;
+    background:var(--fondo);
+    border-radius:14px;
+    border:1px dashed var(--borde);
+}
+
+.trabajo-form-panel {
+    display:none;
+    margin-top:12px;
+    padding:18px;
+    border-radius:14px;
+    background:var(--fondo);
+    border:1px solid var(--borde);
+}
+.trabajo-form-panel.mostrar { display:block; animation:aparecer .3s ease; }
+
+.agenda-lote-card {
+    margin-bottom:22px;
+    padding-bottom:4px;
+}
+.agenda-lote-header {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    margin-bottom:12px;
+}
+.agenda-lote-header strong { display:block; font-size:16px; font-weight:800; color:var(--verde); }
+.agenda-lote-header span { display:block; margin-top:2px; font-size:10.5px; color:var(--gris); }
+
+.agenda-vacia {
+    text-align:center;
+    padding:50px 20px;
+    color:var(--gris);
+    font-size:13px;
+    line-height:1.8;
+    background:var(--blanco);
+    border-radius:16px;
+    border:1px dashed var(--borde);
+}
+.agenda-vacia strong { color:var(--verde); }
+.agenda-sin-clima {
+    text-align:center;
+    font-size:10px;
+    color:var(--gris);
+    margin-bottom:14px;
+}
+
+.trabajos-historial-toggle {
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    font-size:10px;
+    font-weight:700;
+    color:var(--verde2);
+    cursor:pointer;
+    margin-top:10px;
+    padding:6px 12px;
+    border-radius:8px;
+    background:var(--fondo);
+    border:1px solid var(--borde);
+    transition:var(--transicion);
+}
+.trabajos-historial-toggle:hover {
+    background:var(--blanco);
+    border-color:var(--verde3);
+}
+.trabajos-historial-toggle .flecha { transition:transform .3s ease; }
+.trabajos-historial-toggle .flecha.abierto { transform:rotate(180deg); }
+.trabajos-historial-panel {
+    display:none;
+    margin-top:10px;
+}
+.trabajos-historial-panel.mostrar { display:block; }
+.trabajos-historial-panel .trabajo-item { opacity:.8; }
+.trabajos-historial-panel .trabajo-item .trabajo-fecha-badge { background:var(--verde-claro); color:var(--verde2); }
+
+.agenda-filtros {
+    display:flex;
+    gap:8px;
+    align-items:center;
+    flex-wrap:wrap;
+}
+.agenda-filtros select {
+    padding:8px 14px;
+    border-radius:10px;
+    border:1.5px solid var(--borde);
+    background:var(--blanco);
+    font-family:inherit;
+    font-size:11px;
+    font-weight:600;
+    color:var(--texto-suave);
+    cursor:pointer;
+}
+.agenda-filtros .badge-vencidos {
+    padding:4px 12px;
+    border-radius:20px;
+    background:#fde8e8;
+    color:#b33c3c;
+    font-size:10px;
+    font-weight:800;
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+}
 </style>
 </head>
 <body>
@@ -2508,14 +2738,9 @@ body {
 
 <div id="appShell" class="app-shell-hidden">
 
-    <!-- =========================================================
-       CLIMA PREMIUM CON DÍA/NOCHE
-    ========================================================= -->
-
+    <!-- CLIMA PREMIUM -->
     <section id="weatherCard" class="weather-card-premium clima-despejado" aria-label="Clima y pronóstico">
-
         <div class="weather-premium-grid">
-
             <div class="weather-premium-main">
                 <div class="weather-premium-icono" id="weatherIconPremium"></div>
                 <div class="weather-premium-temp" id="weatherTempPremium">--</div>
@@ -2526,7 +2751,6 @@ body {
                     <span id="weatherVientoPremium">-- km/h</span>
                 </div>
             </div>
-
             <div class="weather-premium-days">
                 <div class="weather-premium-day" id="day0">
                     <div class="weather-premium-day-name" id="dayName0">Hoy</div>
@@ -2544,32 +2768,21 @@ body {
                     <div class="weather-premium-day-temp" id="dayTemp2">--°</div>
                 </div>
             </div>
-
         </div>
-
         <div id="weatherInsightPremium" class="weather-premium-insight" style="display:none;">
             <span id="weatherInsightIconPremium">✅</span>
             <span id="weatherInsightTextoPremium">-</span>
         </div>
-
         <div id="weatherAlertsPremium" class="weather-premium-alerts"></div>
-
     </section>
 
-    <!-- =========================================================
-       "¿QUÉ QUERÉS EVALUAR?" — SOLO EN CALCULADORA PRINCIPAL
-    ========================================================= -->
-
+    <!-- TÍTULO "¿QUÉ QUERÉS EVALUAR?" -->
     <div id="tituloEvaluar" class="seccion seccion-simple titulo-principal">
         <h2>¿Qué querés evaluar?</h2>
     </div>
 
-    <!-- =========================================================
-       CALCULADORA
-    ========================================================= -->
-
+    <!-- CALCULADORA -->
     <div id="vistaCalculadora">
-
         <div class="tipo-tabs" id="tipoTabs">
             <button class="tipo-tab" data-tipo="forraje" onclick="mostrarTipo('forraje')">
                 <span class="icono">🌾</span>
@@ -2587,12 +2800,10 @@ body {
             </button>
         </div>
 
-        <!-- TÍTULO "GESTIONÁ" — CENTRADO, SIN LÍNEA -->
         <div class="seccion seccion-simple titulo-secundario" style="margin:20px 0 8px;">
             <h2>Gestioná</h2>
         </div>
 
-        <!-- MIS LOTES -->
         <div class="lotes-banner" onclick="abrirMisLotes()">
             <span class="lotes-banner-icono">🗂️</span>
             <div class="lotes-banner-texto">
@@ -2601,7 +2812,6 @@ body {
             </div>
         </div>
 
-        <!-- AGENDA DE CAMPO -->
         <div class="lotes-banner" onclick="abrirAgendaCampo()">
             <span class="lotes-banner-icono">🗓️</span>
             <div class="lotes-banner-texto">
@@ -2610,12 +2820,10 @@ body {
             </div>
         </div>
 
-        <!-- TÍTULO "EXPLORÁ" — CENTRADO, SIN LÍNEA -->
         <div class="seccion seccion-simple titulo-secundario" style="margin:16px 0 8px;">
             <h2>Explorá</h2>
         </div>
 
-        <!-- BIBLIOTECA — abre vista interna -->
         <div class="biblioteca-toggle" onclick="abrirBiblioteca()">
             <span class="lotes-banner-icono">📚</span>
             <div class="lotes-banner-texto">
@@ -2623,103 +2831,81 @@ body {
                 <span>Fichas técnicas de cada cultivo evaluable</span>
             </div>
         </div>
-
     </div>
 
-    <!-- =========================================================
-       BLOQUE FORRAJE
-    ========================================================= -->
-
+    <!-- BLOQUE FORRAJE -->
     <div id="bloqueForraje" class="bloque-tipo" style="display:none;">
-
         <section class="panel">
-
             <label class="label">Elegí el cultivo</label>
-
             <div id="cultivosScroll" class="cultivos cultivos-scroll">
-                <!-- Alfalfa -->
                 <div class="cultivo activo" data-cultivo="alfalfa" onclick="seleccionar(this)">
                     <div class="campo-cultivo alfalfa-bg"></div>
                     <div class="cultivo-info"><strong>Alfalfa</strong></div>
                     <div class="check">✓</div>
                 </div>
-                <!-- Avena -->
                 <div class="cultivo" data-cultivo="avena" onclick="seleccionar(this)">
                     <div class="campo-cultivo avena-bg"></div>
                     <div class="cultivo-info"><strong>Avena</strong></div>
                     <div class="check">✓</div>
                 </div>
-                <!-- Triticale -->
                 <div class="cultivo" data-cultivo="triticale" onclick="seleccionar(this)">
                     <div class="campo-cultivo triticale-bg"></div>
                     <div class="cultivo-info"><strong>Triticale</strong></div>
                     <div class="check">✓</div>
                 </div>
-                <!-- Cebada -->
                 <div class="cultivo" data-cultivo="cebada" onclick="seleccionar(this)">
                     <div class="campo-cultivo cebada-bg"></div>
                     <div class="cultivo-info"><strong>Cebada</strong></div>
                     <div class="check">✓</div>
                 </div>
-                <!-- Moha -->
                 <div class="cultivo" data-cultivo="moha" onclick="seleccionar(this)">
                     <div class="campo-cultivo moha-bg"></div>
                     <div class="cultivo-info"><strong>Moha</strong></div>
                     <div class="check">✓</div>
                 </div>
-                <!-- Mijo -->
                 <div class="cultivo" data-cultivo="mijo" onclick="seleccionar(this)">
                     <div class="campo-cultivo mijo-bg"></div>
                     <div class="cultivo-info"><strong>Mijo</strong></div>
                     <div class="check">✓</div>
                 </div>
-                <!-- Festuca -->
                 <div class="cultivo" data-cultivo="festuca" onclick="seleccionar(this)">
                     <div class="campo-cultivo festuca-bg"></div>
                     <div class="cultivo-info"><strong>Festuca alta</strong></div>
                     <div class="check">✓</div>
                 </div>
-                <!-- Raygrass -->
                 <div class="cultivo" data-cultivo="raygrass" onclick="seleccionar(this)">
                     <div class="campo-cultivo raygrass-bg"></div>
                     <div class="cultivo-info"><strong>Raygrass anual</strong></div>
                     <div class="check">✓</div>
                 </div>
-                <!-- Vicia -->
                 <div class="cultivo" data-cultivo="vicia" onclick="seleccionar(this)">
                     <div class="campo-cultivo vicia-bg"></div>
                     <div class="cultivo-info"><strong>Vicia villosa</strong></div>
                     <div class="check">✓</div>
                 </div>
-                <!-- Trébol blanco -->
                 <div class="cultivo" data-cultivo="trebol" onclick="seleccionar(this)">
                     <div class="campo-cultivo trebol-bg"></div>
                     <div class="cultivo-info"><strong>Trébol blanco</strong></div>
                     <div class="check">✓</div>
                 </div>
-                <!-- Centeno -->
                 <div class="cultivo" data-cultivo="centeno" onclick="seleccionar(this)">
                     <div class="campo-cultivo centeno-bg"></div>
                     <div class="cultivo-info"><strong>Centeno</strong></div>
                     <div class="check">✓</div>
                 </div>
-                <!-- Trébol rojo -->
                 <div class="cultivo" data-cultivo="trebolrojo" onclick="seleccionar(this)">
                     <div class="campo-cultivo sinfoto-bg">T</div>
                     <div class="cultivo-info"><strong>Trébol rojo</strong></div>
                     <div class="check">✓</div>
                 </div>
             </div>
-
             <p class="cultivos-hint">← deslizá para ver más cultivos →</p>
             <div class="cultivos-dots" id="cultivosDots"></div>
 
-            <!-- CONSOCIACIONES -->
             <div class="ver-todos-toggle" onclick="toggleCultivosExtra()">
                 <span>Consociaciones</span>
                 <span class="carga-flecha" id="cultivosExtraFlecha">▾</span>
             </div>
-
             <div id="cultivosExtraPanel" class="carga-panel cultivos-extra-panel">
                 <div class="consoc-presets">
                     <div class="consoc-preset-chip" onclick="aplicarPresetConsoc('festuca','trebol',30)">
@@ -2732,7 +2918,6 @@ body {
                         <span class="chip-icono">🌿</span> Avena + Vicia
                     </div>
                 </div>
-
                 <div class="consoc-selects">
                     <div class="consoc-campo">
                         <label>Gramínea</label>
@@ -2770,7 +2955,6 @@ body {
                 <p class="consoc-nota" id="consocNota">ⓘ Elegí las dos especies para ver la mezcla.</p>
             </div>
 
-            <!-- ESTADO -->
             <label class="label label-espaciado">¿Cómo está el forraje?</label>
             <div class="estados">
                 <div class="estado-opcion activo" data-estado="tierno" onclick="seleccionarEstado(this)">
@@ -2790,7 +2974,6 @@ body {
                 </div>
             </div>
 
-            <!-- DESTINO — CON CHECK VERDE PERSONALIZADO -->
             <label class="label label-espaciado">¿Qué vas a hacer con este forraje?</label>
             <div class="destino">
                 <div class="destino-opcion activo" data-destino="pastoreo" onclick="seleccionarDestino(this)">
@@ -2809,7 +2992,6 @@ body {
                 </div>
             </div>
 
-            <!-- DATOS -->
             <div class="datos">
                 <div class="input-box">
                     <label class="label">Superficie</label>
@@ -2825,7 +3007,6 @@ body {
 
             <button class="calcular" onclick="calcular()">CALCULAR RENDIMIENTO →</button>
 
-            <!-- ASESOR -->
             <div class="asesor-link" onclick="toggleAsesor()">Modo asesor técnico</div>
             <div id="asesorPanel" class="asesor-panel">
                 <p>Ajustá el rendimiento de referencia para <strong id="asesorCultivo">-</strong> según tu zona.</p>
@@ -2834,7 +3015,6 @@ body {
                     <input id="asesorReferencia" type="number" step="1" oninput="actualizarReferencia()">
                 </div>
             </div>
-
         </section>
 
         <!-- RESULTADO FORRAJE -->
@@ -2874,7 +3054,6 @@ body {
             <div id="mensaje" class="mensaje"></div>
             <div class="nota-referencia">Valor de referencia orientativo, ajustable por tu asesor técnico.</div>
 
-            <!-- CARGA ANIMAL -->
             <div class="carga-toggle" onclick="toggleCarga('')">
                 <span>🐄 ¿Para cuántos animales alcanza?</span>
                 <span class="carga-flecha" id="cargaFlecha">▾</span>
@@ -2940,19 +3119,12 @@ body {
                 <div class="fila"><span>Cumplimiento</span><strong id="dcumplimiento">-</strong></div>
             </div>
         </section>
-
     </div>
 
-    <!-- =========================================================
-       BLOQUE SILAJE
-    ========================================================= -->
-
+    <!-- BLOQUE SILAJE -->
     <div id="bloqueSilaje" class="bloque-tipo" style="display:none;">
-
         <section class="panel">
-
             <label class="label">Elegí el cultivo</label>
-
             <div class="cultivos cultivos-silaje">
                 <div class="cultivo activo" data-cultivo="maiz" onclick="seleccionarSilaje(this)">
                     <div class="campo-cultivo maiz-bg"></div>
@@ -2966,7 +3138,6 @@ body {
                 </div>
             </div>
 
-            <!-- VENTANA COSECHA -->
             <div class="ventana-cosecha">
                 <div class="ventana-titulo">
                     <span id="ventanaIcono">🌽</span>
@@ -3006,7 +3177,6 @@ body {
 
             <button class="calcular" onclick="calcularSilaje()">CALCULAR RENDIMIENTO →</button>
 
-            <!-- ASESOR SILAJE -->
             <div class="asesor-link" onclick="toggleAsesorSilo()">Modo asesor técnico</div>
             <div id="asesorPanelSilo" class="asesor-panel">
                 <p>Ajustá el rendimiento para <strong id="asesorCultivoSilo">-</strong> según tu zona.</p>
@@ -3015,7 +3185,6 @@ body {
                     <input id="asesorReferenciaSilo" type="number" step="1" oninput="actualizarReferenciaSilo()">
                 </div>
             </div>
-
         </section>
 
         <!-- RESULTADO SILAJE -->
@@ -3055,7 +3224,6 @@ body {
             <div id="mensajeSilo" class="mensaje"></div>
             <div class="nota-referencia">Rendimiento y ventana de MS orientativos (INTA).</div>
 
-            <!-- CARGA ANIMAL SILAJE -->
             <div class="carga-toggle" onclick="toggleCarga('Silo')">
                 <span>🐄 ¿Para cuántos animales alcanza?</span>
                 <span class="carga-flecha" id="cargaFlechaSilo">▾</span>
@@ -3120,13 +3288,9 @@ body {
                 <div class="fila"><span>Categoría</span><strong id="dcategoriaSilo">-</strong></div>
             </div>
         </section>
-
     </div>
 
-    <!-- =========================================================
-       MIS LOTES — MODERNOS
-    ========================================================= -->
-
+    <!-- MIS LOTES -->
     <div id="vistaLotes" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarMisLotes()">Volver</button>
@@ -3189,22 +3353,24 @@ body {
         <div id="loteHistorial" style="display:none;"></div>
     </div>
 
-    <!-- =========================================================
-       AGENDA DE CAMPO — NUEVO SEGMENTO (SIN TÍTULO REPETIDO)
-    ========================================================= -->
-
+    <!-- AGENDA DE CAMPO -->
     <div id="vistaAgenda" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarAgendaCampo()">Volver</button>
             <h2>Agenda Inteligente</h2>
+            <div class="lotes-header-filtros">
+                <select id="agendaFiltroTipo" onchange="renderAgendaCampo()">
+                    <option value="todos">Todos los lotes</option>
+                    <option value="forraje">Forraje</option>
+                    <option value="silaje">Silaje</option>
+                </select>
+                <span class="lotes-header-badge" id="agendaBadgeVencidos" style="display:none;">⚠️ 0 vencidos</span>
+            </div>
         </div>
         <div id="agendaContenido"></div>
     </div>
 
-    <!-- =========================================================
-       BIBLIOTECA — VISTA INTERNA
-    ========================================================= -->
-
+    <!-- BIBLIOTECA -->
     <div id="vistaBiblioteca" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarBiblioteca()">Volver</button>
@@ -3220,10 +3386,6 @@ body {
     </div>
 
     <div id="informeLotePrint" class="informe-lote-print"></div>
-
-    <!-- =========================================================
-       FOOTER — NUEVO TEXTO
-    ========================================================= -->
 
     <footer class="footer">
         <strong>ForraGO</strong> · Inteligencia forrajera<br>
@@ -3241,9 +3403,9 @@ body {
 
 <script>
 
-/* =========================================================
-   DATOS CULTIVOS
-========================================================= */
+// =========================================================
+// DATOS CULTIVOS
+// =========================================================
 
 const cultivos = {
     alfalfa: { nombre: "Alfalfa", ms: { tierno: 18, medio: 21, espiga: 24 }, referencia: 2200 },
@@ -3323,10 +3485,11 @@ let destinoActual = "pastoreo";
 let cultivoSiloActual = "maiz";
 let ultimoResultado = null;
 let ultimoResultadoSilo = null;
+let climaDiarioActual = null;
 
-/* =========================================================
-   FUNCIONES GENERALES
-========================================================= */
+// =========================================================
+// FUNCIONES GENERALES
+// =========================================================
 
 function numero(n, dec = 0) {
     return new Intl.NumberFormat("es-AR", {
@@ -3366,9 +3529,9 @@ function obtenerNombreCultivo(clave, tipo) {
     return origen[clave] ? origen[clave].nombre : clave;
 }
 
-/* =========================================================
-   PESTAÑAS
-========================================================= */
+// =========================================================
+// PESTAÑAS
+// =========================================================
 
 function mostrarTipo(tipo) {
     const yaActivo = document.querySelector('.tipo-tab[data-tipo="' + tipo + '"]').classList.contains("activo");
@@ -3390,9 +3553,9 @@ function mostrarTipo(tipo) {
     setTimeout(() => bloque.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
 }
 
-/* =========================================================
-   CULTIVOS
-========================================================= */
+// =========================================================
+// CULTIVOS
+// =========================================================
 
 function seleccionar(elemento) {
     document.querySelectorAll(".cultivos:not(.cultivos-silaje) .cultivo").forEach(c => c.classList.remove("activo"));
@@ -3433,9 +3596,9 @@ function seleccionarDestino(elemento) {
     destinoActual = elemento.dataset.destino;
 }
 
-/* =========================================================
-   CONSOCIACIONES
-========================================================= */
+// =========================================================
+// CONSOCIACIONES
+// =========================================================
 
 function desactivarConsociacion() {
     const preview = document.getElementById("consocPreview");
@@ -3488,9 +3651,9 @@ function aplicarPresetConsoc(graminea, leguminosa, porcLeguminosa) {
     actualizarConsociacion();
 }
 
-/* =========================================================
-   ASESOR
-========================================================= */
+// =========================================================
+// ASESOR
+// =========================================================
 
 function toggleAsesor() {
     document.getElementById("asesorPanel").classList.toggle("mostrar");
@@ -3527,9 +3690,9 @@ function actualizarReferenciaSilo() {
     }
 }
 
-/* =========================================================
-   CALCULAR FORRAJE
-========================================================= */
+// =========================================================
+// CALCULAR FORRAJE
+// =========================================================
 
 function calcular() {
     const superficie = parseFloat(document.getElementById("superficie").value);
@@ -3580,9 +3743,9 @@ function calcular() {
     document.getElementById("resultado").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-/* =========================================================
-   CALCULAR SILAJE
-========================================================= */
+// =========================================================
+// CALCULAR SILAJE
+// =========================================================
 
 function categorizarSilo(msHa, cultivo) {
     for (const nivel of cultivo.categorias) {
@@ -3632,9 +3795,9 @@ function calcularSilaje() {
     document.getElementById("resultadoSilo").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-/* =========================================================
-   CARGA ANIMAL
-========================================================= */
+// =========================================================
+// CARGA ANIMAL
+// =========================================================
 
 function actualizarCategoria(sufijo) {
     const categoria = categoriasAnimales[document.getElementById("cargaCategoria" + sufijo).value];
@@ -3686,9 +3849,9 @@ function calcularCarga(sufijo) {
     }
 }
 
-/* =========================================================
-   DETALLES / NUEVO / PDF / COMPARTIR
-========================================================= */
+// =========================================================
+// DETALLES / NUEVO / PDF / COMPARTIR
+// =========================================================
 
 function detalles() { document.getElementById("detalles").classList.toggle("mostrar"); }
 function nuevo() {
@@ -3724,9 +3887,9 @@ function compartirWhatsapp(sufijo) {
     window.open("https://wa.me/?text=" + encodeURIComponent(texto + "\n\nCalculado con ForraGO"), "_blank");
 }
 
-/* =========================================================
-   BIBLIOTECA
-========================================================= */
+// =========================================================
+// BIBLIOTECA
+// =========================================================
 
 function toggleBiblioteca() {
     document.getElementById("bibliotecaPanel").classList.toggle("mostrar");
@@ -3744,9 +3907,9 @@ function toggleFicha(elemento) {
     elemento.classList.toggle("abierto");
 }
 
-/* =========================================================
-   CARRUSEL
-========================================================= */
+// =========================================================
+// CARRUSEL
+// =========================================================
 
 function generarDotsCultivos() {
     const contenedor = document.getElementById("cultivosScroll");
@@ -3799,9 +3962,9 @@ function inicializarCarruselInfinito() {
     }, { passive: true });
 }
 
-/* =========================================================
-   CLIMA — FUNCIÓN CON DÍA/NOCHE
-========================================================= */
+// =========================================================
+// CLIMA
+// =========================================================
 
 function codigoClima(codigo, esDeNoche) {
     if (codigo === 0) {
@@ -3828,99 +3991,19 @@ function codigoClima(codigo, esDeNoche) {
     return esDeNoche ? ["🌙", "Despejado", "noche-despejado"] : ["☀️", "Despejado", "despejado"];
 }
 
-/* =========================================================
-   ÍCONOS CLIMA — INCLUYE DÍA Y NOCHE
-========================================================= */
-
 const iconosClimaSVG = {
-    despejado: `<svg viewBox="0 0 32 32">
-        <circle cx="16" cy="16" r="11" fill="var(--lima)" opacity=".18"/>
-        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)"/>
-        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(45 16 16)"/>
-        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(90 16 16)"/>
-        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(135 16 16)"/>
-        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(180 16 16)"/>
-        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(225 16 16)"/>
-        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(270 16 16)"/>
-        <rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(315 16 16)"/>
-        <circle cx="16" cy="16" r="7.4" fill="var(--lima)"/>
-        <circle cx="13.4" cy="13.4" r="2.6" fill="white" opacity=".38"/>
-    </svg>`,
-    parcial: `<svg viewBox="0 0 32 32">
-        <circle cx="12.5" cy="11" r="6.8" fill="var(--lima)" opacity=".2"/>
-        <circle cx="12.5" cy="11" r="5" fill="var(--lima)"/>
-        <circle cx="10.7" cy="9.4" r="1.7" fill="white" opacity=".4"/>
-        <path d="M9.5 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H9.5z" fill="var(--verde2)" opacity=".9" transform="translate(1.1,1.4)"/>
-        <path d="M9.5 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H9.5z" fill="var(--verde3)" transform="translate(-0.5,-0.6)"/>
-        <ellipse cx="10.5" cy="14.5" rx="3.6" ry="1.7" fill="white" opacity=".22" transform="rotate(-12 10.5 14.5) translate(-0.5,-0.6)"/>
-    </svg>`,
-    nublado: `<svg viewBox="0 0 32 32">
-        <path d="M8 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H8z" fill="var(--gris)" opacity=".85" transform="translate(1.3,1.6)"/>
-        <path d="M8 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H8z" fill="#c7cec2" transform="translate(-0.6,-0.7)"/>
-        <ellipse cx="9" cy="14" rx="3.8" ry="1.8" fill="white" opacity=".3" transform="rotate(-12 9 14) translate(-0.6,-0.7)"/>
-    </svg>`,
-    niebla: `<svg viewBox="0 0 32 32">
-        <path d="M9 18c-2.6 0-4.8-2-4.8-4.5 0-2.2 1.7-4.1 3.9-4.5.7-2.8 3.2-4.8 6.2-4.8 3.1 0 5.8 2.2 6.4 5.1 2.1.3 3.7 2.1 3.7 4.2 0 2.3-1.9 4.3-4.3 4.3H9z" fill="#c9cfc4"/>
-        <rect x="3" y="21" width="26" height="2.4" rx="1.2" fill="var(--gris)" opacity=".85"/>
-        <rect x="6" y="25.4" width="20" height="2.4" rx="1.2" fill="var(--gris)" opacity=".55"/>
-    </svg>`,
-    lluvia: `<svg viewBox="0 0 32 32">
-        <path d="M8 21c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#4d6f82" opacity=".85" transform="translate(1.1,1.3)"/>
-        <path d="M8 21c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#7fa0b3" transform="translate(-0.5,-0.6)"/>
-        <path d="M9.5 24.5c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/>
-        <path d="M17.5 25.8c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/>
-        <path d="M25 24.5c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/>
-    </svg>`,
-    nieve: `<svg viewBox="0 0 32 32">
-        <path d="M8 19c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#a9bfcc" opacity=".85" transform="translate(1.1,1.3)"/>
-        <path d="M8 19c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#d3e2ea" transform="translate(-0.5,-0.6)"/>
-        <g stroke="#5f97b8" stroke-width="1.3" stroke-linecap="round">
-            <line x1="8" y1="21" x2="8" y2="27"/><line x1="5.5" y1="22.5" x2="10.5" y2="25.5"/><line x1="10.5" y1="22.5" x2="5.5" y2="25.5"/>
-            <line x1="16" y1="22.5" x2="16" y2="28.5"/><line x1="13.3" y1="24" x2="18.7" y2="27"/><line x1="18.7" y1="24" x2="13.3" y2="27"/>
-            <line x1="24" y1="21" x2="24" y2="27"/><line x1="21.5" y1="22.5" x2="26.5" y2="25.5"/><line x1="26.5" y1="22.5" x2="21.5" y2="25.5"/>
-        </g>
-    </svg>`,
-    tormenta: `<svg viewBox="0 0 32 32">
-        <circle cx="17" cy="19" r="8" fill="var(--lima)" opacity=".18"/>
-        <path d="M8 18c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#2e3a40" opacity=".9" transform="translate(1.1,1.3)"/>
-        <path d="M8 18c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#4a5a63" transform="translate(-0.5,-0.6)"/>
-        <path d="M18.2 16.5l-5.6 7.7h4.1L14.8 30l7.3-9.6h-4.2l3.1-4.5-2.8.6z" fill="var(--lima)"/>
-    </svg>`,
-    'noche-despejado': `<svg viewBox="0 0 32 32">
-        <circle cx="16" cy="16" r="12" fill="#1a212b" opacity=".3"/>
-        <path d="M20 8c-4.4 0-8 3.6-8 8 0 4.4 3.6 8 8 8 1.8 0 3.5-.6 4.8-1.7-2.2 1.8-5.2 2.8-8.4 2.3-4.4-.7-7.8-4.5-8-8.8-.2-4.3 2.8-8.3 6.8-9.5.6-.2 1.2-.3 1.8-.3h.6c-.8 1.6-1.2 3.4-1.2 5.2 0 3.9 2.2 7.3 5.4 9.1-1.5.7-3.2 1.1-4.9 1.1-3.9 0-7.1-3.2-7.1-7.1 0-3.2 2.1-5.9 5.1-6.8z" fill="#e8e3d0" opacity=".9"/>
-        <circle cx="10" cy="20" r="2.5" fill="#e8e3d0" opacity=".08"/>
-        <circle cx="8" cy="14" r="1.8" fill="#e8e3d0" opacity=".06"/>
-        <circle cx="14" cy="10" r="1.5" fill="#e8e3d0" opacity=".05"/>
-    </svg>`,
-    'noche-parcial': `<svg viewBox="0 0 32 32">
-        <circle cx="9" cy="9" r="5.5" fill="#1a212b" opacity=".2"/>
-        <path d="M13 4c-3.6 0-6.5 2.9-6.5 6.5 0 3.6 2.9 6.5 6.5 6.5 1.5 0 2.8-.5 3.9-1.4-1.8 1.5-4.2 2.3-6.8 1.9-3.6-.6-6.3-3.7-6.5-7.2-.2-3.5 2.3-6.7 5.5-7.7.5-.2 1-.2 1.5-.2h.5c-.7 1.3-1 2.8-1 4.2 0 3.2 1.8 5.9 4.4 7.4-1.2.6-2.6.9-4 .9-3.2 0-5.8-2.6-5.8-5.8 0-2.6 1.7-4.8 4.1-5.5z" fill="#e8e3d0" opacity=".9" transform="translate(4,4)"/>
-        <path d="M6 22c-2.2 0-4-1.7-4-3.8 0-1.9 1.4-3.5 3.3-3.8.6-2.4 2.7-4.1 5.2-4.1 2.6 0 4.9 1.8 5.4 4.3 1.7.3 3.1 1.8 3.1 3.5 0 1.9-1.6 3.6-3.6 3.6H6z" fill="#c7cec2" transform="translate(4,4)"/>
-        <circle cx="10" cy="20" r="2" fill="#e8e3d0" opacity=".06"/>
-        <circle cx="6" cy="15" r="1.5" fill="#e8e3d0" opacity=".04"/>
-    </svg>`,
-    'noche-nublado': `<svg viewBox="0 0 32 32">
-        <rect x="3" y="4" width="26" height="24" rx="12" fill="#1a212b" opacity=".4"/>
-        <path d="M6 22c-2.2 0-4-1.7-4-3.8 0-1.9 1.4-3.5 3.3-3.8.6-2.4 2.7-4.1 5.2-4.1 2.6 0 4.9 1.8 5.4 4.3 1.7.3 3.1 1.8 3.1 3.5 0 1.9-1.6 3.6-3.6 3.6H6z" fill="#4a5a63" opacity=".9" transform="translate(2,2)"/>
-        <path d="M6 22c-2.2 0-4-1.7-4-3.8 0-1.9 1.4-3.5 3.3-3.8.6-2.4 2.7-4.1 5.2-4.1 2.6 0 4.9 1.8 5.4 4.3 1.7.3 3.1 1.8 3.1 3.5 0 1.9-1.6 3.6-3.6 3.6H6z" fill="#5a6b75" transform="translate(-0.8,-0.8)"/>
-        <circle cx="9" cy="14" rx="2.5" ry="1.2" fill="white" opacity=".08" transform="rotate(-12 9 14) translate(-0.8,-0.8)"/>
-    </svg>`,
-    'noche-lluvia': `<svg viewBox="0 0 32 32">
-        <path d="M4 20c-2 0-3.6-1.5-3.6-3.4 0-1.7 1.3-3.1 3-3.4.5-2.2 2.4-3.7 4.7-3.7 2.4 0 4.4 1.6 4.8 3.9 1.5.3 2.8 1.6 2.8 3.1 0 1.7-1.4 3.2-3.2 3.2H4z" fill="#4d6f82" opacity=".85" transform="translate(2,2)"/>
-        <path d="M4 20c-2 0-3.6-1.5-3.6-3.4 0-1.7 1.3-3.1 3-3.4.5-2.2 2.4-3.7 4.7-3.7 2.4 0 4.4 1.6 4.8 3.9 1.5.3 2.8 1.6 2.8 3.1 0 1.7-1.4 3.2-3.2 3.2H4z" fill="#7fa0b3" transform="translate(-0.5,-0.5)"/>
-        <path d="M5.5 23c0 1-0.8 1.8-1.8 1.8s-1.8-.8-1.8-1.8c0-1 1.8-3.7 1.8-3.7s1.8 2.7 1.8 3.7z" fill="#3f7fa0"/>
-        <path d="M12.5 24c0 1-0.8 1.8-1.8 1.8s-1.8-.8-1.8-1.8c0-1 1.8-3.7 1.8-3.7s1.8 2.7 1.8 3.7z" fill="#3f7fa0"/>
-        <path d="M19 23c0 1-0.8 1.8-1.8 1.8s-1.8-.8-1.8-1.8c0-1 1.8-3.7 1.8-3.7s1.8 2.7 1.8 3.7z" fill="#3f7fa0"/>
-    </svg>`,
-    'noche-tormenta': `<svg viewBox="0 0 32 32">
-        <rect x="2" y="2" width="28" height="28" rx="14" fill="#1a212b" opacity=".5"/>
-        <path d="M4 18c-2 0-3.6-1.5-3.6-3.4 0-1.7 1.3-3.1 3-3.4.5-2.2 2.4-3.7 4.7-3.7 2.4 0 4.4 1.6 4.8 3.9 1.5.3 2.8 1.6 2.8 3.1 0 1.7-1.4 3.2-3.2 3.2H4z" fill="#2e3a40" opacity=".9" transform="translate(2,2)"/>
-        <path d="M4 18c-2 0-3.6-1.5-3.6-3.4 0-1.7 1.3-3.1 3-3.4.5-2.2 2.4-3.7 4.7-3.7 2.4 0 4.4 1.6 4.8 3.9 1.5.3 2.8 1.6 2.8 3.1 0 1.7-1.4 3.2-3.2 3.2H4z" fill="#4a5a63" transform="translate(-0.5,-0.5)"/>
-        <path d="M15.5 13l-4.5 6.2h3.3L12.3 25l5.8-7.7h-3.4l2.5-3.6-2.2.5z" fill="#b8d96c" transform="translate(0.5,-0.5)"/>
-        <circle cx="18" cy="14" r="2" fill="white" opacity=".06"/>
-        <circle cx="22" cy="10" r="1.5" fill="white" opacity=".04"/>
-    </svg>`
+    despejado: `<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="11" fill="var(--lima)" opacity=".18"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(45 16 16)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(90 16 16)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(135 16 16)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(180 16 16)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(225 16 16)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(270 16 16)"/><rect x="14.8" y="1" width="2.4" height="6" rx="1.2" fill="var(--verde3)" transform="rotate(315 16 16)"/><circle cx="16" cy="16" r="7.4" fill="var(--lima)"/><circle cx="13.4" cy="13.4" r="2.6" fill="white" opacity=".38"/></svg>`,
+    parcial: `<svg viewBox="0 0 32 32"><circle cx="12.5" cy="11" r="6.8" fill="var(--lima)" opacity=".2"/><circle cx="12.5" cy="11" r="5" fill="var(--lima)"/><circle cx="10.7" cy="9.4" r="1.7" fill="white" opacity=".4"/><path d="M9.5 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H9.5z" fill="var(--verde2)" opacity=".9" transform="translate(1.1,1.4)"/><path d="M9.5 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H9.5z" fill="var(--verde3)" transform="translate(-0.5,-0.6)"/><ellipse cx="10.5" cy="14.5" rx="3.6" ry="1.7" fill="white" opacity=".22" transform="rotate(-12 10.5 14.5) translate(-0.5,-0.6)"/></svg>`,
+    nublado: `<svg viewBox="0 0 32 32"><path d="M8 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H8z" fill="var(--gris)" opacity=".85" transform="translate(1.3,1.6)"/><path d="M8 25c-3.3 0-6-2.5-6-5.6 0-2.8 2.1-5.2 4.9-5.6.9-3.5 4-6 7.7-6 3.9 0 7.2 2.7 8 6.4 2.6.4 4.6 2.6 4.6 5.2 0 2.9-2.4 5.4-5.4 5.4H8z" fill="#c7cec2" transform="translate(-0.6,-0.7)"/><ellipse cx="9" cy="14" rx="3.8" ry="1.8" fill="white" opacity=".3" transform="rotate(-12 9 14) translate(-0.6,-0.7)"/></svg>`,
+    niebla: `<svg viewBox="0 0 32 32"><path d="M9 18c-2.6 0-4.8-2-4.8-4.5 0-2.2 1.7-4.1 3.9-4.5.7-2.8 3.2-4.8 6.2-4.8 3.1 0 5.8 2.2 6.4 5.1 2.1.3 3.7 2.1 3.7 4.2 0 2.3-1.9 4.3-4.3 4.3H9z" fill="#c9cfc4"/><rect x="3" y="21" width="26" height="2.4" rx="1.2" fill="var(--gris)" opacity=".85"/><rect x="6" y="25.4" width="20" height="2.4" rx="1.2" fill="var(--gris)" opacity=".55"/></svg>`,
+    lluvia: `<svg viewBox="0 0 32 32"><path d="M8 21c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#4d6f82" opacity=".85" transform="translate(1.1,1.3)"/><path d="M8 21c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#7fa0b3" transform="translate(-0.5,-0.6)"/><path d="M9.5 24.5c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/><path d="M17.5 25.8c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/><path d="M25 24.5c0 1.2-1 2.1-2.2 2.1s-2.2-.9-2.2-2.1c0-1.2 2.2-4.4 2.2-4.4s2.2 3.2 2.2 4.4z" fill="#3f7fa0"/></svg>`,
+    nieve: `<svg viewBox="0 0 32 32"><path d="M8 19c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#a9bfcc" opacity=".85" transform="translate(1.1,1.3)"/><path d="M8 19c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#d3e2ea" transform="translate(-0.5,-0.6)"/><g stroke="#5f97b8" stroke-width="1.3" stroke-linecap="round"><line x1="8" y1="21" x2="8" y2="27"/><line x1="5.5" y1="22.5" x2="10.5" y2="25.5"/><line x1="10.5" y1="22.5" x2="5.5" y2="25.5"/><line x1="16" y1="22.5" x2="16" y2="28.5"/><line x1="13.3" y1="24" x2="18.7" y2="27"/><line x1="18.7" y1="24" x2="13.3" y2="27"/><line x1="24" y1="21" x2="24" y2="27"/><line x1="21.5" y1="22.5" x2="26.5" y2="25.5"/><line x1="26.5" y1="22.5" x2="21.5" y2="25.5"/></g></svg>`,
+    tormenta: `<svg viewBox="0 0 32 32"><circle cx="17" cy="19" r="8" fill="var(--lima)" opacity=".18"/><path d="M8 18c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#2e3a40" opacity=".9" transform="translate(1.1,1.3)"/><path d="M8 18c-3.1 0-5.6-2.4-5.6-5.3 0-2.6 2-4.9 4.6-5.3.8-3.3 3.8-5.7 7.3-5.7 3.7 0 6.8 2.6 7.6 6.1 2.4.4 4.4 2.5 4.4 4.9 0 2.7-2.3 5.1-5.1 5.1H8z" fill="#4a5a63" transform="translate(-0.5,-0.6)"/><path d="M18.2 16.5l-5.6 7.7h4.1L14.8 30l7.3-9.6h-4.2l3.1-4.5-2.8.6z" fill="var(--lima)"/></svg>`,
+    'noche-despejado': `<svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="12" fill="#1a212b" opacity=".3"/><path d="M20 8c-4.4 0-8 3.6-8 8 0 4.4 3.6 8 8 8 1.8 0 3.5-.6 4.8-1.7-2.2 1.8-5.2 2.8-8.4 2.3-4.4-.7-7.8-4.5-8-8.8-.2-4.3 2.8-8.3 6.8-9.5.6-.2 1.2-.3 1.8-.3h.6c-.8 1.6-1.2 3.4-1.2 5.2 0 3.9 2.2 7.3 5.4 9.1-1.5.7-3.2 1.1-4.9 1.1-3.9 0-7.1-3.2-7.1-7.1 0-3.2 2.1-5.9 5.1-6.8z" fill="#e8e3d0" opacity=".9"/><circle cx="10" cy="20" r="2.5" fill="#e8e3d0" opacity=".08"/><circle cx="8" cy="14" r="1.8" fill="#e8e3d0" opacity=".06"/><circle cx="14" cy="10" r="1.5" fill="#e8e3d0" opacity=".05"/></svg>`,
+    'noche-parcial': `<svg viewBox="0 0 32 32"><circle cx="9" cy="9" r="5.5" fill="#1a212b" opacity=".2"/><path d="M13 4c-3.6 0-6.5 2.9-6.5 6.5 0 3.6 2.9 6.5 6.5 6.5 1.5 0 2.8-.5 3.9-1.4-1.8 1.5-4.2 2.3-6.8 1.9-3.6-.6-6.3-3.7-6.5-7.2-.2-3.5 2.3-6.7 5.5-7.7.5-.2 1-.2 1.5-.2h.5c-.7 1.3-1 2.8-1 4.2 0 3.2 1.8 5.9 4.4 7.4-1.2.6-2.6.9-4 .9-3.2 0-5.8-2.6-5.8-5.8 0-2.6 1.7-4.8 4.1-5.5z" fill="#e8e3d0" opacity=".9" transform="translate(4,4)"/><path d="M6 22c-2.2 0-4-1.7-4-3.8 0-1.9 1.4-3.5 3.3-3.8.6-2.4 2.7-4.1 5.2-4.1 2.6 0 4.9 1.8 5.4 4.3 1.7.3 3.1 1.8 3.1 3.5 0 1.9-1.6 3.6-3.6 3.6H6z" fill="#c7cec2" transform="translate(4,4)"/><circle cx="10" cy="20" r="2" fill="#e8e3d0" opacity=".06"/><circle cx="6" cy="15" r="1.5" fill="#e8e3d0" opacity=".04"/></svg>`,
+    'noche-nublado': `<svg viewBox="0 0 32 32"><rect x="3" y="4" width="26" height="24" rx="12" fill="#1a212b" opacity=".4"/><path d="M6 22c-2.2 0-4-1.7-4-3.8 0-1.9 1.4-3.5 3.3-3.8.6-2.4 2.7-4.1 5.2-4.1 2.6 0 4.9 1.8 5.4 4.3 1.7.3 3.1 1.8 3.1 3.5 0 1.9-1.6 3.6-3.6 3.6H6z" fill="#4a5a63" opacity=".9" transform="translate(2,2)"/><path d="M6 22c-2.2 0-4-1.7-4-3.8 0-1.9 1.4-3.5 3.3-3.8.6-2.4 2.7-4.1 5.2-4.1 2.6 0 4.9 1.8 5.4 4.3 1.7.3 3.1 1.8 3.1 3.5 0 1.9-1.6 3.6-3.6 3.6H6z" fill="#5a6b75" transform="translate(-0.8,-0.8)"/><circle cx="9" cy="14" rx="2.5" ry="1.2" fill="white" opacity=".08" transform="rotate(-12 9 14) translate(-0.8,-0.8)"/></svg>`,
+    'noche-lluvia': `<svg viewBox="0 0 32 32"><path d="M4 20c-2 0-3.6-1.5-3.6-3.4 0-1.7 1.3-3.1 3-3.4.5-2.2 2.4-3.7 4.7-3.7 2.4 0 4.4 1.6 4.8 3.9 1.5.3 2.8 1.6 2.8 3.1 0 1.7-1.4 3.2-3.2 3.2H4z" fill="#4d6f82" opacity=".85" transform="translate(2,2)"/><path d="M4 20c-2 0-3.6-1.5-3.6-3.4 0-1.7 1.3-3.1 3-3.4.5-2.2 2.4-3.7 4.7-3.7 2.4 0 4.4 1.6 4.8 3.9 1.5.3 2.8 1.6 2.8 3.1 0 1.7-1.4 3.2-3.2 3.2H4z" fill="#7fa0b3" transform="translate(-0.5,-0.5)"/><path d="M5.5 23c0 1-0.8 1.8-1.8 1.8s-1.8-.8-1.8-1.8c0-1 1.8-3.7 1.8-3.7s1.8 2.7 1.8 3.7z" fill="#3f7fa0"/><path d="M12.5 24c0 1-0.8 1.8-1.8 1.8s-1.8-.8-1.8-1.8c0-1 1.8-3.7 1.8-3.7s1.8 2.7 1.8 3.7z" fill="#3f7fa0"/><path d="M19 23c0 1-0.8 1.8-1.8 1.8s-1.8-.8-1.8-1.8c0-1 1.8-3.7 1.8-3.7s1.8 2.7 1.8 3.7z" fill="#3f7fa0"/></svg>`,
+    'noche-tormenta': `<svg viewBox="0 0 32 32"><rect x="2" y="2" width="28" height="28" rx="14" fill="#1a212b" opacity=".5"/><path d="M4 18c-2 0-3.6-1.5-3.6-3.4 0-1.7 1.3-3.1 3-3.4.5-2.2 2.4-3.7 4.7-3.7 2.4 0 4.4 1.6 4.8 3.9 1.5.3 2.8 1.6 2.8 3.1 0 1.7-1.4 3.2-3.2 3.2H4z" fill="#2e3a40" opacity=".9" transform="translate(2,2)"/><path d="M4 18c-2 0-3.6-1.5-3.6-3.4 0-1.7 1.3-3.1 3-3.4.5-2.2 2.4-3.7 4.7-3.7 2.4 0 4.4 1.6 4.8 3.9 1.5.3 2.8 1.6 2.8 3.1 0 1.7-1.4 3.2-3.2 3.2H4z" fill="#4a5a63" transform="translate(-0.5,-0.5)"/><path d="M15.5 13l-4.5 6.2h3.3L12.3 25l5.8-7.7h-3.4l2.5-3.6-2.2.5z" fill="#b8d96c" transform="translate(0.5,-0.5)"/><circle cx="18" cy="14" r="2" fill="white" opacity=".06"/><circle cx="22" cy="10" r="1.5" fill="white" opacity=".04"/></svg>`
 };
 
 function iconoClimaSVG(clase) {
@@ -3975,10 +4058,8 @@ function renderClima(data, lat, lon, nombre) {
     const daily = data.daily;
     climaDiarioActual = daily;
     
-    // Detectar si es de noche (19:00 a 6:00)
     const hora = new Date().getHours();
     const esDeNoche = hora >= 19 || hora < 6;
-    
     const info = codigoClima(current.weather_code, esDeNoche);
     
     document.getElementById("weatherIconPremium").innerHTML = iconoClimaSVG(info[2]);
@@ -4036,9 +4117,9 @@ function cargarClima() {
     }
 }
 
-/* =========================================================
-   APP / SPLASH
-========================================================= */
+// =========================================================
+// APP / SPLASH
+// =========================================================
 
 function abrirApp() {
     const welcome = document.getElementById("welcomeScreen");
@@ -4059,15 +4140,14 @@ setTimeout(function() {
     });
 }, 2000);
 
-/* =========================================================
-   MIS LOTES — FUNCIONES
-========================================================= */
+// =========================================================
+// MIS LOTES
+// =========================================================
 
 const LOTES_KEY = "forrago_lotes_v1";
 let loteEditandoId = null;
 let loteActivoId = null;
 let medicionPendienteSufijo = null;
-let climaDiarioActual = null;
 
 function cargarLotes() {
     try {
@@ -4087,9 +4167,7 @@ function guardarLotesStorage(lotes) {
 }
 
 function abrirMisLotes() {
-    // Ocultar el título "¿Qué querés evaluar?"
     document.getElementById("tituloEvaluar").style.display = "none";
-    
     document.getElementById("vistaCalculadora").style.display = "none";
     document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "none");
     document.querySelector(".header").style.display = "none";
@@ -4101,9 +4179,7 @@ function abrirMisLotes() {
 }
 
 function cerrarMisLotes() {
-    // Mostrar el título "¿Qué querés evaluar?" nuevamente
     document.getElementById("tituloEvaluar").style.display = "";
-    
     document.getElementById("vistaLotes").style.display = "none";
     document.getElementById("vistaCalculadora").style.display = "";
     document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "");
@@ -4328,9 +4404,7 @@ function graficoHistorial(mediciones) {
     if (mediciones.length < 2) {
         return '<p style="font-size:12px;color:var(--gris);text-align:center;margin:0;padding:10px 0;">Necesitás al menos 2 mediciones para ver el gráfico.</p>';
     }
-    const w = 560,
-        h = 180,
-        pad = 30;
+    const w = 560, h = 180, pad = 30;
     const valores = mediciones.map(m => m.msHa);
     const max = Math.max.apply(null, valores) * 1.15 || 100;
     const puntos = mediciones.map((m, i) => {
@@ -4457,14 +4531,12 @@ function exportarInformeLote(id) {
     document.body.classList.remove("imprimiendo-lote");
 }
 
-/* =========================================================
-   BIBLIOTECA — VISTA INTERNA
-========================================================= */
+// =========================================================
+// BIBLIOTECA — VISTA INTERNA
+// =========================================================
 
 function abrirBiblioteca() {
-    // Ocultar el título "¿Qué querés evaluar?"
     document.getElementById("tituloEvaluar").style.display = "none";
-    
     document.getElementById("vistaCalculadora").style.display = "none";
     document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "none");
     document.querySelector(".header").style.display = "none";
@@ -4478,9 +4550,7 @@ function abrirBiblioteca() {
 }
 
 function cerrarBiblioteca() {
-    // Mostrar el título "¿Qué querés evaluar?" nuevamente
     document.getElementById("tituloEvaluar").style.display = "";
-    
     document.getElementById("vistaBiblioteca").style.display = "none";
     document.getElementById("vistaCalculadora").style.display = "";
     document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "");
@@ -4492,129 +4562,28 @@ function cerrarBiblioteca() {
 
 function renderBiblioteca() {
     const cont = document.getElementById("bibliotecaContenido");
-    
     const cultivosLista = [
-        {
-            nombre: "Alfalfa",
-            bg: "alfalfa-bg",
-            desc: "leguminosa perenne (Medicago sativa), pastura de alta calidad y persistencia de varios años. Fija nitrógeno al suelo.",
-            siembra: "otoño (marzo-abril) o fin de invierno/primavera (agosto-septiembre), según zona.",
-            usos: "pastoreo directo, henificación (rollos/fardos) y banco de proteína.",
-            rendimiento: "2.200 kg MS/ha por corte. Fuente: Argentina.gob.ar, Consorcio de Regantes (San Luis)."
-        },
-        {
-            nombre: "Avena",
-            bg: "avena-bg",
-            desc: "cereal de invierno (Avena sativa), verdeo anual de rápido establecimiento y buena calidad forrajera.",
-            siembra: "otoño (marzo a mayo), verdeo de invierno.",
-            usos: "pastoreo directo, heno y, en menor medida, grano.",
-            rendimiento: "2.800 kg MS/ha (piso de ensayo INTA; promedio de cultivares: 4.503 kg MS/ha)."
-        },
-        {
-            nombre: "Triticale",
-            bg: "triticale-bg",
-            desc: "híbrido de trigo y centeno, cereal de invierno más tolerante a suelos pobres y ácidos que el trigo.",
-            siembra: "otoño (marzo a mayo), verdeo de invierno de doble propósito (forraje/grano).",
-            usos: "pastoreo, heno y grano.",
-            rendimiento: "3.800 kg MS/ha. Fuente: INTA/UNRC, evaluación de cultivares (promedio general 3.810 kg MS/ha)."
-        },
-        {
-            nombre: "Cebada",
-            bg: "cebada-bg",
-            desc: "cereal de invierno (Hordeum vulgare), forrajera de rápido crecimiento inicial, buena palatabilidad.",
-            siembra: "otoño (abril-mayo), verdeo de invierno.",
-            usos: "pastoreo temprano, heno y grano.",
-            rendimiento: "3.900 kg MS/ha. Fuente: INTA, cultivar Alicia INTA (3.990-4.910 kg MS/ha según campaña)."
-        },
-        {
-            nombre: "Moha",
-            bg: "moha-bg",
-            desc: "gramínea anual de verano (Setaria italica), verdeo de rápido crecimiento y buena calidad para pastoreo.",
-            siembra: "primavera-verano (octubre a diciembre), verdeo de verano.",
-            usos: "pastoreo y heno de verano.",
-            rendimiento: "4.500 kg MS/ha (estimación dentro del rango típico 4.000-7.000). Fuente: INTA Bordenave/Balcarce."
-        },
-        {
-            nombre: "Mijo",
-            bg: "mijo-bg",
-            desc: "gramínea anual de verano, tolerante a sequía, de ciclo corto y rápida implantación.",
-            siembra: "primavera-verano (octubre a diciembre), verdeo de verano.",
-            usos: "pastoreo y heno de verano, especialmente en zonas de menor disponibilidad hídrica.",
-            rendimiento: "4.200 kg MS/ha (estimación conservadora). Fuente: INTA Bordenave (Bolletta, 2005)."
-        },
-        {
-            nombre: "Festuca alta",
-            bg: "festuca-bg",
-            desc: "gramínea perenne (Festuca arundinacea), de alta persistencia y buena adaptación a suelos difíciles (salinos, alcalinos, con anegamientos temporarios).",
-            siembra: "otoño; tolera también siembras de invierno por su resistencia al frío.",
-            usos: "pastoreo directo y heno; por su persistencia funciona como pastura de varios años.",
-            rendimiento: "4.500 kg MS/ha/año (piso). Fuente: INTA Pergamino."
-        },
-        {
-            nombre: "Raygrass anual",
-            bg: "raygrass-bg",
-            desc: "gramínea anual de invierno (Lolium multiflorum), de rápida implantación y muy buena calidad forrajera.",
-            siembra: "otoño (marzo-abril), verdeo de invierno.",
-            usos: "pastoreo directo, muy palatable; también apto para heno.",
-            rendimiento: "3.365 kg MS/ha (promedio de 21 cultivares evaluados). Fuente: INTA Informa."
-        },
-        {
-            nombre: "Vicia villosa",
-            bg: "vicia-bg",
-            desc: "leguminosa anual de otoño-invierno que fija nitrógeno al suelo; muy usada como cultivo de cobertura además de forraje.",
-            siembra: "otoño (marzo a junio).",
-            usos: "pastoreo de invierno, cultivo de cobertura/servicio, sola o consociada con cereales de invierno.",
-            rendimiento: "5.000 kg MS/ha, con inoculación y fertilización adecuadas."
-        },
-        {
-            nombre: "Trébol blanco",
-            bg: "trebol-bg",
-            desc: "leguminosa perenne estolonífera (Trifolium repens), de alta calidad y palatabilidad, habitual en pasturas consociadas con gramíneas.",
-            siembra: "otoño o fin de invierno/primavera, según zona.",
-            usos: "pastoreo directo (por su bajo porte no es apto para heno).",
-            rendimiento: "5.000 kg MS/ha en el año de establecimiento, hasta 8.000 kg MS/ha en años siguientes."
-        },
-        {
-            nombre: "Centeno",
-            bg: "centeno-bg",
-            desc: "cereal de invierno (Secale cereale), el más rústico de los verdeos invernales; tolera bien suelos livianos, sequía y bajas temperaturas.",
-            siembra: "otoño (marzo a mayo), verdeo de invierno.",
-            usos: "pastoreo directo temprano y cultivo de cobertura.",
-            rendimiento: "2.900 kg MS/ha. Fuente: INTA EEA Mercedes (Corrientes)."
-        },
-        {
-            nombre: "Trébol rojo",
-            bg: "trebolrojo-bg",
-            desc: "leguminosa de porte erecto (Trifolium pratense), a diferencia del trébol blanco no es rastrera, lo que la hace apta para henificar.",
-            siembra: "otoño, sola o junto a un cereal de invierno como acompañante.",
-            usos: "pastoreo, henificación (rollo/fardo) y como componente de pasturas mixtas.",
-            rendimiento: "5.000 kg MS/ha en el año de establecimiento, superando los 10.000 kg MS/ha en el año siguiente."
-        },
-        {
-            nombre: "Maíz (silaje)",
-            bg: "maiz-bg",
-            desc: "cultivo de verano de alto potencial de rendimiento, el más usado para silaje de planta entera en Argentina.",
-            siembra: "primavera (septiembre a noviembre, según zona).",
-            usos: "silaje de planta entera (uso principal) y grano.",
-            rendimiento: "12.600 kg MS/ha. Fuente: INTA/CEI Chascomús."
-        },
-        {
-            nombre: "Sorgo (silaje)",
-            bg: "sorgo-bg",
-            desc: "cultivo de verano más tolerante a sequía y suelos salinos que el maíz, buena alternativa en ambientes restrictivos.",
-            siembra: "primavera-verano (octubre a diciembre), tolera siembras algo más tardías que el maíz.",
-            usos: "silaje de planta entera, pastoreo diferido y grano.",
-            rendimiento: "16.600 kg MS/ha (promedio). Fuente: INTA Corrientes."
-        }
+        { nombre: "Alfalfa", bg: "alfalfa-bg", desc: "leguminosa perenne (Medicago sativa), pastura de alta calidad y persistencia de varios años. Fija nitrógeno al suelo.", siembra: "otoño (marzo-abril) o fin de invierno/primavera (agosto-septiembre), según zona.", usos: "pastoreo directo, henificación (rollos/fardos) y banco de proteína.", rendimiento: "2.200 kg MS/ha por corte. Fuente: Argentina.gob.ar, Consorcio de Regantes (San Luis)." },
+        { nombre: "Avena", bg: "avena-bg", desc: "cereal de invierno (Avena sativa), verdeo anual de rápido establecimiento y buena calidad forrajera.", siembra: "otoño (marzo a mayo), verdeo de invierno.", usos: "pastoreo directo, heno y, en menor medida, grano.", rendimiento: "2.800 kg MS/ha (piso de ensayo INTA; promedio de cultivares: 4.503 kg MS/ha)." },
+        { nombre: "Triticale", bg: "triticale-bg", desc: "híbrido de trigo y centeno, cereal de invierno más tolerante a suelos pobres y ácidos que el trigo.", siembra: "otoño (marzo a mayo), verdeo de invierno de doble propósito (forraje/grano).", usos: "pastoreo, heno y grano.", rendimiento: "3.800 kg MS/ha. Fuente: INTA/UNRC, evaluación de cultivares (promedio general 3.810 kg MS/ha)." },
+        { nombre: "Cebada", bg: "cebada-bg", desc: "cereal de invierno (Hordeum vulgare), forrajera de rápido crecimiento inicial, buena palatabilidad.", siembra: "otoño (abril-mayo), verdeo de invierno.", usos: "pastoreo temprano, heno y grano.", rendimiento: "3.900 kg MS/ha. Fuente: INTA, cultivar Alicia INTA (3.990-4.910 kg MS/ha según campaña)." },
+        { nombre: "Moha", bg: "moha-bg", desc: "gramínea anual de verano (Setaria italica), verdeo de rápido crecimiento y buena calidad para pastoreo.", siembra: "primavera-verano (octubre a diciembre), verdeo de verano.", usos: "pastoreo y heno de verano.", rendimiento: "4.500 kg MS/ha (estimación dentro del rango típico 4.000-7.000). Fuente: INTA Bordenave/Balcarce." },
+        { nombre: "Mijo", bg: "mijo-bg", desc: "gramínea anual de verano, tolerante a sequía, de ciclo corto y rápida implantación.", siembra: "primavera-verano (octubre a diciembre), verdeo de verano.", usos: "pastoreo y heno de verano, especialmente en zonas de menor disponibilidad hídrica.", rendimiento: "4.200 kg MS/ha (estimación conservadora). Fuente: INTA Bordenave (Bolletta, 2005)." },
+        { nombre: "Festuca alta", bg: "festuca-bg", desc: "gramínea perenne (Festuca arundinacea), de alta persistencia y buena adaptación a suelos difíciles (salinos, alcalinos, con anegamientos temporarios).", siembra: "otoño; tolera también siembras de invierno por su resistencia al frío.", usos: "pastoreo directo y heno; por su persistencia funciona como pastura de varios años.", rendimiento: "4.500 kg MS/ha/año (piso). Fuente: INTA Pergamino." },
+        { nombre: "Raygrass anual", bg: "raygrass-bg", desc: "gramínea anual de invierno (Lolium multiflorum), de rápida implantación y muy buena calidad forrajera.", siembra: "otoño (marzo-abril), verdeo de invierno.", usos: "pastoreo directo, muy palatable; también apto para heno.", rendimiento: "3.365 kg MS/ha (promedio de 21 cultivares evaluados). Fuente: INTA Informa." },
+        { nombre: "Vicia villosa", bg: "vicia-bg", desc: "leguminosa anual de otoño-invierno que fija nitrógeno al suelo; muy usada como cultivo de cobertura además de forraje.", siembra: "otoño (marzo a junio).", usos: "pastoreo de invierno, cultivo de cobertura/servicio, sola o consociada con cereales de invierno.", rendimiento: "5.000 kg MS/ha, con inoculación y fertilización adecuadas." },
+        { nombre: "Trébol blanco", bg: "trebol-bg", desc: "leguminosa perenne estolonífera (Trifolium repens), de alta calidad y palatabilidad, habitual en pasturas consociadas con gramíneas.", siembra: "otoño o fin de invierno/primavera, según zona.", usos: "pastoreo directo (por su bajo porte no es apto para heno).", rendimiento: "5.000 kg MS/ha en el año de establecimiento, hasta 8.000 kg MS/ha en años siguientes." },
+        { nombre: "Centeno", bg: "centeno-bg", desc: "cereal de invierno (Secale cereale), el más rústico de los verdeos invernales; tolera bien suelos livianos, sequía y bajas temperaturas.", siembra: "otoño (marzo a mayo), verdeo de invierno.", usos: "pastoreo directo temprano y cultivo de cobertura.", rendimiento: "2.900 kg MS/ha. Fuente: INTA EEA Mercedes (Corrientes)." },
+        { nombre: "Trébol rojo", bg: "trebolrojo-bg", desc: "leguminosa de porte erecto (Trifolium pratense), a diferencia del trébol blanco no es rastrera, lo que la hace apta para henificar.", siembra: "otoño, sola o junto a un cereal de invierno como acompañante.", usos: "pastoreo, henificación (rollo/fardo) y como componente de pasturas mixtas.", rendimiento: "5.000 kg MS/ha en el año de establecimiento, superando los 10.000 kg MS/ha en el año siguiente." },
+        { nombre: "Maíz (silaje)", bg: "maiz-bg", desc: "cultivo de verano de alto potencial de rendimiento, el más usado para silaje de planta entera en Argentina.", siembra: "primavera (septiembre a noviembre, según zona).", usos: "silaje de planta entera (uso principal) y grano.", rendimiento: "12.600 kg MS/ha. Fuente: INTA/CEI Chascomús." },
+        { nombre: "Sorgo (silaje)", bg: "sorgo-bg", desc: "cultivo de verano más tolerante a sequía y suelos salinos que el maíz, buena alternativa en ambientes restrictivos.", siembra: "primavera-verano (octubre a diciembre), tolera siembras algo más tardías que el maíz.", usos: "silaje de planta entera, pastoreo diferido y grano.", rendimiento: "16.600 kg MS/ha (promedio). Fuente: INTA Corrientes." }
     ];
 
     let html = '<p class="biblioteca-intro">Fichas orientativas de cada cultivo evaluable en ForraGO. Los rendimientos de referencia son los mismos, con fuente, que usa la calculadora.</p>';
     html += '<div class="biblioteca-lista">';
-
     cultivosLista.forEach(c => {
         const esSilaje = c.nombre.includes("silaje") || c.nombre.includes("Maíz") || c.nombre.includes("Sorgo");
         const badge = esSilaje ? "Silaje" : "Forraje";
-        
         html += '<div class="biblioteca-item">' +
             '<div class="biblioteca-item-cabecera" onclick="toggleFichaBiblioteca(this)">' +
             '<div class="biblioteca-thumb-wrap"><div class="campo-cultivo ' + c.bg + '"></div></div>' +
@@ -4630,7 +4599,6 @@ function renderBiblioteca() {
             '</div>' +
             '</div>';
     });
-
     html += '</div>';
     cont.innerHTML = html;
 }
@@ -4642,14 +4610,14 @@ function toggleFichaBiblioteca(elemento) {
     }
 }
 
-/* =========================================================
-   AGENDA DE CAMPO
-========================================================= */
+// =========================================================
+// AGENDA DE CAMPO
+// =========================================================
+
+const iconosTrabajo = { "Corte": "✂️", "Aplicación": "🧪", "Riego": "💧", "Siembra": "🌱", "Otro": "📌" };
 
 function abrirAgendaCampo() {
-    // Ocultar el título "¿Qué querés evaluar?"
     document.getElementById("tituloEvaluar").style.display = "none";
-    
     document.getElementById("vistaCalculadora").style.display = "none";
     document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "none");
     document.querySelector(".header").style.display = "none";
@@ -4662,9 +4630,7 @@ function abrirAgendaCampo() {
 }
 
 function cerrarAgendaCampo() {
-    // Mostrar el título "¿Qué querés evaluar?" nuevamente
     document.getElementById("tituloEvaluar").style.display = "";
-    
     document.getElementById("vistaAgenda").style.display = "none";
     document.getElementById("vistaCalculadora").style.display = "";
     document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "");
@@ -4674,204 +4640,90 @@ function cerrarAgendaCampo() {
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-/* =========================================================
-   INICIALIZACIÓN
-========================================================= */
-
-sincronizarAsesor();
-actualizarVentanaCosecha();
-sincronizarAsesorSilo();
-actualizarCategoria("");
-actualizarCategoria("Silo");
-inicializarCarruselInfinito();
-generarDotsCultivos();
-window.addEventListener("resize", function() { generarDotsCultivos();
-    actualizarDotsCultivos(); });
-document.getElementById("cultivosScroll")?.addEventListener("scroll", actualizarDotsCultivos, { passive: true });
-
-/* =========================================================
-   SERVICE WORKER
-========================================================= */
-
-if ("serviceWorker" in navigator) {
-    window.addEventListener("load", function() {
-        navigator.serviceWorker.register("./service-worker.js").then(function() {
-            console.log("ForraGO PWA activa.");
-        }).catch(function(error) {
-            console.warn("No se pudo activar la PWA:", error);
-        });
-    });
-}
-
-</script>
-
-<!-- =========================================================
-   AGENDA DE CAMPO — MÓDULO (inyecta estilos y funciones)
-========================================================= -->
-
-<script>
-(function inyectarEstilosAgenda() {
-    const css = `
-    .trabajos-caja { margin-bottom:18px; }
-    .trabajos-caja-titulo {
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        margin-bottom:10px;
-    }
-    .trabajos-caja-titulo h4 {
-        font-size:13px;
-        font-weight:800;
-        color:var(--texto);
-    }
-    .trabajo-agregar-btn {
-        padding:8px 14px;
-        border-radius:10px;
-        border:1.5px dashed var(--verde3);
-        background:var(--lima-claro);
-        color:var(--verde);
-        font-family:inherit;
-        font-size:9.5px;
-        font-weight:700;
-        cursor:pointer;
-        transition:var(--transicion);
-    }
-    .trabajo-agregar-btn:hover { background:#dce8c8; }
-
-    .trabajo-item {
-        display:flex;
-        align-items:flex-start;
-        gap:12px;
-        padding:14px 16px;
-        border-radius:14px;
-        background:var(--blanco);
-        border:1px solid var(--borde);
-        margin-bottom:8px;
-    }
-    .trabajo-item.vencido { border-color:#e8b3a8; background:#fdf3f1; }
-    .trabajo-icono { font-size:18px; flex-shrink:0; margin-top:1px; }
-    .trabajo-info { flex:1; min-width:0; }
-    .trabajo-info strong { display:block; font-size:12.5px; color:var(--texto); font-weight:700; }
-    .trabajo-info span { display:block; margin-top:2px; font-size:10px; color:var(--gris); }
-    .trabajo-fecha-badge {
-        font-size:8.5px;
-        font-weight:800;
-        padding:3px 9px;
-        border-radius:20px;
-        background:var(--fondo);
-        color:var(--gris);
-        white-space:nowrap;
-    }
-    .trabajo-fecha-badge.vencido { background:#fde8e8; color:#b33c3c; }
-    .trabajo-alerta-linea {
-        margin-top:6px;
-        font-size:10px;
-        font-weight:700;
-        color:#b07a2e;
-        display:flex;
-        align-items:center;
-        gap:5px;
-    }
-    .trabajo-acciones {
-        display:flex;
-        flex-direction:column;
-        gap:6px;
-        flex-shrink:0;
-    }
-    .trabajo-btn-mini {
-        padding:7px 10px;
-        border-radius:9px;
-        border:1.5px solid var(--borde);
-        background:var(--blanco);
-        font-family:inherit;
-        font-size:8.5px;
-        font-weight:700;
-        cursor:pointer;
-        color:var(--texto-suave);
-        white-space:nowrap;
-    }
-    .trabajo-btn-mini.hecho { border-color:var(--verde3); color:var(--verde); background:var(--verde-claro); }
-    .trabajo-btn-mini.borrar:hover { background:#fde8e8; color:#b33c3c; }
-    .trabajos-vacio {
-        text-align:center;
-        padding:20px;
-        color:var(--gris);
-        font-size:11px;
-        background:var(--fondo);
-        border-radius:14px;
-        border:1px dashed var(--borde);
-    }
-
-    .trabajo-form-panel {
-        display:none;
-        margin-top:12px;
-        padding:18px;
-        border-radius:14px;
-        background:var(--fondo);
-        border:1px solid var(--borde);
-    }
-    .trabajo-form-panel.mostrar { display:block; animation:aparecer .3s ease; }
-
-    .agenda-lote-card {
-        margin-bottom:22px;
-        padding-bottom:4px;
-    }
-    .agenda-lote-header {
-        display:flex;
-        align-items:center;
-        justify-content:space-between;
-        gap:12px;
-        margin-bottom:12px;
-    }
-    .agenda-lote-header strong { display:block; font-size:16px; font-weight:800; color:var(--verde); }
-    .agenda-lote-header span { display:block; margin-top:2px; font-size:10.5px; color:var(--gris); }
-
-    .agenda-vacia {
-        text-align:center;
-        padding:50px 20px;
-        color:var(--gris);
-        font-size:13px;
-        line-height:1.8;
-        background:var(--blanco);
-        border-radius:16px;
-        border:1px dashed var(--borde);
-    }
-    .agenda-vacia strong { color:var(--verde); }
-    .agenda-sin-clima {
-        text-align:center;
-        font-size:10px;
-        color:var(--gris);
-        margin-bottom:14px;
-    }
-    `;
-    const tag = document.createElement("style");
-    tag.textContent = css;
-    document.head.appendChild(tag);
-})();
-
-const iconosTrabajo = { "Corte": "✂️", "Aplicación": "🧪", "Riego": "💧", "Siembra": "🌱", "Otro": "📌" };
-
 function trabajosPendientes(lote) {
     if (!lote.trabajos) return [];
     return lote.trabajos.filter(t => t.estado === "pendiente").sort((a, b) => a.fechaPlan.localeCompare(b.fechaPlan));
 }
 
+function trabajosRealizados(lote) {
+    if (!lote.trabajos) return [];
+    return lote.trabajos.filter(t => t.estado === "realizado").sort((a, b) => (b.fechaReal || "").localeCompare(a.fechaReal || ""));
+}
+
 function renderTrabajosFicha(lote) {
     if (!lote.trabajos) lote.trabajos = [];
     const pendientes = trabajosPendientes(lote);
+    const realizados = trabajosRealizados(lote);
     const hoy = new Date().toISOString().slice(0, 10);
-    let html = '<div class="trabajos-caja"><div class="trabajos-caja-titulo"><h4>🗓️ Trabajos pendientes</h4><button class="trabajo-agregar-btn" onclick="toggleFormularioTrabajo(\'' + lote.id + '\')">➕ AGREGAR</button></div>';
+    
+    let html = '<div class="trabajos-caja">';
+    html += '<div class="trabajos-caja-titulo">';
+    html += '<h4>🗓️ Trabajos pendientes</h4>';
+    html += '<button class="trabajo-agregar-btn" onclick="toggleFormularioTrabajo(\'' + lote.id + '\')">➕ AGREGAR</button>';
+    html += '</div>';
+    
     if (pendientes.length === 0) {
         html += '<div class="trabajos-vacio">Sin trabajos programados para este lote.</div>';
     } else {
         pendientes.forEach(t => {
             const vencido = t.fechaPlan < hoy;
             const alerta = evaluarAlertaTrabajo(t, lote, climaDiarioActual);
-            html += '<div class="trabajo-item' + (vencido ? " vencido" : "") + '"><span class="trabajo-icono">' + (iconosTrabajo[t.tipo] || "📌") + '</span><div class="trabajo-info"><strong>' + escapeHtml(t.tipo) + (t.producto ? " — " + escapeHtml(t.producto) : "") + '</strong><span>' + formatearFecha(t.fechaPlan) + (t.notas ? " · " + escapeHtml(t.notas) : "") + '</span>' + (alerta ? '<div class="trabajo-alerta-linea">' + (alerta.tono === "bueno" ? "✅" : "⚠️") + ' ' + escapeHtml(alerta.texto) + '</div>' : '') + '</div><span class="trabajo-fecha-badge' + (vencido ? " vencido" : "") + '">' + (vencido ? "VENCIDO" : formatearFecha(t.fechaPlan)) + '</span><div class="trabajo-acciones"><button class="trabajo-btn-mini hecho" onclick="marcarTrabajoRealizado(\'' + lote.id + '\',\'' + t.id + '\')">✓ HECHO</button><button class="trabajo-btn-mini borrar" onclick="eliminarTrabajo(\'' + lote.id + '\',\'' + t.id + '\')">🗑️</button></div></div>';
+            html += '<div class="trabajo-item' + (vencido ? " vencido" : "") + '">';
+            html += '<span class="trabajo-icono">' + (iconosTrabajo[t.tipo] || "📌") + '</span>';
+            html += '<div class="trabajo-info">';
+            html += '<strong>' + escapeHtml(t.tipo) + (t.producto ? " — " + escapeHtml(t.producto) : "") + '</strong>';
+            html += '<span>' + formatearFecha(t.fechaPlan) + (t.notas ? " · " + escapeHtml(t.notas) : "") + '</span>';
+            if (alerta) {
+                html += '<div class="trabajo-alerta-linea">' + (alerta.tono === "bueno" ? "✅" : "⚠️") + ' ' + escapeHtml(alerta.texto) + '</div>';
+            }
+            html += '</div>';
+            html += '<span class="trabajo-fecha-badge' + (vencido ? " vencido" : "") + '">' + (vencido ? "VENCIDO" : formatearFecha(t.fechaPlan)) + '</span>';
+            html += '<div class="trabajo-acciones">';
+            html += '<button class="trabajo-btn-mini hecho" onclick="marcarTrabajoRealizado(\'' + lote.id + '\',\'' + t.id + '\')">✓ HECHO</button>';
+            html += '<button class="trabajo-btn-mini borrar" onclick="eliminarTrabajo(\'' + lote.id + '\',\'' + t.id + '\')">🗑️</button>';
+            html += '</div>';
+            html += '</div>';
         });
     }
-    html += '<div id="trabajoFormPanel_' + lote.id + '" class="trabajo-form-panel"><div class="form-group"><label>Tipo de trabajo</label><select id="trabajoTipo_' + lote.id + '" onchange="actualizarCampoProductoTrabajo(\'' + lote.id + '\')"><option value="Corte">Corte</option><option value="Aplicación">Aplicación</option><option value="Riego">Riego</option><option value="Siembra">Siembra</option><option value="Otro">Otro</option></select></div><div class="form-group" id="trabajoProductoGrupo_' + lote.id + '" style="display:none;"><label>Producto</label><input id="trabajoProducto_' + lote.id + '" type="text" placeholder="Ej: 2,4-D"></div><div class="form-group"><label>Fecha planificada</label><input id="trabajoFecha_' + lote.id + '" type="date"></div><div class="form-group"><label>Notas (opcional)</label><input id="trabajoNotas_' + lote.id + '" type="text" placeholder="Ej: dosis, observaciones"></div><button class="calcular" onclick="guardarTrabajo(\'' + lote.id + '\')">GUARDAR TRABAJO →</button></div></div>';
+    
+    // Formulario para agregar trabajos
+    html += '<div id="trabajoFormPanel_' + lote.id + '" class="trabajo-form-panel">';
+    html += '<div class="form-group"><label>Tipo de trabajo</label><select id="trabajoTipo_' + lote.id + '" onchange="actualizarCampoProductoTrabajo(\'' + lote.id + '\')"><option value="Corte">Corte</option><option value="Aplicación">Aplicación</option><option value="Riego">Riego</option><option value="Siembra">Siembra</option><option value="Otro">Otro</option></select></div>';
+    html += '<div class="form-group" id="trabajoProductoGrupo_' + lote.id + '" style="display:none;"><label>Producto</label><input id="trabajoProducto_' + lote.id + '" type="text" placeholder="Ej: 2,4-D"></div>';
+    html += '<div class="form-group"><label>Fecha planificada</label><input id="trabajoFecha_' + lote.id + '" type="date"></div>';
+    html += '<div class="form-group"><label>Notas (opcional)</label><input id="trabajoNotas_' + lote.id + '" type="text" placeholder="Ej: dosis, observaciones"></div>';
+    html += '<button class="calcular" onclick="guardarTrabajo(\'' + lote.id + '\')">GUARDAR TRABAJO →</button>';
+    html += '</div>';
+    
+    // Botón para ver historial de trabajos realizados
+    if (realizados.length > 0) {
+        html += '<div class="trabajos-historial-toggle" onclick="toggleHistorialTrabajos(\'' + lote.id + '\')">';
+        html += '📋 Ver ' + realizados.length + ' trabajo(s) realizados <span class="flecha" id="historialFlecha_' + lote.id + '">▾</span>';
+        html += '</div>';
+        html += '<div class="trabajos-historial-panel" id="historialPanel_' + lote.id + '">';
+        realizados.forEach(t => {
+            html += '<div class="trabajo-item">';
+            html += '<span class="trabajo-icono">' + (iconosTrabajo[t.tipo] || "📌") + '</span>';
+            html += '<div class="trabajo-info">';
+            html += '<strong>' + escapeHtml(t.tipo) + (t.producto ? " — " + escapeHtml(t.producto) : "") + '</strong>';
+            html += '<span>Realizado: ' + formatearFecha(t.fechaReal) + ' (plan: ' + formatearFecha(t.fechaPlan) + ')' + (t.notas ? " · " + escapeHtml(t.notas) : "") + '</span>';
+            html += '</div>';
+            html += '<span class="trabajo-fecha-badge">✅ REALIZADO</span>';
+            html += '</div>';
+        });
+        html += '</div>';
+    }
+    
+    html += '</div>';
     return html;
+}
+
+function toggleHistorialTrabajos(loteId) {
+    const panel = document.getElementById("historialPanel_" + loteId);
+    const flecha = document.getElementById("historialFlecha_" + loteId);
+    if (!panel || !flecha) return;
+    panel.classList.toggle("mostrar");
+    flecha.classList.toggle("abierto");
 }
 
 function toggleFormularioTrabajo(loteId) {
@@ -4896,10 +4748,8 @@ function guardarTrabajo(loteId) {
     const producto = document.getElementById("trabajoProducto_" + loteId);
     const fecha = document.getElementById("trabajoFecha_" + loteId);
     const notas = document.getElementById("trabajoNotas_" + loteId);
-    
     if (!tipo || !fecha) return;
     if (!fecha.value) { alert("Elegí una fecha para el trabajo."); return; }
-    
     const lotes = cargarLotes();
     const idx = lotes.findIndex(l => l.id === loteId);
     if (idx === -1) return;
@@ -4983,16 +4833,59 @@ function renderAgendaCampo() {
     const lotes = cargarLotes();
     const cont = document.getElementById("agendaContenido");
     if (!cont) return;
+    
+    const filtroTipo = document.getElementById("agendaFiltroTipo").value;
+    let lotesFiltrados = lotes;
+    if (filtroTipo !== "todos") {
+        lotesFiltrados = lotes.filter(l => l.tipo === filtroTipo);
+    }
+    
+    // Ordenar lotes: primero los que tienen trabajos pendientes más cercanos
+    lotesFiltrados.sort((a, b) => {
+        const pendA = trabajosPendientes(a);
+        const pendB = trabajosPendientes(b);
+        const fechaA = pendA.length > 0 ? pendA[0].fechaPlan : "9999-99-99";
+        const fechaB = pendB.length > 0 ? pendB[0].fechaPlan : "9999-99-99";
+        return fechaA.localeCompare(fechaB);
+    });
+    
+    // Calcular trabajos vencidos totales
+    const hoy = new Date().toISOString().slice(0, 10);
+    let totalVencidos = 0;
+    lotes.forEach(l => {
+        trabajosPendientes(l).forEach(t => {
+            if (t.fechaPlan < hoy) totalVencidos++;
+        });
+    });
+    
+    const badge = document.getElementById("agendaBadgeVencidos");
+    if (totalVencidos > 0) {
+        badge.style.display = "inline-flex";
+        badge.textContent = "⚠️ " + totalVencidos + " vencido" + (totalVencidos > 1 ? "s" : "");
+    } else {
+        badge.style.display = "none";
+    }
+    
     let html = "";
     if (!climaDiarioActual) {
         html += '<div class="agenda-sin-clima">ℹ️ El clima todavía no cargó — las alertas climáticas aparecerán apenas esté disponible.</div>';
     }
-    if (lotes.length === 0) {
-        html += '<div class="agenda-vacia">Todavía no tenés lotes cargados.<br>Creá uno en <strong>Mis lotes</strong> para empezar a verlo acá.</div>';
+    
+    if (lotesFiltrados.length === 0) {
+        if (lotes.length === 0) {
+            html += '<div class="agenda-vacia">Todavía no tenés lotes cargados.<br><button class="btn-ir-lotes" onclick="irAMisLotesDesdeAgenda()">IR A MIS LOTES</button></div>';
+        } else {
+            html += '<div class="agenda-vacia">No hay lotes del tipo seleccionado.</div>';
+        }
     } else {
-        lotes.forEach(lote => { html += renderLoteAgendaCard(lote); });
+        lotesFiltrados.forEach(lote => { html += renderLoteAgendaCard(lote); });
     }
     cont.innerHTML = html;
+}
+
+function irAMisLotesDesdeAgenda() {
+    cerrarAgendaCampo();
+    abrirMisLotes();
 }
 
 function onClimaActualizado() {
@@ -5000,6 +4893,35 @@ function onClimaActualizado() {
         renderAgendaCampo();
     }
 }
+
+// =========================================================
+// INICIALIZACIÓN
+// =========================================================
+
+sincronizarAsesor();
+actualizarVentanaCosecha();
+sincronizarAsesorSilo();
+actualizarCategoria("");
+actualizarCategoria("Silo");
+inicializarCarruselInfinito();
+generarDotsCultivos();
+window.addEventListener("resize", function() { generarDotsCultivos(); actualizarDotsCultivos(); });
+document.getElementById("cultivosScroll")?.addEventListener("scroll", actualizarDotsCultivos, { passive: true });
+
+// =========================================================
+// SERVICE WORKER
+// =========================================================
+
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function() {
+        navigator.serviceWorker.register("./service-worker.js").then(function() {
+            console.log("ForraGO PWA activa.");
+        }).catch(function(error) {
+            console.warn("No se pudo activar la PWA:", error);
+        });
+    });
+}
+
 </script>
 
 </body>
