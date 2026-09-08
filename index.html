@@ -26,7 +26,7 @@
 <style>
 
 /* =========================================================
-   ROOT — PALETA MODERNA
+   ROOT
 ========================================================= */
 
 :root {
@@ -100,7 +100,7 @@ body {
 }
 
 /* =========================================================
-   APP CONTAINER
+   APP
 ========================================================= */
 
 .app {
@@ -268,7 +268,7 @@ body {
 }
 
 /* =========================================================
-   CHECK VERDE PERSONALIZADO
+   CHECK VERDE
 ========================================================= */
 
 .check-verde {
@@ -371,22 +371,6 @@ body {
     content:"←";
     font-size:14px;
     font-weight:400;
-}
-
-/* =========================================================
-   TARJETAS
-========================================================= */
-
-.card {
-    background:var(--blanco);
-    border-radius:var(--radio);
-    padding:28px;
-    box-shadow:var(--sombra);
-    border:1px solid var(--borde);
-    transition:var(--transicion);
-}
-.card:hover {
-    box-shadow:var(--sombra-hover);
 }
 
 /* =========================================================
@@ -1839,7 +1823,7 @@ body {
 }
 
 /* =========================================================
-   ROTADOR DE INFORMACIÓN
+   ROTADOR — CORREGIDO Y FUNCIONAL
 ========================================================= */
 
 .rotador {
@@ -1855,6 +1839,7 @@ body {
     justify-content: center;
     margin-bottom: 16px;
     position: relative;
+    transition: all 0.3s ease;
 }
 
 .rotador-panel {
@@ -1866,34 +1851,24 @@ body {
 
 .rotador-panel.activo {
     display: block;
-    animation: fadeRotador .5s ease;
+    animation: fadePanel 0.5s ease;
 }
 
-@keyframes fadeRotador {
-    from { opacity: 0; transform: translateY(8px); }
+@keyframes fadePanel {
+    from { opacity: 0; transform: translateY(6px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===== LOGO ===== */
-.rotador-logo {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
+/* LOGO */
 .rotador-logo img {
     height: 90px;
     width: auto;
     max-width: 100%;
 }
 
-/* ===== CLIMA ===== */
-.rotador-clima {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
+/* CLIMA */
 .rotador-clima-temp {
-    font-size: 42px;
+    font-size: 44px;
     font-weight: 900;
     color: var(--verde);
     line-height: 1;
@@ -1929,7 +1904,7 @@ body {
     text-transform: uppercase;
     color: var(--gris);
     display: block;
-    letter-spacing: .5px;
+    letter-spacing: 0.5px;
 }
 .rotador-clima-dia .icono {
     font-size: 22px;
@@ -1947,7 +1922,7 @@ body {
     font-weight: 500;
 }
 
-/* ===== ALERTAS ===== */
+/* ALERTAS */
 .rotador-alerta {
     display: flex;
     flex-direction: column;
@@ -1968,12 +1943,12 @@ body {
     margin-top: 2px;
 }
 
-/* ===== DOTS ===== */
+/* DOTS */
 .rotador-dots {
     display: flex;
     justify-content: center;
     gap: 8px;
-    margin-top: 12px;
+    margin-top: 14px;
 }
 .rotador-dot {
     width: 8px;
@@ -1983,7 +1958,7 @@ body {
     border: none;
     cursor: pointer;
     padding: 0;
-    transition: all .3s ease;
+    transition: all 0.3s ease;
 }
 .rotador-dot.activo {
     background: var(--verde);
@@ -1992,7 +1967,7 @@ body {
 }
 
 /* RESPONSIVE */
-@media(max-width: 600px) {
+@media (max-width: 600px) {
     .rotador {
         padding: 14px 16px;
         min-height: 130px;
@@ -2029,7 +2004,7 @@ body {
     }
 }
 
-@media(max-width: 390px) {
+@media (max-width: 390px) {
     .rotador {
         padding: 10px 12px;
         min-height: 110px;
@@ -2067,7 +2042,7 @@ body {
 }
 
 /* =========================================================
-   CLIMA PREMIUM (oculto, reemplazado por rotador)
+   CLIMA PREMIUM (oculto)
 ========================================================= */
 
 .weather-card-premium {
@@ -3846,11 +3821,10 @@ function inicializarCarruselInfinito() {
 }
 
 // =========================================================
-// ROTADOR — VERSIÓN CORREGIDA
+// ROTADOR — VERSIÓN SIMPLE Y FUNCIONAL
 // =========================================================
 
 let panelActual = 0;
-let rotadorInterval = null;
 let rotadorTimeout = null;
 
 function obtenerPanelesActivos() {
@@ -3864,8 +3838,11 @@ function obtenerPanelesActivos() {
             activos.push(p);
         } else if (tipo === 'alertas') {
             const mensaje = p.querySelector('.rotador-alerta .mensaje');
-            if (mensaje && mensaje.textContent !== '-' && mensaje.textContent.trim() !== '' && mensaje.textContent.trim() !== 'Cargando...') {
-                activos.push(p);
+            if (mensaje) {
+                const texto = mensaje.textContent.trim();
+                if (texto !== '-' && texto !== '' && texto !== 'Cargando...') {
+                    activos.push(p);
+                }
             }
         }
     });
@@ -3891,6 +3868,7 @@ function actualizarDotsRotador() {
 
 function mostrarPanel(index) {
     const activos = obtenerPanelesActivos();
+    if (activos.length === 0) return;
     if (index >= activos.length) index = 0;
     if (index < 0) index = 0;
     panelActual = index;
@@ -3913,10 +3891,6 @@ function siguientePanel() {
 }
 
 function iniciarRotador() {
-    if (rotadorInterval) {
-        clearInterval(rotadorInterval);
-        rotadorInterval = null;
-    }
     if (rotadorTimeout) {
         clearTimeout(rotadorTimeout);
         rotadorTimeout = null;
@@ -3930,7 +3904,10 @@ function iniciarRotador() {
 
     function avanzar() {
         const activos = obtenerPanelesActivos();
-        if (activos.length === 0) return;
+        if (activos.length === 0) {
+            rotadorTimeout = setTimeout(avanzar, 3000);
+            return;
+        }
         const panel = activos[panelActual];
         const tipo = panel ? panel.dataset.panel : 'logo';
         const duracion = tiempos[tipo] || 4500;
@@ -3940,14 +3917,18 @@ function iniciarRotador() {
 
     const activos = obtenerPanelesActivos();
     if (activos.length > 0) {
+        if (panelActual >= activos.length) panelActual = 0;
+        mostrarPanel(panelActual);
         const primerTipo = activos[0].dataset.panel;
         const duracion = tiempos[primerTipo] || 4500;
         rotadorTimeout = setTimeout(avanzar, duracion);
+    } else {
+        rotadorTimeout = setTimeout(iniciarRotador, 1000);
     }
 }
 
 // =========================================================
-// CLIMA — PARA EL ROTADOR
+// CLIMA PARA EL ROTADOR
 // =========================================================
 
 function codigoClima(codigo) {
@@ -3966,23 +3947,21 @@ function renderClimaRotador(data) {
     const daily = data.daily;
     climaDiarioActual = daily;
 
-    // ===== CLIMA =====
+    // CLIMA
     const info = codigoClima(current.weather_code);
     document.getElementById('rotadorTemp').innerHTML = Math.round(current.temperature_2m) + '<small>°C</small>';
     document.getElementById('rotadorDesc').textContent = info[1];
     document.getElementById('rotadorExtra').textContent = '💨 ' + Math.round(current.wind_speed_10m) + ' km/h';
 
-    // Pronóstico 3 días
     for (let i = 0; i < 3; i++) {
         const c = codigoClima(daily.weather_code[i]);
         document.getElementById('rotadorIcon' + i).textContent = c[0];
         document.getElementById('rotadorTemp' + i).innerHTML = Math.round(daily.temperature_2m_max[i]) + '<small>°</small>';
     }
 
-    // ===== ALERTAS =====
+    // ALERTAS
     const alertas = [];
     
-    // 1. HELADA (próximos 2 días)
     for (let i = 0; i < 2; i++) {
         if (daily.temperature_2m_min[i] <= 1) {
             const dia = i === 0 ? 'esta noche' : 'mañana';
@@ -3991,7 +3970,6 @@ function renderClimaRotador(data) {
         }
     }
     
-    // 2. LLUVIA (próximos 2 días, > 60%)
     if (daily.precipitation_probability_max) {
         for (let i = 0; i < 2; i++) {
             const prob = daily.precipitation_probability_max[i];
@@ -4003,12 +3981,10 @@ function renderClimaRotador(data) {
         }
     }
     
-    // 3. VIENTO FUERTE (> 30 km/h)
     if (daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] >= 30) {
         alertas.push('💨 Viento fuerte (' + Math.round(daily.wind_gusts_10m_max[0]) + ' km/h)');
     }
     
-    // 4. BUENAS CONDICIONES (solo si NO hay alertas negativas)
     const hayHelada = alertas.some(a => a.includes('❄️'));
     const hayLluvia = alertas.some(a => a.includes('🌧️'));
     const hayViento = alertas.some(a => a.includes('💨'));
@@ -4021,7 +3997,7 @@ function renderClimaRotador(data) {
         }
     }
 
-    // ===== MOSTRAR U OCULTAR PANEL DE ALERTAS =====
+    // Mostrar/ocultar panel de alertas
     const panelAlertas = document.getElementById('rotadorAlertas');
     const iconoAlerta = document.getElementById('alertaIcono');
     const mensajeAlerta = document.getElementById('alertaMensaje');
@@ -4040,9 +4016,8 @@ function renderClimaRotador(data) {
         detalleAlerta.textContent = '-';
     }
 
-    // ===== ACTUALIZAR ROTADOR =====
+    // Reiniciar rotador
     actualizarDotsRotador();
-    
     if (rotadorTimeout) {
         clearTimeout(rotadorTimeout);
         rotadorTimeout = null;
@@ -4050,6 +4025,31 @@ function renderClimaRotador(data) {
     panelActual = 0;
     mostrarPanel(0);
     iniciarRotador();
+}
+
+function cargarClimaRotador() {
+    const fallback = { lat: -39.1000, lon: -67.0667 };
+    const usar = function(lat, lon) {
+        const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_gusts_10m_max&forecast_days=3&timezone=auto';
+        fetch(url)
+            .then(r => { if (!r.ok) throw new Error('weather'); return r.json(); })
+            .then(data => {
+                renderClimaRotador(data);
+            })
+            .catch(() => {
+                document.getElementById('rotadorTemp').innerHTML = '--<small>°C</small>';
+                document.getElementById('rotadorDesc').textContent = 'No disponible';
+            });
+    };
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            pos => usar(pos.coords.latitude, pos.coords.longitude),
+            () => usar(fallback.lat, fallback.lon),
+            { enableHighAccuracy: false, timeout: 9000, maximumAge: 900000 }
+        );
+    } else {
+        usar(fallback.lat, fallback.lon);
+    }
 }
 
 // =========================================================
