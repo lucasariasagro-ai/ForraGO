@@ -1839,216 +1839,225 @@ body {
 }
 
 /* =========================================================
-   ROTADOR DE INFORMACIÓN — CORREGIDO FINAL
+   ROTADOR DE INFORMACIÓN
 ========================================================= */
 
 .rotador {
-    background:var(--blanco);
-    border-radius:var(--radio);
-    padding:24px 28px;
-    border:1px solid var(--borde);
-    box-shadow:var(--sombra);
-    min-height:160px;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    margin-bottom:16px;
-    transition:background .6s ease;
+    background: var(--blanco);
+    border-radius: var(--radio);
+    padding: 20px 24px;
+    border: 1px solid var(--borde);
+    box-shadow: var(--sombra);
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 16px;
+    position: relative;
 }
 
 .rotador-panel {
-    display:none;
-    text-align:center;
-    width:100%;
+    display: none;
+    text-align: center;
+    width: 100%;
+    padding: 4px 0;
 }
 
 .rotador-panel.activo {
-    display:block;
-    animation:fadeRotador .4s ease;
+    display: block;
+    animation: fadeRotador .5s ease;
 }
 
 @keyframes fadeRotador {
-    from { opacity:0; transform:translateY(6px); }
-    to { opacity:1; transform:translateY(0); }
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
-/* ===== LOGO ===== */
+.rotador-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .rotador-logo img {
-    height:85px;
-    width:auto;
+    height: 80px;
+    width: auto;
 }
 
-/* ===== CLIMA ===== */
+.rotador-clima {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 .rotador-clima-temp {
-    font-size:44px;
-    font-weight:900;
-    color:var(--verde);
-    line-height:1;
+    font-size: 42px;
+    font-weight: 900;
+    color: var(--verde);
+    line-height: 1;
 }
 .rotador-clima-temp small {
-    font-size:18px;
-    font-weight:600;
-    color:var(--gris);
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gris);
 }
 .rotador-clima-desc {
-    font-size:16px;
-    font-weight:700;
-    color:var(--texto-suave);
-    margin-top:2px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--texto-suave);
+    margin-top: 2px;
 }
 .rotador-clima-extra {
-    font-size:12px;
-    color:var(--gris);
-    margin-top:2px;
+    font-size: 12px;
+    color: var(--gris);
+    margin-top: 2px;
 }
 .rotador-clima-dias {
-    display:flex;
-    justify-content:center;
-    gap:24px;
-    margin-top:10px;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 10px;
 }
 .rotador-clima-dia {
-    text-align:center;
+    text-align: center;
 }
 .rotador-clima-dia .nombre {
-    font-size:9px;
-    font-weight:700;
-    text-transform:uppercase;
-    color:var(--gris);
-    display:block;
-    letter-spacing:.5px;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--gris);
+    display: block;
+    letter-spacing: .5px;
 }
 .rotador-clima-dia .icono {
-    font-size:22px;
-    display:block;
-    margin:2px 0;
+    font-size: 22px;
+    display: block;
+    margin: 2px 0;
 }
 .rotador-clima-dia .temp {
-    font-size:14px;
-    font-weight:700;
-    color:var(--texto);
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--texto);
 }
 .rotador-clima-dia .temp small {
-    font-size:9px;
-    color:var(--gris);
-    font-weight:500;
+    font-size: 9px;
+    color: var(--gris);
+    font-weight: 500;
 }
 
-/* ===== ALERTAS ===== */
 .rotador-alerta {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
-.rotador-alerta .icono-alerta {
-    font-size:32px;
+.rotador-alerta .icono {
+    font-size: 32px;
 }
 .rotador-alerta .mensaje {
-    font-size:16px;
-    font-weight:700;
-    color:var(--texto-suave);
-    margin-top:2px;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--texto-suave);
+    margin-top: 2px;
 }
 .rotador-alerta .detalle {
-    font-size:12px;
-    color:var(--gris);
-    margin-top:2px;
+    font-size: 12px;
+    color: var(--gris);
+    margin-top: 2px;
 }
 
-/* ===== DOTS ===== */
 .rotador-dots {
-    display:flex;
-    justify-content:center;
-    gap:8px;
-    margin-top:12px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 12px;
 }
 .rotador-dot {
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    background:var(--borde);
-    border:none;
-    cursor:pointer;
-    padding:0;
-    transition:all .3s ease;
-    appearance:none;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--borde);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: all .3s ease;
 }
 .rotador-dot.activo {
-    background:var(--verde);
-    width:24px;
-    border-radius:4px;
+    background: var(--verde);
+    width: 24px;
+    border-radius: 4px;
 }
 
 /* RESPONSIVE */
-@media(max-width:600px) {
+@media(max-width: 600px) {
     .rotador {
-        padding:16px 18px;
-        min-height:130px;
+        padding: 14px 16px;
+        min-height: 120px;
     }
     .rotador-logo img {
-        height:60px;
+        height: 56px;
     }
     .rotador-clima-temp {
-        font-size:34px;
+        font-size: 32px;
     }
     .rotador-clima-temp small {
-        font-size:15px;
+        font-size: 14px;
     }
     .rotador-clima-desc {
-        font-size:14px;
+        font-size: 14px;
     }
     .rotador-clima-dias {
-        gap:14px;
+        gap: 14px;
     }
     .rotador-clima-dia .icono {
-        font-size:18px;
+        font-size: 18px;
     }
     .rotador-clima-dia .temp {
-        font-size:12px;
+        font-size: 12px;
     }
-    .rotador-alerta .icono-alerta {
-        font-size:26px;
+    .rotador-alerta .icono {
+        font-size: 26px;
     }
     .rotador-alerta .mensaje {
-        font-size:14px;
+        font-size: 14px;
+    }
+    .rotador-alerta .detalle {
+        font-size: 11px;
     }
 }
 
-@media(max-width:390px) {
+@media(max-width: 390px) {
     .rotador {
-        padding:12px 14px;
-        min-height:110px;
+        padding: 10px 12px;
+        min-height: 100px;
     }
     .rotador-logo img {
-        height:48px;
+        height: 44px;
     }
     .rotador-clima-temp {
-        font-size:28px;
+        font-size: 26px;
     }
     .rotador-clima-temp small {
-        font-size:12px;
+        font-size: 12px;
     }
     .rotador-clima-desc {
-        font-size:12px;
+        font-size: 12px;
     }
     .rotador-clima-dias {
-        gap:10px;
+        gap: 10px;
     }
     .rotador-clima-dia .icono {
-        font-size:16px;
+        font-size: 16px;
     }
     .rotador-clima-dia .temp {
-        font-size:11px;
+        font-size: 11px;
     }
-    .rotador-alerta .icono-alerta {
-        font-size:22px;
+    .rotador-alerta .icono {
+        font-size: 22px;
     }
     .rotador-alerta .mensaje {
-        font-size:12px;
+        font-size: 12px;
     }
     .rotador-alerta .detalle {
-        font-size:10px;
+        font-size: 10px;
     }
 }
 
@@ -2578,7 +2587,7 @@ body {
         <!-- Panel 1: LOGO -->
         <div class="rotador-panel activo" data-panel="logo">
             <div class="rotador-logo">
-                <img src="img/img_12.png" alt="ForraGO" id="rotadorLogo">
+                <img src="img/img_12.png" alt="ForraGO">
             </div>
         </div>
 
@@ -2588,7 +2597,7 @@ body {
                 <div class="rotador-clima-temp" id="rotadorTemp">--<small>°C</small></div>
                 <div class="rotador-clima-desc" id="rotadorDesc">Cargando...</div>
                 <div class="rotador-clima-extra" id="rotadorExtra">💨 -- km/h</div>
-                <div class="rotador-clima-dias" id="rotadorDias">
+                <div class="rotador-clima-dias">
                     <div class="rotador-clima-dia">
                         <span class="nombre">Hoy</span>
                         <span class="icono" id="rotadorIcon0">☀️</span>
@@ -2611,7 +2620,7 @@ body {
         <!-- Panel 3: ALERTAS -->
         <div class="rotador-panel" data-panel="alertas" id="rotadorAlertas" style="display:none;">
             <div class="rotador-alerta">
-                <div class="icono-alerta" id="alertaIcono">⚠️</div>
+                <div class="icono" id="alertaIcono">⚠️</div>
                 <div class="mensaje" id="alertaMensaje">-</div>
                 <div class="detalle" id="alertaDetalle">-</div>
             </div>
@@ -3832,164 +3841,25 @@ function inicializarCarruselInfinito() {
 }
 
 // =========================================================
-// CLIMA — PARA EL ROTADOR
-// =========================================================
-
-function codigoClima(codigo) {
-    if (codigo === 0) return ["☀️", "Despejado", "despejado"];
-    if ([1, 2].includes(codigo)) return ["🌤️", "Parcialmente nublado", "parcial"];
-    if (codigo === 3) return ["☁️", "Nublado", "nublado"];
-    if ([45, 48].includes(codigo)) return ["🌫️", "Niebla", "niebla"];
-    if ([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82].includes(codigo)) return ["🌧️", "Lluvia", "lluvia"];
-    if ([71, 73, 75, 77].includes(codigo)) return ["🌨️", "Nieve", "nieve"];
-    if ([95, 96, 99].includes(codigo)) return ["⛈️", "Tormenta", "tormenta"];
-    return ["☀️", "Despejado", "despejado"];
-}
-
-function renderClimaRotador(data) {
-    const current = data.current;
-    const daily = data.daily;
-    climaDiarioActual = daily;
-
-    // Panel clima
-    const info = codigoClima(current.weather_code);
-    document.getElementById("rotadorTemp").innerHTML = Math.round(current.temperature_2m) + '<small>°C</small>';
-    document.getElementById("rotadorDesc").textContent = info[1];
-    document.getElementById("rotadorExtra").textContent = '💨 ' + Math.round(current.wind_speed_10m) + ' km/h';
-
-    // Pronóstico 3 días
-    const dias = ["Hoy", "Mañana", "Pasado"];
-    for (let i = 0; i < 3; i++) {
-        const c = codigoClima(daily.weather_code[i]);
-        document.getElementById("rotadorIcon" + i).textContent = c[0];
-        document.getElementById("rotadorTemp" + i).innerHTML = Math.round(daily.temperature_2m_max[i]) + '<small>°</small>';
-    }
-
-    // ========== ALERTAS ==========
-    const alertas = [];
-    
-    // 1. HELADA (prioridad máxima)
-    for (let i = 0; i < 3; i++) {
-        if (daily.temperature_2m_min[i] <= 2) {
-            const dia = i === 0 ? "esta noche" : (i === 1 ? "mañana" : nombreDia(daily.time[i], i).toLowerCase());
-            alertas.push({ 
-                icono: "❄️", 
-                texto: "Helada prevista para " + dia + " (mín: " + Math.round(daily.temperature_2m_min[i]) + "°C)" 
-            });
-            break; // solo mostramos la más cercana
-        }
-    }
-    
-    // 2. LLUVIA
-    if (daily.precipitation_probability_max) {
-        for (let i = 0; i < 3; i++) {
-            const prob = daily.precipitation_probability_max[i];
-            if (prob >= 50) {
-                const dia = i === 0 ? "hoy" : (i === 1 ? "mañana" : nombreDia(daily.time[i], i).toLowerCase());
-                let texto = prob + "% de lluvia " + dia;
-                if (prob >= 70) {
-                    texto = "Lluvia intensa " + dia + " (" + prob + "%) - No aplicar";
-                } else {
-                    texto = prob + "% de lluvia " + dia + " - No aplicar";
-                }
-                alertas.push({ icono: "🌧️", texto: texto });
-                break;
-            }
-        }
-    }
-    
-    // 3. VIENTO FUERTE
-    if (daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] >= 25) {
-        alertas.push({ 
-            icono: "💨", 
-            texto: "Viento fuerte hoy (" + Math.round(daily.wind_gusts_10m_max[0]) + " km/h) - No pulverizar" 
-        });
-    }
-    
-    // 4. BUENAS CONDICIONES PARA APLICAR (si no hay alertas negativas)
-    const hayHelada = alertas.some(a => a.icono === "❄️");
-    const hayLluvia = alertas.some(a => a.icono === "🌧️");
-    const hayViento = alertas.some(a => a.icono === "💨");
-    
-    if (!hayHelada && !hayLluvia && !hayViento) {
-        // Verificar que realmente haya buenas condiciones
-        const vientoBajo = daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] < 25 && daily.wind_gusts_10m_max[1] < 25;
-        const lluviaBaja = daily.precipitation_probability_max && daily.precipitation_probability_max[0] < 30 && daily.precipitation_probability_max[1] < 30;
-        if (vientoBajo && lluviaBaja) {
-            alertas.push({ 
-                icono: "✅", 
-                texto: "Buenas condiciones para aplicar los próximos 2 días" 
-            });
-        } else if (daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] < 25) {
-            alertas.push({ 
-                icono: "✅", 
-                texto: "Sin viento hoy - Buen momento para aplicar" 
-            });
-        }
-    }
-
-    // Mostrar panel de alertas
-    const panelAlertas = document.getElementById("rotadorAlertas");
-    if (alertas.length > 0) {
-        panelAlertas.style.display = "block";
-        document.getElementById("alertaIcono").textContent = alertas[0].icono;
-        document.getElementById("alertaMensaje").textContent = alertas[0].texto;
-        document.getElementById("alertaDetalle").textContent = alertas.length > 1 ? alertas.slice(1).map(a => a.icono + " " + a.texto).join(" · ") : "";
-    } else {
-        panelAlertas.style.display = "none";
-    }
-
-    // Actualizar dots
-    actualizarDotsRotador();
-
-    // Iniciar rotador si no está corriendo
-    if (!window.rotadorInterval) {
-        iniciarRotador();
-    }
-}
-
-function nombreDia(fecha, index) {
-    if (index === 0) return "Hoy";
-    if (index === 1) return "Mañana";
-    const d = new Date(fecha + "T12:00:00");
-    return d.toLocaleDateString("es-AR", { weekday: "short" }).replace(".", "");
-}
-
-function cargarClimaRotador() {
-    const fallback = { lat: -39.1000, lon: -67.0667 };
-    const usar = function(lat, lon) {
-        const url = "https://api.open-meteo.com/v1/forecast?latitude=" + lat + "&longitude=" + lon + "&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_gusts_10m_max&forecast_days=3&timezone=auto";
-        fetch(url).then(r => { if (!r.ok) throw new Error("weather"); return r.json(); }).then(data => renderClimaRotador(data)).catch(() => {
-            document.getElementById("rotadorTemp").innerHTML = '--<small>°C</small>';
-            document.getElementById("rotadorDesc").textContent = "No disponible";
-        });
-    };
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-            pos => usar(pos.coords.latitude, pos.coords.longitude),
-            () => usar(fallback.lat, fallback.lon),
-            { enableHighAccuracy: false, timeout: 9000, maximumAge: 900000 }
-        );
-    } else {
-        usar(fallback.lat, fallback.lon);
-    }
-}
-
-// =========================================================
-// ROTADOR
+// ROTADOR — VERSIÓN CORREGIDA
 // =========================================================
 
 let panelActual = 0;
+let rotadorInterval = null;
+let rotadorTimeout = null;
 
 function obtenerPanelesActivos() {
     const panels = document.querySelectorAll('.rotador-panel');
     const activos = [];
     panels.forEach(p => {
-        if (p.dataset.panel === 'logo') activos.push(p);
-        if (p.dataset.panel === 'clima') activos.push(p);
-        if (p.dataset.panel === 'alertas' && p.style.display !== 'none') {
+        const tipo = p.dataset.panel;
+        if (tipo === 'logo') {
+            activos.push(p);
+        } else if (tipo === 'clima') {
+            activos.push(p);
+        } else if (tipo === 'alertas') {
             const mensaje = p.querySelector('.rotador-alerta .mensaje');
-            if (mensaje && mensaje.textContent !== '-' && mensaje.textContent.trim() !== '') {
+            if (mensaje && mensaje.textContent !== '-' && mensaje.textContent.trim() !== '' && mensaje.textContent.trim() !== 'Cargando...') {
                 activos.push(p);
             }
         }
@@ -3998,16 +3868,16 @@ function obtenerPanelesActivos() {
 }
 
 function actualizarDotsRotador() {
-    const dotsWrap = document.getElementById("rotadorDots");
+    const dotsWrap = document.getElementById('rotadorDots');
     if (!dotsWrap) return;
     const activos = obtenerPanelesActivos();
-    dotsWrap.innerHTML = "";
+    dotsWrap.innerHTML = '';
     activos.forEach((p, i) => {
-        const dot = document.createElement("button");
-        dot.type = "button";
-        dot.className = "rotador-dot" + (i === panelActual ? " activo" : "");
-        dot.setAttribute("aria-label", "Panel " + (i + 1));
-        dot.addEventListener("click", function() {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'rotador-dot' + (i === panelActual ? ' activo' : '');
+        dot.setAttribute('aria-label', 'Panel ' + (i + 1));
+        dot.addEventListener('click', function() {
             mostrarPanel(i);
         });
         dotsWrap.appendChild(dot);
@@ -4017,6 +3887,7 @@ function actualizarDotsRotador() {
 function mostrarPanel(index) {
     const activos = obtenerPanelesActivos();
     if (index >= activos.length) index = 0;
+    if (index < 0) index = 0;
     panelActual = index;
 
     document.querySelectorAll('.rotador-panel').forEach(p => p.classList.remove('activo'));
@@ -4037,7 +3908,14 @@ function siguientePanel() {
 }
 
 function iniciarRotador() {
-    if (window.rotadorInterval) clearInterval(window.rotadorInterval);
+    if (rotadorInterval) {
+        clearInterval(rotadorInterval);
+        rotadorInterval = null;
+    }
+    if (rotadorTimeout) {
+        clearTimeout(rotadorTimeout);
+        rotadorTimeout = null;
+    }
 
     const tiempos = {
         logo: 3500,
@@ -4049,18 +3927,158 @@ function iniciarRotador() {
         const activos = obtenerPanelesActivos();
         if (activos.length === 0) return;
         const panel = activos[panelActual];
-        const tipo = panel.dataset.panel;
+        const tipo = panel ? panel.dataset.panel : 'logo';
         const duracion = tiempos[tipo] || 4500;
         siguientePanel();
-        clearTimeout(window.rotadorTimeout);
-        window.rotadorTimeout = setTimeout(avanzar, duracion);
+        rotadorTimeout = setTimeout(avanzar, duracion);
     }
 
     const activos = obtenerPanelesActivos();
     if (activos.length > 0) {
         const primerTipo = activos[0].dataset.panel;
         const duracion = tiempos[primerTipo] || 4500;
-        window.rotadorTimeout = setTimeout(avanzar, duracion);
+        rotadorTimeout = setTimeout(avanzar, duracion);
+    }
+}
+
+// =========================================================
+// CLIMA — PARA EL ROTADOR
+// =========================================================
+
+function codigoClima(codigo) {
+    if (codigo === 0) return ['☀️', 'Despejado'];
+    if ([1, 2].includes(codigo)) return ['🌤️', 'Parcialmente nublado'];
+    if (codigo === 3) return ['☁️', 'Nublado'];
+    if ([45, 48].includes(codigo)) return ['🌫️', 'Niebla'];
+    if ([51, 53, 55, 56, 57, 61, 63, 65, 66, 67, 80, 81, 82].includes(codigo)) return ['🌧️', 'Lluvia'];
+    if ([71, 73, 75, 77].includes(codigo)) return ['🌨️', 'Nieve'];
+    if ([95, 96, 99].includes(codigo)) return ['⛈️', 'Tormenta'];
+    return ['☀️', 'Despejado'];
+}
+
+function renderClimaRotador(data) {
+    const current = data.current;
+    const daily = data.daily;
+    climaDiarioActual = daily;
+
+    // ===== CLIMA =====
+    const info = codigoClima(current.weather_code);
+    document.getElementById('rotadorTemp').innerHTML = Math.round(current.temperature_2m) + '<small>°C</small>';
+    document.getElementById('rotadorDesc').textContent = info[1];
+    document.getElementById('rotadorExtra').textContent = '💨 ' + Math.round(current.wind_speed_10m) + ' km/h';
+
+    // Pronóstico 3 días
+    const dias = ['Hoy', 'Mañana', 'Pasado'];
+    for (let i = 0; i < 3; i++) {
+        const c = codigoClima(daily.weather_code[i]);
+        document.getElementById('rotadorIcon' + i).textContent = c[0];
+        document.getElementById('rotadorTemp' + i).innerHTML = Math.round(daily.temperature_2m_max[i]) + '<small>°</small>';
+    }
+
+    // ===== ALERTAS =====
+    const alertas = [];
+    
+    // 1. HELADA
+    for (let i = 0; i < 3; i++) {
+        if (daily.temperature_2m_min[i] <= 2) {
+            const dia = i === 0 ? 'esta noche' : (i === 1 ? 'mañana' : nombreDia(daily.time[i], i).toLowerCase());
+            alertas.push({ 
+                icono: '❄️', 
+                texto: 'Helada prevista para ' + dia + ' (mín: ' + Math.round(daily.temperature_2m_min[i]) + '°C)' 
+            });
+            break;
+        }
+    }
+    
+    // 2. LLUVIA
+    if (daily.precipitation_probability_max) {
+        for (let i = 0; i < 3; i++) {
+            const prob = daily.precipitation_probability_max[i];
+            if (prob >= 50) {
+                const dia = i === 0 ? 'hoy' : (i === 1 ? 'mañana' : nombreDia(daily.time[i], i).toLowerCase());
+                if (prob >= 70) {
+                    alertas.push({ icono: '🌧️', texto: 'Lluvia intensa ' + dia + ' (' + prob + '%) — NO APLICAR' });
+                } else {
+                    alertas.push({ icono: '🌧️', texto: prob + '% de lluvia ' + dia + ' — NO APLICAR' });
+                }
+                break;
+            }
+        }
+    }
+    
+    // 3. VIENTO FUERTE
+    if (daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] >= 25) {
+        alertas.push({ 
+            icono: '💨', 
+            texto: 'Viento fuerte hoy (' + Math.round(daily.wind_gusts_10m_max[0]) + ' km/h) — NO PULVERIZAR' 
+        });
+    }
+    
+    // 4. BUENAS CONDICIONES PARA APLICAR
+    const hayHelada = alertas.some(a => a.icono === '❄️');
+    const hayLluvia = alertas.some(a => a.icono === '🌧️');
+    const hayViento = alertas.some(a => a.icono === '💨');
+    
+    if (!hayHelada && !hayLluvia && !hayViento) {
+        const vientoBajo = daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] < 25 && daily.wind_gusts_10m_max[1] < 25;
+        const lluviaBaja = daily.precipitation_probability_max && daily.precipitation_probability_max[0] < 30 && daily.precipitation_probability_max[1] < 30;
+        if (vientoBajo && lluviaBaja) {
+            alertas.push({ icono: '✅', texto: 'Buenas condiciones para aplicar los próximos 2 días' });
+        } else if (daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] < 25) {
+            alertas.push({ icono: '✅', texto: 'Sin viento hoy — buen momento para aplicar' });
+        }
+    }
+
+    // Mostrar panel de alertas
+    const panelAlertas = document.getElementById('rotadorAlertas');
+    if (alertas.length > 0) {
+        panelAlertas.style.display = 'block';
+        document.getElementById('alertaIcono').textContent = alertas[0].icono;
+        document.getElementById('alertaMensaje').textContent = alertas[0].texto;
+        document.getElementById('alertaDetalle').textContent = alertas.length > 1 ? alertas.slice(1).map(a => a.icono + ' ' + a.texto).join(' · ') : '';
+    } else {
+        panelAlertas.style.display = 'none';
+    }
+
+    // Actualizar dots y reiniciar rotador
+    actualizarDotsRotador();
+    
+    if (rotadorTimeout) {
+        clearTimeout(rotadorTimeout);
+        rotadorTimeout = null;
+    }
+    panelActual = 0;
+    mostrarPanel(0);
+    iniciarRotador();
+}
+
+function nombreDia(fecha, index) {
+    if (index === 0) return 'Hoy';
+    if (index === 1) return 'Mañana';
+    const d = new Date(fecha + 'T12:00:00');
+    return d.toLocaleDateString('es-AR', { weekday: 'short' }).replace('.', '');
+}
+
+function cargarClimaRotador() {
+    const fallback = { lat: -39.1000, lon: -67.0667 };
+    const usar = function(lat, lon) {
+        const url = 'https://api.open-meteo.com/v1/forecast?latitude=' + lat + '&longitude=' + lon + '&current=temperature_2m,weather_code,wind_speed_10m&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,wind_gusts_10m_max&forecast_days=3&timezone=auto';
+        fetch(url)
+            .then(r => { if (!r.ok) throw new Error('weather'); return r.json(); })
+            .then(data => renderClimaRotador(data))
+            .catch(() => {
+                document.getElementById('rotadorTemp').innerHTML = '--<small>°C</small>';
+                document.getElementById('rotadorDesc').textContent = 'No disponible';
+            });
+    };
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            pos => usar(pos.coords.latitude, pos.coords.longitude),
+            () => usar(fallback.lat, fallback.lon),
+            { enableHighAccuracy: false, timeout: 9000, maximumAge: 900000 }
+        );
+    } else {
+        usar(fallback.lat, fallback.lon);
     }
 }
 
