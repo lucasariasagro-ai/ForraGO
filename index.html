@@ -4850,6 +4850,7 @@ if ("serviceWorker" in navigator) {
 })();
 
 const iconosTrabajo = { "Corte": "✂️", "Aplicación": "🧪", "Riego": "💧", "Siembra": "🌱", "Otro": "📌" };
+let climaDiarioActual = null;
 
 function trabajosPendientes(lote) {
     return (lote.trabajos || []).filter(t => t.estado === "pendiente").sort((a, b) => a.fechaPlan.localeCompare(b.fechaPlan));
@@ -4940,9 +4941,31 @@ function eliminarTrabajo(loteId, trabajoId) {
     }
 }
 
+function evaluarAlertaTrabajo(trabajo, lote, daily) {
+    if (!daily) return null;
+    const hoy = new Date().toISOString().slice(0, 10);
+    const dias = Math.round((new Date(trabajo.fechaPlan + "T00:00:00") - new Date(hoy + "T00:00:00")) / 86400000);
+    if (dias < 0 || dias > 2) return null;
+    const lluviaEseDia = daily.precipitation_probability_max && daily.precipitation_probability_max[dias] >= 50;
+    const vientoEseDia = daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[dias] >= 25;
+    if (trabajo.tipo === "Corte" && lluviaEseDia) {
+        return { tono: "atencion", texto: "Lluvia prevista ese día — puede complicar el corte." };
+    }
+    if (trabajo.tipo === "Aplicación") {
+        if (vientoEseDia) return { tono: "atencion", texto: "Viento fuerte previsto — no apto para pulverizar." };
+        if (lluviaEseDia) return { tono: "atencion", texto: "Lluvia prevista — riesgo de lavado del producto." };
+    }
+    if (trabajo.tipo === "Riego") {
+        const conRiego = lote.riego && lote.riego !== "Secano";
+        if (conRiego && lluviaEseDia) return { tono: "bueno", texto: "Va a llover ese día — podés postergar el riego." };
+    }
+    return null;
+}
+
 function renderLoteAgendaCard(lote) {
     const nombreCultivo = obtenerNombreCultivo(lote.cultivo, lote.tipo);
     let html = '<div class="agenda-lote-card"><div class="agenda-lote-header"><div><strong>' + escapeHtml(lote.nombre) + '</strong><span>' + nombreCultivo + ' · ' + numero(lote.superficie, 2) + ' ha</span></div><button class="btn-secundario" onclick="verFichaLoteDesdeAgenda(\'' + lote.id + '\')">VER FICHA</button></div>';
+    // Aquí va SOLO la sección de trabajos, sin fenología
     html += renderTrabajosFicha(lote);
     html += '</div>';
     return html;
