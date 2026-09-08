@@ -1849,9 +1849,11 @@ body {
     border:1px solid var(--borde);
     box-shadow:var(--sombra);
     min-height:140px;
+    height:140px;
     display:flex;
     flex-direction:column;
     justify-content:center;
+    align-items:center;
     transition:background .6s ease, border-color .6s ease;
     margin-bottom:16px;
     position:relative;
@@ -1862,14 +1864,33 @@ body {
     display:none;
     animation:fadeRotador .5s ease;
     text-align:center;
+    width:100%;
+    display:flex !important;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    height:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    padding:20px 28px;
+    opacity:0;
+    transition:opacity .5s ease;
+    pointer-events:none;
 }
 
 .rotador-panel.activo {
-    display:block;
+    opacity:1;
+    pointer-events:auto;
+    z-index:2;
+}
+
+.rotador-panel:not(.activo) {
+    z-index:1;
 }
 
 @keyframes fadeRotador {
-    from { opacity:0; transform:translateY(8px); }
+    from { opacity:0; transform:translateY(6px); }
     to { opacity:1; transform:translateY(0); }
 }
 
@@ -1877,7 +1898,9 @@ body {
     display:flex;
     justify-content:center;
     gap:8px;
-    margin-top:14px;
+    margin-top:8px;
+    position:relative;
+    z-index:3;
 }
 
 .rotador-dot {
@@ -1903,19 +1926,11 @@ body {
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    gap:4px;
 }
 
 .rotador-logo img {
-    height:60px;
+    height:80px;
     width:auto;
-}
-
-.rotador-logo .subtitulo {
-    font-size:12px;
-    color:var(--gris);
-    font-weight:500;
-    letter-spacing:1px;
 }
 
 /* Clima panel */
@@ -1949,7 +1964,7 @@ body {
     display:flex;
     justify-content:center;
     gap:20px;
-    margin-top:10px;
+    margin-top:8px;
 }
 
 .rotador-clima-dia {
@@ -1988,62 +2003,36 @@ body {
     display:flex;
     flex-direction:column;
     align-items:center;
-    gap:6px;
-}
-
-.rotador-alerta .titulo {
-    font-size:14px;
-    font-weight:800;
-    color:#b33c3c;
-    display:flex;
-    align-items:center;
-    gap:8px;
+    gap:4px;
+    width:100%;
 }
 
 .rotador-alerta .mensaje {
-    font-size:13px;
+    font-size:14px;
     color:var(--texto-suave);
-    font-weight:600;
+    font-weight:700;
 }
 
 .rotador-alerta .detalle {
-    font-size:11px;
+    font-size:12px;
     color:var(--gris);
 }
 
-/* Última medición panel */
-.rotador-medicion .cultivo {
-    font-size:15px;
-    font-weight:800;
-    color:var(--verde);
-}
-
-.rotador-medicion .rendimiento {
+.rotador-alerta .icono-alerta {
     font-size:28px;
-    font-weight:900;
-    color:var(--verde2);
-    line-height:1.2;
-}
-
-.rotador-medicion .rendimiento small {
-    font-size:14px;
-    font-weight:600;
-    color:var(--gris);
-}
-
-.rotador-medicion .categoria {
-    display:inline-block;
-    padding:4px 14px;
-    border-radius:30px;
-    font-size:9px;
-    font-weight:800;
-    margin-top:4px;
 }
 
 @media(max-width:600px) {
     .rotador {
-        padding:18px 16px;
+        padding:14px 16px;
         min-height:120px;
+        height:120px;
+    }
+    .rotador-panel {
+        padding:12px 16px;
+    }
+    .rotador-logo img {
+        height:56px;
     }
     .rotador-clima-temp {
         font-size:28px;
@@ -2057,17 +2046,49 @@ body {
     .rotador-clima-dia .temp {
         font-size:11px;
     }
-    .rotador-medicion .rendimiento {
+    .rotador-alerta .mensaje {
+        font-size:12px;
+    }
+    .rotador-alerta .detalle {
+        font-size:10px;
+    }
+    .rotador-alerta .icono-alerta {
         font-size:22px;
+    }
+}
+
+@media(max-width:390px) {
+    .rotador {
+        padding:10px 12px;
+        min-height:100px;
+        height:100px;
+    }
+    .rotador-panel {
+        padding:8px 12px;
     }
     .rotador-logo img {
         height:44px;
     }
-    .rotador-alerta .titulo {
-        font-size:12px;
+    .rotador-clima-temp {
+        font-size:22px;
+    }
+    .rotador-clima-dias {
+        gap:8px;
+    }
+    .rotador-clima-dia .icono {
+        font-size:14px;
+    }
+    .rotador-clima-dia .temp {
+        font-size:10px;
     }
     .rotador-alerta .mensaje {
-        font-size:11px;
+        font-size:10px;
+    }
+    .rotador-alerta .detalle {
+        font-size:9px;
+    }
+    .rotador-alerta .icono-alerta {
+        font-size:18px;
     }
 }
 
@@ -2157,13 +2178,6 @@ body {
     .cultivos-scroll { grid-template-rows:repeat(2,150px); }
     .cultivo { height:150px; border-radius:16px; }
     .cultivo-info strong { font-size:14px; }
-    .rotador { padding:14px 12px; min-height:100px; }
-    .rotador-clima-temp { font-size:24px; }
-    .rotador-clima-dias { gap:8px; }
-    .rotador-clima-dia .icono { font-size:14px; }
-    .rotador-clima-dia .temp { font-size:10px; }
-    .rotador-medicion .rendimiento { font-size:18px; }
-    .rotador-logo img { height:36px; }
     .form-group input,
     .form-group select,
     .form-group textarea { font-size:13px; padding:12px 14px; }
@@ -2597,20 +2611,19 @@ body {
 <div id="appShell" class="app-shell-hidden">
 
     <!-- =========================================================
-       ROTADOR DE INFORMACIÓN (reemplaza al clima)
+       ROTADOR DE INFORMACIÓN
     ========================================================= -->
 
     <div id="rotador" class="rotador">
         <!-- Panel 1: LOGO -->
-        <div class="rotador-panel activo" data-panel="logo">
+        <div class="rotador-panel activo" data-panel="logo" style="display:flex !important;">
             <div class="rotador-logo">
                 <img src="img/img_12.png" alt="ForraGO" id="rotadorLogo">
-                <span class="subtitulo">Inteligencia forrajera</span>
             </div>
         </div>
 
         <!-- Panel 2: CLIMA + PRONÓSTICO -->
-        <div class="rotador-panel" data-panel="clima">
+        <div class="rotador-panel" data-panel="clima" style="display:flex !important;">
             <div class="rotador-clima">
                 <div class="rotador-clima-temp" id="rotadorTemp">--<small>°C</small></div>
                 <div class="rotador-clima-desc" id="rotadorDesc">Cargando...</div>
@@ -2635,21 +2648,12 @@ body {
             </div>
         </div>
 
-        <!-- Panel 3: ALERTAS CLIMÁTICAS -->
-        <div class="rotador-panel" data-panel="alertas" id="rotadorAlertas" style="display:none;">
+        <!-- Panel 3: ALERTAS -->
+        <div class="rotador-panel" data-panel="alertas" id="rotadorAlertas" style="display:none !important;">
             <div class="rotador-alerta">
-                <div class="titulo" id="alertaTitulo">⚠️ Alerta meteorológica</div>
+                <div class="icono-alerta" id="alertaIcono">⚠️</div>
                 <div class="mensaje" id="alertaMensaje">-</div>
                 <div class="detalle" id="alertaDetalle">-</div>
-            </div>
-        </div>
-
-        <!-- Panel 4: ÚLTIMA MEDICIÓN -->
-        <div class="rotador-panel" data-panel="medicion" id="rotadorMedicion" style="display:none;">
-            <div class="rotador-medicion">
-                <div class="cultivo" id="medicionCultivo">-</div>
-                <div class="rendimiento" id="medicionRendimiento">-- <small>kg MS/ha</small></div>
-                <div class="categoria" id="medicionCategoria">-</div>
             </div>
         </div>
 
@@ -3901,12 +3905,12 @@ function renderClimaRotador(data) {
         document.getElementById("rotadorTemp" + i).innerHTML = Math.round(daily.temperature_2m_max[i]) + '<small>°</small>';
     }
 
-    // Alertas
+    // Alertas (sin título "alerta meteorológica")
     const alertas = [];
     for (let i = 0; i < 3; i++) {
         if (daily.temperature_2m_min[i] <= 2) {
             const dia = i === 0 ? "esta noche" : (i === 1 ? "mañana" : nombreDia(daily.time[i], i).toLowerCase());
-            alertas.push("❄️ Helada prevista para " + dia + " (mín: " + Math.round(daily.temperature_2m_min[i]) + "°C)");
+            alertas.push({ icono: "❄️", texto: "Helada prevista para " + dia + " (mín: " + Math.round(daily.temperature_2m_min[i]) + "°C)" });
             break;
         }
     }
@@ -3914,50 +3918,23 @@ function renderClimaRotador(data) {
         for (let i = 0; i < 3; i++) {
             if (daily.precipitation_probability_max[i] >= 50) {
                 const dia = i === 0 ? "hoy" : (i === 1 ? "mañana" : nombreDia(daily.time[i], i).toLowerCase());
-                alertas.push("🌧️ " + daily.precipitation_probability_max[i] + "% de lluvia " + dia);
+                alertas.push({ icono: "🌧️", texto: daily.precipitation_probability_max[i] + "% de lluvia " + dia });
                 break;
             }
         }
     }
     if (daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] >= 25) {
-        alertas.push("💨 Viento fuerte hoy, no apto para pulverizar");
+        alertas.push({ icono: "💨", texto: "Viento fuerte hoy, no apto para pulverizar" });
     }
 
     const panelAlertas = document.getElementById("rotadorAlertas");
     if (alertas.length > 0) {
-        panelAlertas.style.display = "";
-        document.getElementById("alertaTitulo").textContent = "⚠️ Alerta meteorológica";
-        document.getElementById("alertaMensaje").textContent = alertas[0];
-        document.getElementById("alertaDetalle").textContent = alertas.length > 1 ? alertas.slice(1).join(" · ") : "";
+        panelAlertas.style.display = "flex !important";
+        document.getElementById("alertaIcono").textContent = alertas[0].icono;
+        document.getElementById("alertaMensaje").textContent = alertas[0].texto;
+        document.getElementById("alertaDetalle").textContent = alertas.length > 1 ? alertas.slice(1).map(a => a.icono + " " + a.texto).join(" · ") : "";
     } else {
-        panelAlertas.style.display = "none";
-    }
-
-    // Última medición
-    const lotes = cargarLotes();
-    let ultimaMedicion = null;
-    let ultimoLote = null;
-    lotes.forEach(lote => {
-        if (lote.mediciones && lote.mediciones.length > 0) {
-            const ultima = lote.mediciones[lote.mediciones.length - 1];
-            if (!ultimaMedicion || ultima.fecha > ultimaMedicion.fecha) {
-                ultimaMedicion = ultima;
-                ultimoLote = lote;
-            }
-        }
-    });
-
-    const panelMedicion = document.getElementById("rotadorMedicion");
-    if (ultimoLote && ultimaMedicion) {
-        panelMedicion.style.display = "";
-        const nombreCultivo = obtenerNombreCultivo(ultimoLote.cultivo, ultimoLote.tipo);
-        document.getElementById("medicionCultivo").textContent = ultimoLote.nombre + " · " + nombreCultivo;
-        document.getElementById("medicionRendimiento").innerHTML = numero(ultimaMedicion.msHa) + ' <small>kg MS/ha</small>';
-        const badge = document.getElementById("medicionCategoria");
-        badge.textContent = ultimaMedicion.categoria;
-        badge.className = "categoria " + ultimaMedicion.clase;
-    } else {
-        panelMedicion.style.display = "none";
+        panelAlertas.style.display = "none !important";
     }
 
     // Actualizar dots
@@ -4009,14 +3986,20 @@ function obtenerPanelesActivos() {
     panels.forEach(p => {
         if (p.dataset.panel === 'logo') activos.push(p);
         if (p.dataset.panel === 'clima') activos.push(p);
-        if (p.dataset.panel === 'alertas' && p.style.display !== 'none') activos.push(p);
-        if (p.dataset.panel === 'medicion' && p.style.display !== 'none') activos.push(p);
+        if (p.dataset.panel === 'alertas' && p.style.display !== 'none' && p.style.display !== 'none !important') {
+            // Verificar si realmente tiene contenido visible
+            const mensaje = p.querySelector('.rotador-alerta .mensaje');
+            if (mensaje && mensaje.textContent !== '-' && mensaje.textContent.trim() !== '') {
+                activos.push(p);
+            }
+        }
     });
     return activos;
 }
 
 function actualizarDotsRotador() {
     const dotsWrap = document.getElementById("rotadorDots");
+    if (!dotsWrap) return;
     const activos = obtenerPanelesActivos();
     dotsWrap.innerHTML = "";
     activos.forEach((p, i) => {
@@ -4056,15 +4039,11 @@ function siguientePanel() {
 function iniciarRotador() {
     if (window.rotadorInterval) clearInterval(window.rotadorInterval);
 
-    // Temporizaciones por panel
     const tiempos = {
         logo: 3500,
         clima: 6000,
-        alertas: 5500,
-        medicion: 4500
+        alertas: 5500
     };
-
-    let tiempoActual = 0;
 
     function avanzar() {
         const activos = obtenerPanelesActivos();
@@ -4072,13 +4051,11 @@ function iniciarRotador() {
         const panel = activos[panelActual];
         const tipo = panel.dataset.panel;
         const duracion = tiempos[tipo] || 4500;
-        tiempoActual += duracion;
         siguientePanel();
         clearTimeout(window.rotadorTimeout);
         window.rotadorTimeout = setTimeout(avanzar, duracion);
     }
 
-    // Iniciar con el primer panel
     const activos = obtenerPanelesActivos();
     if (activos.length > 0) {
         const primerTipo = activos[0].dataset.panel;
@@ -4100,7 +4077,6 @@ function abrirApp() {
     window.scrollTo({ top: 0, behavior: "smooth" });
     cargarClimaRotador();
 
-    // Forzar actualización de dots después de que cargue el clima
     setTimeout(() => {
         actualizarDotsRotador();
     }, 2000);
