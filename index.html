@@ -453,6 +453,44 @@ body {
 }
 
 /* =========================================================
+   BOTÓN GESTIONAR MI PRODUCCIÓN
+========================================================= */
+
+.btn-gestionar {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    width:100%;
+    margin-top:4px;
+    padding:20px;
+    border:none;
+    border-radius:var(--radio);
+    background:linear-gradient(135deg, var(--verde), var(--verde2));
+    color:white;
+    font-family:inherit;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.8px;
+    cursor:pointer;
+    transition:var(--transicion);
+    box-shadow:0 8px 28px rgba(26,107,60,.28);
+}
+.btn-gestionar:hover {
+    transform:translateY(-2px);
+    box-shadow:0 12px 36px rgba(26,107,60,.38);
+}
+.btn-gestionar:active { transform:scale(.98); }
+.btn-gestionar-flecha {
+    font-size:15px;
+    font-weight:400;
+    transition:transform .25s ease;
+}
+.btn-gestionar:hover .btn-gestionar-flecha {
+    transform:translateX(4px);
+}
+
+/* =========================================================
    PANEL
 ========================================================= */
 
@@ -606,6 +644,165 @@ body {
 
 @media(max-width:750px) {
     .cultivos { grid-template-columns:repeat(2,1fr); }
+}
+
+/* =========================================================
+   CULTIVOS DESTACADOS (compacto)
+========================================================= */
+
+.cultivos-destacados {
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:10px;
+}
+.cultivo-compacto {
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:8px;
+    padding:14px 8px;
+    border-radius:16px;
+    border:2px solid var(--borde);
+    background:var(--blanco);
+    cursor:pointer;
+    text-align:center;
+    transition:var(--transicion);
+}
+.cultivo-compacto:hover {
+    transform:translateY(-2px);
+    border-color:var(--verde3);
+}
+.cultivo-compacto:active { transform:scale(.97); }
+.cultivo-compacto.activo {
+    border-color:var(--verde);
+    background:var(--verde-claro);
+}
+.cultivo-compacto-foto {
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    background-size:cover;
+    background-position:center;
+}
+.cultivo-compacto-nombre {
+    font-size:10.5px;
+    font-weight:700;
+    color:var(--texto);
+    line-height:1.25;
+}
+.cultivo-compacto-check {
+    position:absolute;
+    top:6px;
+    right:6px;
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:var(--verde);
+    color:white;
+    font-size:9px;
+    font-weight:900;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    transform:scale(.5);
+    transition:all .25s cubic-bezier(.34,1.56,.64,1);
+}
+.cultivo-compacto.activo .cultivo-compacto-check {
+    opacity:1;
+    transform:scale(1);
+}
+
+.ver-todos-cultivos {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    margin-top:14px;
+    padding:12px;
+    border-radius:12px;
+    background:var(--fondo);
+    border:1px solid var(--borde);
+    color:var(--verde2);
+    font-size:11px;
+    font-weight:700;
+    cursor:pointer;
+    transition:var(--transicion);
+}
+.ver-todos-cultivos:hover {
+    background:var(--verde-claro);
+    border-color:var(--verde3);
+}
+
+.todos-cultivos-panel {
+    display:none;
+    margin-top:10px;
+    max-height:320px;
+    overflow-y:auto;
+    border-radius:14px;
+    border:1px solid var(--borde);
+    background:var(--fondo);
+    padding:6px;
+}
+.todos-cultivos-panel.mostrar {
+    display:block;
+    animation:aparecer .3s ease;
+}
+.cultivo-fila {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    padding:9px 10px;
+    border-radius:10px;
+    cursor:pointer;
+    transition:var(--transicion);
+}
+.cultivo-fila:hover { background:var(--blanco); }
+.cultivo-fila.activo { background:var(--verde-claro); }
+.cultivo-fila-foto {
+    width:32px;
+    height:32px;
+    border-radius:9px;
+    background-size:cover;
+    background-position:center;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:rgba(184,217,108,.6);
+    font-weight:900;
+}
+.cultivo-fila-nombre {
+    flex:1;
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--texto);
+}
+.cultivo-fila-check {
+    width:18px;
+    height:18px;
+    border-radius:50%;
+    background:var(--verde);
+    color:white;
+    font-size:9px;
+    font-weight:900;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    transform:scale(.5);
+    transition:all .2s ease;
+    flex-shrink:0;
+}
+.cultivo-fila.activo .cultivo-fila-check {
+    opacity:1;
+    transform:scale(1);
+}
+
+@media(max-width:420px) {
+    .cultivo-compacto-nombre { font-size:9.5px; }
+    .cultivo-compacto-foto { width:34px; height:34px; }
 }
 
 /* =========================================================
@@ -901,6 +1098,68 @@ body {
     color:var(--gris);
     font-size:10px;
     opacity:.7;
+}
+
+.decision-rapida {
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    margin:14px auto 0;
+    padding:10px 18px;
+    border-radius:30px;
+    background:var(--lima-claro);
+    color:var(--verde);
+    font-size:12.5px;
+    font-weight:700;
+    text-align:center;
+    max-width:fit-content;
+}
+.decision-rapida-icono { font-size:15px; }
+
+.decision-caja {
+    margin-top:22px;
+    padding:22px;
+    border-radius:var(--radio);
+    background:var(--verde-claro);
+    border:1.5px solid var(--verde3);
+    text-align:center;
+}
+.decision-caja p {
+    font-size:13px;
+    font-weight:700;
+    color:var(--verde);
+    margin-bottom:14px;
+}
+.btn-decision-guardar {
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:14px;
+    background:linear-gradient(135deg, var(--verde), var(--verde2));
+    color:white;
+    font-family:inherit;
+    font-size:11.5px;
+    font-weight:800;
+    letter-spacing:.5px;
+    cursor:pointer;
+    transition:var(--transicion);
+    box-shadow:0 6px 20px rgba(26,107,60,.25);
+}
+.btn-decision-guardar:hover {
+    transform:translateY(-2px);
+    box-shadow:0 10px 28px rgba(26,107,60,.35);
+}
+.btn-decision-guardar:active { transform:scale(.98); }
+
+.botones-secundarios-fila {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:14px;
+}
+@media(max-width:420px) {
+    .botones-secundarios-fila { grid-template-columns:1fr; }
 }
 
 .rollos {
@@ -1507,6 +1766,98 @@ body {
     gap:4px;
 }
 
+/* =========================================================
+   RESUMEN "MI PRODUCCIÓN"
+========================================================= */
+
+.gestionar-resumen {
+    background:linear-gradient(135deg, var(--verde), var(--verde2));
+    border-radius:var(--radio);
+    padding:22px 24px;
+    color:white;
+    margin-bottom:22px;
+    box-shadow:0 8px 30px rgba(26,107,60,.22);
+}
+.gestionar-resumen-titulo {
+    font-size:11px;
+    font-weight:700;
+    text-transform:uppercase;
+    letter-spacing:.6px;
+    opacity:.85;
+}
+.gestionar-resumen-stats {
+    display:flex;
+    flex-wrap:wrap;
+    gap:18px 26px;
+    margin-top:12px;
+}
+.gestionar-resumen-stat strong {
+    display:block;
+    font-size:20px;
+    font-weight:800;
+    letter-spacing:-.3px;
+}
+.gestionar-resumen-stat span {
+    display:block;
+    margin-top:2px;
+    font-size:10px;
+    font-weight:500;
+    opacity:.85;
+}
+.gestionar-resumen-vacio {
+    font-size:11.5px;
+    line-height:1.6;
+    opacity:.9;
+    margin-top:4px;
+}
+
+.produccion-lote-fila {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 16px;
+    border-radius:14px;
+    background:var(--blanco);
+    border:1px solid var(--borde);
+    margin-bottom:8px;
+}
+.produccion-lote-fila strong { display:block; font-size:13px; color:var(--verde); font-weight:700; }
+.produccion-lote-fila span { display:block; margin-top:2px; font-size:10.5px; color:var(--gris); }
+
+.necesidad-resultado-caja {
+    margin-top:20px;
+    padding:24px;
+    border-radius:18px;
+    background:linear-gradient(135deg, var(--verde), var(--verde2));
+    color:white;
+    text-align:center;
+    box-shadow:0 8px 30px rgba(26,107,60,.2);
+}
+.necesidad-resultado-caja .numero-grande {
+    font-size:32px;
+    font-weight:900;
+    letter-spacing:-1px;
+    display:block;
+}
+.necesidad-resultado-caja .etiqueta {
+    font-size:10.5px;
+    font-weight:700;
+    opacity:.85;
+    display:block;
+    margin-top:4px;
+}
+.necesidad-autonomia {
+    margin-top:14px;
+    padding:16px 20px;
+    border-radius:14px;
+    background:var(--fondo);
+    color:var(--texto-suave);
+    font-size:12px;
+    line-height:1.6;
+    text-align:center;
+}
+.necesidad-autonomia strong { color:var(--verde); }
+
 .lotes-nuevo-btn {
     width:100%;
     padding:18px;
@@ -1583,6 +1934,47 @@ body {
     font-weight:700;
     margin-top:2px;
     color:var(--texto);
+}
+.lote-card-rendimiento {
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:6px 14px;
+    margin-top:14px;
+    padding-top:14px;
+    border-top:1px solid var(--borde);
+}
+.lote-card-rendimiento strong {
+    font-size:26px;
+    font-weight:900;
+    color:var(--verde);
+    letter-spacing:-.5px;
+}
+.lote-card-rendimiento .unidad-chica {
+    font-size:11px;
+    font-weight:600;
+    color:var(--gris);
+    margin-left:6px;
+}
+.lote-card-fecha {
+    font-size:10.5px;
+    color:var(--gris);
+    font-weight:500;
+}
+.lote-card-semaforo {
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:10px;
+    padding:6px 14px;
+    border-radius:30px;
+    font-size:11px;
+    font-weight:700;
+}
+.lote-card-semaforo.sin-medir {
+    background:var(--fondo);
+    color:var(--gris);
 }
 .lote-card-botones {
     display:grid;
@@ -2817,28 +3209,54 @@ body {
             </button>
         </div>
 
-        <div class="seccion seccion-simple titulo-secundario" style="margin:20px 0 8px;">
-            <h2>Gestioná</h2>
+        <button class="btn-gestionar" onclick="abrirGestionar()">
+            <span>GESTIONAR MI PRODUCCIÓN</span>
+            <span class="btn-gestionar-flecha">→</span>
+        </button>
+    </div>
+
+    <!-- =========================================================
+       GESTIONAR MI PRODUCCIÓN
+    ========================================================= -->
+
+    <div id="vistaGestionar" style="display:none;">
+        <div class="lotes-header">
+            <button class="btn-back" onclick="cerrarGestionar()">Volver</button>
+            <h2>Mi producción</h2>
         </div>
 
+        <div id="gestionarResumen" class="gestionar-resumen"></div>
+
         <div class="lotes-banner" onclick="abrirMisLotes()">
-            <span class="lotes-banner-icono">🗂️</span>
+            <span class="lotes-banner-icono">🌱</span>
             <div class="lotes-banner-texto">
-                <strong>Mis lotes</strong>
+                <strong>Lotes</strong>
                 <span>Creá tus lotes y seguí su evolución en el tiempo</span>
             </div>
         </div>
 
         <div class="lotes-banner" onclick="abrirAgendaCampo()">
-            <span class="lotes-banner-icono">🗓️</span>
+            <span class="lotes-banner-icono">📅</span>
             <div class="lotes-banner-texto">
-                <strong>Agenda Inteligente</strong>
+                <strong>Agenda</strong>
                 <span>Fenología, clima y trabajos de todos tus lotes</span>
             </div>
         </div>
 
-        <div class="seccion seccion-simple titulo-secundario" style="margin:16px 0 8px;">
-            <h2>Explorá</h2>
+        <div class="lotes-banner" onclick="abrirProduccion()">
+            <span class="lotes-banner-icono">📊</span>
+            <div class="lotes-banner-texto">
+                <strong>Producción</strong>
+                <span>Resumen de todo lo que tenés estimado en tu campo</span>
+            </div>
+        </div>
+
+        <div class="lotes-banner" onclick="abrirNecesidades()">
+            <span class="lotes-banner-icono">🐄</span>
+            <div class="lotes-banner-texto">
+                <strong>Necesidades</strong>
+                <span>Cuánto MS necesita tu majada por día</span>
+            </div>
         </div>
 
         <div class="biblioteca-toggle" onclick="abrirBiblioteca()">
@@ -2851,76 +3269,162 @@ body {
     </div>
 
     <!-- =========================================================
+       PRODUCCIÓN — RESUMEN
+    ========================================================= -->
+
+    <div id="vistaProduccion" style="display:none;">
+        <div class="lotes-header">
+            <button class="btn-back" onclick="cerrarProduccion()">Volver</button>
+            <h2>📊 Producción</h2>
+        </div>
+        <div id="produccionContenido"></div>
+    </div>
+
+    <!-- =========================================================
+       NECESIDADES DE LA MAJADA
+    ========================================================= -->
+
+    <div id="vistaNecesidades" style="display:none;">
+        <div class="lotes-header">
+            <button class="btn-back" onclick="cerrarNecesidades()">Volver</button>
+            <h2>🐄 Necesidades</h2>
+        </div>
+        <section class="panel">
+            <label class="label">Categoría animal</label>
+            <select id="necCategoria" onchange="actualizarCategoriaNecesidad()">
+                <option value="vaca_cria">Vaca de cría (lactante)</option>
+                <option value="vaca_seca">Vaca seca / preñada</option>
+                <option value="vaquillona">Vaquillona / novillo</option>
+                <option value="ternero">Ternero/a (recría)</option>
+                <option value="ovino">Ovino</option>
+            </select>
+            <div class="datos">
+                <div class="input-box">
+                    <label class="label">Peso promedio</label>
+                    <input id="necPeso" type="number" value="400" min="1" step="1">
+                    <div class="unidad">kilogramos</div>
+                </div>
+                <div class="input-box">
+                    <label class="label">Consumo diario</label>
+                    <input id="necPorcentaje" type="number" value="2.5" min="0.1" max="10" step="0.1">
+                    <div class="unidad">% del peso vivo en MS</div>
+                </div>
+            </div>
+            <label class="label label-espaciado">Cantidad de animales</label>
+            <div class="input-box">
+                <input id="necAnimales" type="number" value="0" min="0" step="1">
+            </div>
+            <button class="calcular" onclick="calcularNecesidades()">CALCULAR NECESIDAD →</button>
+        </section>
+        <div id="necesidadesResultado"></div>
+    </div>
+
+    <!-- =========================================================
        BLOQUE FORRAJE
     ========================================================= -->
 
     <div id="bloqueForraje" class="bloque-tipo" style="display:none;">
         <section class="panel">
-            <label class="label">Elegí el cultivo</label>
-            <div id="cultivosScroll" class="cultivos cultivos-scroll">
-                <div class="cultivo activo" data-cultivo="alfalfa" onclick="seleccionar(this)">
-                    <div class="campo-cultivo alfalfa-bg"></div>
-                    <div class="cultivo-info"><strong>Alfalfa</strong></div>
-                    <div class="check">✓</div>
+            <label class="label">Cultivos destacados</label>
+            <div class="cultivos-destacados" id="cultivosDestacados">
+                <div class="cultivo-item cultivo-compacto activo" data-cultivo="alfalfa" onclick="seleccionar(this)">
+                    <div class="cultivo-compacto-foto alfalfa-bg"></div>
+                    <span class="cultivo-compacto-nombre">Alfalfa</span>
+                    <span class="cultivo-compacto-check">✓</span>
                 </div>
-                <div class="cultivo" data-cultivo="avena" onclick="seleccionar(this)">
-                    <div class="campo-cultivo avena-bg"></div>
-                    <div class="cultivo-info"><strong>Avena</strong></div>
-                    <div class="check">✓</div>
+                <div class="cultivo-item cultivo-compacto" data-cultivo="avena" onclick="seleccionar(this)">
+                    <div class="cultivo-compacto-foto avena-bg"></div>
+                    <span class="cultivo-compacto-nombre">Avena</span>
+                    <span class="cultivo-compacto-check">✓</span>
                 </div>
-                <div class="cultivo" data-cultivo="triticale" onclick="seleccionar(this)">
-                    <div class="campo-cultivo triticale-bg"></div>
-                    <div class="cultivo-info"><strong>Triticale</strong></div>
-                    <div class="check">✓</div>
+                <div class="cultivo-item cultivo-compacto" data-cultivo="festuca" onclick="seleccionar(this)">
+                    <div class="cultivo-compacto-foto festuca-bg"></div>
+                    <span class="cultivo-compacto-nombre">Festuca alta</span>
+                    <span class="cultivo-compacto-check">✓</span>
                 </div>
-                <div class="cultivo" data-cultivo="cebada" onclick="seleccionar(this)">
-                    <div class="campo-cultivo cebada-bg"></div>
-                    <div class="cultivo-info"><strong>Cebada</strong></div>
-                    <div class="check">✓</div>
+                <div class="cultivo-item cultivo-compacto" data-cultivo="raygrass" onclick="seleccionar(this)">
+                    <div class="cultivo-compacto-foto raygrass-bg"></div>
+                    <span class="cultivo-compacto-nombre">Raygrass</span>
+                    <span class="cultivo-compacto-check">✓</span>
                 </div>
-                <div class="cultivo" data-cultivo="moha" onclick="seleccionar(this)">
-                    <div class="campo-cultivo moha-bg"></div>
-                    <div class="cultivo-info"><strong>Moha</strong></div>
-                    <div class="check">✓</div>
+                <div class="cultivo-item cultivo-compacto" data-cultivo="triticale" onclick="seleccionar(this)">
+                    <div class="cultivo-compacto-foto triticale-bg"></div>
+                    <span class="cultivo-compacto-nombre">Triticale</span>
+                    <span class="cultivo-compacto-check">✓</span>
                 </div>
-                <div class="cultivo" data-cultivo="mijo" onclick="seleccionar(this)">
-                    <div class="campo-cultivo mijo-bg"></div>
-                    <div class="cultivo-info"><strong>Mijo</strong></div>
-                    <div class="check">✓</div>
-                </div>
-                <div class="cultivo" data-cultivo="festuca" onclick="seleccionar(this)">
-                    <div class="campo-cultivo festuca-bg"></div>
-                    <div class="cultivo-info"><strong>Festuca alta</strong></div>
-                    <div class="check">✓</div>
-                </div>
-                <div class="cultivo" data-cultivo="raygrass" onclick="seleccionar(this)">
-                    <div class="campo-cultivo raygrass-bg"></div>
-                    <div class="cultivo-info"><strong>Raygrass anual</strong></div>
-                    <div class="check">✓</div>
-                </div>
-                <div class="cultivo" data-cultivo="vicia" onclick="seleccionar(this)">
-                    <div class="campo-cultivo vicia-bg"></div>
-                    <div class="cultivo-info"><strong>Vicia villosa</strong></div>
-                    <div class="check">✓</div>
-                </div>
-                <div class="cultivo" data-cultivo="trebol" onclick="seleccionar(this)">
-                    <div class="campo-cultivo trebol-bg"></div>
-                    <div class="cultivo-info"><strong>Trébol blanco</strong></div>
-                    <div class="check">✓</div>
-                </div>
-                <div class="cultivo" data-cultivo="centeno" onclick="seleccionar(this)">
-                    <div class="campo-cultivo centeno-bg"></div>
-                    <div class="cultivo-info"><strong>Centeno</strong></div>
-                    <div class="check">✓</div>
-                </div>
-                <div class="cultivo" data-cultivo="trebolrojo" onclick="seleccionar(this)">
-                    <div class="campo-cultivo sinfoto-bg">T</div>
-                    <div class="cultivo-info"><strong>Trébol rojo</strong></div>
-                    <div class="check">✓</div>
+                <div class="cultivo-item cultivo-compacto" data-cultivo="trebol" onclick="seleccionar(this)">
+                    <div class="cultivo-compacto-foto trebol-bg"></div>
+                    <span class="cultivo-compacto-nombre">Trébol blanco</span>
+                    <span class="cultivo-compacto-check">✓</span>
                 </div>
             </div>
-            <p class="cultivos-hint">← deslizá para ver más cultivos →</p>
-            <div class="cultivos-dots" id="cultivosDots"></div>
+
+            <div class="ver-todos-cultivos" onclick="toggleTodosCultivos()">
+                <span>Ver todos los cultivos</span>
+                <span class="carga-flecha" id="todosCultivosFlecha">→</span>
+            </div>
+            <div id="todosCultivosPanel" class="todos-cultivos-panel">
+                <div class="cultivo-item cultivo-fila" data-cultivo="alfalfa" onclick="seleccionar(this); cerrarTodosCultivos()">
+                    <div class="cultivo-fila-foto alfalfa-bg"></div>
+                    <span class="cultivo-fila-nombre">Alfalfa</span>
+                    <span class="cultivo-fila-check">✓</span>
+                </div>
+                <div class="cultivo-item cultivo-fila" data-cultivo="avena" onclick="seleccionar(this); cerrarTodosCultivos()">
+                    <div class="cultivo-fila-foto avena-bg"></div>
+                    <span class="cultivo-fila-nombre">Avena</span>
+                    <span class="cultivo-fila-check">✓</span>
+                </div>
+                <div class="cultivo-item cultivo-fila" data-cultivo="triticale" onclick="seleccionar(this); cerrarTodosCultivos()">
+                    <div class="cultivo-fila-foto triticale-bg"></div>
+                    <span class="cultivo-fila-nombre">Triticale</span>
+                    <span class="cultivo-fila-check">✓</span>
+                </div>
+                <div class="cultivo-item cultivo-fila" data-cultivo="cebada" onclick="seleccionar(this); cerrarTodosCultivos()">
+                    <div class="cultivo-fila-foto cebada-bg"></div>
+                    <span class="cultivo-fila-nombre">Cebada</span>
+                    <span class="cultivo-fila-check">✓</span>
+                </div>
+                <div class="cultivo-item cultivo-fila" data-cultivo="moha" onclick="seleccionar(this); cerrarTodosCultivos()">
+                    <div class="cultivo-fila-foto moha-bg"></div>
+                    <span class="cultivo-fila-nombre">Moha</span>
+                    <span class="cultivo-fila-check">✓</span>
+                </div>
+                <div class="cultivo-item cultivo-fila" data-cultivo="mijo" onclick="seleccionar(this); cerrarTodosCultivos()">
+                    <div class="cultivo-fila-foto mijo-bg"></div>
+                    <span class="cultivo-fila-nombre">Mijo</span>
+                    <span class="cultivo-fila-check">✓</span>
+                </div>
+                <div class="cultivo-item cultivo-fila" data-cultivo="festuca" onclick="seleccionar(this); cerrarTodosCultivos()">
+                    <div class="cultivo-fila-foto festuca-bg"></div>
+                    <span class="cultivo-fila-nombre">Festuca alta</span>
+                    <span class="cultivo-fila-check">✓</span>
+                </div>
+                <div class="cultivo-item cultivo-fila" data-cultivo="raygrass" onclick="seleccionar(this); cerrarTodosCultivos()">
+                    <div class="cultivo-fila-foto raygrass-bg"></div>
+                    <span class="cultivo-fila-nombre">Raygrass anual</span>
+                    <span class="cultivo-fila-check">✓</span>
+                </div>
+                <div class="cultivo-item cultivo-fila" data-cultivo="vicia" onclick="seleccionar(this); cerrarTodosCultivos()">
+                    <div class="cultivo-fila-foto vicia-bg"></div>
+                    <span class="cultivo-fila-nombre">Vicia villosa</span>
+                    <span class="cultivo-fila-check">✓</span>
+                </div>
+                <div class="cultivo-item cultivo-fila" data-cultivo="trebol" onclick="seleccionar(this); cerrarTodosCultivos()">
+                    <div class="cultivo-fila-foto trebol-bg"></div>
+                    <span class="cultivo-fila-nombre">Trébol blanco</span>
+                    <span class="cultivo-fila-check">✓</span>
+                </div>
+                <div class="cultivo-item cultivo-fila" data-cultivo="centeno" onclick="seleccionar(this); cerrarTodosCultivos()">
+                    <div class="cultivo-fila-foto centeno-bg"></div>
+                    <span class="cultivo-fila-nombre">Centeno</span>
+                    <span class="cultivo-fila-check">✓</span>
+                </div>
+                <div class="cultivo-item cultivo-fila" data-cultivo="trebolrojo" onclick="seleccionar(this); cerrarTodosCultivos()">
+                    <div class="cultivo-fila-foto sinfoto-bg" style="font-size:12px;">T</div>
+                    <span class="cultivo-fila-nombre">Trébol rojo</span>
+                    <span class="cultivo-fila-check">✓</span>
+                </div>
+            </div>
 
             <div class="ver-todos-toggle" onclick="toggleCultivosExtra()">
                 <span>Consociaciones</span>
@@ -3048,6 +3552,12 @@ body {
                 <div class="texto-ms">kilogramos de materia seca (estimado)</div>
                 <div id="rangoMs" class="rango-ms"></div>
             </div>
+
+            <div class="decision-rapida">
+                <span class="decision-rapida-icono">🐄</span>
+                <span id="decisionAnimales">-</span>
+            </div>
+
             <div class="rollos">
                 <div class="rollo-icono"></div>
                 <div>
@@ -3074,8 +3584,14 @@ body {
             <div id="mensaje" class="mensaje"></div>
             <div class="nota-referencia">Valor de referencia orientativo, ajustable por tu asesor técnico.</div>
 
+            <div class="decision-caja">
+                <p>¿Qué hacés con este resultado?</p>
+                <button class="btn-decision-guardar" onclick="abrirSelectorLote('')">💾 GUARDAR EN MIS LOTES</button>
+                <div id="selectorLote" class="selector-lote" style="display:none;"></div>
+            </div>
+
             <div class="carga-toggle" onclick="toggleCarga('')">
-                <span>🐄 ¿Para cuántos animales alcanza?</span>
+                <span>🐄 Ajustar cálculo de animales</span>
                 <span class="carga-flecha" id="cargaFlecha">▾</span>
             </div>
             <div id="cargaPanel" class="carga-panel">
@@ -3116,13 +3632,11 @@ body {
                 <div id="cargaResultado" class="carga-resultado"></div>
             </div>
 
-            <div class="botones">
+            <div class="botones-secundarios-fila">
                 <button class="btn-secundario" onclick="detalles()">VER DETALLE</button>
                 <button class="btn-secundario" onclick="nuevo()">NUEVA EVALUACIÓN</button>
                 <button class="btn-secundario btn-pdf" onclick="pdf()">EXPORTAR INFORME</button>
                 <button class="btn-secundario btn-whatsapp" onclick="compartirWhatsapp('')">COMPARTIR</button>
-                <button class="btn-secundario btn-lote" onclick="abrirSelectorLote('')">💾 GUARDAR EN MIS LOTES</button>
-                <div id="selectorLote" class="selector-lote" style="display:none;"></div>
             </div>
 
             <div id="detalles" class="detalles">
@@ -3221,6 +3735,12 @@ body {
                 <div class="texto-ms">toneladas de materia seca (estimado)</div>
                 <div id="rangoMsSilo" class="rango-ms"></div>
             </div>
+
+            <div class="decision-rapida">
+                <span class="decision-rapida-icono">🐄</span>
+                <span id="decisionAnimalesSilo">-</span>
+            </div>
+
             <div class="cosecha-badge">
                 <span id="cosechaIcono">🎯</span>
                 <div>
@@ -3247,8 +3767,14 @@ body {
             <div id="mensajeSilo" class="mensaje"></div>
             <div class="nota-referencia">Rendimiento y ventana de MS orientativos (INTA).</div>
 
+            <div class="decision-caja">
+                <p>¿Qué hacés con este resultado?</p>
+                <button class="btn-decision-guardar" onclick="abrirSelectorLote('Silo')">💾 GUARDAR EN MIS LOTES</button>
+                <div id="selectorLoteSilo" class="selector-lote" style="display:none;"></div>
+            </div>
+
             <div class="carga-toggle" onclick="toggleCarga('Silo')">
-                <span>🐄 ¿Para cuántos animales alcanza?</span>
+                <span>🐄 Ajustar cálculo de animales</span>
                 <span class="carga-flecha" id="cargaFlechaSilo">▾</span>
             </div>
             <div id="cargaPanelSilo" class="carga-panel">
@@ -3289,13 +3815,11 @@ body {
                 <div id="cargaResultadoSilo" class="carga-resultado"></div>
             </div>
 
-            <div class="botones">
+            <div class="botones-secundarios-fila">
                 <button class="btn-secundario" onclick="detallesSilo()">VER DETALLE</button>
                 <button class="btn-secundario" onclick="nuevoSilo()">NUEVA EVALUACIÓN</button>
                 <button class="btn-secundario btn-pdf" onclick="pdfSilo()">EXPORTAR INFORME</button>
                 <button class="btn-secundario btn-whatsapp" onclick="compartirWhatsapp('Silo')">COMPARTIR</button>
-                <button class="btn-secundario btn-lote" onclick="abrirSelectorLote('Silo')">💾 GUARDAR EN MIS LOTES</button>
-                <div id="selectorLoteSilo" class="selector-lote" style="display:none;"></div>
             </div>
 
             <div id="detallesSiloPanel" class="detalles">
@@ -3593,11 +4117,27 @@ function mostrarTipo(tipo) {
 // =========================================================
 
 function seleccionar(elemento) {
-    document.querySelectorAll(".cultivos:not(.cultivos-silaje) .cultivo").forEach(c => c.classList.remove("activo"));
     cultivoActual = elemento.dataset.cultivo;
-    document.querySelectorAll('.cultivos:not(.cultivos-silaje) .cultivo[data-cultivo="' + cultivoActual + '"]').forEach(c => c.classList.add("activo"));
+    document.querySelectorAll(".cultivo-item").forEach(c => {
+        c.classList.toggle("activo", c.dataset.cultivo === cultivoActual);
+    });
     desactivarConsociacion();
     sincronizarAsesor();
+}
+
+function toggleTodosCultivos() {
+    const panel = document.getElementById("todosCultivosPanel");
+    const flecha = document.getElementById("todosCultivosFlecha");
+    const abrir = !panel.classList.contains("mostrar");
+    panel.classList.toggle("mostrar", abrir);
+    if (flecha) flecha.textContent = abrir ? "▾" : "→";
+}
+
+function cerrarTodosCultivos() {
+    const panel = document.getElementById("todosCultivosPanel");
+    const flecha = document.getElementById("todosCultivosFlecha");
+    if (panel) panel.classList.remove("mostrar");
+    if (flecha) flecha.textContent = "→";
 }
 
 function seleccionarSilaje(elemento) {
@@ -3672,7 +4212,7 @@ function actualizarConsociacion() {
         referencia: referenciaMezcla
     };
     cultivoActual = "consociacion";
-    document.querySelectorAll(".cultivos:not(.cultivos-silaje) .cultivo").forEach(c => c.classList.remove("activo"));
+    document.querySelectorAll(".cultivo-item").forEach(c => c.classList.remove("activo"));
     preview.classList.remove("oculto");
     preview.classList.add("activo");
     preview.innerHTML = "<strong>" + porcGraminea + "% " + graminea.nombre + " · " + porcLeguminosa + "% " + leguminosa.nombre + "</strong><br>MS estimado: " + msMezcla.tierno + "–" + msMezcla.espiga + "% según estado · Referencia: ~" + referenciaMezcla.toLocaleString("es-AR") + " kg MS/ha";
@@ -3729,6 +4269,12 @@ function actualizarReferenciaSilo() {
 // CALCULAR FORRAJE
 // =========================================================
 
+function estimarAnimalesRapido(kgDisponible, dias = 30) {
+    const cat = categoriasAnimales.vaca_cria;
+    const consumoDiarioPorAnimal = cat.peso * cat.porcentaje / 100;
+    return Math.floor(kgDisponible / (consumoDiarioPorAnimal * dias));
+}
+
 function calcular() {
     const superficie = parseFloat(document.getElementById("superficie").value);
     const verde = parseFloat(document.getElementById("verde").value);
@@ -3760,6 +4306,10 @@ function calcular() {
     estado.className = "estado " + clase;
     animarContador(document.getElementById("msTotal"), msTotal, 0);
     document.getElementById("rangoMs").textContent = "Aproximado: entre " + numero(msTotalMin) + " y " + numero(msTotalMax) + " kg";
+    const animalesRapido = estimarAnimalesRapido(aprovechable, 30);
+    document.getElementById("decisionAnimales").textContent = animalesRapido > 0 ?
+        "Alcanzaría para " + numero(animalesRapido, 0) + " animales (450 kg) durante 30 días" :
+        "No alcanza para sostener animales durante 30 días con este resultado";
     document.getElementById("rollos").textContent = rollosCompletos === 1 ? "1 rollo completo" : numero(rollosCompletos) + " rollos completos";
     document.getElementById("porcentaje").textContent = numero(porcentaje, 1) + "%";
     const posicion = Math.max(0, Math.min(porcentaje, 115)) / 1.15;
@@ -3810,6 +4360,10 @@ function calcularSilaje() {
     estado.className = "estado " + nivel.clase;
     animarContador(document.getElementById("msTotalSilo"), msTotalT, 1);
     document.getElementById("rangoMsSilo").textContent = "Equivalente a " + numero(msTotalKg) + " kg de materia seca";
+    const animalesRapidoSilo = estimarAnimalesRapido(msTotalKg, 30);
+    document.getElementById("decisionAnimalesSilo").textContent = animalesRapidoSilo > 0 ?
+        "Alcanzaría para " + numero(animalesRapidoSilo, 0) + " animales (450 kg) durante 30 días" :
+        "No alcanza para sostener animales durante 30 días con este resultado";
     document.getElementById("cosechaIcono").textContent = "🎯";
     document.getElementById("cosechaEstado").textContent = "MS asumido: " + numero(ms, 1) + "%";
     document.getElementById("cosechaDetalle").textContent = "Corresponde al objetivo para " + cultivo.nombre.toLowerCase() + " en " + cultivo.indicador.toLowerCase() + ".";
@@ -3940,61 +4494,6 @@ function toggleCultivosExtra() {
 
 function toggleFicha(elemento) {
     elemento.classList.toggle("abierto");
-}
-
-// =========================================================
-// CARRUSEL
-// =========================================================
-
-function generarDotsCultivos() {
-    const contenedor = document.getElementById("cultivosScroll");
-    const dotsWrap = document.getElementById("cultivosDots");
-    if (!contenedor || !dotsWrap) return;
-    const total = contenedor.querySelectorAll(".cultivo:not([data-clon])").length;
-    const columnasVisibles = window.matchMedia("(max-width:600px)").matches ? 2 : 3;
-    const columnasTotales = Math.ceil(total / 2);
-    const paginas = Math.max(1, columnasTotales - columnasVisibles + 1);
-    dotsWrap.innerHTML = "";
-    for (let i = 0; i < paginas; i++) {
-        const dot = document.createElement("button");
-        dot.type = "button";
-        dot.className = "cultivos-dot" + (i === 0 ? " activo" : "");
-        dot.setAttribute("aria-label", "Ver página " + (i + 1));
-        dot.addEventListener("click", function () {
-            contenedor.scrollTo({ left: i * (contenedor.clientWidth / columnasVisibles), behavior: "smooth" });
-        });
-        dotsWrap.appendChild(dot);
-    }
-}
-
-function actualizarDotsCultivos() {
-    const contenedor = document.getElementById("cultivosScroll");
-    const dotsWrap = document.getElementById("cultivosDots");
-    if (!contenedor || !dotsWrap) return;
-    const dots = dotsWrap.querySelectorAll(".cultivos-dot");
-    if (!dots.length) return;
-    const columnasVisibles = window.matchMedia("(max-width:600px)").matches ? 2 : 3;
-    const paso = contenedor.clientWidth / columnasVisibles;
-    const indice = Math.max(0, Math.min(dots.length - 1, Math.round(contenedor.scrollLeft / paso)));
-    dots.forEach((d, i) => d.classList.toggle("activo", i === indice));
-}
-
-function inicializarCarruselInfinito() {
-    const contenedor = document.getElementById("cultivosScroll");
-    if (!contenedor || contenedor.dataset.infinito) return;
-    contenedor.dataset.infinito = "1";
-    const tarjetasOriginales = Array.from(contenedor.querySelectorAll(".cultivo"));
-    tarjetasOriginales.forEach(tarjeta => {
-        const clon = tarjeta.cloneNode(true);
-        clon.setAttribute("data-clon", "1");
-        clon.setAttribute("aria-hidden", "true");
-        contenedor.appendChild(clon);
-    });
-    contenedor.addEventListener("scroll", function () {
-        if (contenedor.scrollLeft >= contenedor.scrollWidth / 2) {
-            contenedor.scrollLeft -= contenedor.scrollWidth / 2;
-        }
-    }, { passive: true });
 }
 
 // =========================================================
@@ -4360,26 +4859,97 @@ function guardarLotesStorage(lotes) {
     }
 }
 
-function abrirMisLotes() {
+function ocultarNivelesSuperiores() {
     document.getElementById("tituloEvaluar").style.display = "none";
     document.getElementById("vistaCalculadora").style.display = "none";
-    document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "none");
+    document.getElementById("vistaGestionar").style.display = "none";
+    document.getElementById("vistaLotes").style.display = "none";
+    document.getElementById("vistaAgenda").style.display = "none";
+    document.getElementById("vistaBiblioteca").style.display = "none";
+    document.getElementById("vistaProduccion").style.display = "none";
+    document.getElementById("vistaNecesidades").style.display = "none";
     document.querySelector(".header").style.display = "none";
     document.querySelector(".hero").style.display = "none";
     document.getElementById("rotador").style.display = "none";
+}
+
+function mostrarHome() {
+    document.getElementById("tituloEvaluar").style.display = "";
+    document.getElementById("vistaCalculadora").style.display = "";
+    document.querySelector(".header").style.display = "";
+    document.querySelector(".hero").style.display = "";
+    document.getElementById("rotador").style.display = "";
+}
+
+function abrirGestionar() {
+    ocultarNivelesSuperiores();
+    document.getElementById("vistaGestionar").style.display = "block";
+    renderResumenGestionar();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function cerrarGestionar() {
+    document.getElementById("vistaGestionar").style.display = "none";
+    mostrarHome();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function calcularEstadisticasCampo() {
+    const lotes = cargarLotes();
+    const hoy = new Date().toISOString().slice(0, 10);
+    let hectareasTotales = 0;
+    let kgMsTotal = 0;
+    let lotesConMedicion = 0;
+    let tareasPendientes = 0;
+    let tareasVencidas = 0;
+    lotes.forEach(lote => {
+        hectareasTotales += lote.superficie || 0;
+        const ultima = lote.mediciones && lote.mediciones.length ? lote.mediciones[lote.mediciones.length - 1] : null;
+        if (ultima) {
+            lotesConMedicion++;
+            kgMsTotal += (ultima.msHa || 0) * (lote.superficie || 0);
+        }
+        (lote.trabajos || []).forEach(t => {
+            if (t.estado === "pendiente") {
+                tareasPendientes++;
+                if (t.fechaPlan < hoy) tareasVencidas++;
+            }
+        });
+    });
+    return { totalLotes: lotes.length, hectareasTotales, kgMsTotal, lotesConMedicion, tareasPendientes, tareasVencidas };
+}
+
+function renderResumenGestionar() {
+    const cont = document.getElementById("gestionarResumen");
+    if (!cont) return;
+    const stats = calcularEstadisticasCampo();
+    if (stats.totalLotes === 0) {
+        cont.innerHTML = '<div class="gestionar-resumen-titulo">Mi campo</div><div class="gestionar-resumen-vacio">Todavía no cargaste lotes. Creá el primero para empezar a ver un resumen acá.</div>';
+        return;
+    }
+    let html = '<div class="gestionar-resumen-titulo">Mi campo</div>';
+    html += '<div class="gestionar-resumen-stats">';
+    html += '<div class="gestionar-resumen-stat"><strong>' + stats.totalLotes + '</strong><span>lote' + (stats.totalLotes === 1 ? '' : 's') + ' · ' + numero(stats.hectareasTotales, 1) + ' ha</span></div>';
+    if (stats.lotesConMedicion > 0) {
+        html += '<div class="gestionar-resumen-stat"><strong>' + numero(stats.kgMsTotal) + '</strong><span>kg MS estimados</span></div>';
+    }
+    if (stats.tareasPendientes > 0) {
+        html += '<div class="gestionar-resumen-stat"><strong>' + stats.tareasPendientes + '</strong><span>🔔 tarea' + (stats.tareasPendientes === 1 ? '' : 's') + ' pendiente' + (stats.tareasPendientes === 1 ? '' : 's') + (stats.tareasVencidas > 0 ? ' (' + stats.tareasVencidas + ' vencida' + (stats.tareasVencidas === 1 ? '' : 's') + ')' : '') + '</span></div>';
+    }
+    html += '</div>';
+    cont.innerHTML = html;
+}
+
+function abrirMisLotes() {
+    ocultarNivelesSuperiores();
     document.getElementById("vistaLotes").style.display = "block";
     mostrarListaLotes();
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function cerrarMisLotes() {
-    document.getElementById("tituloEvaluar").style.display = "";
     document.getElementById("vistaLotes").style.display = "none";
-    document.getElementById("vistaCalculadora").style.display = "";
-    document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "");
-    document.querySelector(".header").style.display = "";
-    document.querySelector(".hero").style.display = "";
-    document.getElementById("rotador").style.display = "";
+    document.getElementById("vistaGestionar").style.display = "block";
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -4387,6 +4957,26 @@ function mostrarSubvistaLotes(nombre) {
     ["lotesLista", "loteFormulario", "loteFicha", "loteHistorial"].forEach(id => {
         document.getElementById(id).style.display = (id === nombre) ? "" : "none";
     });
+}
+
+function tiempoRelativo(fechaIso) {
+    if (!fechaIso) return "";
+    const hoy = new Date(); hoy.setHours(0, 0, 0, 0);
+    const fecha = new Date(fechaIso + "T00:00:00");
+    const dias = Math.round((hoy - fecha) / 86400000);
+    if (dias <= 0) return "hoy";
+    if (dias === 1) return "ayer";
+    if (dias < 30) return "hace " + dias + " días";
+    const meses = Math.floor(dias / 30);
+    if (meses < 12) return "hace " + meses + (meses === 1 ? " mes" : " meses");
+    const anios = Math.floor(meses / 12);
+    return "hace " + anios + (anios === 1 ? " año" : " años");
+}
+
+function semaforoEstado(clase) {
+    if (clase === "muy-bueno" || clase === "bueno") return { emoji: "🟢", texto: "Buen estado" };
+    if (clase === "medio") return { emoji: "🟡", texto: "Estado medio" };
+    return { emoji: "🔴", texto: "Bajo rendimiento" };
 }
 
 function mostrarListaLotes() {
@@ -4400,15 +4990,20 @@ function mostrarListaLotes() {
     cont.innerHTML = lotes.map(lote => {
         const ultima = lote.mediciones.length ? lote.mediciones[lote.mediciones.length - 1] : null;
         const nombreCultivo = obtenerNombreCultivo(lote.cultivo, lote.tipo);
+        const semaforo = ultima ? semaforoEstado(ultima.clase) : null;
         return '<div class="lote-card">' +
             '<div class="lote-card-top">' +
-            '<div><div class="lote-card-nombre">' + escapeHtml(lote.nombre) + '</div><div class="lote-card-sub">' + nombreCultivo + ' · ' + numero(lote.superficie, 2) + ' ha · ' + (lote.tipo === "forraje" ? "Forraje" : "Silaje") + '</div></div>' +
-            (ultima ? '<div class="lote-card-badge ' + ultima.clase + '">' + ultima.categoria + '</div>' : '') +
+            '<div><div class="lote-card-nombre">' + escapeHtml(lote.nombre) + '</div><div class="lote-card-sub">' + nombreCultivo + ' · ' + numero(lote.superficie, 2) + ' ha</div></div>' +
             '</div>' +
-            '<div class="lote-card-datos">' +
-            '<div class="lote-card-dato"><span>Última medición</span><strong>' + (ultima ? formatearFecha(ultima.fecha) : "Sin mediciones") + '</strong></div>' +
-            '<div class="lote-card-dato"><span>MS/ha</span><strong>' + (ultima ? numero(ultima.msHa) + " kg" : "-") + '</strong></div>' +
-            '</div>' +
+            (ultima ?
+                '<div class="lote-card-rendimiento">' +
+                '<div><strong>' + numero(ultima.msHa) + '</strong><span class="unidad-chica">kg MS/ha</span></div>' +
+                '<div class="lote-card-fecha">Última medición: ' + tiempoRelativo(ultima.fecha) + '</div>' +
+                '</div>' +
+                '<div class="lote-card-semaforo ' + ultima.clase + '">' + semaforo.emoji + ' ' + semaforo.texto + '</div>'
+                :
+                '<div class="lote-card-semaforo sin-medir">ℹ️ Todavía sin mediciones</div>'
+            ) +
             '<div class="lote-card-botones">' +
             '<button class="lote-card-mini-btn" onclick="verFichaLote(\'' + lote.id + '\')">VER FICHA</button>' +
             '<button class="lote-card-mini-btn" onclick="editarLote(\'' + lote.id + '\')">EDITAR</button>' +
@@ -4633,10 +5228,12 @@ function trabajarConLote(id) {
     loteActivoId = id;
     document.getElementById("loteActivoTexto").textContent = "🗂️ Trabajando con: " + lote.nombre;
     document.getElementById("loteActivoBanner").style.display = "flex";
-    cerrarMisLotes();
+    document.getElementById("vistaLotes").style.display = "none";
+    document.getElementById("vistaGestionar").style.display = "none";
+    mostrarHome();
     mostrarTipo(lote.tipo);
     setTimeout(() => {
-        const selector = lote.tipo === "silaje" ? '.cultivos-silaje .cultivo[data-cultivo="' + lote.cultivo + '"]' : '.cultivos:not(.cultivos-silaje) .cultivo[data-cultivo="' + lote.cultivo + '"]';
+        const selector = lote.tipo === "silaje" ? '.cultivos-silaje .cultivo[data-cultivo="' + lote.cultivo + '"]' : '.cultivo-item[data-cultivo="' + lote.cultivo + '"]';
         const tarjeta = document.querySelector(selector);
         if (tarjeta) {
             if (lote.tipo === "silaje") seleccionarSilaje(tarjeta);
@@ -4730,27 +5327,15 @@ function exportarInformeLote(id) {
 // =========================================================
 
 function abrirBiblioteca() {
-    document.getElementById("tituloEvaluar").style.display = "none";
-    document.getElementById("vistaCalculadora").style.display = "none";
-    document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "none");
-    document.querySelector(".header").style.display = "none";
-    document.querySelector(".hero").style.display = "none";
-    document.getElementById("rotador").style.display = "none";
-    document.getElementById("vistaLotes").style.display = "none";
-    document.getElementById("vistaAgenda").style.display = "none";
+    ocultarNivelesSuperiores();
     document.getElementById("vistaBiblioteca").style.display = "block";
     renderBiblioteca();
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function cerrarBiblioteca() {
-    document.getElementById("tituloEvaluar").style.display = "";
     document.getElementById("vistaBiblioteca").style.display = "none";
-    document.getElementById("vistaCalculadora").style.display = "";
-    document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "");
-    document.querySelector(".header").style.display = "";
-    document.querySelector(".hero").style.display = "";
-    document.getElementById("rotador").style.display = "";
+    document.getElementById("vistaGestionar").style.display = "block";
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -4805,32 +5390,118 @@ function toggleFichaBiblioteca(elemento) {
 }
 
 // =========================================================
+// PRODUCCIÓN — RESUMEN
+// =========================================================
+
+function abrirProduccion() {
+    ocultarNivelesSuperiores();
+    document.getElementById("vistaProduccion").style.display = "block";
+    renderProduccion();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function cerrarProduccion() {
+    document.getElementById("vistaProduccion").style.display = "none";
+    document.getElementById("vistaGestionar").style.display = "block";
+    renderResumenGestionar();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function renderProduccion() {
+    const cont = document.getElementById("produccionContenido");
+    if (!cont) return;
+    const lotes = cargarLotes();
+    const stats = calcularEstadisticasCampo();
+    if (lotes.length === 0) {
+        cont.innerHTML = '<div class="lote-vacio">Todavía no tenés lotes cargados.<br><button class="btn-ir-lotes" onclick="abrirMisLotes()">IR A MIS LOTES</button></div>';
+        return;
+    }
+    let html = '<div class="ficha-stat-caja"><span class="numero-grande">' + numero(stats.kgMsTotal) + '</span><span class="etiqueta">KG MS ESTIMADOS EN TU CAMPO</span></div>';
+    html += '<div class="ficha-stats-fila">';
+    html += '<div class="ficha-stat-card"><span class="stat-label">Lotes</span><span class="stat-value">' + stats.totalLotes + '</span></div>';
+    html += '<div class="ficha-stat-card"><span class="stat-label">Hectáreas</span><span class="stat-value destacado">' + numero(stats.hectareasTotales, 1) + ' ha</span></div>';
+    html += '</div>';
+    if (stats.lotesConMedicion < stats.totalLotes) {
+        html += '<div class="agenda-sin-clima">ℹ️ ' + (stats.totalLotes - stats.lotesConMedicion) + ' lote(s) todavía no tienen ninguna medición cargada.</div>';
+    }
+    html += '<h3 style="margin:20px 0 10px;color:var(--verde);font-size:15px;">Detalle por lote</h3>';
+    lotes.forEach(lote => {
+        const ultima = lote.mediciones && lote.mediciones.length ? lote.mediciones[lote.mediciones.length - 1] : null;
+        const nombreCultivo = obtenerNombreCultivo(lote.cultivo, lote.tipo);
+        html += '<div class="produccion-lote-fila">' +
+            '<div><strong>' + escapeHtml(lote.nombre) + '</strong><span>' + nombreCultivo + ' · ' + numero(lote.superficie, 2) + ' ha</span></div>' +
+            (ultima ? '<span class="lote-card-badge ' + ultima.clase + '">' + ultima.categoria + '</span>' : '<span class="lote-card-badge" style="background:var(--fondo);color:var(--gris);">SIN MEDIR</span>') +
+            '</div>';
+    });
+    cont.innerHTML = html;
+}
+
+// =========================================================
+// NECESIDADES DE LA MAJADA
+// =========================================================
+
+function abrirNecesidades() {
+    ocultarNivelesSuperiores();
+    document.getElementById("vistaNecesidades").style.display = "block";
+    document.getElementById("necesidadesResultado").innerHTML = "";
+    actualizarCategoriaNecesidad();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function cerrarNecesidades() {
+    document.getElementById("vistaNecesidades").style.display = "none";
+    document.getElementById("vistaGestionar").style.display = "block";
+    renderResumenGestionar();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function actualizarCategoriaNecesidad() {
+    const categoria = categoriasAnimales[document.getElementById("necCategoria").value];
+    document.getElementById("necPeso").value = categoria.peso;
+    document.getElementById("necPorcentaje").value = categoria.porcentaje;
+}
+
+function calcularNecesidades() {
+    const peso = parseFloat(document.getElementById("necPeso").value);
+    const porcentaje = parseFloat(document.getElementById("necPorcentaje").value);
+    const animales = parseFloat(document.getElementById("necAnimales").value);
+    if (!Number.isFinite(peso) || peso <= 0 || !Number.isFinite(porcentaje) || porcentaje <= 0) {
+        alert("Revisá el peso y el % de consumo diario.");
+        return;
+    }
+    if (!Number.isFinite(animales) || animales <= 0) {
+        alert("Ingresá una cantidad de animales válida.");
+        return;
+    }
+    const consumoDiarioPorAnimal = peso * porcentaje / 100;
+    const consumoDiarioTotal = consumoDiarioPorAnimal * animales;
+    const consumoMensual = consumoDiarioTotal * 30;
+    let html = '<div class="necesidad-resultado-caja"><span class="numero-grande">' + numero(consumoDiarioTotal) + ' kg</span><span class="etiqueta">MS NECESARIOS POR DÍA</span></div>';
+    html += '<div class="necesidad-autonomia">Equivale a <strong>' + numero(consumoMensual) + ' kg MS</strong> por mes, para ' + numero(animales, 0) + ' animales de ' + numero(peso, 0) + ' kg (' + numero(consumoDiarioPorAnimal, 1) + ' kg MS/día c/u).</div>';
+    const stats = calcularEstadisticasCampo();
+    if (stats.kgMsTotal > 0) {
+        const diasAutonomia = stats.kgMsTotal / consumoDiarioTotal;
+        html += '<div class="necesidad-autonomia">Con los <strong>' + numero(stats.kgMsTotal) + ' kg MS</strong> estimados en tus lotes, esta majada tendría autonomía para <strong>' + numero(diasAutonomia, 0) + ' días</strong>.</div>';
+    }
+    document.getElementById("necesidadesResultado").innerHTML = html;
+}
+
+// =========================================================
 // AGENDA DE CAMPO
 // =========================================================
 
 const iconosTrabajo = { "Corte": "✂️", "Aplicación": "🧪", "Riego": "💧", "Siembra": "🌱", "Otro": "📌" };
 
 function abrirAgendaCampo() {
-    document.getElementById("tituloEvaluar").style.display = "none";
-    document.getElementById("vistaCalculadora").style.display = "none";
-    document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "none");
-    document.querySelector(".header").style.display = "none";
-    document.querySelector(".hero").style.display = "none";
-    document.getElementById("rotador").style.display = "none";
-    document.getElementById("vistaLotes").style.display = "none";
+    ocultarNivelesSuperiores();
     document.getElementById("vistaAgenda").style.display = "block";
     renderAgendaCampo();
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function cerrarAgendaCampo() {
-    document.getElementById("tituloEvaluar").style.display = "";
     document.getElementById("vistaAgenda").style.display = "none";
-    document.getElementById("vistaCalculadora").style.display = "";
-    document.querySelectorAll(".lotes-banner").forEach(b => b.style.display = "");
-    document.querySelector(".header").style.display = "";
-    document.querySelector(".hero").style.display = "";
-    document.getElementById("rotador").style.display = "";
+    document.getElementById("vistaGestionar").style.display = "block";
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
@@ -5097,10 +5768,6 @@ actualizarVentanaCosecha();
 sincronizarAsesorSilo();
 actualizarCategoria("");
 actualizarCategoria("Silo");
-inicializarCarruselInfinito();
-generarDotsCultivos();
-window.addEventListener("resize", function() { generarDotsCultivos(); actualizarDotsCultivos(); });
-document.getElementById("cultivosScroll")?.addEventListener("scroll", actualizarDotsCultivos, { passive: true });
 
 // =========================================================
 // SERVICE WORKER
