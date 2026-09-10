@@ -4945,6 +4945,8 @@ function guardarLotesStorage(lotes) {
 function ocultarNivelesSuperiores() {
     document.getElementById("tituloEvaluar").style.display = "none";
     document.getElementById("vistaCalculadora").style.display = "none";
+    document.getElementById("bloqueForraje").style.display = "none";
+    document.getElementById("bloqueSilaje").style.display = "none";
     document.getElementById("vistaGestionar").style.display = "none";
     document.getElementById("vistaLotes").style.display = "none";
     document.getElementById("vistaAgenda").style.display = "none";
@@ -4956,12 +4958,20 @@ function ocultarNivelesSuperiores() {
     document.getElementById("rotador").style.display = "none";
 }
 
+function restaurarBloqueActivo() {
+    const tabActivo = document.querySelector(".tipo-tab.activo");
+    const tipo = tabActivo ? tabActivo.dataset.tipo : null;
+    document.getElementById("bloqueForraje").style.display = tipo === "forraje" ? "" : "none";
+    document.getElementById("bloqueSilaje").style.display = tipo === "silaje" ? "" : "none";
+}
+
 function mostrarHome() {
     document.getElementById("tituloEvaluar").style.display = "";
     document.getElementById("vistaCalculadora").style.display = "";
     document.querySelector(".header").style.display = "";
     document.querySelector(".hero").style.display = "";
     document.getElementById("rotador").style.display = "";
+    restaurarBloqueActivo();
 }
 
 function abrirGestionar() {
