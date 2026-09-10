@@ -2410,8 +2410,12 @@ body {
 }
 
 /* ===== LOGO ===== */
+.rotador-panel[data-panel="logo"] {
+    padding-top:10px;
+    padding-bottom:24px;
+}
 .rotador-logo img {
-    height:115px;
+    height:150px;
     width:auto;
 }
 
@@ -2493,12 +2497,26 @@ body {
 }
 
 .rotador.tono-atencion {
-    background:#fdf7ea;
     border-color:#efe0b0;
 }
+.rotador.tono-atencion::before {
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0;
+    height:4px;
+    background:#e0b055;
+    border-radius:var(--radio) var(--radio) 0 0;
+}
 .rotador.tono-bueno {
-    background:#eef8f0;
     border-color:var(--lima);
+}
+.rotador.tono-bueno::before {
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0;
+    height:4px;
+    background:var(--lima);
+    border-radius:var(--radio) var(--radio) 0 0;
 }
 
 /* ===== DOTS ===== */
@@ -2541,8 +2559,12 @@ body {
     .rotador-panel {
         padding:16px 18px 34px;
     }
+    .rotador-panel[data-panel="logo"] {
+        padding-top:6px;
+        padding-bottom:18px;
+    }
     .rotador-logo img {
-        height:80px;
+        height:105px;
     }
     .rotador-clima-temp {
         font-size:34px;
@@ -2578,8 +2600,12 @@ body {
     .rotador-panel {
         padding:12px 14px 30px;
     }
+    .rotador-panel[data-panel="logo"] {
+        padding-top:4px;
+        padding-bottom:14px;
+    }
     .rotador-logo img {
-        height:65px;
+        height:85px;
     }
     .rotador-clima-temp {
         font-size:28px;
