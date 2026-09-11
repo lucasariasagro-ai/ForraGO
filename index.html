@@ -659,49 +659,60 @@ body {
 }
 .cultivo-compacto {
     position:relative;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:8px;
-    padding:14px 8px;
+    height:88px;
     border-radius:16px;
-    border:2px solid var(--borde);
-    background:var(--blanco);
+    border:2px solid transparent;
+    background:#e8ede9;
     cursor:pointer;
-    text-align:center;
+    overflow:hidden;
     transition:var(--transicion);
 }
 .cultivo-compacto:hover {
     transform:translateY(-2px);
-    border-color:var(--verde3);
+    box-shadow:0 10px 24px rgba(26,107,60,.18);
 }
 .cultivo-compacto:active { transform:scale(.97); }
 .cultivo-compacto.activo {
-    border-color:var(--verde);
-    background:var(--verde-claro);
+    border-color:var(--lima);
+    box-shadow:0 0 0 3px rgba(184,217,108,.25);
 }
 .cultivo-compacto-foto {
-    width:40px;
-    height:40px;
-    border-radius:12px;
+    position:absolute;
+    inset:0;
     background-size:cover;
     background-position:center;
+    z-index:0;
+}
+.cultivo-compacto::after {
+    content:"";
+    position:absolute;
+    inset:0;
+    z-index:1;
+    background:linear-gradient(to top, rgba(0,0,0,.68) 0%, rgba(0,0,0,.15) 55%, transparent 78%);
 }
 .cultivo-compacto-nombre {
+    position:absolute;
+    z-index:2;
+    left:8px;
+    right:8px;
+    bottom:7px;
     font-size:10.5px;
-    font-weight:700;
-    color:var(--texto);
-    line-height:1.25;
+    font-weight:800;
+    color:white;
+    line-height:1.2;
+    text-align:left;
+    text-shadow:0 1px 3px rgba(0,0,0,.35);
 }
 .cultivo-compacto-check {
     position:absolute;
+    z-index:3;
     top:6px;
     right:6px;
     width:18px;
     height:18px;
     border-radius:50%;
-    background:var(--verde);
-    color:white;
+    background:var(--lima);
+    color:var(--verde);
     font-size:9px;
     font-weight:900;
     display:flex;
@@ -803,8 +814,8 @@ body {
 }
 
 @media(max-width:420px) {
+    .cultivo-compacto { height:76px; }
     .cultivo-compacto-nombre { font-size:9.5px; }
-    .cultivo-compacto-foto { width:34px; height:34px; }
 }
 
 /* =========================================================
@@ -1823,7 +1834,7 @@ body {
     border:1px solid var(--borde);
     margin-bottom:8px;
 }
-.produccion-lote-fila strong { display:block; font-size:13px; color:var(--verde); font-weight:700; }
+.produccion-lote-fila strong { display:flex; align-items:center; gap:8px; font-size:13px; color:var(--verde); font-weight:700; }
 .produccion-lote-fila span { display:block; margin-top:2px; font-size:10.5px; color:var(--gris); }
 
 .necesidad-resultado-caja {
@@ -1859,6 +1870,53 @@ body {
     text-align:center;
 }
 .necesidad-autonomia strong { color:var(--verde); }
+
+/* =========================================================
+   RESUMEN INTELIGENTE (IA)
+========================================================= */
+
+.resumen-ia {
+    padding:20px 22px;
+    border-radius:18px;
+    background:linear-gradient(135deg, #eef8f0, #f4faf1);
+    border:1.5px solid var(--verde3);
+    margin-bottom:20px;
+}
+.resumen-ia-header {
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:11px;
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:.5px;
+    color:var(--verde2);
+    margin-bottom:8px;
+}
+.resumen-ia-texto {
+    font-size:13px;
+    line-height:1.65;
+    color:var(--texto);
+}
+.resumen-ia-cargando {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-size:12.5px;
+    color:var(--texto-suave);
+}
+.resumen-ia-spinner {
+    width:14px;
+    height:14px;
+    border-radius:50%;
+    border:2px solid var(--borde);
+    border-top-color:var(--verde2);
+    animation:girar .7s linear infinite;
+    flex-shrink:0;
+}
+@keyframes girar {
+    to { transform:rotate(360deg); }
+}
 
 .lotes-nuevo-btn {
     width:100%;
@@ -1902,6 +1960,16 @@ body {
     font-size:17px;
     font-weight:800;
     color:var(--verde);
+    display:flex;
+    align-items:center;
+    gap:8px;
+}
+.lote-color-dot {
+    display:inline-block;
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    flex-shrink:0;
 }
 .lote-card-sub {
     font-size:11px;
@@ -3070,7 +3138,7 @@ body {
     gap:12px;
     margin-bottom:12px;
 }
-.agenda-lote-header strong { display:block; font-size:16px; font-weight:800; color:var(--verde); }
+.agenda-lote-header strong { display:flex; align-items:center; gap:8px; font-size:16px; font-weight:800; color:var(--verde); }
 .agenda-lote-header span { display:block; margin-top:2px; font-size:10.5px; color:var(--gris); }
 
 .agenda-vacia {
@@ -3358,6 +3426,7 @@ body {
             <button class="btn-back" onclick="cerrarProduccion()">Volver</button>
             <h2>📊 Producción</h2>
         </div>
+        <div id="produccionResumenIA" class="resumen-ia" style="display:none;"></div>
         <div id="produccionContenido"></div>
     </div>
 
@@ -4921,6 +4990,18 @@ setTimeout(function() {
 // =========================================================
 
 const LOTES_KEY = "forrago_lotes_v1";
+
+const paletaLotes = ["#2d8f4e", "#3b82c4", "#c9a227", "#8e5fc4", "#c4633b", "#2aa39a", "#c45c94", "#5a7a3c", "#b8622e", "#4a6fa5"];
+
+function colorPorLote(id) {
+    let hash = 0;
+    const str = String(id || "");
+    for (let i = 0; i < str.length; i++) {
+        hash = (hash * 31 + str.charCodeAt(i)) >>> 0;
+    }
+    return paletaLotes[hash % paletaLotes.length];
+}
+
 let loteEditandoId = null;
 let loteActivoId = null;
 let medicionPendienteSufijo = null;
@@ -5084,9 +5165,10 @@ function mostrarListaLotes() {
         const ultima = lote.mediciones.length ? lote.mediciones[lote.mediciones.length - 1] : null;
         const nombreCultivo = obtenerNombreCultivo(lote.cultivo, lote.tipo);
         const semaforo = ultima ? semaforoEstado(ultima.clase) : null;
-        return '<div class="lote-card">' +
+        const colorLote = colorPorLote(lote.id);
+        return '<div class="lote-card" style="border-left:5px solid ' + colorLote + ';">' +
             '<div class="lote-card-top">' +
-            '<div><div class="lote-card-nombre">' + escapeHtml(lote.nombre) + '</div><div class="lote-card-sub">' + nombreCultivo + ' · ' + numero(lote.superficie, 2) + ' ha</div></div>' +
+            '<div><div class="lote-card-nombre"><span class="lote-color-dot" style="background:' + colorLote + ';"></span>' + escapeHtml(lote.nombre) + '</div><div class="lote-card-sub">' + nombreCultivo + ' · ' + numero(lote.superficie, 2) + ' ha</div></div>' +
             '</div>' +
             (ultima ?
                 '<div class="lote-card-rendimiento">' +
@@ -5490,7 +5572,59 @@ function abrirProduccion() {
     ocultarNivelesSuperiores();
     document.getElementById("vistaProduccion").style.display = "block";
     renderProduccion();
+    generarResumenIA();
     window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+async function generarResumenIA() {
+    const cont = document.getElementById("produccionResumenIA");
+    if (!cont) return;
+    const lotes = cargarLotes();
+    if (lotes.length === 0) {
+        cont.style.display = "none";
+        return;
+    }
+    cont.style.display = "block";
+    cont.innerHTML = '<div class="resumen-ia-cargando"><span class="resumen-ia-spinner"></span> Analizando tu campo...</div>';
+
+    const hoy = new Date().toISOString().slice(0, 10);
+    const datos = lotes.map(lote => {
+        const ultima = lote.mediciones && lote.mediciones.length ? lote.mediciones[lote.mediciones.length - 1] : null;
+        const pendientes = (lote.trabajos || []).filter(t => t.estado === "pendiente");
+        const vencidas = pendientes.filter(t => t.fechaPlan < hoy).length;
+        return {
+            nombre: lote.nombre,
+            cultivo: obtenerNombreCultivo(lote.cultivo, lote.tipo),
+            superficie_ha: lote.superficie,
+            ultima_medicion: ultima ? { kg_ms_ha: ultima.msHa, categoria: ultima.categoria, fecha: ultima.fecha } : null,
+            tareas_pendientes: pendientes.length,
+            tareas_vencidas: vencidas
+        };
+    });
+
+    const prompt = "Sos un asesor agronómico argentino, breve y directo. Con estos datos de los lotes de un productor forrajero, escribí un resumen de 2 a 4 oraciones, en español rioplatense, tono cercano y profesional, sin markdown ni listas ni títulos. Priorizá lo más urgente (tareas vencidas, lotes con bajo rendimiento o sin medir) y mencioná también lo que viene bien. Datos de los lotes en JSON: " + JSON.stringify(datos);
+
+    try {
+        const response = await fetch("https://api.anthropic.com/v1/messages", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                model: "claude-sonnet-4-6",
+                max_tokens: 1000,
+                messages: [{ role: "user", content: prompt }]
+            })
+        });
+        if (!response.ok) throw new Error("respuesta no ok");
+        const data = await response.json();
+        const texto = (data.content || [])
+            .filter(bloque => bloque.type === "text")
+            .map(bloque => bloque.text)
+            .join("\n")
+            .trim();
+        cont.innerHTML = '<div class="resumen-ia-header">🤖 Resumen inteligente</div><div class="resumen-ia-texto">' + escapeHtml(texto || "No pude generar un resumen esta vez.") + '</div>';
+    } catch (e) {
+        cont.innerHTML = '<div class="resumen-ia-header">🤖 Resumen inteligente</div><div class="resumen-ia-texto">No se pudo generar el resumen en este momento. Probá de nuevo más tarde.</div>';
+    }
 }
 
 function cerrarProduccion() {
@@ -5521,8 +5655,9 @@ function renderProduccion() {
     lotes.forEach(lote => {
         const ultima = lote.mediciones && lote.mediciones.length ? lote.mediciones[lote.mediciones.length - 1] : null;
         const nombreCultivo = obtenerNombreCultivo(lote.cultivo, lote.tipo);
-        html += '<div class="produccion-lote-fila">' +
-            '<div><strong>' + escapeHtml(lote.nombre) + '</strong><span>' + nombreCultivo + ' · ' + numero(lote.superficie, 2) + ' ha</span></div>' +
+        const colorLote = colorPorLote(lote.id);
+        html += '<div class="produccion-lote-fila" style="border-left:4px solid ' + colorLote + ';">' +
+            '<div><strong><span class="lote-color-dot" style="background:' + colorLote + ';"></span>' + escapeHtml(lote.nombre) + '</strong><span>' + nombreCultivo + ' · ' + numero(lote.superficie, 2) + ' ha</span></div>' +
             (ultima ? '<span class="lote-card-badge ' + ultima.clase + '">' + ultima.categoria + '</span>' : '<span class="lote-card-badge" style="background:var(--fondo);color:var(--gris);">SIN MEDIR</span>') +
             '</div>';
     });
@@ -5613,6 +5748,7 @@ function renderTrabajosFicha(lote) {
     const pendientes = trabajosPendientes(lote);
     const realizados = trabajosRealizados(lote);
     const hoy = new Date().toISOString().slice(0, 10);
+    const colorLote = colorPorLote(lote.id);
     
     let html = '<div class="trabajos-caja">';
     html += '<div class="trabajos-caja-titulo">';
@@ -5626,7 +5762,7 @@ function renderTrabajosFicha(lote) {
         pendientes.forEach(t => {
             const vencido = t.fechaPlan < hoy;
             const alerta = evaluarAlertaTrabajo(t, lote, climaDiarioActual);
-            html += '<div class="trabajo-item' + (vencido ? " vencido" : "") + '">';
+            html += '<div class="trabajo-item' + (vencido ? " vencido" : "") + '" style="border-left:4px solid ' + colorLote + ';">';
             html += '<span class="trabajo-icono">' + (iconosTrabajo[t.tipo] || "📌") + '</span>';
             html += '<div class="trabajo-info">';
             html += '<strong>' + escapeHtml(t.tipo) + (t.producto ? " — " + escapeHtml(t.producto) : "") + '</strong>';
@@ -5660,7 +5796,7 @@ function renderTrabajosFicha(lote) {
         html += '</div>';
         html += '<div class="trabajos-historial-panel" id="historialPanel_' + lote.id + '">';
         realizados.forEach(t => {
-            html += '<div class="trabajo-item">';
+            html += '<div class="trabajo-item" style="border-left:4px solid ' + colorLote + ';">';
             html += '<span class="trabajo-icono">' + (iconosTrabajo[t.tipo] || "📌") + '</span>';
             html += '<div class="trabajo-info">';
             html += '<strong>' + escapeHtml(t.tipo) + (t.producto ? " — " + escapeHtml(t.producto) : "") + '</strong>';
@@ -5775,7 +5911,8 @@ function evaluarAlertaTrabajo(trabajo, lote, daily) {
 
 function renderLoteAgendaCard(lote) {
     const nombreCultivo = obtenerNombreCultivo(lote.cultivo, lote.tipo);
-    let html = '<div class="agenda-lote-card"><div class="agenda-lote-header"><div><strong>' + escapeHtml(lote.nombre) + '</strong><span>' + nombreCultivo + ' · ' + numero(lote.superficie, 2) + ' ha</span></div><button class="btn-secundario" onclick="verFichaLoteDesdeAgenda(\'' + lote.id + '\')">VER FICHA</button></div>';
+    const colorLote = colorPorLote(lote.id);
+    let html = '<div class="agenda-lote-card" style="border-left:5px solid ' + colorLote + '; padding-left:14px;"><div class="agenda-lote-header"><div><strong><span class="lote-color-dot" style="background:' + colorLote + ';"></span>' + escapeHtml(lote.nombre) + '</strong><span>' + nombreCultivo + ' · ' + numero(lote.superficie, 2) + ' ha</span></div><button class="btn-secundario" onclick="verFichaLoteDesdeAgenda(\'' + lote.id + '\')">VER FICHA</button></div>';
     html += renderTrabajosFicha(lote);
     html += '</div>';
     return html;
