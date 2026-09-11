@@ -1744,11 +1744,24 @@ body {
     flex-wrap:wrap;
 }
 .lotes-header h2 {
-    font-size:24px;
+    font-size:23px;
     font-weight:800;
-    letter-spacing:-.6px;
-    color:var(--texto);
+    letter-spacing:-.5px;
+    color:var(--verde);
     margin:0;
+    position:relative;
+    padding-left:16px;
+}
+.lotes-header h2::before {
+    content:"";
+    position:absolute;
+    left:0;
+    top:50%;
+    transform:translateY(-50%);
+    width:5px;
+    height:24px;
+    border-radius:4px;
+    background:linear-gradient(180deg, var(--verde2), var(--lima));
 }
 .lotes-header-filtros {
     display:flex;
@@ -1870,53 +1883,6 @@ body {
     text-align:center;
 }
 .necesidad-autonomia strong { color:var(--verde); }
-
-/* =========================================================
-   RESUMEN INTELIGENTE (IA)
-========================================================= */
-
-.resumen-ia {
-    padding:20px 22px;
-    border-radius:18px;
-    background:linear-gradient(135deg, #eef8f0, #f4faf1);
-    border:1.5px solid var(--verde3);
-    margin-bottom:20px;
-}
-.resumen-ia-header {
-    display:flex;
-    align-items:center;
-    gap:8px;
-    font-size:11px;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:.5px;
-    color:var(--verde2);
-    margin-bottom:8px;
-}
-.resumen-ia-texto {
-    font-size:13px;
-    line-height:1.65;
-    color:var(--texto);
-}
-.resumen-ia-cargando {
-    display:flex;
-    align-items:center;
-    gap:10px;
-    font-size:12.5px;
-    color:var(--texto-suave);
-}
-.resumen-ia-spinner {
-    width:14px;
-    height:14px;
-    border-radius:50%;
-    border:2px solid var(--borde);
-    border-top-color:var(--verde2);
-    animation:girar .7s linear infinite;
-    flex-shrink:0;
-}
-@keyframes girar {
-    to { transform:rotate(360deg); }
-}
 
 .lotes-nuevo-btn {
     width:100%;
@@ -2818,7 +2784,8 @@ body {
     .btn-secundario { padding:12px; font-size:8px; }
     .cultivos-scroll { grid-template-rows:repeat(2,165px); }
     .cultivo { height:165px; }
-    .lotes-header h2 { font-size:20px; }
+    .lotes-header h2 { font-size:19px; padding-left:13px; }
+    .lotes-header h2::before { height:20px; }
     .lotes-header-filtros { width:100%; }
     .lotes-header-filtros select { flex:1; }
     .welcome-screen .header { padding-top:2px; }
@@ -3426,7 +3393,6 @@ body {
             <button class="btn-back" onclick="cerrarProduccion()">Volver</button>
             <h2>📊 Producción</h2>
         </div>
-        <div id="produccionResumenIA" class="resumen-ia" style="display:none;"></div>
         <div id="produccionContenido"></div>
     </div>
 
@@ -5572,59 +5538,7 @@ function abrirProduccion() {
     ocultarNivelesSuperiores();
     document.getElementById("vistaProduccion").style.display = "block";
     renderProduccion();
-    generarResumenIA();
     window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-async function generarResumenIA() {
-    const cont = document.getElementById("produccionResumenIA");
-    if (!cont) return;
-    const lotes = cargarLotes();
-    if (lotes.length === 0) {
-        cont.style.display = "none";
-        return;
-    }
-    cont.style.display = "block";
-    cont.innerHTML = '<div class="resumen-ia-cargando"><span class="resumen-ia-spinner"></span> Analizando tu campo...</div>';
-
-    const hoy = new Date().toISOString().slice(0, 10);
-    const datos = lotes.map(lote => {
-        const ultima = lote.mediciones && lote.mediciones.length ? lote.mediciones[lote.mediciones.length - 1] : null;
-        const pendientes = (lote.trabajos || []).filter(t => t.estado === "pendiente");
-        const vencidas = pendientes.filter(t => t.fechaPlan < hoy).length;
-        return {
-            nombre: lote.nombre,
-            cultivo: obtenerNombreCultivo(lote.cultivo, lote.tipo),
-            superficie_ha: lote.superficie,
-            ultima_medicion: ultima ? { kg_ms_ha: ultima.msHa, categoria: ultima.categoria, fecha: ultima.fecha } : null,
-            tareas_pendientes: pendientes.length,
-            tareas_vencidas: vencidas
-        };
-    });
-
-    const prompt = "Sos un asesor agronómico argentino, breve y directo. Con estos datos de los lotes de un productor forrajero, escribí un resumen de 2 a 4 oraciones, en español rioplatense, tono cercano y profesional, sin markdown ni listas ni títulos. Priorizá lo más urgente (tareas vencidas, lotes con bajo rendimiento o sin medir) y mencioná también lo que viene bien. Datos de los lotes en JSON: " + JSON.stringify(datos);
-
-    try {
-        const response = await fetch("https://api.anthropic.com/v1/messages", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-                model: "claude-sonnet-4-6",
-                max_tokens: 1000,
-                messages: [{ role: "user", content: prompt }]
-            })
-        });
-        if (!response.ok) throw new Error("respuesta no ok");
-        const data = await response.json();
-        const texto = (data.content || [])
-            .filter(bloque => bloque.type === "text")
-            .map(bloque => bloque.text)
-            .join("\n")
-            .trim();
-        cont.innerHTML = '<div class="resumen-ia-header">🤖 Resumen inteligente</div><div class="resumen-ia-texto">' + escapeHtml(texto || "No pude generar un resumen esta vez.") + '</div>';
-    } catch (e) {
-        cont.innerHTML = '<div class="resumen-ia-header">🤖 Resumen inteligente</div><div class="resumen-ia-texto">No se pudo generar el resumen en este momento. Probá de nuevo más tarde.</div>';
-    }
 }
 
 function cerrarProduccion() {
