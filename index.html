@@ -207,6 +207,74 @@ body {
     box-shadow:0 12px 35px rgba(0,0,0,.22);
 }
 
+/* =========================================================
+   LOGIN (dentro del hero)
+========================================================= */
+
+.login-card {
+    margin-top:28px;
+    max-width:340px;
+    padding:22px;
+    border-radius:18px;
+    background:rgba(255,255,255,.96);
+    box-shadow:0 12px 40px rgba(0,0,0,.2);
+}
+.login-campo {
+    margin-bottom:10px;
+}
+.login-campo input {
+    width:100%;
+    padding:13px 16px;
+    border-radius:12px;
+    border:1.5px solid var(--borde);
+    background:var(--fondo);
+    font-family:inherit;
+    font-size:13.5px;
+    color:var(--texto);
+    transition:var(--transicion);
+}
+.login-campo input:focus {
+    outline:none;
+    border-color:var(--verde3);
+    background:var(--blanco);
+    box-shadow:0 0 0 4px rgba(45,143,78,.1);
+}
+.login-btn {
+    width:100%;
+    margin-top:4px;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg, var(--verde), var(--verde2));
+    color:white;
+    font-family:inherit;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:.6px;
+    cursor:pointer;
+    transition:var(--transicion);
+    box-shadow:0 6px 20px rgba(26,107,60,.25);
+}
+.login-btn:hover {
+    transform:translateY(-2px);
+    box-shadow:0 10px 28px rgba(26,107,60,.35);
+}
+.login-btn:active { transform:scale(.98); }
+.login-toggle {
+    display:block;
+    margin-top:14px;
+    text-align:center;
+    font-size:11px;
+    font-weight:600;
+    color:var(--verde2);
+    text-decoration:none;
+}
+.login-toggle:hover { text-decoration:underline; }
+
+@media(max-width:600px) {
+    .login-card { max-width:100%; padding:18px; }
+}
+
 @media(max-width:600px) {
     .hero-contenido { padding:32px 24px; }
     .hero { min-height:340px; }
@@ -3219,7 +3287,17 @@ body {
                 <span class="hero-palabra">Decidí.</span>
             </h1>
             <p>Transformá una medición de tu forraje en información útil para decidir.</p>
-            <a href="#" class="hero-btn" onclick="abrirApp(); return false;">EMPEZAR</a>
+
+            <div class="login-card">
+                <div class="login-campo">
+                    <input id="loginEmail" type="email" placeholder="Email" autocomplete="email">
+                </div>
+                <div class="login-campo">
+                    <input id="loginPassword" type="password" placeholder="Contraseña" autocomplete="current-password">
+                </div>
+                <button id="loginBtnPrincipal" class="login-btn" onclick="enviarLogin()">INICIAR SESIÓN</button>
+                <a href="#" id="loginToggleLink" class="login-toggle" onclick="toggleModoLogin(); return false;">¿No tenés cuenta? Creá una</a>
+            </div>
         </div>
     </section>
 
@@ -4065,7 +4143,8 @@ body {
     <footer class="footer">
         <strong>ForraGO</strong> · Inteligencia forrajera<br>
         Herramienta para la gestión productiva forrajera.<br>
-        Versión de prueba
+        Versión de prueba<br>
+        <a href="#" onclick="cerrarSesion(); return false;" style="color:var(--gris);text-decoration:underline;">Cerrar sesión</a>
     </footer>
 
 </div>
@@ -4942,13 +5021,55 @@ function abrirApp() {
     }, 2000);
 }
 
+const SESION_KEY = "forrago_sesion_v1";
+
+let modoLogin = "ingresar";
+
+function toggleModoLogin() {
+    modoLogin = modoLogin === "ingresar" ? "crear" : "ingresar";
+    const btn = document.getElementById("loginBtnPrincipal");
+    const link = document.getElementById("loginToggleLink");
+    if (modoLogin === "ingresar") {
+        btn.textContent = "INICIAR SESIÓN";
+        link.textContent = "¿No tenés cuenta? Creá una";
+    } else {
+        btn.textContent = "CREAR CUENTA";
+        link.textContent = "¿Ya tenés cuenta? Iniciá sesión";
+    }
+}
+
+function enviarLogin() {
+    const email = document.getElementById("loginEmail").value.trim();
+    const pass = document.getElementById("loginPassword").value;
+    if (!email || !pass) {
+        alert("Completá tu email y contraseña.");
+        return;
+    }
+    // NOTA: todavía no hay backend de cuentas real. Esto guarda una
+    // sesión simulada en el propio dispositivo para poder probar el
+    // flujo de pantallas. Cuando exista el backend, reemplazar esta
+    // función por la llamada real de login/registro.
+    localStorage.setItem(SESION_KEY, email);
+    abrirApp();
+}
+
+function cerrarSesion() {
+    localStorage.removeItem(SESION_KEY);
+    location.reload();
+}
+
 document.getElementById("splashLogo").src = document.querySelector(".logo-principal").src;
 
 setTimeout(function() {
     document.getElementById("splash").classList.add("oculto");
-    document.querySelectorAll(".hero-palabra").forEach(function(palabra, i) {
-        setTimeout(function() { palabra.classList.add("mostrar"); }, i * 230);
-    });
+    const yaTieneSesion = localStorage.getItem(SESION_KEY);
+    if (yaTieneSesion) {
+        abrirApp();
+    } else {
+        document.querySelectorAll(".hero-palabra").forEach(function(palabra, i) {
+            setTimeout(function() { palabra.classList.add("mostrar"); }, i * 230);
+        });
+    }
 }, 2000);
 
 // =========================================================
