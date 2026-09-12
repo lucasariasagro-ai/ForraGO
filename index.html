@@ -158,6 +158,12 @@ body {
     z-index:2;
     padding:50px 44px;
 }
+@media(min-width:900px) {
+    .hero-contenido {
+        max-width:480px;
+        margin:0 auto;
+    }
+}
 .hero h1 {
     color:white;
     font-size:clamp(44px,7vw,74px);
@@ -2840,6 +2846,41 @@ body {
 
 .app-shell-hidden { display:none!important; }
 
+.boton-cuenta-flotante {
+    position:fixed;
+    top:16px;
+    right:16px;
+    z-index:60;
+    width:40px;
+    height:40px;
+    border-radius:50%;
+    border:1px solid var(--borde);
+    background:var(--blanco);
+    box-shadow:var(--sombra);
+    font-size:17px;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:var(--transicion);
+}
+.boton-cuenta-flotante:hover {
+    transform:scale(1.05);
+    box-shadow:var(--sombra-hover);
+    border-color:var(--verde3);
+}
+.boton-cuenta-flotante:active { transform:scale(.95); }
+
+@media(max-width:600px) {
+    .boton-cuenta-flotante {
+        top:10px;
+        right:10px;
+        width:36px;
+        height:36px;
+        font-size:15px;
+    }
+}
+
 /* =========================================================
    RESPONSIVE
 ========================================================= */
@@ -3318,6 +3359,8 @@ body {
 ========================================================= -->
 
 <div id="appShell" class="app-shell-hidden">
+
+    <button id="btnCuenta" class="boton-cuenta-flotante" onclick="confirmarCerrarSesion()" title="Cerrar sesión">👤</button>
 
     <!-- =========================================================
        ROTADOR DE INFORMACIÓN
@@ -4043,6 +4086,7 @@ body {
         <div id="lotesLista">
             <button class="lotes-nuevo-btn" onclick="abrirFormularioLote()">➕ Nuevo lote</button>
             <div id="lotesListaContenido"></div>
+            <div class="asesor-link" onclick="migrarLotesViejos()">¿Tenías lotes guardados en este dispositivo antes de tener cuenta? Recuperarlos</div>
         </div>
         <div id="loteFormulario" style="display:none;">
             <div class="form-group">
@@ -4143,8 +4187,7 @@ body {
     <footer class="footer">
         <strong>ForraGO</strong> · Inteligencia forrajera<br>
         Herramienta para la gestión productiva forrajera.<br>
-        Versión de prueba<br>
-        <a href="#" onclick="cerrarSesion(); return false;" style="color:var(--gris);text-decoration:underline;">Cerrar sesión</a>
+        Versión de prueba
     </footer>
 
 </div>
@@ -5092,6 +5135,12 @@ async function cerrarSesion() {
     location.reload();
 }
 
+function confirmarCerrarSesion() {
+    if (confirm("¿Cerrar sesión?")) {
+        cerrarSesion();
+    }
+}
+
 document.getElementById("splashLogo").src = document.querySelector(".logo-principal").src;
 
 setTimeout(async function() {
@@ -5193,6 +5242,57 @@ async function eliminarLoteSupabase(id) {
     const { error } = await sb.from("lotes").delete().eq("id", id);
     if (error) { alert("No se pudo eliminar el lote: " + error.message); return false; }
     return true;
+}
+
+async function migrarLotesViejos() {
+    const CLAVE_VIEJA = "forrago_lotes_v1";
+    const dataVieja = localStorage.getItem(CLAVE_VIEJA);
+    if (!dataVieja) {
+        alert("No encontré lotes guardados en este dispositivo (o ya los recuperaste antes).");
+        return;
+    }
+    let lotesViejos;
+    try {
+        lotesViejos = JSON.parse(dataVieja);
+    } catch (e) {
+        alert("No pude leer los datos guardados en este dispositivo.");
+        return;
+    }
+    if (!Array.isArray(lotesViejos) || lotesViejos.length === 0) {
+        alert("No encontré lotes guardados en este dispositivo.");
+        return;
+    }
+    const nombres = lotesViejos.map(l => l.nombre).join(", ");
+    if (!confirm("Encontré " + lotesViejos.length + " lote(s) en este dispositivo: " + nombres + ".\n\n¿Los subo a tu cuenta?")) return;
+
+    let exitosos = 0;
+    for (const loteViejo of lotesViejos) {
+        const lote = {
+            id: null,
+            nombre: loteViejo.nombre || "Lote sin nombre",
+            superficie: loteViejo.superficie || 0.01,
+            tipo: loteViejo.tipo || "forraje",
+            cultivo: loteViejo.cultivo || "alfalfa",
+            variedad: loteViejo.variedad || "",
+            riego: loteViejo.riego || "Secano",
+            fechaSiembra: loteViejo.fechaSiembra || "",
+            anio: loteViejo.anio || 1,
+            observaciones: loteViejo.observaciones || "",
+            mediciones: loteViejo.mediciones || [],
+            trabajos: loteViejo.trabajos || []
+        };
+        const idGuardado = await guardarLoteSupabase(lote);
+        if (idGuardado) exitosos++;
+    }
+
+    if (exitosos > 0) {
+        // Guardamos una copia de respaldo por las dudas, y limpiamos la clave vieja
+        // para no ofrecer migrar de nuevo los mismos lotes la próxima vez.
+        localStorage.setItem(CLAVE_VIEJA + "_respaldo", dataVieja);
+        localStorage.removeItem(CLAVE_VIEJA);
+    }
+    alert("Listo: se subieron " + exitosos + " de " + lotesViejos.length + " lote(s) a tu cuenta.");
+    mostrarListaLotes();
 }
 
 function ocultarNivelesSuperiores() {
