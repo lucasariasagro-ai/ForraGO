@@ -4155,7 +4155,19 @@ body {
    SCRIPTS
 ========================================================= -->
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+
+// =========================================================
+// SUPABASE — CONEXIÓN
+// =========================================================
+// Reemplazá estos dos valores por los de TU proyecto:
+// Project Settings > API > Project URL / anon public key
+const SUPABASE_URL = "https://mvgujzirgqmtkwneoshw.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_ofo6RgRPP9S0PaWf3itUUQ_tcw0SYqx";
+
+const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
 
 // =========================================================
 // DATOS CULTIVOS
@@ -5021,8 +5033,6 @@ function abrirApp() {
     }, 2000);
 }
 
-const SESION_KEY = "forrago_sesion_v1";
-
 let modoLogin = "ingresar";
 
 function toggleModoLogin() {
@@ -5038,32 +5048,56 @@ function toggleModoLogin() {
     }
 }
 
-function enviarLogin() {
+async function enviarLogin() {
     const email = document.getElementById("loginEmail").value.trim();
     const pass = document.getElementById("loginPassword").value;
     if (!email || !pass) {
         alert("Completá tu email y contraseña.");
         return;
     }
-    // NOTA: todavía no hay backend de cuentas real. Esto guarda una
-    // sesión simulada en el propio dispositivo para poder probar el
-    // flujo de pantallas. Cuando exista el backend, reemplazar esta
-    // función por la llamada real de login/registro.
-    localStorage.setItem(SESION_KEY, email);
-    abrirApp();
+    const boton = document.getElementById("loginBtnPrincipal");
+    const textoOriginal = boton.textContent;
+    boton.textContent = "UN MOMENTO...";
+    boton.disabled = true;
+
+    if (modoLogin === "ingresar") {
+        const { error } = await sb.auth.signInWithPassword({ email, password: pass });
+        if (error) {
+            alert("No se pudo iniciar sesión: " + error.message);
+            boton.textContent = textoOriginal;
+            boton.disabled = false;
+            return;
+        }
+        abrirApp();
+    } else {
+        const { data, error } = await sb.auth.signUp({ email, password: pass });
+        if (error) {
+            alert("No se pudo crear la cuenta: " + error.message);
+            boton.textContent = textoOriginal;
+            boton.disabled = false;
+            return;
+        }
+        if (data.session) {
+            abrirApp();
+        } else {
+            alert("Cuenta creada. Revisá tu email para confirmarla y después iniciá sesión.");
+            toggleModoLogin();
+            boton.disabled = false;
+        }
+    }
 }
 
-function cerrarSesion() {
-    localStorage.removeItem(SESION_KEY);
+async function cerrarSesion() {
+    await sb.auth.signOut();
     location.reload();
 }
 
 document.getElementById("splashLogo").src = document.querySelector(".logo-principal").src;
 
-setTimeout(function() {
+setTimeout(async function() {
     document.getElementById("splash").classList.add("oculto");
-    const yaTieneSesion = localStorage.getItem(SESION_KEY);
-    if (yaTieneSesion) {
+    const { data } = await sb.auth.getSession();
+    if (data.session) {
         abrirApp();
     } else {
         document.querySelectorAll(".hero-palabra").forEach(function(palabra, i) {
@@ -5075,8 +5109,6 @@ setTimeout(function() {
 // =========================================================
 // MIS LOTES
 // =========================================================
-
-const LOTES_KEY = "forrago_lotes_v1";
 
 const paletaLotes = ["#2d8f4e", "#3b82c4", "#c9a227", "#8e5fc4", "#c4633b", "#2aa39a", "#c45c94", "#5a7a3c", "#b8622e", "#4a6fa5"];
 
@@ -5093,21 +5125,74 @@ let loteEditandoId = null;
 let loteActivoId = null;
 let medicionPendienteSufijo = null;
 
-function cargarLotes() {
-    try {
-        const data = localStorage.getItem(LOTES_KEY);
-        return data ? JSON.parse(data) : [];
-    } catch (e) { return []; }
+// =========================================================
+// LOTES — CAPA DE DATOS (Supabase)
+// =========================================================
+
+function rowToLote(row) {
+    return {
+        id: row.id,
+        nombre: row.nombre,
+        superficie: row.superficie,
+        tipo: row.tipo,
+        cultivo: row.cultivo,
+        variedad: row.variedad || "",
+        riego: row.riego || "Secano",
+        fechaSiembra: row.fecha_siembra || "",
+        anio: row.anio || 1,
+        observaciones: row.observaciones || "",
+        mediciones: row.mediciones || [],
+        trabajos: row.trabajos || []
+    };
 }
 
-function guardarLotesStorage(lotes) {
-    try {
-        localStorage.setItem(LOTES_KEY, JSON.stringify(lotes));
-        return true;
-    } catch (e) {
-        alert("No se pudo guardar el lote.");
-        return false;
+function loteToRow(lote) {
+    return {
+        nombre: lote.nombre,
+        superficie: lote.superficie,
+        tipo: lote.tipo,
+        cultivo: lote.cultivo,
+        variedad: lote.variedad || null,
+        riego: lote.riego || "Secano",
+        fecha_siembra: lote.fechaSiembra || null,
+        anio: lote.anio || 1,
+        observaciones: lote.observaciones || null,
+        mediciones: lote.mediciones || [],
+        trabajos: lote.trabajos || []
+    };
+}
+
+async function cargarLotes() {
+    const { data, error } = await sb.from("lotes").select("*").order("created_at", { ascending: true });
+    if (error) {
+        console.error("Error cargando lotes:", error);
+        return [];
     }
+    return data.map(rowToLote);
+}
+
+async function obtenerLotePorId(id) {
+    const { data, error } = await sb.from("lotes").select("*").eq("id", id).single();
+    if (error || !data) return null;
+    return rowToLote(data);
+}
+
+async function guardarLoteSupabase(lote) {
+    if (lote.id) {
+        const { error } = await sb.from("lotes").update(loteToRow(lote)).eq("id", lote.id);
+        if (error) { alert("No se pudo guardar el lote: " + error.message); return null; }
+        return lote.id;
+    } else {
+        const { data, error } = await sb.from("lotes").insert(loteToRow(lote)).select("id").single();
+        if (error) { alert("No se pudo guardar el lote: " + error.message); return null; }
+        return data.id;
+    }
+}
+
+async function eliminarLoteSupabase(id) {
+    const { error } = await sb.from("lotes").delete().eq("id", id);
+    if (error) { alert("No se pudo eliminar el lote: " + error.message); return false; }
+    return true;
 }
 
 function ocultarNivelesSuperiores() {
@@ -5155,8 +5240,8 @@ function cerrarGestionar() {
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function calcularEstadisticasCampo() {
-    const lotes = cargarLotes();
+async function calcularEstadisticasCampo() {
+    const lotes = await cargarLotes();
     const hoy = new Date().toISOString().slice(0, 10);
     let hectareasTotales = 0;
     let kgMsTotal = 0;
@@ -5180,10 +5265,10 @@ function calcularEstadisticasCampo() {
     return { totalLotes: lotes.length, hectareasTotales, kgMsTotal, lotesConMedicion, tareasPendientes, tareasVencidas };
 }
 
-function renderResumenGestionar() {
+async function renderResumenGestionar() {
     const cont = document.getElementById("gestionarResumen");
     if (!cont) return;
-    const stats = calcularEstadisticasCampo();
+    const stats = await calcularEstadisticasCampo();
     if (stats.totalLotes === 0) {
         cont.innerHTML = '<div class="gestionar-resumen-titulo">Mi campo</div><div class="gestionar-resumen-vacio">Todavía no cargaste lotes. Creá el primero para empezar a ver un resumen acá.</div>';
         return;
@@ -5240,10 +5325,11 @@ function semaforoEstado(clase) {
     return { emoji: "🔴", texto: "Bajo rendimiento" };
 }
 
-function mostrarListaLotes() {
+async function mostrarListaLotes() {
     mostrarSubvistaLotes("lotesLista");
-    const lotes = cargarLotes();
     const cont = document.getElementById("lotesListaContenido");
+    cont.innerHTML = '<div class="lote-vacio">Cargando tus lotes...</div>';
+    const lotes = await cargarLotes();
     if (lotes.length === 0) {
         cont.innerHTML = '<div class="lote-vacio">Todavía no creaste ningún lote.<br>Tocá "➕ Nuevo lote" para empezar.</div>';
         return;
@@ -5295,9 +5381,8 @@ function abrirFormularioLote() {
     mostrarSubvistaLotes("loteFormulario");
 }
 
-function editarLote(id) {
-    const lotes = cargarLotes();
-    const lote = lotes.find(l => l.id === id);
+async function editarLote(id) {
+    const lote = await obtenerLotePorId(id);
     if (!lote) return;
     loteEditandoId = id;
     document.getElementById("loteNombre").value = lote.nombre;
@@ -5318,14 +5403,13 @@ function cancelarFormularioLote() {
     mostrarListaLotes();
 }
 
-function guardarLote() {
+async function guardarLote() {
     const nombre = document.getElementById("loteNombre").value.trim();
     const superficie = parseFloat(document.getElementById("loteSuperficie").value);
     if (!nombre) { alert("Ponele un nombre al lote."); return; }
     if (!Number.isFinite(superficie) || superficie <= 0) { alert("Ingresá una superficie válida."); return; }
-    const lotes = cargarLotes();
     const datosLote = {
-        id: loteEditandoId || String(Date.now()),
+        id: loteEditandoId || null,
         nombre, superficie,
         tipo: document.getElementById("loteTipo").value,
         cultivo: document.getElementById("loteCultivo").value,
@@ -5338,35 +5422,29 @@ function guardarLote() {
         trabajos: []
     };
     if (loteEditandoId) {
-        const idx = lotes.findIndex(l => l.id === loteEditandoId);
-        datosLote.mediciones = lotes[idx].mediciones;
-        datosLote.trabajos = lotes[idx].trabajos || [];
-        lotes[idx] = datosLote;
-    } else {
-        lotes.push(datosLote);
+        const existente = await obtenerLotePorId(loteEditandoId);
+        datosLote.mediciones = existente ? existente.mediciones : [];
+        datosLote.trabajos = existente ? existente.trabajos : [];
     }
-    if (guardarLotesStorage(lotes)) {
-        if (medicionPendienteSufijo !== null) {
-            const sufijoPendiente = medicionPendienteSufijo;
-            medicionPendienteSufijo = null;
-            const lotesActualizados = cargarLotes();
-            const idx = lotesActualizados.findIndex(l => l.id === datosLote.id);
-            if (idx !== -1) {
-                lotesActualizados[idx].mediciones.push(construirMedicion(sufijoPendiente));
-                guardarLotesStorage(lotesActualizados);
-            }
-            verFichaLote(datosLote.id);
-        } else {
-            mostrarListaLotes();
+    const idGuardado = await guardarLoteSupabase(datosLote);
+    if (!idGuardado) return;
+    if (medicionPendienteSufijo !== null) {
+        const sufijoPendiente = medicionPendienteSufijo;
+        medicionPendienteSufijo = null;
+        const loteActualizado = await obtenerLotePorId(idGuardado);
+        if (loteActualizado) {
+            loteActualizado.mediciones.push(construirMedicion(sufijoPendiente));
+            await guardarLoteSupabase(loteActualizado);
         }
+        verFichaLote(idGuardado);
+    } else {
+        mostrarListaLotes();
     }
 }
 
-function eliminarLote(id) {
+async function eliminarLote(id) {
     if (!confirm("¿Eliminar este lote y todo su historial?")) return;
-    let lotes = cargarLotes();
-    lotes = lotes.filter(l => l.id !== id);
-    guardarLotesStorage(lotes);
+    await eliminarLoteSupabase(id);
     mostrarListaLotes();
 }
 
@@ -5378,9 +5456,8 @@ function construirMedicion(sufijo) {
         { fecha: hoy, msHa: Math.round(resultado.msHa), msTotal: Math.round(resultado.msTotal), rollos: resultado.rollos, categoria: resultado.categoria, clase: resultado.clase };
 }
 
-function verFichaLote(id) {
-    const lotes = cargarLotes();
-    const lote = lotes.find(l => l.id === id);
+async function verFichaLote(id) {
+    const lote = await obtenerLotePorId(id);
     if (!lote) return;
     const ultima = lote.mediciones.length ? lote.mediciones[lote.mediciones.length - 1] : null;
     const acumuladoKg = lote.mediciones.reduce((acc, m) => acc + (m.msTotal || 0), 0);
@@ -5420,9 +5497,8 @@ function verFichaLote(id) {
     mostrarSubvistaLotes("loteFicha");
 }
 
-function verHistorialLote(id) {
-    const lotes = cargarLotes();
-    const lote = lotes.find(l => l.id === id);
+async function verHistorialLote(id) {
+    const lote = await obtenerLotePorId(id);
     if (!lote) return;
     let html = '<div class="ficha-lote-titulo"><h3>Historial — ' + escapeHtml(lote.nombre) + '</h3><button class="lotes-volver" onclick="verFichaLote(\'' + lote.id + '\')">Volver</button></div>';
     if (lote.mediciones.length === 0) {
@@ -5472,20 +5548,17 @@ function graficoHistorial(mediciones) {
         '</svg>';
 }
 
-function eliminarMedicion(loteId, indice) {
+async function eliminarMedicion(loteId, indice) {
     if (!confirm("¿Borrar esta medición del historial?")) return;
-    const lotes = cargarLotes();
-    const idx = lotes.findIndex(l => l.id === loteId);
-    if (idx === -1) return;
-    lotes[idx].mediciones.splice(indice, 1);
-    if (guardarLotesStorage(lotes)) {
-        verHistorialLote(loteId);
-    }
+    const lote = await obtenerLotePorId(loteId);
+    if (!lote) return;
+    lote.mediciones.splice(indice, 1);
+    await guardarLoteSupabase(lote);
+    verHistorialLote(loteId);
 }
 
-function trabajarConLote(id) {
-    const lotes = cargarLotes();
-    const lote = lotes.find(l => l.id === id);
+async function trabajarConLote(id) {
+    const lote = await obtenerLotePorId(id);
     if (!lote) return;
     loteActivoId = id;
     document.getElementById("loteActivoTexto").textContent = "🗂️ Trabajando con: " + lote.nombre;
@@ -5511,12 +5584,15 @@ function salirDeLoteActivo() {
     document.getElementById("loteActivoBanner").style.display = "none";
 }
 
-function abrirSelectorLote(sufijo) {
+async function abrirSelectorLote(sufijo) {
     const resultado = sufijo === "Silo" ? ultimoResultadoSilo : ultimoResultado;
     if (!resultado) { alert("Primero calculá un resultado."); return; }
     const tipoBuscado = sufijo === "Silo" ? "silaje" : "forraje";
-    const lotes = cargarLotes().filter(l => l.tipo === tipoBuscado);
     const cont = document.getElementById(sufijo === "Silo" ? "selectorLoteSilo" : "selectorLote");
+    cont.innerHTML = '<div class="selector-lote-titulo">Cargando tus lotes...</div>';
+    cont.style.display = "block";
+    const todosLosLotes = await cargarLotes();
+    const lotes = todosLosLotes.filter(l => l.tipo === tipoBuscado);
     let html = '<div class="selector-lote-titulo">¿En qué lote guardamos esta medición?</div>';
     if (lotes.length === 0) {
         html += '<p class="selector-lote-vacio">Todavía no tenés lotes de este tipo.</p>';
@@ -5533,13 +5609,13 @@ function cerrarSelectorLote(sufijo) {
     document.getElementById(sufijo === "Silo" ? "selectorLoteSilo" : "selectorLote").style.display = "none";
 }
 
-function guardarEnLoteEspecifico(loteId, sufijo) {
-    const lotes = cargarLotes();
-    const idx = lotes.findIndex(l => l.id === loteId);
-    if (idx === -1) return;
-    lotes[idx].mediciones.push(construirMedicion(sufijo));
-    if (guardarLotesStorage(lotes)) {
-        alert("Medición guardada en " + lotes[idx].nombre + ".");
+async function guardarEnLoteEspecifico(loteId, sufijo) {
+    const lote = await obtenerLotePorId(loteId);
+    if (!lote) return;
+    lote.mediciones.push(construirMedicion(sufijo));
+    const ok = await guardarLoteSupabase(lote);
+    if (ok) {
+        alert("Medición guardada en " + lote.nombre + ".");
         cerrarSelectorLote(sufijo);
     }
 }
@@ -5556,9 +5632,8 @@ function crearLoteDesdeResultado(sufijo) {
     document.getElementById("loteSuperficie").value = resultado.superficie;
 }
 
-function exportarInformeLote(id) {
-    const lotes = cargarLotes();
-    const lote = lotes.find(l => l.id === id);
+async function exportarInformeLote(id) {
+    const lote = await obtenerLotePorId(id);
     if (!lote) return;
     const nombreCultivo = obtenerNombreCultivo(lote.cultivo, lote.tipo);
     let html = '<h1 style="color:#1a6b3c;font-size:24px;margin-bottom:4px;">' + escapeHtml(lote.nombre) + '</h1><p style="color:#7a8a7e;font-size:12px;">Informe generado por ForraGO</p>' +
@@ -5669,11 +5744,12 @@ function cerrarProduccion() {
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-function renderProduccion() {
+async function renderProduccion() {
     const cont = document.getElementById("produccionContenido");
     if (!cont) return;
-    const lotes = cargarLotes();
-    const stats = calcularEstadisticasCampo();
+    cont.innerHTML = '<div class="lote-vacio">Cargando...</div>';
+    const lotes = await cargarLotes();
+    const stats = await calcularEstadisticasCampo();
     if (lotes.length === 0) {
         cont.innerHTML = '<div class="lote-vacio">Todavía no tenés lotes cargados.<br><button class="btn-ir-lotes" onclick="abrirMisLotes()">IR A MIS LOTES</button></div>';
         return;
@@ -5724,7 +5800,7 @@ function actualizarCategoriaNecesidad() {
     document.getElementById("necPorcentaje").value = categoria.porcentaje;
 }
 
-function calcularNecesidades() {
+async function calcularNecesidades() {
     const peso = parseFloat(document.getElementById("necPeso").value);
     const porcentaje = parseFloat(document.getElementById("necPorcentaje").value);
     const animales = parseFloat(document.getElementById("necAnimales").value);
@@ -5741,7 +5817,7 @@ function calcularNecesidades() {
     const consumoMensual = consumoDiarioTotal * 30;
     let html = '<div class="necesidad-resultado-caja"><span class="numero-grande">' + numero(consumoDiarioTotal) + ' kg</span><span class="etiqueta">MS NECESARIOS POR DÍA</span></div>';
     html += '<div class="necesidad-autonomia">Equivale a <strong>' + numero(consumoMensual) + ' kg MS</strong> por mes, para ' + numero(animales, 0) + ' animales de ' + numero(peso, 0) + ' kg (' + numero(consumoDiarioPorAnimal, 1) + ' kg MS/día c/u).</div>';
-    const stats = calcularEstadisticasCampo();
+    const stats = await calcularEstadisticasCampo();
     if (stats.kgMsTotal > 0) {
         const diasAutonomia = stats.kgMsTotal / consumoDiarioTotal;
         html += '<div class="necesidad-autonomia">Con los <strong>' + numero(stats.kgMsTotal) + ' kg MS</strong> estimados en tus lotes, esta majada tendría autonomía para <strong>' + numero(diasAutonomia, 0) + ' días</strong>.</div>';
@@ -5872,34 +5948,31 @@ function actualizarCampoProductoTrabajo(loteId) {
     if (grupo) grupo.style.display = tipo.value === "Aplicación" ? "" : "none";
 }
 
-function guardarTrabajo(loteId) {
+async function guardarTrabajo(loteId) {
     const tipo = document.getElementById("trabajoTipo_" + loteId);
     const producto = document.getElementById("trabajoProducto_" + loteId);
     const fecha = document.getElementById("trabajoFecha_" + loteId);
     const notas = document.getElementById("trabajoNotas_" + loteId);
     if (!tipo || !fecha) return;
     if (!fecha.value) { alert("Elegí una fecha para el trabajo."); return; }
-    const lotes = cargarLotes();
-    const idx = lotes.findIndex(l => l.id === loteId);
-    if (idx === -1) return;
-    if (!lotes[idx].trabajos) lotes[idx].trabajos = [];
-    lotes[idx].trabajos.push({ 
-        id: String(Date.now()), 
-        tipo: tipo.value, 
-        producto: tipo.value === "Aplicación" ? (producto ? producto.value.trim() : "") : "", 
-        fechaPlan: fecha.value, 
-        fechaReal: null, 
-        estado: "pendiente", 
-        notas: notas ? notas.value.trim() : "" 
+    const lote = await obtenerLotePorId(loteId);
+    if (!lote) return;
+    if (!lote.trabajos) lote.trabajos = [];
+    lote.trabajos.push({
+        id: String(Date.now()),
+        tipo: tipo.value,
+        producto: tipo.value === "Aplicación" ? (producto ? producto.value.trim() : "") : "",
+        fechaPlan: fecha.value,
+        fechaReal: null,
+        estado: "pendiente",
+        notas: notas ? notas.value.trim() : ""
     });
-    if (guardarLotesStorage(lotes)) {
-        renderAgendaCampo();
-    }
+    await guardarLoteSupabase(lote);
+    renderAgendaCampo();
 }
 
-function marcarTrabajoRealizado(loteId, trabajoId) {
-    const lotes = cargarLotes();
-    const lote = lotes.find(l => l.id === loteId);
+async function marcarTrabajoRealizado(loteId, trabajoId) {
+    const lote = await obtenerLotePorId(loteId);
     if (!lote) return;
     const trabajo = (lote.trabajos || []).find(t => t.id === trabajoId);
     if (!trabajo) return;
@@ -5907,20 +5980,17 @@ function marcarTrabajoRealizado(loteId, trabajoId) {
     if (fechaReal === null) return;
     trabajo.estado = "realizado";
     trabajo.fechaReal = fechaReal || new Date().toISOString().slice(0, 10);
-    if (guardarLotesStorage(lotes)) {
-        renderAgendaCampo();
-    }
+    await guardarLoteSupabase(lote);
+    renderAgendaCampo();
 }
 
-function eliminarTrabajo(loteId, trabajoId) {
+async function eliminarTrabajo(loteId, trabajoId) {
     if (!confirm("¿Eliminar este trabajo?")) return;
-    const lotes = cargarLotes();
-    const lote = lotes.find(l => l.id === loteId);
+    const lote = await obtenerLotePorId(loteId);
     if (!lote) return;
     lote.trabajos = (lote.trabajos || []).filter(t => t.id !== trabajoId);
-    if (guardarLotesStorage(lotes)) {
-        renderAgendaCampo();
-    }
+    await guardarLoteSupabase(lote);
+    renderAgendaCampo();
 }
 
 function evaluarAlertaTrabajo(trabajo, lote, daily) {
@@ -5953,17 +6023,18 @@ function renderLoteAgendaCard(lote) {
     return html;
 }
 
-function verFichaLoteDesdeAgenda(loteId) {
+async function verFichaLoteDesdeAgenda(loteId) {
     cerrarAgendaCampo();
-    abrirMisLotes();
-    verFichaLote(loteId);
+    ocultarNivelesSuperiores();
+    document.getElementById("vistaLotes").style.display = "block";
+    await verFichaLote(loteId);
 }
 
-function renderAgendaCampo() {
-    const lotes = cargarLotes();
+async function renderAgendaCampo() {
     const cont = document.getElementById("agendaContenido");
     if (!cont) return;
-    
+    cont.innerHTML = '<div class="agenda-vacia">Cargando tu agenda...</div>';
+    const lotes = await cargarLotes();
     const filtroTipo = document.getElementById("agendaFiltroTipo").value;
     let lotesFiltrados = lotes;
     if (filtroTipo !== "todos") {
