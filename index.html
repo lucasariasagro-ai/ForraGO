@@ -2482,12 +2482,12 @@ body {
 
 .rotador {
     position:relative;
-    background:var(--blanco);
+    background:linear-gradient(180deg, #ffffff 0%, #fbfdfb 100%);
     border-radius:var(--radio);
-    padding:24px 28px;
+    padding:28px 28px 22px;
     border:1px solid var(--borde);
-    box-shadow:var(--sombra);
-    height:230px;
+    box-shadow:0 10px 34px rgba(26,107,60,.10), 0 2px 8px rgba(0,0,0,.05);
+    height:244px;
     overflow:hidden;
     margin-bottom:16px;
     transition:background .4s ease, border-color .4s ease;
@@ -2502,7 +2502,7 @@ body {
     flex-direction:column;
     align-items:center;
     justify-content:center;
-    padding:24px 28px 40px;
+    padding:34px 28px 20px;
     text-align:center;
     opacity:0;
     visibility:hidden;
@@ -2521,7 +2521,7 @@ body {
 
 /* ===== LOGO ===== */
 .rotador-panel[data-panel="logo"] {
-    padding-top:8px;
+    padding-top:20px;
     padding-bottom:20px;
 }
 .rotador-logo img {
@@ -2654,15 +2654,27 @@ body {
     cursor:pointer;
     max-width:100%;
 }
-.rotador-noticia-badge {
-    font-size:9px;
+.rotador-kicker {
+    display:inline-block;
+    font-size:9.5px;
     font-weight:800;
-    letter-spacing:.6px;
+    letter-spacing:1.3px;
+    text-transform:uppercase;
     color:var(--verde2);
-    background:var(--verde-claro);
-    padding:4px 12px;
-    border-radius:20px;
-    margin-bottom:10px;
+    margin-bottom:12px;
+    position:relative;
+    padding-bottom:7px;
+}
+.rotador-kicker::after {
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:0;
+    transform:translateX(-50%);
+    width:26px;
+    height:2px;
+    border-radius:2px;
+    background:var(--lima);
 }
 .rotador-noticia-titulo {
     font-size:14.5px;
@@ -2696,31 +2708,33 @@ body {
 /* ===== DOTS ===== */
 .rotador-dots {
     position:absolute;
-    left:0;
-    right:0;
-    bottom:12px;
+    left:20px;
+    right:20px;
+    top:14px;
     display:flex;
     justify-content:center;
-    gap:8px;
-    z-index:2;
+    gap:5px;
+    z-index:3;
 }
-.rotador-dot {
-    width:8px;
-    height:8px;
-    border-radius:50%;
-    background:var(--borde);
+.rotador-barra {
+    flex:1;
+    height:3px;
+    border-radius:3px;
+    background:rgba(26,107,60,.12);
     border:none;
     cursor:pointer;
     padding:0;
-    transition:all .3s ease;
-    appearance:none;
+    overflow:hidden;
+    max-width:60px;
 }
-.rotador-dot.activo {
-    background:var(--verde);
-    width:24px;
-    border-radius:4px;
+.rotador-barra-fill {
+    display:block;
+    height:100%;
+    width:0%;
+    border-radius:3px;
+    background:var(--verde2);
 }
-.rotador-dot.urgente {
+.rotador-barra.urgente .rotador-barra-fill {
     background:#d97a4a;
 }
 
@@ -2728,14 +2742,14 @@ body {
 @media(max-width:600px) {
     .rotador {
         padding:16px 18px;
-        height:195px;
+        height:207px;
         margin-top:38px;
     }
     .rotador-panel {
-        padding:16px 18px 34px;
+        padding:26px 18px 16px;
     }
     .rotador-panel[data-panel="logo"] {
-        padding-top:5px;
+        padding-top:14px;
         padding-bottom:16px;
     }
     .rotador-logo img {
@@ -2787,14 +2801,14 @@ body {
 @media(max-width:390px) {
     .rotador {
         padding:12px 14px;
-        height:168px;
+        height:178px;
         margin-top:34px;
     }
     .rotador-panel {
-        padding:12px 14px 30px;
+        padding:22px 14px 12px;
     }
     .rotador-panel[data-panel="logo"] {
-        padding-top:4px;
+        padding-top:12px;
         padding-bottom:12px;
     }
     .rotador-logo img {
@@ -2901,6 +2915,10 @@ body {
 
 .app-shell-hidden { display:none!important; }
 
+.informe-lote-print {
+    display:none;
+}
+
 .boton-cuenta-flotante {
     position:fixed;
     top:16px;
@@ -2993,6 +3011,14 @@ body {
     }
     .resultado { display:block; border:none; box-shadow:none; }
     .detalles { display:block; }
+
+    body.imprimiendo-lote #welcomeScreen,
+    body.imprimiendo-lote #appShell > *:not(#informeLotePrint) {
+        display:none!important;
+    }
+    body.imprimiendo-lote #informeLotePrint {
+        display:block!important;
+    }
 }
 
 /* =========================================================
@@ -3431,6 +3457,7 @@ body {
 
         <!-- Panel 2: CLIMA -->
         <div class="rotador-panel" data-panel="clima">
+            <span class="rotador-kicker">Clima ahora</span>
             <div class="rotador-clima">
                 <div class="rotador-clima-actual">
                     <div class="rotador-clima-temp" id="rotadorTemp">--<small>°C</small></div>
@@ -3461,6 +3488,7 @@ body {
         <!-- Panel 3: ALERTAS -->
         <div class="rotador-panel" data-panel="alertas" id="rotadorAlertas" data-disponible="0">
             <div class="rotador-alerta" id="rotadorAlertaBox">
+                <span class="rotador-kicker" id="alertaKicker">Aviso climático</span>
                 <div class="icono-alerta-badge"><span class="icono-alerta" id="alertaIcono">⚠️</span></div>
                 <div class="mensaje" id="alertaMensaje">-</div>
                 <div class="detalle" id="alertaDetalle">-</div>
@@ -3470,7 +3498,7 @@ body {
         <!-- Panel 4: NOTICIAS AGROPECUARIAS -->
         <div class="rotador-panel" data-panel="noticias" id="rotadorNoticias" data-disponible="0">
             <div class="rotador-noticia" id="rotadorNoticiaBox" onclick="event.stopPropagation(); abrirNoticiaActual();">
-                <span class="rotador-noticia-badge">📰 NOTICIA DEL AGRO</span>
+                <span class="rotador-kicker">Novedades agropecuarias</span>
                 <div class="rotador-noticia-titulo" id="noticiaTitulo">-</div>
                 <div class="rotador-noticia-meta">
                     <span id="noticiaFuente">-</span>
@@ -4931,6 +4959,7 @@ function renderClimaRotador(data) {
         document.getElementById("alertaIcono").textContent = alertas[0].icono;
         document.getElementById("alertaMensaje").textContent = alertas[0].texto;
         document.getElementById("alertaDetalle").textContent = alertas.length > 1 ? alertas.slice(1).map(a => a.icono + " " + a.texto).join(" · ") : "";
+        document.getElementById("alertaKicker").textContent = alertas[0].tono === "bueno" ? "Buenas condiciones" : "Aviso climático";
         if (alertas[0].tono === "atencion") { rotadorBox.classList.add("tono-atencion"); alertaBox.classList.add("tono-atencion"); }
         if (alertas[0].tono === "bueno") { rotadorBox.classList.add("tono-bueno"); alertaBox.classList.add("tono-bueno"); }
     } else {
@@ -5096,6 +5125,13 @@ let panelActual = 0;
 let rotadorPausado = false;
 let rotadorPausaTimeout = null;
 
+const TIEMPOS_PANEL = {
+    logo: 3000,
+    clima: 6000,
+    alertas: 6500,
+    noticias: 7000
+};
+
 function obtenerPanelesActivos() {
     const panels = document.querySelectorAll('.rotador-panel');
     const activos = [];
@@ -5130,17 +5166,40 @@ function actualizarDotsRotador() {
     const activos = obtenerPanelesActivos();
     dotsWrap.innerHTML = "";
     activos.forEach((p, i) => {
-        const dot = document.createElement("button");
-        dot.type = "button";
         const esAlertaUrgente = p.dataset.panel === 'alertas' && p.dataset.urgente === '1';
-        dot.className = "rotador-dot" + (i === panelActual ? " activo" : "") + (esAlertaUrgente ? " urgente" : "");
-        dot.setAttribute("aria-label", "Panel " + (i + 1));
-        dot.addEventListener("click", function(ev) {
+        const barra = document.createElement("button");
+        barra.type = "button";
+        barra.className = "rotador-barra" + (esAlertaUrgente ? " urgente" : "");
+        barra.setAttribute("aria-label", "Panel " + (i + 1));
+        barra.innerHTML = '<span class="rotador-barra-fill"></span>';
+        barra.addEventListener("click", function(ev) {
             ev.stopPropagation();
             mostrarPanel(i);
             pausarRotadorTemporalmente();
         });
-        dotsWrap.appendChild(dot);
+        dotsWrap.appendChild(barra);
+    });
+    actualizarEstadoBarras(activos, panelActual);
+}
+
+function actualizarEstadoBarras(activos, indiceActivo) {
+    const barras = document.querySelectorAll(".rotador-barra");
+    barras.forEach((barra, i) => {
+        const fill = barra.querySelector(".rotador-barra-fill");
+        if (!fill) return;
+        fill.style.transition = "none";
+        if (i < indiceActivo) {
+            fill.style.width = "100%";
+        } else if (i > indiceActivo) {
+            fill.style.width = "0%";
+        } else {
+            fill.style.width = "0%";
+            const tipo = activos[i] ? activos[i].dataset.panel : null;
+            const duracion = TIEMPOS_PANEL[tipo] || 4500;
+            void fill.offsetWidth; // fuerza reflow para reiniciar la animación
+            fill.style.transition = "width " + duracion + "ms linear";
+            requestAnimationFrame(() => { fill.style.width = "100%"; });
+        }
     });
 }
 
@@ -5156,9 +5215,11 @@ function mostrarPanel(index) {
         activos[index].classList.add('activo');
     }
 
-    document.querySelectorAll('.rotador-dot').forEach((d, i) => {
-        d.classList.toggle('activo', i === index);
-    });
+    if (document.querySelectorAll(".rotador-barra").length !== activos.length) {
+        actualizarDotsRotador();
+    } else {
+        actualizarEstadoBarras(activos, index);
+    }
 }
 
 function siguientePanel() {
@@ -5179,13 +5240,6 @@ function iniciarRotador() {
     if (window.rotadorInterval) clearInterval(window.rotadorInterval);
     window.rotadorInterval = true;
 
-    const tiempos = {
-        logo: 3000,
-        clima: 6000,
-        alertas: 6500,
-        noticias: 7000
-    };
-
     function avanzar() {
         clearTimeout(window.rotadorTimeout);
         if (rotadorPausado) {
@@ -5196,7 +5250,7 @@ function iniciarRotador() {
         if (activos.length === 0) { window.rotadorTimeout = setTimeout(avanzar, 1500); return; }
         const panel = activos[Math.min(panelActual, activos.length - 1)];
         const tipo = panel.dataset.panel;
-        const duracion = tiempos[tipo] || 4500;
+        const duracion = TIEMPOS_PANEL[tipo] || 4500;
         siguientePanel();
         window.rotadorTimeout = setTimeout(avanzar, duracion);
     }
@@ -5222,7 +5276,7 @@ function inicializarInteraccionRotador() {
 
     // Tocar/click en el recuadro pausa la rotación un rato
     rotador.addEventListener("click", function(ev) {
-        if (ev.target.closest(".rotador-dot")) return;
+        if (ev.target.closest(".rotador-barra")) return;
         pausarRotadorTemporalmente();
     });
 
