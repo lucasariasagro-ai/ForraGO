@@ -2742,11 +2742,11 @@ body {
 @media(max-width:600px) {
     .rotador {
         padding:16px 18px;
-        height:207px;
+        height:222px;
         margin-top:38px;
     }
     .rotador-panel {
-        padding:26px 18px 16px;
+        padding:22px 18px 14px;
     }
     .rotador-panel[data-panel="logo"] {
         padding-top:14px;
@@ -2801,11 +2801,11 @@ body {
 @media(max-width:390px) {
     .rotador {
         padding:12px 14px;
-        height:178px;
+        height:192px;
         margin-top:34px;
     }
     .rotador-panel {
-        padding:22px 14px 12px;
+        padding:18px 14px 10px;
     }
     .rotador-panel[data-panel="logo"] {
         padding-top:12px;
@@ -5257,7 +5257,7 @@ function iniciarRotador() {
 
     const activos = obtenerPanelesActivos();
     const primerTipo = activos.length > 0 ? activos[0].dataset.panel : "logo";
-    const duracion = tiempos[primerTipo] || 4500;
+    const duracion = TIEMPOS_PANEL[primerTipo] || 4500;
     window.rotadorTimeout = setTimeout(avanzar, duracion);
 }
 
