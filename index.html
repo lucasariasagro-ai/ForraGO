@@ -3549,6 +3549,9 @@ body {
             <button class="menu-usuario-item" onclick="abrirDatosSincronizacion()">
                 <span class="menu-usuario-icono">☁️</span> Datos y sincronización
             </button>
+            <button class="menu-usuario-item" onclick="abrirNotificaciones()">
+                <span class="menu-usuario-icono">🔔</span> Notificaciones
+            </button>
             <div class="menu-usuario-divisor"></div>
             <button class="menu-usuario-item menu-usuario-item-peligro" onclick="confirmarCerrarSesion()">
                 <span class="menu-usuario-icono">🚪</span> Cerrar sesión
@@ -3783,6 +3786,29 @@ body {
             <h2>👤 Mi perfil</h2>
         </div>
         <div id="perfilContenido"></div>
+        <section class="panel" id="perfilFormularioPanel" style="display:none;margin-top:16px;">
+            <div class="form-group">
+                <label>Nombre</label>
+                <input id="perfilNombre" type="text" placeholder="Ej: Juan">
+            </div>
+            <div class="form-group">
+                <label>Apellido</label>
+                <input id="perfilApellido" type="text" placeholder="Ej: Pérez">
+            </div>
+            <div class="form-group">
+                <label>Provincia</label>
+                <input id="perfilProvincia" type="text" placeholder="Ej: Río Negro">
+            </div>
+            <div class="form-group">
+                <label>Ciudad</label>
+                <input id="perfilCiudad" type="text" placeholder="Ej: Allen">
+            </div>
+            <div class="form-group">
+                <label>Establecimiento productivo</label>
+                <input id="perfilEstablecimiento" type="text" placeholder="Ej: Estancia La Esperanza">
+            </div>
+            <button class="calcular" onclick="guardarPerfil()">GUARDAR →</button>
+        </section>
     </div>
 
     <!-- =========================================================
@@ -3795,6 +3821,14 @@ body {
             <h2>☁️ Datos y sincronización</h2>
         </div>
         <div id="datosSincronizacionContenido"></div>
+    </div>
+
+    <div id="vistaNotificaciones" style="display:none;">
+        <div class="lotes-header">
+            <button class="btn-back" onclick="cerrarNotificaciones()">Volver</button>
+            <h2>🔔 Notificaciones</h2>
+        </div>
+        <div id="notificacionesContenido"></div>
     </div>
 
     <!-- =========================================================
@@ -5567,8 +5601,10 @@ function cerrarPerfil() {
 
 async function renderPerfil() {
     const cont = document.getElementById("perfilContenido");
+    const formPanel = document.getElementById("perfilFormularioPanel");
     if (!cont) return;
     cont.innerHTML = '<div class="lote-vacio">Cargando...</div>';
+    formPanel.style.display = "none";
     const { data } = await sb.auth.getUser();
     const user = data ? data.user : null;
     if (!user) {
@@ -5581,6 +5617,75 @@ async function renderPerfil() {
     html += '<div class="ficha-lote-info-item"><span class="label">Cuenta creada</span><span class="value">' + fechaAlta + '</span></div>';
     html += '</div>';
     cont.innerHTML = html;
+
+    const { data: perfil } = await sb.from("perfiles").select("*").eq("user_id", user.id).maybeSingle();
+    document.getElementById("perfilNombre").value = perfil ? (perfil.nombre || "") : "";
+    document.getElementById("perfilApellido").value = perfil ? (perfil.apellido || "") : "";
+    document.getElementById("perfilProvincia").value = perfil ? (perfil.provincia || "") : "";
+    document.getElementById("perfilCiudad").value = perfil ? (perfil.ciudad || "") : "";
+    document.getElementById("perfilEstablecimiento").value = perfil ? (perfil.establecimiento || "") : "";
+    formPanel.style.display = "block";
+}
+
+async function guardarPerfil() {
+    const { data } = await sb.auth.getUser();
+    const user = data ? data.user : null;
+    if (!user) { alert("No pudimos identificar tu cuenta."); return; }
+    const perfil = {
+        user_id: user.id,
+        nombre: document.getElementById("perfilNombre").value.trim(),
+        apellido: document.getElementById("perfilApellido").value.trim(),
+        provincia: document.getElementById("perfilProvincia").value.trim(),
+        ciudad: document.getElementById("perfilCiudad").value.trim(),
+        establecimiento: document.getElementById("perfilEstablecimiento").value.trim(),
+        updated_at: new Date().toISOString()
+    };
+    const { error } = await sb.from("perfiles").upsert(perfil);
+    if (error) {
+        alert("No se pudo guardar tu perfil: " + error.message);
+        return;
+    }
+    alert("Perfil guardado.");
+}
+
+// =========================================================
+// NOTIFICACIONES
+// =========================================================
+
+async function abrirNotificaciones() {
+    cerrarMenuUsuario();
+    ocultarNivelesSuperiores();
+    document.getElementById("vistaNotificaciones").style.display = "block";
+    await renderNotificaciones();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function cerrarNotificaciones() {
+    document.getElementById("vistaNotificaciones").style.display = "none";
+    mostrarHome();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+async function renderNotificaciones() {
+    const cont = document.getElementById("notificacionesContenido");
+    if (!cont) return;
+    cont.innerHTML = '<div class="lote-vacio">Cargando...</div>';
+    const { data, error } = await sb.from("notificaciones").select("*").order("created_at", { ascending: false });
+    if (error) {
+        cont.innerHTML = '<div class="lote-vacio">No pudimos cargar las notificaciones en este momento.</div>';
+        return;
+    }
+    if (!data || data.length === 0) {
+        cont.innerHTML = '<div class="lote-vacio">Todavía no tenés notificaciones.</div>';
+        return;
+    }
+    cont.innerHTML = data.map(n =>
+        '<div class="produccion-lote-fila" style="border-left:4px solid var(--verde3);align-items:flex-start;">' +
+        '<div><strong style="display:block;color:var(--verde);font-weight:700;font-size:13.5px;">' + escapeHtml(n.titulo) + '</strong>' +
+        '<span style="display:block;margin-top:4px;font-size:12px;color:var(--texto-suave);line-height:1.5;">' + escapeHtml(n.mensaje) + '</span>' +
+        '<span style="display:block;margin-top:6px;font-size:10px;color:var(--gris);">' + tiempoRelativo(n.created_at.slice(0, 10)) + '</span></div>' +
+        '</div>'
+    ).join("");
 }
 
 // =========================================================
@@ -5791,6 +5896,7 @@ function ocultarNivelesSuperiores() {
     document.getElementById("vistaNecesidades").style.display = "none";
     document.getElementById("vistaPerfil").style.display = "none";
     document.getElementById("vistaDatos").style.display = "none";
+    document.getElementById("vistaNotificaciones").style.display = "none";
     document.querySelector(".header").style.display = "none";
     document.querySelector(".hero").style.display = "none";
     document.getElementById("rotador").style.display = "none";
