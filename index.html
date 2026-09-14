@@ -2482,7 +2482,10 @@ body {
 
 .rotador {
     position:relative;
-    background:linear-gradient(180deg, #ffffff 0%, #fbfdfb 100%);
+    background:
+        radial-gradient(130% 100% at 100% 0%, rgba(184,217,108,.22) 0%, rgba(184,217,108,0) 55%),
+        radial-gradient(100% 90% at 0% 100%, rgba(26,107,60,.14) 0%, rgba(26,107,60,0) 55%),
+        linear-gradient(180deg, #ffffff 0%, #fbfdfb 100%);
     border-radius:var(--radio);
     padding:28px 28px 22px;
     border:1px solid var(--borde);
