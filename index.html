@@ -2572,33 +2572,48 @@ body {
 .rotador-clima-dias {
     display:flex;
     justify-content:center;
-    gap:26px;
+    gap:8px;
 }
 .rotador-clima-dia {
     text-align:center;
+    padding:7px 9px;
+    border-radius:12px;
+    border:1.5px solid var(--borde);
+    background:var(--fondo);
+}
+.rotador-clima-dia.dia-hoy {
+    border-color:var(--verde3);
+    background:var(--verde-claro);
 }
 .rotador-clima-dia .nombre {
-    font-size:9.5px;
+    font-size:9px;
     font-weight:700;
     text-transform:uppercase;
     color:var(--gris);
     display:block;
-    letter-spacing:.5px;
+    letter-spacing:.4px;
 }
 .rotador-clima-dia .icono {
-    font-size:26px;
+    font-size:24px;
     display:block;
     margin:4px 0;
 }
-.rotador-clima-dia .temp {
-    font-size:16px;
+.rotador-clima-dia .temp-rango {
+    display:block;
+    font-size:12.5px;
     font-weight:700;
-    color:var(--texto);
+    white-space:nowrap;
 }
-.rotador-clima-dia .temp small {
-    font-size:10px;
+.rotador-clima-dia .temp-max {
+    color:#c9503f;
+}
+.rotador-clima-dia .temp-sep {
     color:var(--gris);
-    font-weight:500;
+    font-weight:400;
+    margin:0 2px;
+}
+.rotador-clima-dia .temp-min {
+    color:#3b7bc9;
 }
 
 /* ===== ALERTAS ===== */
@@ -2774,13 +2789,17 @@ body {
         font-size:14px;
     }
     .rotador-clima-dias {
-        gap:14px;
+        gap:6px;
+    }
+    .rotador-clima-dia {
+        padding:5px 6px;
     }
     .rotador-clima-dia .icono {
         font-size:18px;
+        margin:3px 0;
     }
-    .rotador-clima-dia .temp {
-        font-size:12px;
+    .rotador-clima-dia .temp-rango {
+        font-size:10.5px;
     }
     .rotador-alerta .icono-alerta {
         font-size:24px;
@@ -2833,13 +2852,18 @@ body {
         font-size:12px;
     }
     .rotador-clima-dias {
-        gap:10px;
+        gap:5px;
+    }
+    .rotador-clima-dia {
+        padding:4px 5px;
+        border-radius:9px;
     }
     .rotador-clima-dia .icono {
         font-size:16px;
+        margin:2px 0;
     }
-    .rotador-clima-dia .temp {
-        font-size:11px;
+    .rotador-clima-dia .temp-rango {
+        font-size:9.5px;
     }
     .rotador-alerta .icono-alerta {
         font-size:20px;
@@ -3591,20 +3615,20 @@ body {
                 </div>
                 <div class="rotador-clima-separador"></div>
                 <div class="rotador-clima-dias" id="rotadorDias">
-                    <div class="rotador-clima-dia">
+                    <div class="rotador-clima-dia dia-hoy" id="rotadorDia0">
                         <span class="nombre">Hoy</span>
                         <span class="icono" id="rotadorIcon0">☀️</span>
-                        <span class="temp" id="rotadorTemp0">--<small>°</small></span>
+                        <span class="temp-rango"><span class="temp-max" id="rotadorTempMax0">--°</span><span class="temp-sep">/</span><span class="temp-min" id="rotadorTempMin0">--°</span></span>
                     </div>
-                    <div class="rotador-clima-dia">
+                    <div class="rotador-clima-dia" id="rotadorDia1">
                         <span class="nombre">Mañana</span>
                         <span class="icono" id="rotadorIcon1">☀️</span>
-                        <span class="temp" id="rotadorTemp1">--<small>°</small></span>
+                        <span class="temp-rango"><span class="temp-max" id="rotadorTempMax1">--°</span><span class="temp-sep">/</span><span class="temp-min" id="rotadorTempMin1">--°</span></span>
                     </div>
-                    <div class="rotador-clima-dia">
+                    <div class="rotador-clima-dia" id="rotadorDia2">
                         <span class="nombre">Pasado</span>
                         <span class="icono" id="rotadorIcon2">☀️</span>
-                        <span class="temp" id="rotadorTemp2">--<small>°</small></span>
+                        <span class="temp-rango"><span class="temp-max" id="rotadorTempMax2">--°</span><span class="temp-sep">/</span><span class="temp-min" id="rotadorTempMin2">--°</span></span>
                     </div>
                 </div>
             </div>
@@ -5052,7 +5076,8 @@ function renderClimaRotador(data) {
     for (let i = 0; i < 3; i++) {
         const c = codigoClima(daily.weather_code[i]);
         document.getElementById("rotadorIcon" + i).textContent = c[0];
-        document.getElementById("rotadorTemp" + i).innerHTML = Math.round(daily.temperature_2m_max[i]) + '<small>°</small>';
+        document.getElementById("rotadorTempMax" + i).textContent = Math.round(daily.temperature_2m_max[i]) + "°";
+        document.getElementById("rotadorTempMin" + i).textContent = Math.round(daily.temperature_2m_min[i]) + "°";
     }
 
     // ========== ALERTAS ==========
