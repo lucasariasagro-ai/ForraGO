@@ -2919,11 +2919,14 @@ body {
     display:none;
 }
 
-.boton-cuenta-flotante {
+.cuenta-flotante-wrap {
     position:fixed;
     top:16px;
     right:16px;
     z-index:60;
+}
+.boton-cuenta-flotante {
+    position:relative;
     width:40px;
     height:40px;
     border-radius:50%;
@@ -2944,14 +2947,110 @@ body {
 }
 .boton-cuenta-flotante:active { transform:scale(.95); }
 
+.menu-usuario-panel {
+    position:absolute;
+    top:48px;
+    right:0;
+    min-width:220px;
+    background:var(--blanco);
+    border:1px solid var(--borde);
+    border-radius:16px;
+    box-shadow:var(--sombra-hover);
+    padding:8px;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(-6px) scale(.98);
+    transform-origin:top right;
+    transition:opacity .18s ease, transform .18s ease, visibility 0s linear .18s;
+}
+.menu-usuario-panel.mostrar {
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0) scale(1);
+    transition:opacity .18s ease, transform .18s ease, visibility 0s linear 0s;
+}
+.menu-usuario-item {
+    display:flex;
+    align-items:center;
+    gap:10px;
+    width:100%;
+    padding:11px 12px;
+    border:none;
+    background:transparent;
+    border-radius:11px;
+    font-family:inherit;
+    font-size:13px;
+    font-weight:600;
+    color:var(--texto);
+    text-align:left;
+    cursor:pointer;
+    transition:var(--transicion);
+}
+.menu-usuario-item:hover {
+    background:var(--fondo);
+}
+.menu-usuario-icono {
+    font-size:15px;
+    flex-shrink:0;
+}
+.menu-usuario-divisor {
+    height:1px;
+    background:var(--borde);
+    margin:6px 4px;
+}
+.menu-usuario-item-peligro {
+    color:#b33c3c;
+}
+.menu-usuario-item-peligro:hover {
+    background:#fdf1f0;
+}
+
 @media(max-width:600px) {
-    .boton-cuenta-flotante {
+    .cuenta-flotante-wrap {
         top:10px;
         right:10px;
+    }
+    .boton-cuenta-flotante {
         width:36px;
         height:36px;
         font-size:15px;
     }
+}
+
+/* =========================================================
+   MODAL DE CONFIRMACIÓN
+========================================================= */
+
+.modal-overlay {
+    position:fixed;
+    inset:0;
+    background:rgba(26,31,26,.45);
+    z-index:100;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+.modal-caja {
+    background:var(--blanco);
+    border-radius:var(--radio);
+    padding:26px 24px;
+    max-width:340px;
+    width:100%;
+    box-shadow:var(--sombra-hover);
+    text-align:center;
+    animation:aparecer .2s ease;
+}
+.modal-texto {
+    font-size:13.5px;
+    color:var(--texto);
+    line-height:1.6;
+    margin-bottom:20px;
+}
+.modal-botones {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
 }
 
 /* =========================================================
@@ -3441,7 +3540,31 @@ body {
 
 <div id="appShell" class="app-shell-hidden">
 
-    <button id="btnCuenta" class="boton-cuenta-flotante" onclick="confirmarCerrarSesion()" title="Cerrar sesión">👤</button>
+    <div class="cuenta-flotante-wrap">
+        <button id="btnMenuUsuario" class="boton-cuenta-flotante" onclick="toggleMenuUsuario(event)" title="Menú" aria-label="Menú de usuario">☰</button>
+        <div id="menuUsuarioPanel" class="menu-usuario-panel">
+            <button class="menu-usuario-item" onclick="abrirPerfilUsuario()">
+                <span class="menu-usuario-icono">👤</span> Mi perfil
+            </button>
+            <button class="menu-usuario-item" onclick="abrirDatosSincronizacion()">
+                <span class="menu-usuario-icono">☁️</span> Datos y sincronización
+            </button>
+            <div class="menu-usuario-divisor"></div>
+            <button class="menu-usuario-item menu-usuario-item-peligro" onclick="confirmarCerrarSesion()">
+                <span class="menu-usuario-icono">🚪</span> Cerrar sesión
+            </button>
+        </div>
+    </div>
+
+    <div id="modalCerrarSesion" class="modal-overlay" style="display:none;">
+        <div class="modal-caja">
+            <p class="modal-texto">¿Querés cerrar sesión? Tus datos permanecen guardados en tu cuenta.</p>
+            <div class="modal-botones">
+                <button class="btn-secundario" onclick="cerrarModalCerrarSesion()">Cancelar</button>
+                <button class="btn-decision-guardar" onclick="cerrarSesion()">Cerrar sesión</button>
+            </div>
+        </div>
+    </div>
 
     <!-- =========================================================
        ROTADOR DE INFORMACIÓN
@@ -3457,7 +3580,6 @@ body {
 
         <!-- Panel 2: CLIMA -->
         <div class="rotador-panel" data-panel="clima">
-            <span class="rotador-kicker">Clima ahora</span>
             <div class="rotador-clima">
                 <div class="rotador-clima-actual">
                     <div class="rotador-clima-temp" id="rotadorTemp">--<small>°C</small></div>
@@ -3488,7 +3610,6 @@ body {
         <!-- Panel 3: ALERTAS -->
         <div class="rotador-panel" data-panel="alertas" id="rotadorAlertas" data-disponible="0">
             <div class="rotador-alerta" id="rotadorAlertaBox">
-                <span class="rotador-kicker" id="alertaKicker">Aviso climático</span>
                 <div class="icono-alerta-badge"><span class="icono-alerta" id="alertaIcono">⚠️</span></div>
                 <div class="mensaje" id="alertaMensaje">-</div>
                 <div class="detalle" id="alertaDetalle">-</div>
@@ -3650,6 +3771,30 @@ body {
             <button class="calcular" onclick="calcularNecesidades()">CALCULAR NECESIDAD →</button>
         </section>
         <div id="necesidadesResultado"></div>
+    </div>
+
+    <!-- =========================================================
+       MI PERFIL
+    ========================================================= -->
+
+    <div id="vistaPerfil" style="display:none;">
+        <div class="lotes-header">
+            <button class="btn-back" onclick="cerrarPerfil()">Volver</button>
+            <h2>👤 Mi perfil</h2>
+        </div>
+        <div id="perfilContenido"></div>
+    </div>
+
+    <!-- =========================================================
+       DATOS Y SINCRONIZACIÓN
+    ========================================================= -->
+
+    <div id="vistaDatos" style="display:none;">
+        <div class="lotes-header">
+            <button class="btn-back" onclick="cerrarDatosSincronizacion()">Volver</button>
+            <h2>☁️ Datos y sincronización</h2>
+        </div>
+        <div id="datosSincronizacionContenido"></div>
     </div>
 
     <!-- =========================================================
@@ -4959,7 +5104,6 @@ function renderClimaRotador(data) {
         document.getElementById("alertaIcono").textContent = alertas[0].icono;
         document.getElementById("alertaMensaje").textContent = alertas[0].texto;
         document.getElementById("alertaDetalle").textContent = alertas.length > 1 ? alertas.slice(1).map(a => a.icono + " " + a.texto).join(" · ") : "";
-        document.getElementById("alertaKicker").textContent = alertas[0].tono === "bueno" ? "Buenas condiciones" : "Aviso climático";
         if (alertas[0].tono === "atencion") { rotadorBox.classList.add("tono-atencion"); alertaBox.classList.add("tono-atencion"); }
         if (alertas[0].tono === "bueno") { rotadorBox.classList.add("tono-bueno"); alertaBox.classList.add("tono-bueno"); }
     } else {
@@ -5147,15 +5291,8 @@ function obtenerPanelesActivos() {
             panelNoticias = p;
         }
     });
-    // Si hay una alerta urgente (helada / viento / lluvia hoy), la mostramos
-    // justo después del logo para que no espere su turno en la rotación.
-    if (panelAlertas) {
-        if (panelAlertas.dataset.urgente === '1') {
-            activos.splice(1, 0, panelAlertas);
-        } else {
-            activos.push(panelAlertas);
-        }
-    }
+    // Orden fijo: Logo → Clima → Alertas → Noticias.
+    if (panelAlertas) activos.push(panelAlertas);
     if (panelNoticias) activos.push(panelNoticias);
     return activos;
 }
@@ -5379,8 +5516,111 @@ async function cerrarSesion() {
 }
 
 function confirmarCerrarSesion() {
-    if (confirm("¿Cerrar sesión?")) {
-        cerrarSesion();
+    cerrarMenuUsuario();
+    document.getElementById("modalCerrarSesion").style.display = "flex";
+}
+
+function cerrarModalCerrarSesion() {
+    document.getElementById("modalCerrarSesion").style.display = "none";
+}
+
+// =========================================================
+// MENÚ DE USUARIO
+// =========================================================
+
+function toggleMenuUsuario(ev) {
+    if (ev) ev.stopPropagation();
+    document.getElementById("menuUsuarioPanel").classList.toggle("mostrar");
+}
+
+function cerrarMenuUsuario() {
+    const panel = document.getElementById("menuUsuarioPanel");
+    if (panel) panel.classList.remove("mostrar");
+}
+
+document.addEventListener("click", function(ev) {
+    const panel = document.getElementById("menuUsuarioPanel");
+    const wrap = document.querySelector(".cuenta-flotante-wrap");
+    if (!panel || !wrap) return;
+    if (panel.classList.contains("mostrar") && !wrap.contains(ev.target)) {
+        cerrarMenuUsuario();
+    }
+});
+
+// =========================================================
+// MI PERFIL
+// =========================================================
+
+async function abrirPerfilUsuario() {
+    cerrarMenuUsuario();
+    ocultarNivelesSuperiores();
+    document.getElementById("vistaPerfil").style.display = "block";
+    await renderPerfil();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function cerrarPerfil() {
+    document.getElementById("vistaPerfil").style.display = "none";
+    mostrarHome();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+async function renderPerfil() {
+    const cont = document.getElementById("perfilContenido");
+    if (!cont) return;
+    cont.innerHTML = '<div class="lote-vacio">Cargando...</div>';
+    const { data } = await sb.auth.getUser();
+    const user = data ? data.user : null;
+    if (!user) {
+        cont.innerHTML = '<div class="lote-vacio">No pudimos cargar tu perfil en este momento.</div>';
+        return;
+    }
+    const fechaAlta = user.created_at ? new Date(user.created_at).toLocaleDateString("es-AR", { day: "2-digit", month: "long", year: "numeric" }) : "-";
+    let html = '<div class="ficha-lote-info">';
+    html += '<div class="ficha-lote-info-item"><span class="label">Email</span><span class="value">' + escapeHtml(user.email || "-") + '</span></div>';
+    html += '<div class="ficha-lote-info-item"><span class="label">Cuenta creada</span><span class="value">' + fechaAlta + '</span></div>';
+    html += '</div>';
+    cont.innerHTML = html;
+}
+
+// =========================================================
+// DATOS Y SINCRONIZACIÓN
+// =========================================================
+
+async function abrirDatosSincronizacion() {
+    cerrarMenuUsuario();
+    ocultarNivelesSuperiores();
+    document.getElementById("vistaDatos").style.display = "block";
+    await renderDatosSincronizacion();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function cerrarDatosSincronizacion() {
+    document.getElementById("vistaDatos").style.display = "none";
+    mostrarHome();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+async function renderDatosSincronizacion() {
+    const cont = document.getElementById("datosSincronizacionContenido");
+    if (!cont) return;
+    cont.innerHTML = '<div class="lote-vacio">Verificando...</div>';
+    try {
+        const { error } = await sb.from("lotes").select("id", { count: "exact", head: true });
+        if (error) throw error;
+        const ahora = new Date().toLocaleString("es-AR", { day: "2-digit", month: "2-digit", year: "numeric", hour: "2-digit", minute: "2-digit" });
+        cont.innerHTML =
+            '<div class="ficha-stat-caja">' +
+            '<span class="numero-grande" style="font-size:20px;">✓ Todo sincronizado</span>' +
+            '<span class="etiqueta">Última verificación: ' + ahora + '</span>' +
+            '</div>' +
+            '<p style="text-align:center;font-size:11.5px;color:var(--gris);margin-top:14px;line-height:1.6;">Tus lotes, mediciones y trabajos se guardan automáticamente en tu cuenta a medida que los vas cargando.</p>';
+    } catch (e) {
+        cont.innerHTML =
+            '<div class="ficha-stat-caja" style="background:#fdf1da;">' +
+            '<span class="numero-grande" style="font-size:17px;color:#b8791f;">⚠️ No se pudo verificar</span>' +
+            '<span class="etiqueta" style="color:#8a6f2e;">Revisá tu conexión a internet e intentá de nuevo</span>' +
+            '</div>';
     }
 }
 
@@ -5549,6 +5789,8 @@ function ocultarNivelesSuperiores() {
     document.getElementById("vistaBiblioteca").style.display = "none";
     document.getElementById("vistaProduccion").style.display = "none";
     document.getElementById("vistaNecesidades").style.display = "none";
+    document.getElementById("vistaPerfil").style.display = "none";
+    document.getElementById("vistaDatos").style.display = "none";
     document.querySelector(".header").style.display = "none";
     document.querySelector(".hero").style.display = "none";
     document.getElementById("rotador").style.display = "none";
