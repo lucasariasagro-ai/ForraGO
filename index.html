@@ -62,49 +62,14 @@ html {
     -webkit-font-smoothing:antialiased;
 }
 
-/* =========================================================
-   FONDO — IMAGEN AÉREA (img_20.png) SIN VIÑETA
-========================================================= */
-
 body {
+    background:
+        linear-gradient(rgba(243,246,244,.94), rgba(243,246,244,.94)),
+        url("img/img_13.jpg") center center / cover fixed no-repeat;
     color:var(--texto);
     font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;
     min-height:100vh;
     padding:0;
-    position:relative;
-    background-color:#eef3ef;
-}
-
-body::before {
-    content:"";
-    position:fixed;
-    inset:0;
-    z-index:-2;
-    background-image:url("img/img_20.png");
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    will-change:transform;
-    transform:translateZ(0);
-    image-rendering:-webkit-optimize-contrast;
-    image-rendering:crisp-edges;
-    -webkit-backface-visibility:hidden;
-    backface-visibility:hidden;
-    filter:contrast(1.05) saturate(1.08);
-}
-
-/* Sin viñeta — la imagen se ve 100% nítida */
-
-@media (max-width:600px) {
-    body::before {
-        background-position:center 30%;
-    }
-}
-
-@media print {
-    body::before {
-        display:none!important;
-    }
 }
 
 /* =========================================================
@@ -249,7 +214,7 @@ body::before {
 }
 
 /* =========================================================
-   LOGIN
+   LOGIN (dentro del hero)
 ========================================================= */
 
 .login-card {
@@ -368,6 +333,9 @@ body::before {
     font-weight:800;
 }
 
+.titulo-principal h2 {
+    color: var(--verde);
+}
 .titulo-secundario h2 {
     color: var(--verde2);
     font-weight:700;
@@ -376,30 +344,7 @@ body::before {
 }
 
 /* =========================================================
-   TÍTULO "¿QUÉ QUERÉS EVALUAR?" — CÁPSULA BLANCA
-========================================================= */
-
-.titulo-principal h2 {
-    color: var(--verde);
-    display:inline-block;
-    padding:12px 28px;
-    background:rgba(255,255,255,0.90);
-    backdrop-filter:blur(8px);
-    -webkit-backdrop-filter:blur(8px);
-    border-radius:30px;
-    box-shadow:0 8px 24px rgba(0,0,0,.18);
-    border:1px solid rgba(255,255,255,.6);
-}
-
-@media(max-width:600px) {
-    .titulo-principal h2 {
-        padding:10px 22px;
-        font-size:18px;
-    }
-}
-
-/* =========================================================
-   CHECK VERDE
+   CHECK VERDE PERSONALIZADO
 ========================================================= */
 
 .check-verde {
@@ -596,7 +541,7 @@ body::before {
 }
 
 /* =========================================================
-   BOTÓN GESTIONAR
+   BOTÓN GESTIONAR MI PRODUCCIÓN
 ========================================================= */
 
 .btn-gestionar {
@@ -761,6 +706,7 @@ body::before {
     transform:scale(1);
 }
 
+/* Cultivo imágenes */
 .alfalfa-bg { background-image:url(img/img_04.jpg); }
 .avena-bg { background-image:url(img/img_05.jpg); }
 .triticale-bg { background-image:url(img/img_06.jpg); }
@@ -789,7 +735,7 @@ body::before {
 }
 
 /* =========================================================
-   CULTIVOS COMPACTOS
+   CULTIVOS DESTACADOS (compacto)
 ========================================================= */
 
 .cultivos-destacados {
@@ -1608,7 +1554,7 @@ body::before {
 }
 
 /* =========================================================
-   VENTANA COSECHA
+   VENTANA COSECHA SILAJE
 ========================================================= */
 
 .ventana-cosecha {
@@ -1933,7 +1879,7 @@ body::before {
 }
 
 /* =========================================================
-   RESUMEN MI PRODUCCIÓN
+   RESUMEN "MI PRODUCCIÓN"
 ========================================================= */
 
 .gestionar-resumen {
@@ -2543,7 +2489,7 @@ body::before {
 }
 
 /* =========================================================
-   ROTADOR
+   ROTADOR DE INFORMACIÓN — CORREGIDO FINAL
 ========================================================= */
 
 .rotador {
@@ -2588,6 +2534,7 @@ body::before {
     transition:opacity .4s ease, transform .4s ease, visibility 0s linear 0s;
 }
 
+/* ===== LOGO ===== */
 .rotador-panel[data-panel="logo"] {
     padding-top:20px;
     padding-bottom:20px;
@@ -2597,6 +2544,7 @@ body::before {
     width:auto;
 }
 
+/* ===== CLIMA ===== */
 .rotador-clima {
     display:flex;
     align-items:center;
@@ -2683,6 +2631,7 @@ body::before {
     color:#3b7bc9;
 }
 
+/* ===== ALERTAS ===== */
 .rotador-alerta {
     display:flex;
     flex-direction:column;
@@ -2726,6 +2675,7 @@ body::before {
     color:var(--verde);
 }
 
+/* ===== NOTICIAS AGROPECUARIAS ===== */
 .rotador-noticia {
     display:flex;
     flex-direction:column;
@@ -2785,6 +2735,7 @@ body::before {
     border-color:var(--lima);
 }
 
+/* ===== DOTS ===== */
 .rotador-dots {
     position:absolute;
     left:20px;
@@ -2817,6 +2768,7 @@ body::before {
     background:#d97a4a;
 }
 
+/* RESPONSIVE */
 @media(max-width:600px) {
     .rotador {
         padding:16px 18px;
@@ -2949,6 +2901,10 @@ body::before {
         font-size:9.5px;
     }
 }
+
+/* =========================================================
+   CLIMA PREMIUM (oculto, reemplazado por rotador)
+========================================================= */
 
 .weather-card-premium {
     display:none;
@@ -3099,7 +3055,7 @@ body::before {
 }
 
 /* =========================================================
-   MODAL
+   MODAL DE CONFIRMACIÓN
 ========================================================= */
 
 .modal-overlay {
@@ -3163,6 +3119,7 @@ body::before {
     .historial-tabla th, .historial-tabla td { padding:8px 4px; }
     .consoc-preset-chip { padding:10px 14px; font-size:10px; }
     .consoc-selects { grid-template-columns:1fr; }
+    .titulo-principal h2 { font-size:20px; }
     .titulo-secundario h2 { font-size:17px; }
 }
 
@@ -3289,7 +3246,7 @@ body::before {
 }
 
 /* =========================================================
-   BIBLIOTECA VISTA INTERNA
+   BIBLIOTECA — VISTA INTERNA
 ========================================================= */
 
 #bibliotecaContenido .biblioteca-intro {
@@ -3358,7 +3315,7 @@ body::before {
 }
 
 /* =========================================================
-   AGENDA
+   AGENDA — ESTILOS
 ========================================================= */
 
 .trabajos-caja { margin-bottom:18px; }
@@ -3555,7 +3512,8 @@ body::before {
 </style>
 </head>
 <body>
-   <!-- =========================================================
+
+<!-- =========================================================
    SPLASH
 ========================================================= -->
 
@@ -3648,13 +3606,19 @@ body::before {
         </div>
     </div>
 
+    <!-- =========================================================
+       ROTADOR DE INFORMACIÓN
+    ========================================================= -->
+
     <div id="rotador" class="rotador">
+        <!-- Panel 1: LOGO -->
         <div class="rotador-panel activo" data-panel="logo">
             <div class="rotador-logo">
                 <img src="img/img_19.png" alt="ForraGO" id="rotadorLogo">
             </div>
         </div>
 
+        <!-- Panel 2: CLIMA -->
         <div class="rotador-panel" data-panel="clima">
             <div class="rotador-clima">
                 <div class="rotador-clima-actual">
@@ -3683,6 +3647,7 @@ body::before {
             </div>
         </div>
 
+        <!-- Panel 3: ALERTAS -->
         <div class="rotador-panel" data-panel="alertas" id="rotadorAlertas" data-disponible="0">
             <div class="rotador-alerta" id="rotadorAlertaBox">
                 <div class="icono-alerta-badge"><span class="icono-alerta" id="alertaIcono">⚠️</span></div>
@@ -3691,6 +3656,7 @@ body::before {
             </div>
         </div>
 
+        <!-- Panel 4: NOTICIAS AGROPECUARIAS -->
         <div class="rotador-panel" data-panel="noticias" id="rotadorNoticias" data-disponible="0">
             <div class="rotador-noticia" id="rotadorNoticiaBox" onclick="event.stopPropagation(); abrirNoticiaActual();">
                 <span class="rotador-kicker">Novedades agropecuarias</span>
@@ -3703,12 +3669,21 @@ body::before {
             </div>
         </div>
 
+        <!-- DOTS -->
         <div class="rotador-dots" id="rotadorDots"></div>
     </div>
+
+    <!-- =========================================================
+       "¿QUÉ QUERÉS EVALUAR?"
+    ========================================================= -->
 
     <div id="tituloEvaluar" class="seccion seccion-simple titulo-principal">
         <h2>¿Qué querés evaluar?</h2>
     </div>
+
+    <!-- =========================================================
+       CALCULADORA
+    ========================================================= -->
 
     <div id="vistaCalculadora">
         <div class="tipo-tabs" id="tipoTabs">
@@ -3733,6 +3708,10 @@ body::before {
             <span class="btn-gestionar-flecha">→</span>
         </button>
     </div>
+
+    <!-- =========================================================
+       GESTIONAR MI PRODUCCIÓN
+    ========================================================= -->
 
     <div id="vistaGestionar" style="display:none;">
         <div class="lotes-header">
@@ -3783,6 +3762,10 @@ body::before {
         </div>
     </div>
 
+    <!-- =========================================================
+       PRODUCCIÓN — RESUMEN
+    ========================================================= -->
+
     <div id="vistaProduccion" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarProduccion()">Volver</button>
@@ -3790,6 +3773,10 @@ body::before {
         </div>
         <div id="produccionContenido"></div>
     </div>
+
+    <!-- =========================================================
+       NECESIDADES DE LA MAJADA
+    ========================================================= -->
 
     <div id="vistaNecesidades" style="display:none;">
         <div class="lotes-header">
@@ -3826,6 +3813,10 @@ body::before {
         <div id="necesidadesResultado"></div>
     </div>
 
+    <!-- =========================================================
+       MI PERFIL
+    ========================================================= -->
+
     <div id="vistaPerfil" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarPerfil()">Volver</button>
@@ -3857,6 +3848,10 @@ body::before {
         </section>
     </div>
 
+    <!-- =========================================================
+       DATOS Y SINCRONIZACIÓN
+    ========================================================= -->
+
     <div id="vistaDatos" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarDatosSincronizacion()">Volver</button>
@@ -3872,6 +3867,10 @@ body::before {
         </div>
         <div id="notificacionesContenido"></div>
     </div>
+
+    <!-- =========================================================
+       BLOQUE FORRAJE
+    ========================================================= -->
 
     <div id="bloqueForraje" class="bloque-tipo" style="display:none;">
         <section class="panel">
@@ -4091,6 +4090,7 @@ body::before {
             </div>
         </section>
 
+        <!-- RESULTADO FORRAJE -->
         <section id="resultado" class="resultado">
             <div class="resultado-cabecera">
                 <div class="mini">Resultado de tu lote</div>
@@ -4204,6 +4204,10 @@ body::before {
         </section>
     </div>
 
+    <!-- =========================================================
+       BLOQUE SILAJE
+    ========================================================= -->
+
     <div id="bloqueSilaje" class="bloque-tipo" style="display:none;">
         <section class="panel">
             <label class="label">Elegí el cultivo</label>
@@ -4269,6 +4273,7 @@ body::before {
             </div>
         </section>
 
+        <!-- RESULTADO SILAJE -->
         <section id="resultadoSilo" class="resultado">
             <div class="resultado-cabecera">
                 <div class="mini">Resultado de tu lote</div>
@@ -4381,6 +4386,10 @@ body::before {
         </section>
     </div>
 
+    <!-- =========================================================
+       MIS LOTES
+    ========================================================= -->
+
     <div id="vistaLotes" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarMisLotes()">Volver</button>
@@ -4444,6 +4453,10 @@ body::before {
         <div id="loteHistorial" style="display:none;"></div>
     </div>
 
+    <!-- =========================================================
+       AGENDA DE CAMPO
+    ========================================================= -->
+
     <div id="vistaAgenda" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarAgendaCampo()">Volver</button>
@@ -4460,6 +4473,10 @@ body::before {
         <div id="agendaContenido"></div>
     </div>
 
+    <!-- =========================================================
+       BIBLIOTECA
+    ========================================================= -->
+
     <div id="vistaBiblioteca" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarBiblioteca()">Volver</button>
@@ -4467,6 +4484,10 @@ body::before {
         </div>
         <div id="bibliotecaContenido"></div>
     </div>
+
+    <!-- =========================================================
+       BANNER LOTE ACTIVO
+    ========================================================= -->
 
     <div id="loteActivoBanner" class="lote-activo-banner" style="display:none;">
         <span id="loteActivoTexto"></span>
@@ -4485,13 +4506,27 @@ body::before {
 
 </div>
 
+<!-- =========================================================
+   SCRIPTS
+========================================================= -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 
+// =========================================================
+// SUPABASE — CONEXIÓN
+// =========================================================
+// Reemplazá estos dos valores por los de TU proyecto:
+// Project Settings > API > Project URL / anon public key
 const SUPABASE_URL = "https://mvgujzirgqmtkwneoshw.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_ofo6RgRPP9S0PaWf3itUUQ_tcw0SYqx";
 
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+
+// =========================================================
+// DATOS CULTIVOS
+// =========================================================
 
 const cultivos = {
     alfalfa: { nombre: "Alfalfa", ms: { tierno: 18, medio: 21, espiga: 24 }, referencia: 2200 },
@@ -4573,6 +4608,10 @@ let ultimoResultado = null;
 let ultimoResultadoSilo = null;
 let climaDiarioActual = null;
 
+// =========================================================
+// FUNCIONES GENERALES
+// =========================================================
+
 function numero(n, dec = 0) {
     return new Intl.NumberFormat("es-AR", {
         minimumFractionDigits: dec,
@@ -4611,6 +4650,10 @@ function obtenerNombreCultivo(clave, tipo) {
     return origen[clave] ? origen[clave].nombre : clave;
 }
 
+// =========================================================
+// PESTAÑAS
+// =========================================================
+
 function mostrarTipo(tipo) {
     const yaActivo = document.querySelector('.tipo-tab[data-tipo="' + tipo + '"]').classList.contains("activo");
     if (yaActivo) {
@@ -4630,6 +4673,10 @@ function mostrarTipo(tipo) {
     bloque.classList.add("aparecer");
     setTimeout(() => bloque.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
 }
+
+// =========================================================
+// CULTIVOS
+// =========================================================
 
 function seleccionar(elemento) {
     cultivoActual = elemento.dataset.cultivo;
@@ -4686,6 +4733,10 @@ function seleccionarDestino(elemento) {
     destinoActual = elemento.dataset.destino;
 }
 
+// =========================================================
+// CONSOCIACIONES
+// =========================================================
+
 function desactivarConsociacion() {
     const preview = document.getElementById("consocPreview");
     preview.classList.remove("activo");
@@ -4737,6 +4788,10 @@ function aplicarPresetConsoc(graminea, leguminosa, porcLeguminosa) {
     actualizarConsociacion();
 }
 
+// =========================================================
+// ASESOR
+// =========================================================
+
 function toggleAsesor() {
     document.getElementById("asesorPanel").classList.toggle("mostrar");
     if (document.getElementById("asesorPanel").classList.contains("mostrar")) sincronizarAsesor();
@@ -4771,6 +4826,10 @@ function actualizarReferenciaSilo() {
         silajeCultivos[cultivoSiloActual].referencia = valor;
     }
 }
+
+// =========================================================
+// CALCULAR FORRAJE
+// =========================================================
 
 function estimarAnimalesRapido(kgDisponible, dias = 30) {
     const cat = categoriasAnimales.vaca_cria;
@@ -4831,6 +4890,10 @@ function calcular() {
     document.getElementById("resultado").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+// =========================================================
+// CALCULAR SILAJE
+// =========================================================
+
 function categorizarSilo(msHa, cultivo) {
     for (const nivel of cultivo.categorias) {
         if (msHa < nivel.hasta) return nivel;
@@ -4883,6 +4946,10 @@ function calcularSilaje() {
     document.getElementById("resultadoSilo").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
+// =========================================================
+// CARGA ANIMAL
+// =========================================================
+
 function actualizarCategoria(sufijo) {
     const categoria = categoriasAnimales[document.getElementById("cargaCategoria" + sufijo).value];
     document.getElementById("cargaPeso" + sufijo).value = categoria.peso;
@@ -4933,6 +5000,10 @@ function calcularCarga(sufijo) {
     }
 }
 
+// =========================================================
+// DETALLES / NUEVO / PDF / COMPARTIR
+// =========================================================
+
 function detalles() { document.getElementById("detalles").classList.toggle("mostrar"); }
 function nuevo() {
     document.getElementById("resultado").classList.remove("mostrar");
@@ -4967,6 +5038,10 @@ function compartirWhatsapp(sufijo) {
     window.open("https://wa.me/?text=" + encodeURIComponent(texto + "\n\nCalculado con ForraGO"), "_blank");
 }
 
+// =========================================================
+// BIBLIOTECA
+// =========================================================
+
 function toggleBiblioteca() {
     document.getElementById("bibliotecaPanel").classList.toggle("mostrar");
 }
@@ -4982,6 +5057,10 @@ function toggleCultivosExtra() {
 function toggleFicha(elemento) {
     elemento.classList.toggle("abierto");
 }
+
+// =========================================================
+// CLIMA — PARA EL ROTADOR
+// =========================================================
 
 function codigoClima(codigo) {
     if (codigo === 0) return ["☀️", "Despejado", "despejado"];
@@ -4999,11 +5078,14 @@ function renderClimaRotador(data) {
     const daily = data.daily;
     climaDiarioActual = daily;
 
+    // Panel clima
     const info = codigoClima(current.weather_code);
     document.getElementById("rotadorTemp").innerHTML = Math.round(current.temperature_2m) + '<small>°C</small>';
     document.getElementById("rotadorDesc").textContent = info[1];
     document.getElementById("rotadorExtra").textContent = '💨 ' + Math.round(current.wind_speed_10m) + ' km/h';
 
+    // Pronóstico 3 días
+    const dias = ["Hoy", "Mañana", "Pasado"];
     for (let i = 0; i < 3; i++) {
         const c = codigoClima(daily.weather_code[i]);
         document.getElementById("rotadorIcon" + i).textContent = c[0];
@@ -5011,9 +5093,11 @@ function renderClimaRotador(data) {
         document.getElementById("rotadorTempMin" + i).textContent = Math.round(daily.temperature_2m_min[i]) + "°";
     }
 
+    // ========== ALERTAS ==========
     const alertas = [];
     let urgente = false;
 
+    // 1. HELADA (prioridad máxima)
     for (let i = 0; i < 3; i++) {
         if (daily.temperature_2m_min[i] <= 2) {
             const dia = i === 0 ? "esta noche" : (i === 1 ? "mañana" : nombreDia(daily.time[i], i).toLowerCase());
@@ -5023,10 +5107,11 @@ function renderClimaRotador(data) {
                 tono: "atencion"
             });
             urgente = true;
-            break;
+            break; // solo mostramos la más cercana
         }
     }
 
+    // 2. LLUVIA
     if (daily.precipitation_probability_max) {
         for (let i = 0; i < 3; i++) {
             const prob = daily.precipitation_probability_max[i];
@@ -5045,6 +5130,7 @@ function renderClimaRotador(data) {
         }
     }
 
+    // 3. VIENTO FUERTE
     if (daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] >= 25) {
         alertas.push({
             icono: "💨",
@@ -5054,11 +5140,13 @@ function renderClimaRotador(data) {
         urgente = true;
     }
 
+    // 4. BUENAS CONDICIONES PARA APLICAR (si no hay alertas negativas)
     const hayHelada = alertas.some(a => a.icono === "❄️");
     const hayLluvia = alertas.some(a => a.icono === "🌧️");
     const hayViento = alertas.some(a => a.icono === "💨");
 
     if (!hayHelada && !hayLluvia && !hayViento) {
+        // Verificar que realmente haya buenas condiciones
         const vientoBajo = daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] < 25 && daily.wind_gusts_10m_max[1] < 25;
         const lluviaBaja = daily.precipitation_probability_max && daily.precipitation_probability_max[0] < 30 && daily.precipitation_probability_max[1] < 30;
         if (vientoBajo && lluviaBaja) {
@@ -5076,6 +5164,7 @@ function renderClimaRotador(data) {
         }
     }
 
+    // Mostrar panel de alertas
     const panelAlertas = document.getElementById("rotadorAlertas");
     const rotadorBox = document.getElementById("rotador");
     const alertaBox = document.getElementById("rotadorAlertaBox");
@@ -5094,8 +5183,10 @@ function renderClimaRotador(data) {
         panelAlertas.dataset.urgente = "0";
     }
 
+    // Actualizar dots
     actualizarDotsRotador();
 
+    // Iniciar rotador si no está corriendo
     if (!window.rotadorInterval) {
         iniciarRotador();
     }
@@ -5127,6 +5218,13 @@ function cargarClimaRotador() {
         usar(fallback.lat, fallback.lon);
     }
 }
+
+// =========================================================
+// NOTICIAS AGROPECUARIAS — PARA EL ROTADOR
+// =========================================================
+// Módulo aislado: si falla cualquier parte de esto (el proxy, un feed
+// puntual, la red), el panel de noticias simplemente no aparece y el
+// resto del rotador (logo/clima/alertas) sigue funcionando sin cambios.
 
 const FEEDS_NOTICIAS_AGRO = [
     "https://www.infocampo.com.ar/feed/",
@@ -5167,7 +5265,7 @@ async function cargarUnFeed(url) {
             fecha: item.pubDate || ""
         }));
     } catch (e) {
-        return [];
+        return []; // este feed puntual falló: se ignora, no rompe nada más
     }
 }
 
@@ -5235,6 +5333,10 @@ setInterval(function() {
     }
 }, 6000);
 
+// =========================================================
+// ROTADOR
+// =========================================================
+
 let panelActual = 0;
 let rotadorPausado = false;
 let rotadorPausaTimeout = null;
@@ -5261,6 +5363,7 @@ function obtenerPanelesActivos() {
             panelNoticias = p;
         }
     });
+    // Orden fijo: Logo → Clima → Alertas → Noticias.
     if (panelAlertas) activos.push(panelAlertas);
     if (panelNoticias) activos.push(panelNoticias);
     return activos;
@@ -5302,7 +5405,7 @@ function actualizarEstadoBarras(activos, indiceActivo) {
             fill.style.width = "0%";
             const tipo = activos[i] ? activos[i].dataset.panel : null;
             const duracion = TIEMPOS_PANEL[tipo] || 4500;
-            void fill.offsetWidth;
+            void fill.offsetWidth; // fuerza reflow para reiniciar la animación
             fill.style.transition = "width " + duracion + "ms linear";
             requestAnimationFrame(() => { fill.style.width = "100%"; });
         }
@@ -5380,11 +5483,13 @@ function inicializarInteraccionRotador() {
     if (!rotador || rotador.dataset.interaccionLista) return;
     rotador.dataset.interaccionLista = "1";
 
+    // Tocar/click en el recuadro pausa la rotación un rato
     rotador.addEventListener("click", function(ev) {
         if (ev.target.closest(".rotador-barra")) return;
         pausarRotadorTemporalmente();
     });
 
+    // Swipe manual (izquierda/derecha) entre paneles
     let touchStartX = 0;
     let touchStartY = 0;
     rotador.addEventListener("touchstart", function(ev) {
@@ -5402,6 +5507,10 @@ function inicializarInteraccionRotador() {
         }
     }, { passive: true });
 }
+
+// =========================================================
+// APP / SPLASH
+// =========================================================
 
 function abrirApp() {
     const welcome = document.getElementById("welcomeScreen");
@@ -5487,6 +5596,10 @@ function cerrarModalCerrarSesion() {
     document.getElementById("modalCerrarSesion").style.display = "none";
 }
 
+// =========================================================
+// MENÚ DE USUARIO
+// =========================================================
+
 function toggleMenuUsuario(ev) {
     if (ev) ev.stopPropagation();
     document.getElementById("menuUsuarioPanel").classList.toggle("mostrar");
@@ -5505,6 +5618,10 @@ document.addEventListener("click", function(ev) {
         cerrarMenuUsuario();
     }
 });
+
+// =========================================================
+// MI PERFIL
+// =========================================================
 
 async function abrirPerfilUsuario() {
     cerrarMenuUsuario();
@@ -5596,6 +5713,10 @@ async function guardarPerfil() {
     renderPerfil();
 }
 
+// =========================================================
+// NOTIFICACIONES
+// =========================================================
+
 async function abrirNotificaciones() {
     cerrarMenuUsuario();
     ocultarNivelesSuperiores();
@@ -5631,6 +5752,10 @@ async function renderNotificaciones() {
         '</div>'
     ).join("");
 }
+
+// =========================================================
+// DATOS Y SINCRONIZACIÓN
+// =========================================================
 
 async function abrirDatosSincronizacion() {
     cerrarMenuUsuario();
@@ -5683,6 +5808,10 @@ setTimeout(async function() {
     }
 }, 2000);
 
+// =========================================================
+// MIS LOTES
+// =========================================================
+
 const paletaLotes = ["#2d8f4e", "#3b82c4", "#c9a227", "#8e5fc4", "#c4633b", "#2aa39a", "#c45c94", "#5a7a3c", "#b8622e", "#4a6fa5"];
 
 function colorPorLote(id) {
@@ -5697,6 +5826,10 @@ function colorPorLote(id) {
 let loteEditandoId = null;
 let loteActivoId = null;
 let medicionPendienteSufijo = null;
+
+// =========================================================
+// LOTES — CAPA DE DATOS (Supabase)
+// =========================================================
 
 function rowToLote(row) {
     return {
@@ -5806,6 +5939,8 @@ async function migrarLotesViejos() {
     }
 
     if (exitosos > 0) {
+        // Guardamos una copia de respaldo por las dudas, y limpiamos la clave vieja
+        // para no ofrecer migrar de nuevo los mismos lotes la próxima vez.
         localStorage.setItem(CLAVE_VIEJA + "_respaldo", dataVieja);
         localStorage.removeItem(CLAVE_VIEJA);
     }
@@ -6280,6 +6415,10 @@ async function exportarInformeLote(id) {
     document.body.classList.remove("imprimiendo-lote");
 }
 
+// =========================================================
+// BIBLIOTECA — VISTA INTERNA
+// =========================================================
+
 function abrirBiblioteca() {
     ocultarNivelesSuperiores();
     document.getElementById("vistaBiblioteca").style.display = "block";
@@ -6343,6 +6482,10 @@ function toggleFichaBiblioteca(elemento) {
     }
 }
 
+// =========================================================
+// PRODUCCIÓN — RESUMEN
+// =========================================================
+
 function abrirProduccion() {
     ocultarNivelesSuperiores();
     document.getElementById("vistaProduccion").style.display = "block";
@@ -6387,6 +6530,10 @@ async function renderProduccion() {
     });
     cont.innerHTML = html;
 }
+
+// =========================================================
+// NECESIDADES DE LA MAJADA
+// =========================================================
 
 function abrirNecesidades() {
     ocultarNivelesSuperiores();
@@ -6434,6 +6581,10 @@ async function calcularNecesidades() {
     document.getElementById("necesidadesResultado").innerHTML = html;
 }
 
+// =========================================================
+// AGENDA DE CAMPO
+// =========================================================
+
 const iconosTrabajo = { "Corte": "✂️", "Aplicación": "🧪", "Riego": "💧", "Siembra": "🌱", "Otro": "📌" };
 
 function abrirAgendaCampo() {
@@ -6465,13 +6616,13 @@ function renderTrabajosFicha(lote) {
     const realizados = trabajosRealizados(lote);
     const hoy = new Date().toISOString().slice(0, 10);
     const colorLote = colorPorLote(lote.id);
-
+    
     let html = '<div class="trabajos-caja">';
     html += '<div class="trabajos-caja-titulo">';
     html += '<h4>🗓️ Trabajos pendientes</h4>';
     html += '<button class="trabajo-agregar-btn" onclick="toggleFormularioTrabajo(\'' + lote.id + '\')">➕ AGREGAR</button>';
     html += '</div>';
-
+    
     if (pendientes.length === 0) {
         html += '<div class="trabajos-vacio">Sin trabajos programados para este lote.</div>';
     } else {
@@ -6495,7 +6646,8 @@ function renderTrabajosFicha(lote) {
             html += '</div>';
         });
     }
-
+    
+    // Formulario para agregar trabajos
     html += '<div id="trabajoFormPanel_' + lote.id + '" class="trabajo-form-panel">';
     html += '<div class="form-group"><label>Tipo de trabajo</label><select id="trabajoTipo_' + lote.id + '" onchange="actualizarCampoProductoTrabajo(\'' + lote.id + '\')"><option value="Corte">Corte</option><option value="Aplicación">Aplicación</option><option value="Riego">Riego</option><option value="Siembra">Siembra</option><option value="Otro">Otro</option></select></div>';
     html += '<div class="form-group" id="trabajoProductoGrupo_' + lote.id + '" style="display:none;"><label>Producto</label><input id="trabajoProducto_' + lote.id + '" type="text" placeholder="Ej: 2,4-D"></div>';
@@ -6503,7 +6655,8 @@ function renderTrabajosFicha(lote) {
     html += '<div class="form-group"><label>Notas (opcional)</label><input id="trabajoNotas_' + lote.id + '" type="text" placeholder="Ej: dosis, observaciones"></div>';
     html += '<button class="calcular" onclick="guardarTrabajo(\'' + lote.id + '\')">GUARDAR TRABAJO →</button>';
     html += '</div>';
-
+    
+    // Botón para ver historial de trabajos realizados
     if (realizados.length > 0) {
         html += '<div class="trabajos-historial-toggle" onclick="toggleHistorialTrabajos(\'' + lote.id + '\')">';
         html += '📋 Ver ' + realizados.length + ' trabajo(s) realizados <span class="flecha" id="historialFlecha_' + lote.id + '">▾</span>';
@@ -6521,7 +6674,7 @@ function renderTrabajosFicha(lote) {
         });
         html += '</div>';
     }
-
+    
     html += '</div>';
     return html;
 }
@@ -6643,7 +6796,8 @@ async function renderAgendaCampo() {
     if (filtroTipo !== "todos") {
         lotesFiltrados = lotes.filter(l => l.tipo === filtroTipo);
     }
-
+    
+    // Ordenar lotes: primero los que tienen trabajos pendientes más cercanos
     lotesFiltrados.sort((a, b) => {
         const pendA = trabajosPendientes(a);
         const pendB = trabajosPendientes(b);
@@ -6651,7 +6805,8 @@ async function renderAgendaCampo() {
         const fechaB = pendB.length > 0 ? pendB[0].fechaPlan : "9999-99-99";
         return fechaA.localeCompare(fechaB);
     });
-
+    
+    // Calcular trabajos vencidos totales
     const hoy = new Date().toISOString().slice(0, 10);
     let totalVencidos = 0;
     lotes.forEach(l => {
@@ -6659,7 +6814,7 @@ async function renderAgendaCampo() {
             if (t.fechaPlan < hoy) totalVencidos++;
         });
     });
-
+    
     const badge = document.getElementById("agendaBadgeVencidos");
     if (totalVencidos > 0) {
         badge.style.display = "inline-flex";
@@ -6667,12 +6822,12 @@ async function renderAgendaCampo() {
     } else {
         badge.style.display = "none";
     }
-
+    
     let html = "";
     if (!climaDiarioActual) {
         html += '<div class="agenda-sin-clima">ℹ️ El clima todavía no cargó — las alertas climáticas aparecerán apenas esté disponible.</div>';
     }
-
+    
     if (lotesFiltrados.length === 0) {
         if (lotes.length === 0) {
             html += '<div class="agenda-vacia">Todavía no tenés lotes cargados.<br><button class="btn-ir-lotes" onclick="irAMisLotesDesdeAgenda()">IR A MIS LOTES</button></div>';
@@ -6696,11 +6851,19 @@ function onClimaActualizado() {
     }
 }
 
+// =========================================================
+// INICIALIZACIÓN
+// =========================================================
+
 sincronizarAsesor();
 actualizarVentanaCosecha();
 sincronizarAsesorSilo();
 actualizarCategoria("");
 actualizarCategoria("Silo");
+
+// =========================================================
+// SERVICE WORKER
+// =========================================================
 
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", function() {
