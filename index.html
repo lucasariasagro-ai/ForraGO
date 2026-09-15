@@ -63,36 +63,46 @@ html {
 }
 
 /* =========================================================
-   FONDO PREMIUM — "DEEP FIELD"
+   FONDO PRO — "MATERIAL SURFACE"
+   Sistema de 4 capas:
+   1) Luz natural desde arriba (blanca muy sutil)
+   2) Gradiente diagonal con cuerpo (verde grisáceo)
+   3) Micro-trama de surcos a 135°
+   4) Viñeta inferior (oscurece la base, ancla la vista)
 ========================================================= */
 
 body {
-    background-color: #eef3ef;
+    background-color: #d5e3d9;
     background-image:
-        /* 1. Luz volumétrica superior */
-        radial-gradient(
-            ellipse 120% 80% at 50% -10%,
-            rgba(255, 255, 255, 0.9) 0%,
-            rgba(255, 255, 255, 0) 60%
+        /* 1. Luz natural superior — sutil, sin manchón */
+        linear-gradient(
+            180deg,
+            rgba(255, 255, 255, 0.35) 0%,
+            rgba(255, 255, 255, 0) 22%
         ),
-        /* 2. Halo verde profundo abajo-derecha */
-        radial-gradient(
-            ellipse 90% 70% at 100% 100%,
-            rgba(26, 107, 60, 0.10) 0%,
-            rgba(26, 107, 60, 0) 65%
+        /* 2. Gradiente diagonal con cuerpo — el protagonista */
+        linear-gradient(
+            155deg,
+            #e9f2eb 0%,
+            #d8e7dc 32%,
+            #c8dccf 62%,
+            #bcd3c4 100%
         ),
-        /* 3. Halo lima suave arriba-izquierda */
-        radial-gradient(
-            ellipse 80% 60% at 0% 0%,
-            rgba(184, 217, 108, 0.14) 0%,
-            rgba(184, 217, 108, 0) 60%
+        /* 3. Micro-trama de surcos a 135° */
+        repeating-linear-gradient(
+            135deg,
+            rgba(26, 107, 60, 0.045) 0px,
+            rgba(26, 107, 60, 0.045) 1.5px,
+            transparent 1.5px,
+            transparent 16px
         ),
-        /* 4. Micro-grano anti-banding */
+        /* 4. Viñeta inferior */
         radial-gradient(
-            rgba(26, 107, 60, 0.035) 1px,
-            transparent 1px
+            ellipse 140% 70% at 50% 115%,
+            rgba(13, 71, 39, 0.12) 0%,
+            rgba(13, 71, 39, 0) 60%
         );
-    background-size: 100% 100%, 100% 100%, 100% 100%, 20px 20px;
+    background-size: 100% 100%, 100% 100%, auto, 100% 100%;
     background-attachment: fixed;
     color: var(--texto);
     font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
@@ -159,7 +169,7 @@ body {
 }
 
 /* =========================================================
-   HERO — PREMIUM (sombra doble + borde blanco)
+   HERO — SUPERFICIE FLOTANTE
 ========================================================= */
 
 .hero {
@@ -171,10 +181,10 @@ body {
     background-size:cover;
     background-position:center;
     box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.8) inset,
-        0 20px 50px -20px rgba(26, 107, 60, 0.35),
-        0 8px 20px -10px rgba(0, 0, 0, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.6);
+        0 1px 0 rgba(255, 255, 255, 0.85) inset,
+        0 24px 60px -24px rgba(13, 71, 39, 0.45),
+        0 10px 24px -12px rgba(0, 0, 0, 0.18);
+    border: 1px solid rgba(255, 255, 255, 0.55);
 }
 
 .hero::after {
@@ -482,7 +492,7 @@ body {
 }
 
 /* =========================================================
-   TARJETAS — PREMIUM (borde blanco + sombra doble)
+   TARJETAS — SUPERFICIE FLOTANTE PRO
 ========================================================= */
 
 .card {
@@ -490,17 +500,17 @@ body {
     border-radius:var(--radio);
     padding:28px;
     box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.9) inset,
-        0 12px 32px -12px rgba(26, 107, 60, 0.12),
-        0 2px 6px -2px rgba(0, 0, 0, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+        0 1px 0 rgba(255, 255, 255, 0.95) inset,
+        0 18px 44px -18px rgba(13, 71, 39, 0.28),
+        0 4px 12px -4px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.75);
     transition:var(--transicion);
 }
 .card:hover {
     box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.9) inset,
-        0 20px 44px -14px rgba(26, 107, 60, 0.18),
-        0 4px 10px -3px rgba(0, 0, 0, 0.06);
+        0 1px 0 rgba(255, 255, 255, 0.95) inset,
+        0 26px 60px -20px rgba(13, 71, 39, 0.34),
+        0 6px 16px -5px rgba(0, 0, 0, 0.08);
 }
 
 /* =========================================================
@@ -617,7 +627,7 @@ body {
 }
 
 /* =========================================================
-   PANEL — PREMIUM
+   PANEL — SUPERFICIE FLOTANTE PRO
 ========================================================= */
 
 .panel {
@@ -625,10 +635,10 @@ body {
     border-radius:var(--radio);
     padding:30px;
     box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.9) inset,
-        0 12px 32px -12px rgba(26, 107, 60, 0.12),
-        0 2px 6px -2px rgba(0, 0, 0, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.8);
+        0 1px 0 rgba(255, 255, 255, 0.95) inset,
+        0 18px 44px -18px rgba(13, 71, 39, 0.28),
+        0 4px 12px -4px rgba(0, 0, 0, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.75);
 }
 .label {
     display:block;
@@ -2541,8 +2551,11 @@ body {
         linear-gradient(180deg, #ffffff 0%, #fbfdfb 100%);
     border-radius:var(--radio);
     padding:28px 28px 22px;
-    border:1px solid var(--borde);
-    box-shadow:0 10px 34px rgba(26,107,60,.10), 0 2px 8px rgba(0,0,0,.05);
+    border:1px solid rgba(255, 255, 255, 0.75);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.95) inset,
+        0 18px 44px -18px rgba(13, 71, 39, 0.28),
+        0 4px 12px -4px rgba(0, 0, 0, 0.06);
     height:244px;
     overflow:hidden;
     margin-bottom:16px;
@@ -3652,14 +3665,12 @@ body {
     ========================================================= -->
 
     <div id="rotador" class="rotador">
-        <!-- Panel 1: LOGO -->
         <div class="rotador-panel activo" data-panel="logo">
             <div class="rotador-logo">
                 <img src="img/img_19.png" alt="ForraGO" id="rotadorLogo">
             </div>
         </div>
 
-        <!-- Panel 2: CLIMA -->
         <div class="rotador-panel" data-panel="clima">
             <div class="rotador-clima">
                 <div class="rotador-clima-actual">
@@ -3688,7 +3699,6 @@ body {
             </div>
         </div>
 
-        <!-- Panel 3: ALERTAS -->
         <div class="rotador-panel" data-panel="alertas" id="rotadorAlertas" data-disponible="0">
             <div class="rotador-alerta" id="rotadorAlertaBox">
                 <div class="icono-alerta-badge"><span class="icono-alerta" id="alertaIcono">⚠️</span></div>
@@ -3697,7 +3707,6 @@ body {
             </div>
         </div>
 
-        <!-- Panel 4: NOTICIAS AGROPECUARIAS -->
         <div class="rotador-panel" data-panel="noticias" id="rotadorNoticias" data-disponible="0">
             <div class="rotador-noticia" id="rotadorNoticiaBox" onclick="event.stopPropagation(); abrirNoticiaActual();">
                 <span class="rotador-kicker">Novedades agropecuarias</span>
@@ -3710,7 +3719,6 @@ body {
             </div>
         </div>
 
-        <!-- DOTS -->
         <div class="rotador-dots" id="rotadorDots"></div>
     </div>
 
@@ -4131,7 +4139,6 @@ body {
             </div>
         </section>
 
-        <!-- RESULTADO FORRAJE -->
         <section id="resultado" class="resultado">
             <div class="resultado-cabecera">
                 <div class="mini">Resultado de tu lote</div>
@@ -4314,7 +4321,6 @@ body {
             </div>
         </section>
 
-        <!-- RESULTADO SILAJE -->
         <section id="resultadoSilo" class="resultado">
             <div class="resultado-cabecera">
                 <div class="mini">Resultado de tu lote</div>
@@ -5117,14 +5123,11 @@ function renderClimaRotador(data) {
     const daily = data.daily;
     climaDiarioActual = daily;
 
-    // Panel clima
     const info = codigoClima(current.weather_code);
     document.getElementById("rotadorTemp").innerHTML = Math.round(current.temperature_2m) + '<small>°C</small>';
     document.getElementById("rotadorDesc").textContent = info[1];
     document.getElementById("rotadorExtra").textContent = '💨 ' + Math.round(current.wind_speed_10m) + ' km/h';
 
-    // Pronóstico 3 días
-    const dias = ["Hoy", "Mañana", "Pasado"];
     for (let i = 0; i < 3; i++) {
         const c = codigoClima(daily.weather_code[i]);
         document.getElementById("rotadorIcon" + i).textContent = c[0];
@@ -5132,11 +5135,9 @@ function renderClimaRotador(data) {
         document.getElementById("rotadorTempMin" + i).textContent = Math.round(daily.temperature_2m_min[i]) + "°";
     }
 
-    // ========== ALERTAS ==========
     const alertas = [];
     let urgente = false;
 
-    // 1. HELADA (prioridad máxima)
     for (let i = 0; i < 3; i++) {
         if (daily.temperature_2m_min[i] <= 2) {
             const dia = i === 0 ? "esta noche" : (i === 1 ? "mañana" : nombreDia(daily.time[i], i).toLowerCase());
@@ -5146,11 +5147,10 @@ function renderClimaRotador(data) {
                 tono: "atencion"
             });
             urgente = true;
-            break; // solo mostramos la más cercana
+            break;
         }
     }
 
-    // 2. LLUVIA
     if (daily.precipitation_probability_max) {
         for (let i = 0; i < 3; i++) {
             const prob = daily.precipitation_probability_max[i];
@@ -5169,7 +5169,6 @@ function renderClimaRotador(data) {
         }
     }
 
-    // 3. VIENTO FUERTE
     if (daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] >= 25) {
         alertas.push({
             icono: "💨",
@@ -5179,13 +5178,11 @@ function renderClimaRotador(data) {
         urgente = true;
     }
 
-    // 4. BUENAS CONDICIONES PARA APLICAR (si no hay alertas negativas)
     const hayHelada = alertas.some(a => a.icono === "❄️");
     const hayLluvia = alertas.some(a => a.icono === "🌧️");
     const hayViento = alertas.some(a => a.icono === "💨");
 
     if (!hayHelada && !hayLluvia && !hayViento) {
-        // Verificar que realmente haya buenas condiciones
         const vientoBajo = daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] < 25 && daily.wind_gusts_10m_max[1] < 25;
         const lluviaBaja = daily.precipitation_probability_max && daily.precipitation_probability_max[0] < 30 && daily.precipitation_probability_max[1] < 30;
         if (vientoBajo && lluviaBaja) {
@@ -5203,7 +5200,6 @@ function renderClimaRotador(data) {
         }
     }
 
-    // Mostrar panel de alertas
     const panelAlertas = document.getElementById("rotadorAlertas");
     const rotadorBox = document.getElementById("rotador");
     const alertaBox = document.getElementById("rotadorAlertaBox");
@@ -5222,10 +5218,8 @@ function renderClimaRotador(data) {
         panelAlertas.dataset.urgente = "0";
     }
 
-    // Actualizar dots
     actualizarDotsRotador();
 
-    // Iniciar rotador si no está corriendo
     if (!window.rotadorInterval) {
         iniciarRotador();
     }
@@ -5301,7 +5295,7 @@ async function cargarUnFeed(url) {
             fecha: item.pubDate || ""
         }));
     } catch (e) {
-        return []; // este feed puntual falló: se ignora, no rompe nada más
+        return [];
     }
 }
 
@@ -5399,9 +5393,8 @@ function obtenerPanelesActivos() {
             panelNoticias = p;
         }
     });
-    // Orden fijo: Logo → Clima → Alertas → Noticias.
     if (panelAlertas) activos.push(panelAlertas);
-    if (panelNoticias) activos.push(panelNoticia);
+    if (panelNoticias) activos.push(panelNoticias);
     return activos;
 }
 
@@ -5441,7 +5434,7 @@ function actualizarEstadoBarras(activos, indiceActivo) {
             fill.style.width = "0%";
             const tipo = activos[i] ? activos[i].dataset.panel : null;
             const duracion = TIEMPOS_PANEL[tipo] || 4500;
-            void fill.offsetWidth; // fuerza reflow para reiniciar la animación
+            void fill.offsetWidth;
             fill.style.transition = "width " + duracion + "ms linear";
             requestAnimationFrame(() => { fill.style.width = "100%"; });
         }
@@ -5519,13 +5512,11 @@ function inicializarInteraccionRotador() {
     if (!rotador || rotador.dataset.interaccionLista) return;
     rotador.dataset.interaccionLista = "1";
 
-    // Tocar/click en el recuadro pausa la rotación un rato
     rotador.addEventListener("click", function(ev) {
         if (ev.target.closest(".rotador-barra")) return;
         pausarRotadorTemporalmente();
     });
 
-    // Swipe manual (izquierda/derecha) entre paneles
     let touchStartX = 0;
     let touchStartY = 0;
     rotador.addEventListener("touchstart", function(ev) {
@@ -6681,7 +6672,6 @@ function renderTrabajosFicha(lote) {
         });
     }
     
-    // Formulario para agregar trabajos
     html += '<div id="trabajoFormPanel_' + lote.id + '" class="trabajo-form-panel">';
     html += '<div class="form-group"><label>Tipo de trabajo</label><select id="trabajoTipo_' + lote.id + '" onchange="actualizarCampoProductoTrabajo(\'' + lote.id + '\')"><option value="Corte">Corte</option><option value="Aplicación">Aplicación</option><option value="Riego">Riego</option><option value="Siembra">Siembra</option><option value="Otro">Otro</option></select></div>';
     html += '<div class="form-group" id="trabajoProductoGrupo_' + lote.id + '" style="display:none;"><label>Producto</label><input id="trabajoProducto_' + lote.id + '" type="text" placeholder="Ej: 2,4-D"></div>';
@@ -6690,7 +6680,6 @@ function renderTrabajosFicha(lote) {
     html += '<button class="calcular" onclick="guardarTrabajo(\'' + lote.id + '\')">GUARDAR TRABAJO →</button>';
     html += '</div>';
     
-    // Botón para ver historial de trabajos realizados
     if (realizados.length > 0) {
         html += '<div class="trabajos-historial-toggle" onclick="toggleHistorialTrabajos(\'' + lote.id + '\')">';
         html += '📋 Ver ' + realizados.length + ' trabajo(s) realizados <span class="flecha" id="historialFlecha_' + lote.id + '">▾</span>';
@@ -6831,7 +6820,6 @@ async function renderAgendaCampo() {
         lotesFiltrados = lotes.filter(l => l.tipo === filtroTipo);
     }
     
-    // Ordenar lotes: primero los que tienen trabajos pendientes más cercanos
     lotesFiltrados.sort((a, b) => {
         const pendA = trabajosPendientes(a);
         const pendB = trabajosPendientes(b);
@@ -6840,7 +6828,6 @@ async function renderAgendaCampo() {
         return fechaA.localeCompare(fechaB);
     });
     
-    // Calcular trabajos vencidos totales
     const hoy = new Date().toISOString().slice(0, 10);
     let totalVencidos = 0;
     lotes.forEach(l => {
