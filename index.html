@@ -63,7 +63,7 @@ html {
 }
 
 /* =========================================================
-   FONDO — IMAGEN AÉREA (img_20.png) NÍTIDA
+   FONDO — IMAGEN AÉREA (img_20.png) SIN VIÑETA
 ========================================================= */
 
 body {
@@ -93,46 +93,16 @@ body::before {
     filter:contrast(1.05) saturate(1.08);
 }
 
-body::after {
-    content:"";
-    position:fixed;
-    inset:0;
-    z-index:-1;
-    pointer-events:none;
-    background:
-        radial-gradient(
-            ellipse 120% 90% at center,
-            rgba(243,246,244,0.20) 0%,
-            rgba(243,246,244,0.35) 45%,
-            rgba(243,246,244,0.70) 100%
-        ),
-        linear-gradient(
-            180deg,
-            rgba(243,246,244,0.40) 0%,
-            rgba(243,246,244,0.10) 30%,
-            rgba(243,246,244,0.10) 70%,
-            rgba(243,246,244,0.50) 100%
-        );
-}
+/* Sin viñeta — la imagen se ve 100% nítida */
 
 @media (max-width:600px) {
     body::before {
         background-position:center 30%;
     }
-    body::after {
-        background:
-            radial-gradient(
-                ellipse 140% 100% at center,
-                rgba(243,246,244,0.25) 0%,
-                rgba(243,246,244,0.42) 50%,
-                rgba(243,246,244,0.78) 100%
-            );
-    }
 }
 
 @media print {
-    body::before,
-    body::after {
+    body::before {
         display:none!important;
     }
 }
@@ -398,14 +368,34 @@ body::after {
     font-weight:800;
 }
 
-.titulo-principal h2 {
-    color: var(--verde);
-}
 .titulo-secundario h2 {
     color: var(--verde2);
     font-weight:700;
     opacity:.85;
     text-align:center;
+}
+
+/* =========================================================
+   TÍTULO "¿QUÉ QUERÉS EVALUAR?" — CÁPSULA BLANCA
+========================================================= */
+
+.titulo-principal h2 {
+    color: var(--verde);
+    display:inline-block;
+    padding:12px 28px;
+    background:rgba(255,255,255,0.90);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    border-radius:30px;
+    box-shadow:0 8px 24px rgba(0,0,0,.18);
+    border:1px solid rgba(255,255,255,.6);
+}
+
+@media(max-width:600px) {
+    .titulo-principal h2 {
+        padding:10px 22px;
+        font-size:18px;
+    }
 }
 
 /* =========================================================
@@ -3173,7 +3163,6 @@ body::after {
     .historial-tabla th, .historial-tabla td { padding:8px 4px; }
     .consoc-preset-chip { padding:10px 14px; font-size:10px; }
     .consoc-selects { grid-template-columns:1fr; }
-    .titulo-principal h2 { font-size:20px; }
     .titulo-secundario h2 { font-size:17px; }
 }
 
