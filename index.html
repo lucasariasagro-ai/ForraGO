@@ -589,341 +589,6 @@ body {
 }
 
 /* =========================================================
-   DASHBOARD — MI PRODUCCIÓN
-========================================================= */
-
-.dashboard {
-    display:none;
-    padding:8px 0 40px;
-}
-
-.dashboard-top {
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:16px;
-    margin-bottom:18px;
-}
-.dashboard-marca {
-    display:flex;
-    align-items:center;
-    gap:12px;
-}
-.dashboard-logo {
-    height:42px;
-    width:auto;
-}
-.dashboard-saludo {
-    display:flex;
-    flex-direction:column;
-    gap:2px;
-}
-.dashboard-saludo .kicker {
-    font-size:9px;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:1.2px;
-    color:var(--gris);
-}
-.dashboard-saludo h1 {
-    font-size:24px;
-    line-height:1.05;
-    letter-spacing:-.8px;
-    color:var(--verde);
-    font-weight:900;
-}
-.dashboard-menu-hint {
-    width:40px;
-    height:40px;
-    border-radius:50%;
-    border:1px solid var(--borde);
-    background:var(--blanco);
-    box-shadow:var(--sombra);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    color:var(--verde);
-    font-size:18px;
-    pointer-events:none;
-}
-
-.dashboard-resumen {
-    background:linear-gradient(135deg, var(--verde), var(--verde2));
-    border-radius:24px;
-    padding:24px;
-    color:#fff;
-    box-shadow:0 14px 40px rgba(26,107,60,.22);
-    margin-bottom:16px;
-}
-.dashboard-resumen-kicker {
-    font-size:9px;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:1.1px;
-    opacity:.78;
-}
-.dashboard-resumen-titulo {
-    margin-top:5px;
-    font-size:19px;
-    font-weight:800;
-    letter-spacing:-.3px;
-}
-.dashboard-stats {
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:10px;
-    margin-top:18px;
-}
-.dashboard-stat {
-    padding:13px 12px;
-    border-radius:14px;
-    background:rgba(255,255,255,.12);
-    border:1px solid rgba(255,255,255,.13);
-}
-.dashboard-stat strong {
-    display:block;
-    font-size:21px;
-    line-height:1;
-    font-weight:900;
-}
-.dashboard-stat span {
-    display:block;
-    margin-top:5px;
-    font-size:8.5px;
-    line-height:1.2;
-    text-transform:uppercase;
-    letter-spacing:.45px;
-    opacity:.78;
-}
-
-.dashboard-section {
-    margin:22px 0 0;
-}
-.dashboard-section-head {
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    margin-bottom:10px;
-}
-.dashboard-section-head h2 {
-    font-size:14px;
-    color:var(--verde);
-    font-weight:850;
-    letter-spacing:-.2px;
-}
-.dashboard-section-head button {
-    border:none;
-    background:none;
-    color:var(--verde2);
-    font-family:inherit;
-    font-size:10px;
-    font-weight:800;
-    cursor:pointer;
-}
-
-.dashboard-atencion {
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:15px 16px;
-    border-radius:16px;
-    background:var(--blanco);
-    border:1px solid var(--borde);
-    box-shadow:var(--sombra);
-    margin-bottom:8px;
-    cursor:pointer;
-    transition:var(--transicion);
-}
-.dashboard-atencion:hover {
-    transform:translateY(-2px);
-    box-shadow:var(--sombra-hover);
-}
-.dashboard-atencion-icono {
-    width:36px;
-    height:36px;
-    flex-shrink:0;
-    border-radius:11px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    background:#fff3d9;
-    font-size:17px;
-}
-.dashboard-atencion-texto {
-    flex:1;
-    min-width:0;
-}
-.dashboard-atencion-texto strong {
-    display:block;
-    color:var(--texto);
-    font-size:12px;
-    font-weight:800;
-}
-.dashboard-atencion-texto span {
-    display:block;
-    margin-top:3px;
-    color:var(--gris);
-    font-size:9.5px;
-    line-height:1.35;
-}
-.dashboard-atencion-flecha {
-    color:var(--verde2);
-    font-size:17px;
-    font-weight:500;
-}
-
-.dashboard-vacio {
-    padding:18px;
-    border-radius:16px;
-    background:var(--blanco);
-    border:1px dashed var(--borde);
-    color:var(--gris);
-    font-size:10.5px;
-    line-height:1.55;
-}
-
-.dashboard-lotes {
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-}
-.dashboard-lote {
-    position:relative;
-    padding:16px;
-    border-radius:17px;
-    background:var(--blanco);
-    border:1px solid var(--borde);
-    box-shadow:var(--sombra);
-    cursor:pointer;
-    transition:var(--transicion);
-    overflow:hidden;
-}
-.dashboard-lote:hover {
-    transform:translateY(-2px);
-    box-shadow:var(--sombra-hover);
-}
-.dashboard-lote::before {
-    content:"";
-    position:absolute;
-    left:0;
-    top:0;
-    bottom:0;
-    width:4px;
-    background:var(--verde3);
-}
-.dashboard-lote-nombre {
-    font-size:13px;
-    font-weight:850;
-    color:var(--verde);
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-.dashboard-lote-cultivo {
-    margin-top:3px;
-    color:var(--gris);
-    font-size:9px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-}
-.dashboard-lote-dato {
-    margin-top:13px;
-    font-size:16px;
-    font-weight:900;
-    color:var(--texto);
-}
-.dashboard-lote-dato small {
-    font-size:8px;
-    color:var(--gris);
-    font-weight:600;
-}
-.dashboard-lote-estado {
-    margin-top:6px;
-    font-size:8.5px;
-    font-weight:800;
-}
-
-.dashboard-acciones {
-    display:grid;
-    grid-template-columns:1.2fr 1fr 1fr;
-    gap:10px;
-}
-.dashboard-accion {
-    min-height:76px;
-    padding:14px;
-    border-radius:16px;
-    border:1px solid var(--borde);
-    background:var(--blanco);
-    box-shadow:var(--sombra);
-    font-family:inherit;
-    text-align:left;
-    cursor:pointer;
-    transition:var(--transicion);
-}
-.dashboard-accion:hover {
-    transform:translateY(-2px);
-    box-shadow:var(--sombra-hover);
-    border-color:var(--verde3);
-}
-.dashboard-accion.principal {
-    background:var(--verde);
-    border-color:var(--verde);
-    color:#fff;
-}
-.dashboard-accion .icono {
-    display:block;
-    font-size:20px;
-    margin-bottom:7px;
-}
-.dashboard-accion strong {
-    display:block;
-    font-size:10px;
-    font-weight:850;
-    letter-spacing:.2px;
-}
-.dashboard-accion span {
-    display:block;
-    margin-top:3px;
-    font-size:8px;
-    color:var(--gris);
-    line-height:1.25;
-}
-.dashboard-accion.principal span { color:rgba(255,255,255,.72); }
-
-.dashboard-mini-link {
-    margin-top:10px;
-    padding:13px 15px;
-    border-radius:14px;
-    background:var(--blanco);
-    border:1px solid var(--borde);
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    color:var(--texto-suave);
-    font-size:10px;
-    font-weight:700;
-    cursor:pointer;
-}
-.dashboard-mini-link strong { color:var(--verde); }
-
-@media(max-width:700px) {
-    .dashboard-stats { grid-template-columns:1fr 1fr; }
-    .dashboard-stat:last-child { grid-column:1 / -1; }
-    .dashboard-acciones { grid-template-columns:1fr 1fr; }
-    .dashboard-accion.principal { grid-column:1 / -1; }
-}
-@media(max-width:520px) {
-    .dashboard { padding-top:2px; }
-    .dashboard-top { margin-bottom:14px; }
-    .dashboard-logo { height:36px; }
-    .dashboard-saludo h1 { font-size:21px; }
-    .dashboard-lotes { grid-template-columns:1fr; }
-    .dashboard-resumen { padding:20px; }
-}
-
-/* =========================================================
    BOTÓN GESTIONAR MI PRODUCCIÓN
 ========================================================= */
 
@@ -4058,84 +3723,18 @@ body {
     </div>
 
     <!-- =========================================================
-       DASHBOARD — INICIO DE LA APP
+       "¿QUÉ QUERÉS EVALUAR?"
     ========================================================= -->
 
-    <div id="vistaDashboard" class="dashboard">
-        <div class="dashboard-top">
-            <div class="dashboard-marca">
-                <img class="dashboard-logo" src="img/img_12.png" alt="ForraGO">
-                <div class="dashboard-saludo">
-                    <span class="kicker">Gestión de la producción</span>
-                    <h1>Mi producción</h1>
-                </div>
-            </div>
-            <div class="dashboard-menu-hint" aria-hidden="true">☰</div>
-        </div>
-
-        <div id="dashboardResumen" class="dashboard-resumen"></div>
-
-        <section class="dashboard-section">
-            <div class="dashboard-section-head">
-                <h2>⚠️ Requiere atención</h2>
-                <button onclick="abrirAgendaCampo()">VER AGENDA →</button>
-            </div>
-            <div id="dashboardAtencion"></div>
-        </section>
-
-        <section class="dashboard-section">
-            <div class="dashboard-section-head">
-                <h2>Mis lotes</h2>
-                <button onclick="abrirMisLotes()">VER TODOS →</button>
-            </div>
-            <div id="dashboardLotes" class="dashboard-lotes"></div>
-        </section>
-
-        <section class="dashboard-section">
-            <div class="dashboard-section-head">
-                <h2>Acciones rápidas</h2>
-            </div>
-            <div class="dashboard-acciones">
-                <button class="dashboard-accion principal" onclick="abrirCalculadoraApp()">
-                    <span class="icono">＋</span>
-                    <strong>Nueva medición</strong>
-                    <span>Evaluá forraje o silaje</span>
-                </button>
-                <button class="dashboard-accion" onclick="abrirAgendaCampo()">
-                    <span class="icono">📅</span>
-                    <strong>Agenda</strong>
-                    <span>Trabajos y clima</span>
-                </button>
-                <button class="dashboard-accion" onclick="abrirProduccion()">
-                    <span class="icono">📊</span>
-                    <strong>Producción</strong>
-                    <span>Resumen del campo</span>
-                </button>
-            </div>
-        </section>
-
-        <div class="dashboard-mini-link" onclick="abrirNecesidades()">
-            <span>🐄 <strong>Necesidades de la majada</strong></span>
-            <span>→</span>
-        </div>
-        <div class="dashboard-mini-link" onclick="abrirBiblioteca()">
-            <span>📚 <strong>Biblioteca de cultivos</strong></span>
-            <span>→</span>
-        </div>
+    <div id="tituloEvaluar" class="seccion seccion-simple titulo-principal">
+        <h2>¿Qué querés evaluar?</h2>
     </div>
 
     <!-- =========================================================
        CALCULADORA
     ========================================================= -->
 
-    <div id="tituloEvaluar" class="seccion seccion-simple titulo-principal" style="display:none;">
-        <div style="display:flex;align-items:center;justify-content:space-between;gap:10px;">
-            <button class="btn-back" onclick="mostrarHome()">Resumen</button>
-            <h2>¿Qué querés evaluar?</h2>
-        </div>
-    </div>
-
-    <div id="vistaCalculadora" style="display:none;">
+    <div id="vistaCalculadora">
         <div class="tipo-tabs" id="tipoTabs">
             <button class="tipo-tab" data-tipo="forraje" onclick="mostrarTipo('forraje')">
                 <span class="icono">🌾</span>
@@ -4152,10 +3751,15 @@ body {
                 </span>
             </button>
         </div>
+
+        <button class="btn-gestionar" onclick="abrirGestionar()">
+            <span>GESTIONAR MI PRODUCCIÓN</span>
+            <span class="btn-gestionar-flecha">→</span>
+        </button>
     </div>
 
     <!-- =========================================================
-       GESTIONAR MI PRODUCCIÓN — MANTENIDO COMO COMPATIBILIDAD
+       GESTIONAR MI PRODUCCIÓN
     ========================================================= -->
 
     <div id="vistaGestionar" style="display:none;">
@@ -5945,7 +5549,6 @@ function abrirApp() {
     cargarClimaRotador();
     cargarNoticiasRotador();
     inicializarInteraccionRotador();
-    mostrarHome();
 
     setTimeout(() => {
         actualizarDotsRotador();
@@ -6371,7 +5974,6 @@ async function migrarLotesViejos() {
 }
 
 function ocultarNivelesSuperiores() {
-    document.getElementById("vistaDashboard").style.display = "none";
     document.getElementById("tituloEvaluar").style.display = "none";
     document.getElementById("vistaCalculadora").style.display = "none";
     document.getElementById("bloqueForraje").style.display = "none";
@@ -6398,166 +6000,25 @@ function restaurarBloqueActivo() {
 }
 
 function mostrarHome() {
-    ocultarNivelesSuperiores();
-    document.getElementById("vistaDashboard").style.display = "block";
-    renderDashboard();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-function abrirCalculadoraApp() {
-    ocultarNivelesSuperiores();
     document.getElementById("tituloEvaluar").style.display = "";
     document.getElementById("vistaCalculadora").style.display = "";
+    document.querySelector(".header").style.display = "";
+    document.querySelector(".hero").style.display = "";
     document.getElementById("rotador").style.display = "";
     restaurarBloqueActivo();
-    window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function abrirGestionar() {
-    mostrarHome();
+    ocultarNivelesSuperiores();
+    document.getElementById("vistaGestionar").style.display = "block";
+    renderResumenGestionar();
+    window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
 function cerrarGestionar() {
     document.getElementById("vistaGestionar").style.display = "none";
     mostrarHome();
     window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-async function renderDashboard() {
-    const resumen = document.getElementById("dashboardResumen");
-    const atencion = document.getElementById("dashboardAtencion");
-    const lotesCont = document.getElementById("dashboardLotes");
-    if (!resumen || !atencion || !lotesCont) return;
-
-    resumen.innerHTML = '<div class="dashboard-resumen-kicker">Estado de tu campo</div><div class="dashboard-resumen-titulo">Cargando información...</div>';
-    atencion.innerHTML = '<div class="dashboard-vacio">Analizando tus lotes...</div>';
-    lotesCont.innerHTML = '<div class="dashboard-vacio">Cargando...</div>';
-
-    const lotes = await cargarLotes();
-    const stats = await calcularEstadisticasCampo();
-
-    if (stats.totalLotes === 0) {
-        resumen.innerHTML =
-            '<div class="dashboard-resumen-kicker">Estado de tu campo</div>' +
-            '<div class="dashboard-resumen-titulo">Todavía no tenés lotes cargados</div>' +
-            '<div style="margin-top:7px;font-size:10px;line-height:1.5;opacity:.8;">Creá tu primer lote y ForraGO va a empezar a construir tu resumen de producción.</div>';
-
-        atencion.innerHTML =
-            '<div class="dashboard-vacio">' +
-            '🌱 Empezá creando tu primer lote.<br>' +
-            '<button class="btn-ir-lotes" style="margin-top:10px;" onclick="abrirMisLotes()">CREAR MI PRIMER LOTE</button>' +
-            '</div>';
-        lotesCont.innerHTML = '';
-        return;
-    }
-
-    resumen.innerHTML =
-        '<div class="dashboard-resumen-kicker">Estado de tu campo</div>' +
-        '<div class="dashboard-resumen-titulo">Así está tu producción hoy</div>' +
-        '<div class="dashboard-stats">' +
-        '<div class="dashboard-stat"><strong>' + stats.totalLotes + '</strong><span>Lotes</span></div>' +
-        '<div class="dashboard-stat"><strong>' + numero(stats.hectareasTotales, 1) + '</strong><span>Hectáreas</span></div>' +
-        '<div class="dashboard-stat"><strong>' + (stats.lotesConMedicion > 0 ? numero(stats.kgMsTotal) : '—') + '</strong><span>kg MS estimados</span></div>' +
-        '</div>';
-
-    const hoy = new Date();
-    hoy.setHours(0,0,0,0);
-    const alertas = [];
-
-    lotes.forEach(lote => {
-        const mediciones = Array.isArray(lote.mediciones) ? lote.mediciones : [];
-        const ultima = mediciones.length ? mediciones[mediciones.length - 1] : null;
-
-        if (!ultima) {
-            alertas.push({
-                icono:'📏',
-                titulo:lote.nombre,
-                detalle:'Todavía no tiene ninguna medición',
-                loteId:lote.id,
-                prioridad:1
-            });
-        } else {
-            const fecha = new Date(ultima.fecha + 'T00:00:00');
-            const dias = Math.floor((hoy - fecha) / 86400000);
-            if (dias >= 14) {
-                alertas.push({
-                    icono:'📏',
-                    titulo:lote.nombre,
-                    detalle:'Última medición: ' + tiempoRelativo(ultima.fecha),
-                    loteId:lote.id,
-                    prioridad:2
-                });
-            } else if (ultima.clase === 'medio' || ultima.clase === 'bajo' || ultima.clase === 'muy-bajo') {
-                alertas.push({
-                    icono:'⚠️',
-                    titulo:lote.nombre,
-                    detalle:ultima.categoria || 'Estado que requiere revisión',
-                    loteId:lote.id,
-                    prioridad:2
-                });
-            }
-        }
-
-        (lote.trabajos || []).forEach(t => {
-            if (t.estado === 'pendiente' && t.fechaPlan) {
-                const fechaTrabajo = new Date(t.fechaPlan + 'T00:00:00');
-                const dias = Math.floor((hoy - fechaTrabajo) / 86400000);
-                if (dias > 0) {
-                    alertas.push({
-                        icono:'📅',
-                        titulo:lote.nombre,
-                        detalle:'Trabajo vencido: ' + (t.tipo || 'Tarea'),
-                        loteId:lote.id,
-                        prioridad:0
-                    });
-                }
-            }
-        });
-    });
-
-    alertas.sort((a,b) => a.prioridad - b.prioridad);
-
-    if (!alertas.length) {
-        atencion.innerHTML =
-            '<div class="dashboard-vacio">🟢 No hay alertas importantes. Tu producción está al día.</div>';
-    } else {
-        atencion.innerHTML = alertas.slice(0,4).map(a =>
-            '<div class="dashboard-atencion" onclick="abrirFichaDesdeDashboard(\'' + a.loteId + '\')">' +
-            '<div class="dashboard-atencion-icono">' + a.icono + '</div>' +
-            '<div class="dashboard-atencion-texto"><strong>' + escapeHtml(a.titulo) + '</strong><span>' + escapeHtml(a.detalle) + '</span></div>' +
-            '<div class="dashboard-atencion-flecha">→</div>' +
-            '</div>'
-        ).join('') +
-        (alertas.length > 4 ? '<div class="dashboard-mini-link" onclick="abrirAgendaCampo()"><span>Hay <strong>' + alertas.length + ' situaciones</strong> para revisar</span><span>Ver agenda →</span></div>' : '');
-    }
-
-    const destacados = lotes.slice(0,4);
-    lotesCont.innerHTML = destacados.map(lote => {
-        const ultima = lote.mediciones && lote.mediciones.length ? lote.mediciones[lote.mediciones.length - 1] : null;
-        const nombreCultivo = obtenerNombreCultivo(lote.cultivo, lote.tipo);
-        const colorLote = colorPorLote(lote.id);
-        const semaforo = ultima ? semaforoEstado(ultima.clase) : {emoji:'⚪', texto:'Sin medir'};
-        return '<div class="dashboard-lote" style="--verde3:' + colorLote + ';" onclick="abrirFichaDesdeDashboard(\'' + lote.id + '\')">' +
-            '<div class="dashboard-lote-nombre">' + escapeHtml(lote.nombre) + '</div>' +
-            '<div class="dashboard-lote-cultivo">' + escapeHtml(nombreCultivo) + ' · ' + numero(lote.superficie,2) + ' ha</div>' +
-            (ultima ?
-                '<div class="dashboard-lote-dato">' + numero(ultima.msHa) + ' <small>kg MS/ha</small></div>' :
-                '<div class="dashboard-lote-dato">— <small>sin medición</small></div>') +
-            '<div class="dashboard-lote-estado">' + semaforo.emoji + ' ' + semaforo.texto + '</div>' +
-            '</div>';
-    }).join('');
-
-    if (lotes.length > 4) {
-        lotesCont.insertAdjacentHTML('afterend',
-            '<div class="dashboard-mini-link" onclick="abrirMisLotes()"><span>Tenés <strong>' + lotes.length + ' lotes</strong> cargados</span><span>Ver todos →</span></div>'
-        );
-    }
-}
-
-async function abrirFichaDesdeDashboard(id) {
-    const lote = await obtenerLotePorId(id);
-    if (!lote) return;
-    await verFichaLote(id);
 }
 
 async function calcularEstadisticasCampo() {
@@ -6885,7 +6346,7 @@ async function trabajarConLote(id) {
     document.getElementById("loteActivoBanner").style.display = "flex";
     document.getElementById("vistaLotes").style.display = "none";
     document.getElementById("vistaGestionar").style.display = "none";
-    abrirCalculadoraApp();
+    mostrarHome();
     mostrarTipo(lote.tipo);
     setTimeout(() => {
         const selector = lote.tipo === "silaje" ? '.cultivos-silaje .cultivo[data-cultivo="' + lote.cultivo + '"]' : '.cultivo-item[data-cultivo="' + lote.cultivo + '"]';
