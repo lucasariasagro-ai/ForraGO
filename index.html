@@ -63,7 +63,7 @@ html {
 }
 
 /* =========================================================
-   FONDO — IMAGEN AÉREA (img_20.png)
+   FONDO — IMAGEN AÉREA (img_20.png) NÍTIDA
 ========================================================= */
 
 body {
@@ -86,6 +86,11 @@ body::before {
     background-repeat:no-repeat;
     will-change:transform;
     transform:translateZ(0);
+    image-rendering:-webkit-optimize-contrast;
+    image-rendering:crisp-edges;
+    -webkit-backface-visibility:hidden;
+    backface-visibility:hidden;
+    filter:contrast(1.05) saturate(1.08);
 }
 
 body::after {
@@ -97,16 +102,16 @@ body::after {
     background:
         radial-gradient(
             ellipse 120% 90% at center,
-            rgba(243,246,244,0.50) 0%,
-            rgba(243,246,244,0.68) 45%,
-            rgba(243,246,244,0.90) 100%
+            rgba(243,246,244,0.20) 0%,
+            rgba(243,246,244,0.35) 45%,
+            rgba(243,246,244,0.70) 100%
         ),
         linear-gradient(
             180deg,
-            rgba(243,246,244,0.72) 0%,
-            rgba(243,246,244,0.35) 30%,
-            rgba(243,246,244,0.35) 70%,
-            rgba(243,246,244,0.78) 100%
+            rgba(243,246,244,0.40) 0%,
+            rgba(243,246,244,0.10) 30%,
+            rgba(243,246,244,0.10) 70%,
+            rgba(243,246,244,0.50) 100%
         );
 }
 
@@ -118,9 +123,9 @@ body::after {
         background:
             radial-gradient(
                 ellipse 140% 100% at center,
-                rgba(243,246,244,0.55) 0%,
-                rgba(243,246,244,0.75) 50%,
-                rgba(243,246,244,0.95) 100%
+                rgba(243,246,244,0.25) 0%,
+                rgba(243,246,244,0.42) 50%,
+                rgba(243,246,244,0.78) 100%
             );
     }
 }
@@ -274,7 +279,7 @@ body::after {
 }
 
 /* =========================================================
-   LOGIN (dentro del hero)
+   LOGIN
 ========================================================= */
 
 .login-card {
@@ -404,7 +409,7 @@ body::after {
 }
 
 /* =========================================================
-   CHECK VERDE PERSONALIZADO
+   CHECK VERDE
 ========================================================= */
 
 .check-verde {
@@ -601,7 +606,7 @@ body::after {
 }
 
 /* =========================================================
-   BOTÓN GESTIONAR MI PRODUCCIÓN
+   BOTÓN GESTIONAR
 ========================================================= */
 
 .btn-gestionar {
@@ -766,7 +771,6 @@ body::after {
     transform:scale(1);
 }
 
-/* Cultivo imágenes */
 .alfalfa-bg { background-image:url(img/img_04.jpg); }
 .avena-bg { background-image:url(img/img_05.jpg); }
 .triticale-bg { background-image:url(img/img_06.jpg); }
@@ -795,7 +799,7 @@ body::after {
 }
 
 /* =========================================================
-   CULTIVOS DESTACADOS (compacto)
+   CULTIVOS COMPACTOS
 ========================================================= */
 
 .cultivos-destacados {
@@ -1614,7 +1618,7 @@ body::after {
 }
 
 /* =========================================================
-   VENTANA COSECHA SILAJE
+   VENTANA COSECHA
 ========================================================= */
 
 .ventana-cosecha {
@@ -1939,7 +1943,7 @@ body::after {
 }
 
 /* =========================================================
-   RESUMEN "MI PRODUCCIÓN"
+   RESUMEN MI PRODUCCIÓN
 ========================================================= */
 
 .gestionar-resumen {
@@ -2549,7 +2553,7 @@ body::after {
 }
 
 /* =========================================================
-   ROTADOR DE INFORMACIÓN — CORREGIDO FINAL
+   ROTADOR
 ========================================================= */
 
 .rotador {
@@ -2594,7 +2598,6 @@ body::after {
     transition:opacity .4s ease, transform .4s ease, visibility 0s linear 0s;
 }
 
-/* ===== LOGO ===== */
 .rotador-panel[data-panel="logo"] {
     padding-top:20px;
     padding-bottom:20px;
@@ -2604,7 +2607,6 @@ body::after {
     width:auto;
 }
 
-/* ===== CLIMA ===== */
 .rotador-clima {
     display:flex;
     align-items:center;
@@ -2691,7 +2693,6 @@ body::after {
     color:#3b7bc9;
 }
 
-/* ===== ALERTAS ===== */
 .rotador-alerta {
     display:flex;
     flex-direction:column;
@@ -2735,7 +2736,6 @@ body::after {
     color:var(--verde);
 }
 
-/* ===== NOTICIAS AGROPECUARIAS ===== */
 .rotador-noticia {
     display:flex;
     flex-direction:column;
@@ -2795,7 +2795,6 @@ body::after {
     border-color:var(--lima);
 }
 
-/* ===== DOTS ===== */
 .rotador-dots {
     position:absolute;
     left:20px;
@@ -2828,7 +2827,6 @@ body::after {
     background:#d97a4a;
 }
 
-/* RESPONSIVE */
 @media(max-width:600px) {
     .rotador {
         padding:16px 18px;
@@ -2961,10 +2959,6 @@ body::after {
         font-size:9.5px;
     }
 }
-
-/* =========================================================
-   CLIMA PREMIUM (oculto, reemplazado por rotador)
-========================================================= */
 
 .weather-card-premium {
     display:none;
@@ -3115,7 +3109,7 @@ body::after {
 }
 
 /* =========================================================
-   MODAL DE CONFIRMACIÓN
+   MODAL
 ========================================================= */
 
 .modal-overlay {
@@ -3306,7 +3300,7 @@ body::after {
 }
 
 /* =========================================================
-   BIBLIOTECA — VISTA INTERNA
+   BIBLIOTECA VISTA INTERNA
 ========================================================= */
 
 #bibliotecaContenido .biblioteca-intro {
@@ -3375,7 +3369,7 @@ body::after {
 }
 
 /* =========================================================
-   AGENDA — ESTILOS
+   AGENDA
 ========================================================= */
 
 .trabajos-caja { margin-bottom:18px; }
@@ -3665,19 +3659,13 @@ body::after {
         </div>
     </div>
 
-    <!-- =========================================================
-       ROTADOR DE INFORMACIÓN
-    ========================================================= -->
-
     <div id="rotador" class="rotador">
-        <!-- Panel 1: LOGO -->
         <div class="rotador-panel activo" data-panel="logo">
             <div class="rotador-logo">
                 <img src="img/img_19.png" alt="ForraGO" id="rotadorLogo">
             </div>
         </div>
 
-        <!-- Panel 2: CLIMA -->
         <div class="rotador-panel" data-panel="clima">
             <div class="rotador-clima">
                 <div class="rotador-clima-actual">
@@ -3706,7 +3694,6 @@ body::after {
             </div>
         </div>
 
-        <!-- Panel 3: ALERTAS -->
         <div class="rotador-panel" data-panel="alertas" id="rotadorAlertas" data-disponible="0">
             <div class="rotador-alerta" id="rotadorAlertaBox">
                 <div class="icono-alerta-badge"><span class="icono-alerta" id="alertaIcono">⚠️</span></div>
@@ -3715,7 +3702,6 @@ body::after {
             </div>
         </div>
 
-        <!-- Panel 4: NOTICIAS AGROPECUARIAS -->
         <div class="rotador-panel" data-panel="noticias" id="rotadorNoticias" data-disponible="0">
             <div class="rotador-noticia" id="rotadorNoticiaBox" onclick="event.stopPropagation(); abrirNoticiaActual();">
                 <span class="rotador-kicker">Novedades agropecuarias</span>
@@ -3728,21 +3714,12 @@ body::after {
             </div>
         </div>
 
-        <!-- DOTS -->
         <div class="rotador-dots" id="rotadorDots"></div>
     </div>
-
-    <!-- =========================================================
-       "¿QUÉ QUERÉS EVALUAR?"
-    ========================================================= -->
 
     <div id="tituloEvaluar" class="seccion seccion-simple titulo-principal">
         <h2>¿Qué querés evaluar?</h2>
     </div>
-
-    <!-- =========================================================
-       CALCULADORA
-    ========================================================= -->
 
     <div id="vistaCalculadora">
         <div class="tipo-tabs" id="tipoTabs">
@@ -3767,10 +3744,6 @@ body::after {
             <span class="btn-gestionar-flecha">→</span>
         </button>
     </div>
-
-    <!-- =========================================================
-       GESTIONAR MI PRODUCCIÓN
-    ========================================================= -->
 
     <div id="vistaGestionar" style="display:none;">
         <div class="lotes-header">
@@ -3821,10 +3794,6 @@ body::after {
         </div>
     </div>
 
-    <!-- =========================================================
-       PRODUCCIÓN — RESUMEN
-    ========================================================= -->
-
     <div id="vistaProduccion" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarProduccion()">Volver</button>
@@ -3832,10 +3801,6 @@ body::after {
         </div>
         <div id="produccionContenido"></div>
     </div>
-
-    <!-- =========================================================
-       NECESIDADES DE LA MAJADA
-    ========================================================= -->
 
     <div id="vistaNecesidades" style="display:none;">
         <div class="lotes-header">
@@ -3872,10 +3837,6 @@ body::after {
         <div id="necesidadesResultado"></div>
     </div>
 
-    <!-- =========================================================
-       MI PERFIL
-    ========================================================= -->
-
     <div id="vistaPerfil" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarPerfil()">Volver</button>
@@ -3907,10 +3868,6 @@ body::after {
         </section>
     </div>
 
-    <!-- =========================================================
-       DATOS Y SINCRONIZACIÓN
-    ========================================================= -->
-
     <div id="vistaDatos" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarDatosSincronizacion()">Volver</button>
@@ -3926,10 +3883,6 @@ body::after {
         </div>
         <div id="notificacionesContenido"></div>
     </div>
-
-    <!-- =========================================================
-       BLOQUE FORRAJE
-    ========================================================= -->
 
     <div id="bloqueForraje" class="bloque-tipo" style="display:none;">
         <section class="panel">
@@ -4149,7 +4102,6 @@ body::after {
             </div>
         </section>
 
-        <!-- RESULTADO FORRAJE -->
         <section id="resultado" class="resultado">
             <div class="resultado-cabecera">
                 <div class="mini">Resultado de tu lote</div>
@@ -4263,10 +4215,6 @@ body::after {
         </section>
     </div>
 
-    <!-- =========================================================
-       BLOQUE SILAJE
-    ========================================================= -->
-
     <div id="bloqueSilaje" class="bloque-tipo" style="display:none;">
         <section class="panel">
             <label class="label">Elegí el cultivo</label>
@@ -4332,7 +4280,6 @@ body::after {
             </div>
         </section>
 
-        <!-- RESULTADO SILAJE -->
         <section id="resultadoSilo" class="resultado">
             <div class="resultado-cabecera">
                 <div class="mini">Resultado de tu lote</div>
@@ -4445,10 +4392,6 @@ body::after {
         </section>
     </div>
 
-    <!-- =========================================================
-       MIS LOTES
-    ========================================================= -->
-
     <div id="vistaLotes" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarMisLotes()">Volver</button>
@@ -4512,10 +4455,6 @@ body::after {
         <div id="loteHistorial" style="display:none;"></div>
     </div>
 
-    <!-- =========================================================
-       AGENDA DE CAMPO
-    ========================================================= -->
-
     <div id="vistaAgenda" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarAgendaCampo()">Volver</button>
@@ -4532,10 +4471,6 @@ body::after {
         <div id="agendaContenido"></div>
     </div>
 
-    <!-- =========================================================
-       BIBLIOTECA
-    ========================================================= -->
-
     <div id="vistaBiblioteca" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarBiblioteca()">Volver</button>
@@ -4543,10 +4478,6 @@ body::after {
         </div>
         <div id="bibliotecaContenido"></div>
     </div>
-
-    <!-- =========================================================
-       BANNER LOTE ACTIVO
-    ========================================================= -->
 
     <div id="loteActivoBanner" class="lote-activo-banner" style="display:none;">
         <span id="loteActivoTexto"></span>
@@ -4565,25 +4496,13 @@ body::after {
 
 </div>
 
-<!-- =========================================================
-   SCRIPTS
-========================================================= -->
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 
-// =========================================================
-// SUPABASE — CONEXIÓN
-// =========================================================
 const SUPABASE_URL = "https://mvgujzirgqmtkwneoshw.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_ofo6RgRPP9S0PaWf3itUUQ_tcw0SYqx";
 
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-
-// =========================================================
-// DATOS CULTIVOS
-// =========================================================
 
 const cultivos = {
     alfalfa: { nombre: "Alfalfa", ms: { tierno: 18, medio: 21, espiga: 24 }, referencia: 2200 },
@@ -4665,10 +4584,6 @@ let ultimoResultado = null;
 let ultimoResultadoSilo = null;
 let climaDiarioActual = null;
 
-// =========================================================
-// FUNCIONES GENERALES
-// =========================================================
-
 function numero(n, dec = 0) {
     return new Intl.NumberFormat("es-AR", {
         minimumFractionDigits: dec,
@@ -4697,7 +4612,7 @@ function escapeHtml(texto) {
 
 function formatearFecha(fechaIso) {
     if (!fechaIso) return "-";
-    const partes = fechaiSo.split("-");
+    const partes = fechaIso.split("-");
     if (partes.length !== 3) return fechaIso;
     return partes[2] + "/" + partes[1] + "/" + partes[0];
 }
@@ -4706,10 +4621,6 @@ function obtenerNombreCultivo(clave, tipo) {
     const origen = tipo === "silaje" ? silajeCultivos : cultivos;
     return origen[clave] ? origen[clave].nombre : clave;
 }
-
-// =========================================================
-// PESTAÑAS
-// =========================================================
 
 function mostrarTipo(tipo) {
     const yaActivo = document.querySelector('.tipo-tab[data-tipo="' + tipo + '"]').classList.contains("activo");
@@ -4730,10 +4641,6 @@ function mostrarTipo(tipo) {
     bloque.classList.add("aparecer");
     setTimeout(() => bloque.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
 }
-
-// =========================================================
-// CULTIVOS
-// =========================================================
 
 function seleccionar(elemento) {
     cultivoActual = elemento.dataset.cultivo;
@@ -4790,10 +4697,6 @@ function seleccionarDestino(elemento) {
     destinoActual = elemento.dataset.destino;
 }
 
-// =========================================================
-// CONSOCIACIONES
-// =========================================================
-
 function desactivarConsociacion() {
     const preview = document.getElementById("consocPreview");
     preview.classList.remove("activo");
@@ -4845,10 +4748,6 @@ function aplicarPresetConsoc(graminea, leguminosa, porcLeguminosa) {
     actualizarConsociacion();
 }
 
-// =========================================================
-// ASESOR
-// =========================================================
-
 function toggleAsesor() {
     document.getElementById("asesorPanel").classList.toggle("mostrar");
     if (document.getElementById("asesorPanel").classList.contains("mostrar")) sincronizarAsesor();
@@ -4883,10 +4782,6 @@ function actualizarReferenciaSilo() {
         silajeCultivos[cultivoSiloActual].referencia = valor;
     }
 }
-
-// =========================================================
-// CALCULAR FORRAJE
-// =========================================================
 
 function estimarAnimalesRapido(kgDisponible, dias = 30) {
     const cat = categoriasAnimales.vaca_cria;
@@ -4947,10 +4842,6 @@ function calcular() {
     document.getElementById("resultado").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-// =========================================================
-// CALCULAR SILAJE
-// =========================================================
-
 function categorizarSilo(msHa, cultivo) {
     for (const nivel of cultivo.categorias) {
         if (msHa < nivel.hasta) return nivel;
@@ -5003,10 +4894,6 @@ function calcularSilaje() {
     document.getElementById("resultadoSilo").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-// =========================================================
-// CARGA ANIMAL
-// =========================================================
-
 function actualizarCategoria(sufijo) {
     const categoria = categoriasAnimales[document.getElementById("cargaCategoria" + sufijo).value];
     document.getElementById("cargaPeso" + sufijo).value = categoria.peso;
@@ -5057,10 +4944,6 @@ function calcularCarga(sufijo) {
     }
 }
 
-// =========================================================
-// DETALLES / NUEVO / PDF / COMPARTIR
-// =========================================================
-
 function detalles() { document.getElementById("detalles").classList.toggle("mostrar"); }
 function nuevo() {
     document.getElementById("resultado").classList.remove("mostrar");
@@ -5095,10 +4978,6 @@ function compartirWhatsapp(sufijo) {
     window.open("https://wa.me/?text=" + encodeURIComponent(texto + "\n\nCalculado con ForraGO"), "_blank");
 }
 
-// =========================================================
-// BIBLIOTECA
-// =========================================================
-
 function toggleBiblioteca() {
     document.getElementById("bibliotecaPanel").classList.toggle("mostrar");
 }
@@ -5114,10 +4993,6 @@ function toggleCultivosExtra() {
 function toggleFicha(elemento) {
     elemento.classList.toggle("abierto");
 }
-
-// =========================================================
-// CLIMA — PARA EL ROTADOR
-// =========================================================
 
 function codigoClima(codigo) {
     if (codigo === 0) return ["☀️", "Despejado", "despejado"];
@@ -5140,7 +5015,6 @@ function renderClimaRotador(data) {
     document.getElementById("rotadorDesc").textContent = info[1];
     document.getElementById("rotadorExtra").textContent = '💨 ' + Math.round(current.wind_speed_10m) + ' km/h';
 
-    const dias = ["Hoy", "Mañana", "Pasado"];
     for (let i = 0; i < 3; i++) {
         const c = codigoClima(daily.weather_code[i]);
         document.getElementById("rotadorIcon" + i).textContent = c[0];
@@ -5265,10 +5139,6 @@ function cargarClimaRotador() {
     }
 }
 
-// =========================================================
-// NOTICIAS AGROPECUARIAS — PARA EL ROTADOR
-// =========================================================
-
 const FEEDS_NOTICIAS_AGRO = [
     "https://www.infocampo.com.ar/feed/",
     "https://bichosdecampo.com/feed/",
@@ -5375,10 +5245,6 @@ setInterval(function() {
         avanzarNoticiaRotador();
     }
 }, 6000);
-
-// =========================================================
-// ROTADOR
-// =========================================================
 
 let panelActual = 0;
 let rotadorPausado = false;
@@ -5548,10 +5414,6 @@ function inicializarInteraccionRotador() {
     }, { passive: true });
 }
 
-// =========================================================
-// APP / SPLASH
-// =========================================================
-
 function abrirApp() {
     const welcome = document.getElementById("welcomeScreen");
     const shell = document.getElementById("appShell");
@@ -5636,10 +5498,6 @@ function cerrarModalCerrarSesion() {
     document.getElementById("modalCerrarSesion").style.display = "none";
 }
 
-// =========================================================
-// MENÚ DE USUARIO
-// =========================================================
-
 function toggleMenuUsuario(ev) {
     if (ev) ev.stopPropagation();
     document.getElementById("menuUsuarioPanel").classList.toggle("mostrar");
@@ -5658,10 +5516,6 @@ document.addEventListener("click", function(ev) {
         cerrarMenuUsuario();
     }
 });
-
-// =========================================================
-// MI PERFIL
-// =========================================================
 
 async function abrirPerfilUsuario() {
     cerrarMenuUsuario();
@@ -5753,10 +5607,6 @@ async function guardarPerfil() {
     renderPerfil();
 }
 
-// =========================================================
-// NOTIFICACIONES
-// =========================================================
-
 async function abrirNotificaciones() {
     cerrarMenuUsuario();
     ocultarNivelesSuperiores();
@@ -5792,10 +5642,6 @@ async function renderNotificaciones() {
         '</div>'
     ).join("");
 }
-
-// =========================================================
-// DATOS Y SINCRONIZACIÓN
-// =========================================================
 
 async function abrirDatosSincronizacion() {
     cerrarMenuUsuario();
@@ -5847,10 +5693,6 @@ setTimeout(async function() {
         });
     }
 }, 2000);
-
-// =========================================================
-// MIS LOTES
-// =========================================================
 
 const paletaLotes = ["#2d8f4e", "#3b82c4", "#c9a227", "#8e5fc4", "#c4633b", "#2aa39a", "#c45c94", "#5a7a3c", "#b8622e", "#4a6fa5"];
 
@@ -6449,10 +6291,6 @@ async function exportarInformeLote(id) {
     document.body.classList.remove("imprimiendo-lote");
 }
 
-// =========================================================
-// BIBLIOTECA — VISTA INTERNA
-// =========================================================
-
 function abrirBiblioteca() {
     ocultarNivelesSuperiores();
     document.getElementById("vistaBiblioteca").style.display = "block";
@@ -6516,10 +6354,6 @@ function toggleFichaBiblioteca(elemento) {
     }
 }
 
-// =========================================================
-// PRODUCCIÓN — RESUMEN
-// =========================================================
-
 function abrirProduccion() {
     ocultarNivelesSuperiores();
     document.getElementById("vistaProduccion").style.display = "block";
@@ -6564,10 +6398,6 @@ async function renderProduccion() {
     });
     cont.innerHTML = html;
 }
-
-// =========================================================
-// NECESIDADES DE LA MAJADA
-// =========================================================
 
 function abrirNecesidades() {
     ocultarNivelesSuperiores();
@@ -6614,10 +6444,6 @@ async function calcularNecesidades() {
     }
     document.getElementById("necesidadesResultado").innerHTML = html;
 }
-
-// =========================================================
-// AGENDA DE CAMPO
-// =========================================================
 
 const iconosTrabajo = { "Corte": "✂️", "Aplicación": "🧪", "Riego": "💧", "Siembra": "🌱", "Otro": "📌" };
 
@@ -6881,19 +6707,11 @@ function onClimaActualizado() {
     }
 }
 
-// =========================================================
-// INICIALIZACIÓN
-// =========================================================
-
 sincronizarAsesor();
 actualizarVentanaCosecha();
 sincronizarAsesorSilo();
 actualizarCategoria("");
 actualizarCategoria("Silo");
-
-// =========================================================
-// SERVICE WORKER
-// =========================================================
 
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", function() {
