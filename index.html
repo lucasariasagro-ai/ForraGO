@@ -62,14 +62,42 @@ html {
     -webkit-font-smoothing:antialiased;
 }
 
+/* =========================================================
+   FONDO PREMIUM — "DEEP FIELD"
+========================================================= */
+
 body {
-    background:
-        linear-gradient(rgba(243,246,244,.94), rgba(243,246,244,.94)),
-        url("img/img_13.jpg") center center / cover fixed no-repeat;
-    color:var(--texto);
-    font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;
-    min-height:100vh;
-    padding:0;
+    background-color: #eef3ef;
+    background-image:
+        /* 1. Luz volumétrica superior */
+        radial-gradient(
+            ellipse 120% 80% at 50% -10%,
+            rgba(255, 255, 255, 0.9) 0%,
+            rgba(255, 255, 255, 0) 60%
+        ),
+        /* 2. Halo verde profundo abajo-derecha */
+        radial-gradient(
+            ellipse 90% 70% at 100% 100%,
+            rgba(26, 107, 60, 0.10) 0%,
+            rgba(26, 107, 60, 0) 65%
+        ),
+        /* 3. Halo lima suave arriba-izquierda */
+        radial-gradient(
+            ellipse 80% 60% at 0% 0%,
+            rgba(184, 217, 108, 0.14) 0%,
+            rgba(184, 217, 108, 0) 60%
+        ),
+        /* 4. Micro-grano anti-banding */
+        radial-gradient(
+            rgba(26, 107, 60, 0.035) 1px,
+            transparent 1px
+        );
+    background-size: 100% 100%, 100% 100%, 100% 100%, 20px 20px;
+    background-attachment: fixed;
+    color: var(--texto);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
+    min-height: 100vh;
+    padding: 0;
 }
 
 /* =========================================================
@@ -131,7 +159,7 @@ body {
 }
 
 /* =========================================================
-   HERO
+   HERO — PREMIUM (sombra doble + borde blanco)
 ========================================================= */
 
 .hero {
@@ -142,7 +170,11 @@ body {
     background-image:var(--hero-foto);
     background-size:cover;
     background-position:center;
-    box-shadow:var(--sombra-hover);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.8) inset,
+        0 20px 50px -20px rgba(26, 107, 60, 0.35),
+        0 8px 20px -10px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.6);
 }
 
 .hero::after {
@@ -450,19 +482,25 @@ body {
 }
 
 /* =========================================================
-   TARJETAS
+   TARJETAS — PREMIUM (borde blanco + sombra doble)
 ========================================================= */
 
 .card {
     background:var(--blanco);
     border-radius:var(--radio);
     padding:28px;
-    box-shadow:var(--sombra);
-    border:1px solid var(--borde);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.9) inset,
+        0 12px 32px -12px rgba(26, 107, 60, 0.12),
+        0 2px 6px -2px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.8);
     transition:var(--transicion);
 }
 .card:hover {
-    box-shadow:var(--sombra-hover);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.9) inset,
+        0 20px 44px -14px rgba(26, 107, 60, 0.18),
+        0 4px 10px -3px rgba(0, 0, 0, 0.06);
 }
 
 /* =========================================================
@@ -579,15 +617,18 @@ body {
 }
 
 /* =========================================================
-   PANEL
+   PANEL — PREMIUM
 ========================================================= */
 
 .panel {
     background:var(--blanco);
     border-radius:var(--radio);
     padding:30px;
-    box-shadow:var(--sombra);
-    border:1px solid var(--borde);
+    box-shadow:
+        0 1px 0 rgba(255, 255, 255, 0.9) inset,
+        0 12px 32px -12px rgba(26, 107, 60, 0.12),
+        0 2px 6px -2px rgba(0, 0, 0, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.8);
 }
 .label {
     display:block;
@@ -4516,8 +4557,6 @@ body {
 // =========================================================
 // SUPABASE — CONEXIÓN
 // =========================================================
-// Reemplazá estos dos valores por los de TU proyecto:
-// Project Settings > API > Project URL / anon public key
 const SUPABASE_URL = "https://mvgujzirgqmtkwneoshw.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_ofo6RgRPP9S0PaWf3itUUQ_tcw0SYqx";
 
@@ -5222,9 +5261,6 @@ function cargarClimaRotador() {
 // =========================================================
 // NOTICIAS AGROPECUARIAS — PARA EL ROTADOR
 // =========================================================
-// Módulo aislado: si falla cualquier parte de esto (el proxy, un feed
-// puntual, la red), el panel de noticias simplemente no aparece y el
-// resto del rotador (logo/clima/alertas) sigue funcionando sin cambios.
 
 const FEEDS_NOTICIAS_AGRO = [
     "https://www.infocampo.com.ar/feed/",
@@ -5365,7 +5401,7 @@ function obtenerPanelesActivos() {
     });
     // Orden fijo: Logo → Clima → Alertas → Noticias.
     if (panelAlertas) activos.push(panelAlertas);
-    if (panelNoticias) activos.push(panelNoticias);
+    if (panelNoticias) activos.push(panelNoticia);
     return activos;
 }
 
@@ -5939,8 +5975,6 @@ async function migrarLotesViejos() {
     }
 
     if (exitosos > 0) {
-        // Guardamos una copia de respaldo por las dudas, y limpiamos la clave vieja
-        // para no ofrecer migrar de nuevo los mismos lotes la próxima vez.
         localStorage.setItem(CLAVE_VIEJA + "_respaldo", dataVieja);
         localStorage.removeItem(CLAVE_VIEJA);
     }
