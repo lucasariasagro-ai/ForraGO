@@ -62,14 +62,74 @@ html {
     -webkit-font-smoothing:antialiased;
 }
 
+/* =========================================================
+   FONDO — IMAGEN AÉREA (img_20.jpg)
+========================================================= */
+
 body {
-    background:
-        linear-gradient(rgba(243,246,244,.94), rgba(243,246,244,.94)),
-        url("img/img_13.jpg") center center / cover fixed no-repeat;
     color:var(--texto);
     font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;
     min-height:100vh;
     padding:0;
+    position:relative;
+    background-color:#eef3ef;
+}
+
+body::before {
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    background-image:url("img/img_20.jpg");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    will-change:transform;
+    transform:translateZ(0);
+}
+
+body::after {
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    pointer-events:none;
+    background:
+        radial-gradient(
+            ellipse 120% 90% at center,
+            rgba(243,246,244,0.50) 0%,
+            rgba(243,246,244,0.68) 45%,
+            rgba(243,246,244,0.90) 100%
+        ),
+        linear-gradient(
+            180deg,
+            rgba(243,246,244,0.72) 0%,
+            rgba(243,246,244,0.35) 30%,
+            rgba(243,246,244,0.35) 70%,
+            rgba(243,246,244,0.78) 100%
+        );
+}
+
+@media (max-width:600px) {
+    body::before {
+        background-position:center 30%;
+    }
+    body::after {
+        background:
+            radial-gradient(
+                ellipse 140% 100% at center,
+                rgba(243,246,244,0.55) 0%,
+                rgba(243,246,244,0.75) 50%,
+                rgba(243,246,244,0.95) 100%
+            );
+    }
+}
+
+@media print {
+    body::before,
+    body::after {
+        display:none!important;
+    }
 }
 
 /* =========================================================
@@ -3512,8 +3572,7 @@ body {
 </style>
 </head>
 <body>
-
-<!-- =========================================================
+   <!-- =========================================================
    SPLASH
 ========================================================= -->
 
@@ -4516,8 +4575,6 @@ body {
 // =========================================================
 // SUPABASE — CONEXIÓN
 // =========================================================
-// Reemplazá estos dos valores por los de TU proyecto:
-// Project Settings > API > Project URL / anon public key
 const SUPABASE_URL = "https://mvgujzirgqmtkwneoshw.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_ofo6RgRPP9S0PaWf3itUUQ_tcw0SYqx";
 
@@ -4640,7 +4697,7 @@ function escapeHtml(texto) {
 
 function formatearFecha(fechaIso) {
     if (!fechaIso) return "-";
-    const partes = fechaIso.split("-");
+    const partes = fechaiSo.split("-");
     if (partes.length !== 3) return fechaIso;
     return partes[2] + "/" + partes[1] + "/" + partes[0];
 }
@@ -5078,13 +5135,11 @@ function renderClimaRotador(data) {
     const daily = data.daily;
     climaDiarioActual = daily;
 
-    // Panel clima
     const info = codigoClima(current.weather_code);
     document.getElementById("rotadorTemp").innerHTML = Math.round(current.temperature_2m) + '<small>°C</small>';
     document.getElementById("rotadorDesc").textContent = info[1];
     document.getElementById("rotadorExtra").textContent = '💨 ' + Math.round(current.wind_speed_10m) + ' km/h';
 
-    // Pronóstico 3 días
     const dias = ["Hoy", "Mañana", "Pasado"];
     for (let i = 0; i < 3; i++) {
         const c = codigoClima(daily.weather_code[i]);
@@ -5093,11 +5148,9 @@ function renderClimaRotador(data) {
         document.getElementById("rotadorTempMin" + i).textContent = Math.round(daily.temperature_2m_min[i]) + "°";
     }
 
-    // ========== ALERTAS ==========
     const alertas = [];
     let urgente = false;
 
-    // 1. HELADA (prioridad máxima)
     for (let i = 0; i < 3; i++) {
         if (daily.temperature_2m_min[i] <= 2) {
             const dia = i === 0 ? "esta noche" : (i === 1 ? "mañana" : nombreDia(daily.time[i], i).toLowerCase());
@@ -5107,11 +5160,10 @@ function renderClimaRotador(data) {
                 tono: "atencion"
             });
             urgente = true;
-            break; // solo mostramos la más cercana
+            break;
         }
     }
 
-    // 2. LLUVIA
     if (daily.precipitation_probability_max) {
         for (let i = 0; i < 3; i++) {
             const prob = daily.precipitation_probability_max[i];
@@ -5130,7 +5182,6 @@ function renderClimaRotador(data) {
         }
     }
 
-    // 3. VIENTO FUERTE
     if (daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] >= 25) {
         alertas.push({
             icono: "💨",
@@ -5140,13 +5191,11 @@ function renderClimaRotador(data) {
         urgente = true;
     }
 
-    // 4. BUENAS CONDICIONES PARA APLICAR (si no hay alertas negativas)
     const hayHelada = alertas.some(a => a.icono === "❄️");
     const hayLluvia = alertas.some(a => a.icono === "🌧️");
     const hayViento = alertas.some(a => a.icono === "💨");
 
     if (!hayHelada && !hayLluvia && !hayViento) {
-        // Verificar que realmente haya buenas condiciones
         const vientoBajo = daily.wind_gusts_10m_max && daily.wind_gusts_10m_max[0] < 25 && daily.wind_gusts_10m_max[1] < 25;
         const lluviaBaja = daily.precipitation_probability_max && daily.precipitation_probability_max[0] < 30 && daily.precipitation_probability_max[1] < 30;
         if (vientoBajo && lluviaBaja) {
@@ -5164,7 +5213,6 @@ function renderClimaRotador(data) {
         }
     }
 
-    // Mostrar panel de alertas
     const panelAlertas = document.getElementById("rotadorAlertas");
     const rotadorBox = document.getElementById("rotador");
     const alertaBox = document.getElementById("rotadorAlertaBox");
@@ -5183,10 +5231,8 @@ function renderClimaRotador(data) {
         panelAlertas.dataset.urgente = "0";
     }
 
-    // Actualizar dots
     actualizarDotsRotador();
 
-    // Iniciar rotador si no está corriendo
     if (!window.rotadorInterval) {
         iniciarRotador();
     }
@@ -5222,9 +5268,6 @@ function cargarClimaRotador() {
 // =========================================================
 // NOTICIAS AGROPECUARIAS — PARA EL ROTADOR
 // =========================================================
-// Módulo aislado: si falla cualquier parte de esto (el proxy, un feed
-// puntual, la red), el panel de noticias simplemente no aparece y el
-// resto del rotador (logo/clima/alertas) sigue funcionando sin cambios.
 
 const FEEDS_NOTICIAS_AGRO = [
     "https://www.infocampo.com.ar/feed/",
@@ -5265,7 +5308,7 @@ async function cargarUnFeed(url) {
             fecha: item.pubDate || ""
         }));
     } catch (e) {
-        return []; // este feed puntual falló: se ignora, no rompe nada más
+        return [];
     }
 }
 
@@ -5363,7 +5406,6 @@ function obtenerPanelesActivos() {
             panelNoticias = p;
         }
     });
-    // Orden fijo: Logo → Clima → Alertas → Noticias.
     if (panelAlertas) activos.push(panelAlertas);
     if (panelNoticias) activos.push(panelNoticias);
     return activos;
@@ -5405,7 +5447,7 @@ function actualizarEstadoBarras(activos, indiceActivo) {
             fill.style.width = "0%";
             const tipo = activos[i] ? activos[i].dataset.panel : null;
             const duracion = TIEMPOS_PANEL[tipo] || 4500;
-            void fill.offsetWidth; // fuerza reflow para reiniciar la animación
+            void fill.offsetWidth;
             fill.style.transition = "width " + duracion + "ms linear";
             requestAnimationFrame(() => { fill.style.width = "100%"; });
         }
@@ -5483,13 +5525,11 @@ function inicializarInteraccionRotador() {
     if (!rotador || rotador.dataset.interaccionLista) return;
     rotador.dataset.interaccionLista = "1";
 
-    // Tocar/click en el recuadro pausa la rotación un rato
     rotador.addEventListener("click", function(ev) {
         if (ev.target.closest(".rotador-barra")) return;
         pausarRotadorTemporalmente();
     });
 
-    // Swipe manual (izquierda/derecha) entre paneles
     let touchStartX = 0;
     let touchStartY = 0;
     rotador.addEventListener("touchstart", function(ev) {
@@ -5827,10 +5867,6 @@ let loteEditandoId = null;
 let loteActivoId = null;
 let medicionPendienteSufijo = null;
 
-// =========================================================
-// LOTES — CAPA DE DATOS (Supabase)
-// =========================================================
-
 function rowToLote(row) {
     return {
         id: row.id,
@@ -5939,8 +5975,6 @@ async function migrarLotesViejos() {
     }
 
     if (exitosos > 0) {
-        // Guardamos una copia de respaldo por las dudas, y limpiamos la clave vieja
-        // para no ofrecer migrar de nuevo los mismos lotes la próxima vez.
         localStorage.setItem(CLAVE_VIEJA + "_respaldo", dataVieja);
         localStorage.removeItem(CLAVE_VIEJA);
     }
@@ -6616,13 +6650,13 @@ function renderTrabajosFicha(lote) {
     const realizados = trabajosRealizados(lote);
     const hoy = new Date().toISOString().slice(0, 10);
     const colorLote = colorPorLote(lote.id);
-    
+
     let html = '<div class="trabajos-caja">';
     html += '<div class="trabajos-caja-titulo">';
     html += '<h4>🗓️ Trabajos pendientes</h4>';
     html += '<button class="trabajo-agregar-btn" onclick="toggleFormularioTrabajo(\'' + lote.id + '\')">➕ AGREGAR</button>';
     html += '</div>';
-    
+
     if (pendientes.length === 0) {
         html += '<div class="trabajos-vacio">Sin trabajos programados para este lote.</div>';
     } else {
@@ -6646,8 +6680,7 @@ function renderTrabajosFicha(lote) {
             html += '</div>';
         });
     }
-    
-    // Formulario para agregar trabajos
+
     html += '<div id="trabajoFormPanel_' + lote.id + '" class="trabajo-form-panel">';
     html += '<div class="form-group"><label>Tipo de trabajo</label><select id="trabajoTipo_' + lote.id + '" onchange="actualizarCampoProductoTrabajo(\'' + lote.id + '\')"><option value="Corte">Corte</option><option value="Aplicación">Aplicación</option><option value="Riego">Riego</option><option value="Siembra">Siembra</option><option value="Otro">Otro</option></select></div>';
     html += '<div class="form-group" id="trabajoProductoGrupo_' + lote.id + '" style="display:none;"><label>Producto</label><input id="trabajoProducto_' + lote.id + '" type="text" placeholder="Ej: 2,4-D"></div>';
@@ -6655,8 +6688,7 @@ function renderTrabajosFicha(lote) {
     html += '<div class="form-group"><label>Notas (opcional)</label><input id="trabajoNotas_' + lote.id + '" type="text" placeholder="Ej: dosis, observaciones"></div>';
     html += '<button class="calcular" onclick="guardarTrabajo(\'' + lote.id + '\')">GUARDAR TRABAJO →</button>';
     html += '</div>';
-    
-    // Botón para ver historial de trabajos realizados
+
     if (realizados.length > 0) {
         html += '<div class="trabajos-historial-toggle" onclick="toggleHistorialTrabajos(\'' + lote.id + '\')">';
         html += '📋 Ver ' + realizados.length + ' trabajo(s) realizados <span class="flecha" id="historialFlecha_' + lote.id + '">▾</span>';
@@ -6674,7 +6706,7 @@ function renderTrabajosFicha(lote) {
         });
         html += '</div>';
     }
-    
+
     html += '</div>';
     return html;
 }
@@ -6796,8 +6828,7 @@ async function renderAgendaCampo() {
     if (filtroTipo !== "todos") {
         lotesFiltrados = lotes.filter(l => l.tipo === filtroTipo);
     }
-    
-    // Ordenar lotes: primero los que tienen trabajos pendientes más cercanos
+
     lotesFiltrados.sort((a, b) => {
         const pendA = trabajosPendientes(a);
         const pendB = trabajosPendientes(b);
@@ -6805,8 +6836,7 @@ async function renderAgendaCampo() {
         const fechaB = pendB.length > 0 ? pendB[0].fechaPlan : "9999-99-99";
         return fechaA.localeCompare(fechaB);
     });
-    
-    // Calcular trabajos vencidos totales
+
     const hoy = new Date().toISOString().slice(0, 10);
     let totalVencidos = 0;
     lotes.forEach(l => {
@@ -6814,7 +6844,7 @@ async function renderAgendaCampo() {
             if (t.fechaPlan < hoy) totalVencidos++;
         });
     });
-    
+
     const badge = document.getElementById("agendaBadgeVencidos");
     if (totalVencidos > 0) {
         badge.style.display = "inline-flex";
@@ -6822,12 +6852,12 @@ async function renderAgendaCampo() {
     } else {
         badge.style.display = "none";
     }
-    
+
     let html = "";
     if (!climaDiarioActual) {
         html += '<div class="agenda-sin-clima">ℹ️ El clima todavía no cargó — las alertas climáticas aparecerán apenas esté disponible.</div>';
     }
-    
+
     if (lotesFiltrados.length === 0) {
         if (lotes.length === 0) {
             html += '<div class="agenda-vacia">Todavía no tenés lotes cargados.<br><button class="btn-ir-lotes" onclick="irAMisLotesDesdeAgenda()">IR A MIS LOTES</button></div>';
