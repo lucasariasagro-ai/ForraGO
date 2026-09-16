@@ -63,51 +63,48 @@ html {
 }
 
 /* =========================================================
-   FONDO PRO — "MATERIAL SURFACE"
-   Sistema de 4 capas:
-   1) Luz natural desde arriba (blanca muy sutil)
-   2) Gradiente diagonal con cuerpo (verde grisáceo)
-   3) Micro-trama de surcos a 135°
-   4) Viñeta inferior (oscurece la base, ancla la vista)
+   FONDO — IMAGEN AÉREA (img_20.png) SIN VIÑETA
 ========================================================= */
 
 body {
-    background-color: #d5e3d9;
-    background-image:
-        /* 1. Luz natural superior — sutil, sin manchón */
-        linear-gradient(
-            180deg,
-            rgba(255, 255, 255, 0.35) 0%,
-            rgba(255, 255, 255, 0) 22%
-        ),
-        /* 2. Gradiente diagonal con cuerpo — el protagonista */
-        linear-gradient(
-            155deg,
-            #e9f2eb 0%,
-            #d8e7dc 32%,
-            #c8dccf 62%,
-            #bcd3c4 100%
-        ),
-        /* 3. Micro-trama de surcos a 135° */
-        repeating-linear-gradient(
-            135deg,
-            rgba(26, 107, 60, 0.045) 0px,
-            rgba(26, 107, 60, 0.045) 1.5px,
-            transparent 1.5px,
-            transparent 16px
-        ),
-        /* 4. Viñeta inferior */
-        radial-gradient(
-            ellipse 140% 70% at 50% 115%,
-            rgba(13, 71, 39, 0.12) 0%,
-            rgba(13, 71, 39, 0) 60%
-        );
-    background-size: 100% 100%, 100% 100%, auto, 100% 100%;
-    background-attachment: fixed;
-    color: var(--texto);
-    font-family: Inter, -apple-system, BlinkMacSystemFont, sans-serif;
-    min-height: 100vh;
-    padding: 0;
+    color:var(--texto);
+    font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;
+    min-height:100vh;
+    padding:0;
+    position:relative;
+    background-color:#eef3ef;
+}
+
+body::before {
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    background-image:url("img/img_20.png");
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    will-change:transform;
+    transform:translateZ(0);
+    image-rendering:-webkit-optimize-contrast;
+    image-rendering:crisp-edges;
+    -webkit-backface-visibility:hidden;
+    backface-visibility:hidden;
+    filter:contrast(1.05) saturate(1.08);
+}
+
+/* Sin viñeta — la imagen se ve 100% nítida */
+
+@media (max-width:600px) {
+    body::before {
+        background-position:center 30%;
+    }
+}
+
+@media print {
+    body::before {
+        display:none!important;
+    }
 }
 
 /* =========================================================
@@ -169,7 +166,7 @@ body {
 }
 
 /* =========================================================
-   HERO — SUPERFICIE FLOTANTE
+   HERO
 ========================================================= */
 
 .hero {
@@ -180,11 +177,7 @@ body {
     background-image:var(--hero-foto);
     background-size:cover;
     background-position:center;
-    box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.85) inset,
-        0 24px 60px -24px rgba(13, 71, 39, 0.45),
-        0 10px 24px -12px rgba(0, 0, 0, 0.18);
-    border: 1px solid rgba(255, 255, 255, 0.55);
+    box-shadow:var(--sombra-hover);
 }
 
 .hero::after {
@@ -256,7 +249,7 @@ body {
 }
 
 /* =========================================================
-   LOGIN (dentro del hero)
+   LOGIN
 ========================================================= */
 
 .login-card {
@@ -375,9 +368,6 @@ body {
     font-weight:800;
 }
 
-.titulo-principal h2 {
-    color: var(--verde);
-}
 .titulo-secundario h2 {
     color: var(--verde2);
     font-weight:700;
@@ -386,7 +376,55 @@ body {
 }
 
 /* =========================================================
-   CHECK VERDE PERSONALIZADO
+   TÍTULO "¿QUÉ QUERÉS EVALUAR?" — RAYA + ICONO + SUBTÍTULO
+========================================================= */
+
+.evaluar-header {
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:4px 0 18px;
+}
+.evaluar-header-raya {
+    width:22px;
+    height:3px;
+    border-radius:3px;
+    background:#ffffff;
+    box-shadow:0 1px 6px rgba(0,0,0,.4);
+    flex-shrink:0;
+}
+.evaluar-header-icono {
+    font-size:20px;
+    flex-shrink:0;
+    filter:drop-shadow(0 1px 4px rgba(0,0,0,.4));
+}
+.evaluar-header-texto h2 {
+    font-size:22px;
+    font-weight:900;
+    letter-spacing:-.4px;
+    color:#ffffff;
+    text-shadow:0 2px 14px rgba(0,0,0,.5), 0 1px 4px rgba(0,0,0,.4);
+    margin:0;
+}
+.evaluar-header-texto p {
+    margin-top:2px;
+    font-size:12.5px;
+    font-weight:600;
+    color:rgba(255,255,255,.92);
+    text-shadow:0 1px 6px rgba(0,0,0,.4);
+}
+
+@media(max-width:600px) {
+    .evaluar-header-texto h2 {
+        font-size:19px;
+    }
+    .evaluar-header-texto p {
+        font-size:11.5px;
+    }
+}
+
+/* =========================================================
+   CHECK VERDE
 ========================================================= */
 
 .check-verde {
@@ -492,104 +530,159 @@ body {
 }
 
 /* =========================================================
-   TARJETAS — SUPERFICIE FLOTANTE PRO
+   TARJETAS
 ========================================================= */
 
 .card {
     background:var(--blanco);
     border-radius:var(--radio);
     padding:28px;
-    box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.95) inset,
-        0 18px 44px -18px rgba(13, 71, 39, 0.28),
-        0 4px 12px -4px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.75);
+    box-shadow:var(--sombra);
+    border:1px solid var(--borde);
     transition:var(--transicion);
 }
 .card:hover {
-    box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.95) inset,
-        0 26px 60px -20px rgba(13, 71, 39, 0.34),
-        0 6px 16px -5px rgba(0, 0, 0, 0.08);
+    box-shadow:var(--sombra-hover);
 }
 
 /* =========================================================
-   TIPO TABS
+   TIPO TABS — TARJETA CON FOTO, ICONO Y FEATURES
 ========================================================= */
 
 .tipo-tabs {
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:16px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
     margin-bottom:16px;
 }
 .tipo-tab {
     position:relative;
     overflow:hidden;
-    display:flex;
-    align-items:center;
-    gap:16px;
-    padding:24px 22px;
-    border-radius:var(--radio);
-    border:2px solid var(--borde);
-    background:var(--blanco);
-    cursor:pointer;
+    display:block;
+    width:100%;
     text-align:left;
+    border:none;
+    border-left:6px solid var(--color-acento, var(--verde));
+    border-radius:20px;
+    background:rgba(255,255,255,.94);
+    padding:18px 20px 16px;
+    cursor:pointer;
     transition:var(--transicion);
-    box-shadow:var(--sombra);
+    box-shadow:0 8px 24px rgba(0,0,0,.12);
     font-family:inherit;
 }
-.tipo-tab[data-tipo="forraje"]:not(.activo) {
-    background:
-        radial-gradient(120% 130% at 0% 0%, rgba(184,217,108,.30) 0%, rgba(184,217,108,0) 60%),
-        var(--blanco);
-}
-.tipo-tab[data-tipo="silaje"]:not(.activo) {
-    background:
-        radial-gradient(120% 130% at 100% 0%, rgba(214,182,64,.24) 0%, rgba(214,182,64,0) 60%),
-        var(--blanco);
-}
 .tipo-tab:hover {
-    transform:translateY(-3px);
-    box-shadow:var(--sombra-hover);
+    transform:translateY(-2px);
+    box-shadow:0 12px 32px rgba(0,0,0,.16);
 }
 .tipo-tab:active {
-    transform:scale(.98);
+    transform:scale(.99);
 }
 .tipo-tab.activo {
-    border-color:var(--verde);
-    background:var(--verde);
-    box-shadow:0 8px 30px rgba(26,107,60,.25);
+    box-shadow:0 0 0 3px var(--color-acento, var(--verde)), 0 12px 32px rgba(0,0,0,.16);
 }
-.tipo-tab .icono {
-    font-size:32px;
+
+.tipo-tab-foto {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    width:42%;
+    background-size:cover;
+    background-position:center;
+    -webkit-mask-image:linear-gradient(to right, transparent 0%, rgba(0,0,0,.55) 35%, black 68%);
+    mask-image:linear-gradient(to right, transparent 0%, rgba(0,0,0,.55) 35%, black 68%);
+    z-index:0;
+}
+.forraje-foto { background-image:url(img/img_04.jpg); }
+.silaje-foto { background-image:url(img/img_10.jpg); }
+
+.tipo-tab-fila {
+    position:relative;
+    z-index:2;
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+.tipo-tab-icono-box {
+    width:52px;
+    height:52px;
     flex-shrink:0;
+    border-radius:15px;
+    background:var(--lima-claro);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:24px;
 }
-.tipo-tab .texto {
+.tipo-tab-texto {
+    flex:1;
+    min-width:0;
     display:flex;
     flex-direction:column;
-    gap:2px;
+    gap:1px;
 }
-.tipo-tab .texto strong {
-    font-size:16px;
+.tipo-tab-texto strong {
+    font-size:18px;
     font-weight:800;
-    color:var(--verde);
-    letter-spacing:-.2px;
+    color:var(--texto);
+    letter-spacing:-.3px;
 }
-.tipo-tab .texto span {
-    font-size:11px;
+.tipo-tab-texto span {
+    font-size:12px;
     color:var(--gris);
     font-weight:500;
 }
-.tipo-tab.activo .texto strong { color:white; }
-.tipo-tab.activo .texto span { color:rgba(255,255,255,.7); }
+.tipo-tab-flecha {
+    width:32px;
+    height:32px;
+    border-radius:50%;
+    background:var(--verde-claro);
+    color:var(--verde);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:17px;
+    font-weight:700;
+    flex-shrink:0;
+    transition:var(--transicion);
+}
+.tipo-tab:hover .tipo-tab-flecha {
+    background:var(--verde);
+    color:white;
+    transform:translateX(2px);
+}
 
-@media(max-width:560px) {
-    .tipo-tabs { grid-template-columns:1fr; }
+.tipo-tab-features {
+    position:relative;
+    z-index:2;
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px 16px;
+    margin-top:12px;
+    padding-top:12px;
+    border-top:1px solid var(--borde);
+}
+.tipo-tab-features span {
+    font-size:10.5px;
+    font-weight:700;
+    color:var(--texto-suave);
+    white-space:nowrap;
+    display:inline-flex;
+    align-items:center;
+    gap:4px;
+}
+
+@media(max-width:420px) {
+    .tipo-tab-foto { width:32%; }
+    .tipo-tab-features { gap:6px 10px; }
+    .tipo-tab-features span { font-size:9px; }
+    .tipo-tab-texto strong { font-size:16px; }
+    .tipo-tab-icono-box { width:46px; height:46px; font-size:21px; }
 }
 
 /* =========================================================
-   BOTÓN GESTIONAR MI PRODUCCIÓN
+   BOTÓN GESTIONAR
 ========================================================= */
 
 .btn-gestionar {
@@ -627,18 +720,15 @@ body {
 }
 
 /* =========================================================
-   PANEL — SUPERFICIE FLOTANTE PRO
+   PANEL
 ========================================================= */
 
 .panel {
     background:var(--blanco);
     border-radius:var(--radio);
     padding:30px;
-    box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.95) inset,
-        0 18px 44px -18px rgba(13, 71, 39, 0.28),
-        0 4px 12px -4px rgba(0, 0, 0, 0.06);
-    border: 1px solid rgba(255, 255, 255, 0.75);
+    box-shadow:var(--sombra);
+    border:1px solid var(--borde);
 }
 .label {
     display:block;
@@ -757,7 +847,6 @@ body {
     transform:scale(1);
 }
 
-/* Cultivo imágenes */
 .alfalfa-bg { background-image:url(img/img_04.jpg); }
 .avena-bg { background-image:url(img/img_05.jpg); }
 .triticale-bg { background-image:url(img/img_06.jpg); }
@@ -786,7 +875,7 @@ body {
 }
 
 /* =========================================================
-   CULTIVOS DESTACADOS (compacto)
+   CULTIVOS COMPACTOS
 ========================================================= */
 
 .cultivos-destacados {
@@ -1605,7 +1694,7 @@ body {
 }
 
 /* =========================================================
-   VENTANA COSECHA SILAJE
+   VENTANA COSECHA
 ========================================================= */
 
 .ventana-cosecha {
@@ -1930,7 +2019,7 @@ body {
 }
 
 /* =========================================================
-   RESUMEN "MI PRODUCCIÓN"
+   RESUMEN MI PRODUCCIÓN
 ========================================================= */
 
 .gestionar-resumen {
@@ -2540,7 +2629,7 @@ body {
 }
 
 /* =========================================================
-   ROTADOR DE INFORMACIÓN — CORREGIDO FINAL
+   ROTADOR
 ========================================================= */
 
 .rotador {
@@ -2551,11 +2640,8 @@ body {
         linear-gradient(180deg, #ffffff 0%, #fbfdfb 100%);
     border-radius:var(--radio);
     padding:28px 28px 22px;
-    border:1px solid rgba(255, 255, 255, 0.75);
-    box-shadow:
-        0 1px 0 rgba(255, 255, 255, 0.95) inset,
-        0 18px 44px -18px rgba(13, 71, 39, 0.28),
-        0 4px 12px -4px rgba(0, 0, 0, 0.06);
+    border:1px solid var(--borde);
+    box-shadow:0 10px 34px rgba(26,107,60,.10), 0 2px 8px rgba(0,0,0,.05);
     height:244px;
     overflow:hidden;
     margin-bottom:16px;
@@ -2588,7 +2674,6 @@ body {
     transition:opacity .4s ease, transform .4s ease, visibility 0s linear 0s;
 }
 
-/* ===== LOGO ===== */
 .rotador-panel[data-panel="logo"] {
     padding-top:20px;
     padding-bottom:20px;
@@ -2598,7 +2683,6 @@ body {
     width:auto;
 }
 
-/* ===== CLIMA ===== */
 .rotador-clima {
     display:flex;
     align-items:center;
@@ -2685,7 +2769,6 @@ body {
     color:#3b7bc9;
 }
 
-/* ===== ALERTAS ===== */
 .rotador-alerta {
     display:flex;
     flex-direction:column;
@@ -2729,7 +2812,6 @@ body {
     color:var(--verde);
 }
 
-/* ===== NOTICIAS AGROPECUARIAS ===== */
 .rotador-noticia {
     display:flex;
     flex-direction:column;
@@ -2789,7 +2871,6 @@ body {
     border-color:var(--lima);
 }
 
-/* ===== DOTS ===== */
 .rotador-dots {
     position:absolute;
     left:20px;
@@ -2822,7 +2903,6 @@ body {
     background:#d97a4a;
 }
 
-/* RESPONSIVE */
 @media(max-width:600px) {
     .rotador {
         padding:16px 18px;
@@ -2955,10 +3035,6 @@ body {
         font-size:9.5px;
     }
 }
-
-/* =========================================================
-   CLIMA PREMIUM (oculto, reemplazado por rotador)
-========================================================= */
 
 .weather-card-premium {
     display:none;
@@ -3109,7 +3185,7 @@ body {
 }
 
 /* =========================================================
-   MODAL DE CONFIRMACIÓN
+   MODAL
 ========================================================= */
 
 .modal-overlay {
@@ -3173,7 +3249,6 @@ body {
     .historial-tabla th, .historial-tabla td { padding:8px 4px; }
     .consoc-preset-chip { padding:10px 14px; font-size:10px; }
     .consoc-selects { grid-template-columns:1fr; }
-    .titulo-principal h2 { font-size:20px; }
     .titulo-secundario h2 { font-size:17px; }
 }
 
@@ -3300,7 +3375,7 @@ body {
 }
 
 /* =========================================================
-   BIBLIOTECA — VISTA INTERNA
+   BIBLIOTECA VISTA INTERNA
 ========================================================= */
 
 #bibliotecaContenido .biblioteca-intro {
@@ -3369,7 +3444,7 @@ body {
 }
 
 /* =========================================================
-   AGENDA — ESTILOS
+   AGENDA
 ========================================================= */
 
 .trabajos-caja { margin-bottom:18px; }
@@ -3566,8 +3641,7 @@ body {
 </style>
 </head>
 <body>
-
-<!-- =========================================================
+   <!-- =========================================================
    SPLASH
 ========================================================= -->
 
@@ -3660,10 +3734,6 @@ body {
         </div>
     </div>
 
-    <!-- =========================================================
-       ROTADOR DE INFORMACIÓN
-    ========================================================= -->
-
     <div id="rotador" class="rotador">
         <div class="rotador-panel activo" data-panel="logo">
             <div class="rotador-logo">
@@ -3722,33 +3792,48 @@ body {
         <div class="rotador-dots" id="rotadorDots"></div>
     </div>
 
-    <!-- =========================================================
-       "¿QUÉ QUERÉS EVALUAR?"
-    ========================================================= -->
-
-    <div id="tituloEvaluar" class="seccion seccion-simple titulo-principal">
-        <h2>¿Qué querés evaluar?</h2>
+    <div id="tituloEvaluar" class="evaluar-header">
+        <span class="evaluar-header-raya"></span>
+        <span class="evaluar-header-icono">🌱</span>
+        <div class="evaluar-header-texto">
+            <h2>¿Qué querés evaluar?</h2>
+            <p>Elegí una opción para comenzar</p>
+        </div>
     </div>
-
-    <!-- =========================================================
-       CALCULADORA
-    ========================================================= -->
 
     <div id="vistaCalculadora">
         <div class="tipo-tabs" id="tipoTabs">
-            <button class="tipo-tab" data-tipo="forraje" onclick="mostrarTipo('forraje')">
-                <span class="icono">🌾</span>
-                <span class="texto">
-                    <strong>Forraje</strong>
-                    <span>Para heno o pastoreo</span>
-                </span>
+            <button class="tipo-tab" data-tipo="forraje" onclick="mostrarTipo('forraje')" style="--color-acento:#2d8f4e;">
+                <div class="tipo-tab-foto forraje-foto"></div>
+                <div class="tipo-tab-fila">
+                    <div class="tipo-tab-icono-box">🌾</div>
+                    <div class="tipo-tab-texto">
+                        <strong>Forraje</strong>
+                        <span>Para heno o pastoreo</span>
+                    </div>
+                    <span class="tipo-tab-flecha">›</span>
+                </div>
+                <div class="tipo-tab-features">
+                    <span>🌿 Calidad nutricional</span>
+                    <span>📈 Rendimiento estimado</span>
+                    <span>🛡️ Recomendaciones personalizadas</span>
+                </div>
             </button>
-            <button class="tipo-tab" data-tipo="silaje" onclick="mostrarTipo('silaje')">
-                <span class="icono">🌽</span>
-                <span class="texto">
-                    <strong>Silaje</strong>
-                    <span>Maíz o sorgo picado</span>
-                </span>
+            <button class="tipo-tab" data-tipo="silaje" onclick="mostrarTipo('silaje')" style="--color-acento:#d6b640;">
+                <div class="tipo-tab-foto silaje-foto"></div>
+                <div class="tipo-tab-fila">
+                    <div class="tipo-tab-icono-box">🌽</div>
+                    <div class="tipo-tab-texto">
+                        <strong>Silaje</strong>
+                        <span>Maíz o sorgo picado</span>
+                    </div>
+                    <span class="tipo-tab-flecha">›</span>
+                </div>
+                <div class="tipo-tab-features">
+                    <span>💧 Humedad óptima</span>
+                    <span>🔬 Análisis avanzado</span>
+                    <span>🛡️ Mejores resultados</span>
+                </div>
             </button>
         </div>
 
@@ -3757,10 +3842,6 @@ body {
             <span class="btn-gestionar-flecha">→</span>
         </button>
     </div>
-
-    <!-- =========================================================
-       GESTIONAR MI PRODUCCIÓN
-    ========================================================= -->
 
     <div id="vistaGestionar" style="display:none;">
         <div class="lotes-header">
@@ -3811,10 +3892,6 @@ body {
         </div>
     </div>
 
-    <!-- =========================================================
-       PRODUCCIÓN — RESUMEN
-    ========================================================= -->
-
     <div id="vistaProduccion" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarProduccion()">Volver</button>
@@ -3822,10 +3899,6 @@ body {
         </div>
         <div id="produccionContenido"></div>
     </div>
-
-    <!-- =========================================================
-       NECESIDADES DE LA MAJADA
-    ========================================================= -->
 
     <div id="vistaNecesidades" style="display:none;">
         <div class="lotes-header">
@@ -3862,10 +3935,6 @@ body {
         <div id="necesidadesResultado"></div>
     </div>
 
-    <!-- =========================================================
-       MI PERFIL
-    ========================================================= -->
-
     <div id="vistaPerfil" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarPerfil()">Volver</button>
@@ -3897,10 +3966,6 @@ body {
         </section>
     </div>
 
-    <!-- =========================================================
-       DATOS Y SINCRONIZACIÓN
-    ========================================================= -->
-
     <div id="vistaDatos" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarDatosSincronizacion()">Volver</button>
@@ -3916,10 +3981,6 @@ body {
         </div>
         <div id="notificacionesContenido"></div>
     </div>
-
-    <!-- =========================================================
-       BLOQUE FORRAJE
-    ========================================================= -->
 
     <div id="bloqueForraje" class="bloque-tipo" style="display:none;">
         <section class="panel">
@@ -4252,10 +4313,6 @@ body {
         </section>
     </div>
 
-    <!-- =========================================================
-       BLOQUE SILAJE
-    ========================================================= -->
-
     <div id="bloqueSilaje" class="bloque-tipo" style="display:none;">
         <section class="panel">
             <label class="label">Elegí el cultivo</label>
@@ -4433,10 +4490,6 @@ body {
         </section>
     </div>
 
-    <!-- =========================================================
-       MIS LOTES
-    ========================================================= -->
-
     <div id="vistaLotes" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarMisLotes()">Volver</button>
@@ -4500,10 +4553,6 @@ body {
         <div id="loteHistorial" style="display:none;"></div>
     </div>
 
-    <!-- =========================================================
-       AGENDA DE CAMPO
-    ========================================================= -->
-
     <div id="vistaAgenda" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarAgendaCampo()">Volver</button>
@@ -4520,10 +4569,6 @@ body {
         <div id="agendaContenido"></div>
     </div>
 
-    <!-- =========================================================
-       BIBLIOTECA
-    ========================================================= -->
-
     <div id="vistaBiblioteca" style="display:none;">
         <div class="lotes-header">
             <button class="btn-back" onclick="cerrarBiblioteca()">Volver</button>
@@ -4531,10 +4576,6 @@ body {
         </div>
         <div id="bibliotecaContenido"></div>
     </div>
-
-    <!-- =========================================================
-       BANNER LOTE ACTIVO
-    ========================================================= -->
 
     <div id="loteActivoBanner" class="lote-activo-banner" style="display:none;">
         <span id="loteActivoTexto"></span>
@@ -4553,25 +4594,13 @@ body {
 
 </div>
 
-<!-- =========================================================
-   SCRIPTS
-========================================================= -->
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 
-// =========================================================
-// SUPABASE — CONEXIÓN
-// =========================================================
 const SUPABASE_URL = "https://mvgujzirgqmtkwneoshw.supabase.co";
 const SUPABASE_ANON_KEY = "sb_publishable_ofo6RgRPP9S0PaWf3itUUQ_tcw0SYqx";
 
 const sb = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-
-// =========================================================
-// DATOS CULTIVOS
-// =========================================================
 
 const cultivos = {
     alfalfa: { nombre: "Alfalfa", ms: { tierno: 18, medio: 21, espiga: 24 }, referencia: 2200 },
@@ -4653,10 +4682,6 @@ let ultimoResultado = null;
 let ultimoResultadoSilo = null;
 let climaDiarioActual = null;
 
-// =========================================================
-// FUNCIONES GENERALES
-// =========================================================
-
 function numero(n, dec = 0) {
     return new Intl.NumberFormat("es-AR", {
         minimumFractionDigits: dec,
@@ -4695,10 +4720,6 @@ function obtenerNombreCultivo(clave, tipo) {
     return origen[clave] ? origen[clave].nombre : clave;
 }
 
-// =========================================================
-// PESTAÑAS
-// =========================================================
-
 function mostrarTipo(tipo) {
     const yaActivo = document.querySelector('.tipo-tab[data-tipo="' + tipo + '"]').classList.contains("activo");
     if (yaActivo) {
@@ -4718,10 +4739,6 @@ function mostrarTipo(tipo) {
     bloque.classList.add("aparecer");
     setTimeout(() => bloque.scrollIntoView({ behavior: "smooth", block: "start" }), 50);
 }
-
-// =========================================================
-// CULTIVOS
-// =========================================================
 
 function seleccionar(elemento) {
     cultivoActual = elemento.dataset.cultivo;
@@ -4778,10 +4795,6 @@ function seleccionarDestino(elemento) {
     destinoActual = elemento.dataset.destino;
 }
 
-// =========================================================
-// CONSOCIACIONES
-// =========================================================
-
 function desactivarConsociacion() {
     const preview = document.getElementById("consocPreview");
     preview.classList.remove("activo");
@@ -4833,10 +4846,6 @@ function aplicarPresetConsoc(graminea, leguminosa, porcLeguminosa) {
     actualizarConsociacion();
 }
 
-// =========================================================
-// ASESOR
-// =========================================================
-
 function toggleAsesor() {
     document.getElementById("asesorPanel").classList.toggle("mostrar");
     if (document.getElementById("asesorPanel").classList.contains("mostrar")) sincronizarAsesor();
@@ -4871,10 +4880,6 @@ function actualizarReferenciaSilo() {
         silajeCultivos[cultivoSiloActual].referencia = valor;
     }
 }
-
-// =========================================================
-// CALCULAR FORRAJE
-// =========================================================
 
 function estimarAnimalesRapido(kgDisponible, dias = 30) {
     const cat = categoriasAnimales.vaca_cria;
@@ -4935,10 +4940,6 @@ function calcular() {
     document.getElementById("resultado").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-// =========================================================
-// CALCULAR SILAJE
-// =========================================================
-
 function categorizarSilo(msHa, cultivo) {
     for (const nivel of cultivo.categorias) {
         if (msHa < nivel.hasta) return nivel;
@@ -4991,10 +4992,6 @@ function calcularSilaje() {
     document.getElementById("resultadoSilo").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
-// =========================================================
-// CARGA ANIMAL
-// =========================================================
-
 function actualizarCategoria(sufijo) {
     const categoria = categoriasAnimales[document.getElementById("cargaCategoria" + sufijo).value];
     document.getElementById("cargaPeso" + sufijo).value = categoria.peso;
@@ -5045,10 +5042,6 @@ function calcularCarga(sufijo) {
     }
 }
 
-// =========================================================
-// DETALLES / NUEVO / PDF / COMPARTIR
-// =========================================================
-
 function detalles() { document.getElementById("detalles").classList.toggle("mostrar"); }
 function nuevo() {
     document.getElementById("resultado").classList.remove("mostrar");
@@ -5083,10 +5076,6 @@ function compartirWhatsapp(sufijo) {
     window.open("https://wa.me/?text=" + encodeURIComponent(texto + "\n\nCalculado con ForraGO"), "_blank");
 }
 
-// =========================================================
-// BIBLIOTECA
-// =========================================================
-
 function toggleBiblioteca() {
     document.getElementById("bibliotecaPanel").classList.toggle("mostrar");
 }
@@ -5102,10 +5091,6 @@ function toggleCultivosExtra() {
 function toggleFicha(elemento) {
     elemento.classList.toggle("abierto");
 }
-
-// =========================================================
-// CLIMA — PARA EL ROTADOR
-// =========================================================
 
 function codigoClima(codigo) {
     if (codigo === 0) return ["☀️", "Despejado", "despejado"];
@@ -5252,10 +5237,6 @@ function cargarClimaRotador() {
     }
 }
 
-// =========================================================
-// NOTICIAS AGROPECUARIAS — PARA EL ROTADOR
-// =========================================================
-
 const FEEDS_NOTICIAS_AGRO = [
     "https://www.infocampo.com.ar/feed/",
     "https://bichosdecampo.com/feed/",
@@ -5362,10 +5343,6 @@ setInterval(function() {
         avanzarNoticiaRotador();
     }
 }, 6000);
-
-// =========================================================
-// ROTADOR
-// =========================================================
 
 let panelActual = 0;
 let rotadorPausado = false;
@@ -5535,10 +5512,6 @@ function inicializarInteraccionRotador() {
     }, { passive: true });
 }
 
-// =========================================================
-// APP / SPLASH
-// =========================================================
-
 function abrirApp() {
     const welcome = document.getElementById("welcomeScreen");
     const shell = document.getElementById("appShell");
@@ -5623,10 +5596,6 @@ function cerrarModalCerrarSesion() {
     document.getElementById("modalCerrarSesion").style.display = "none";
 }
 
-// =========================================================
-// MENÚ DE USUARIO
-// =========================================================
-
 function toggleMenuUsuario(ev) {
     if (ev) ev.stopPropagation();
     document.getElementById("menuUsuarioPanel").classList.toggle("mostrar");
@@ -5645,10 +5614,6 @@ document.addEventListener("click", function(ev) {
         cerrarMenuUsuario();
     }
 });
-
-// =========================================================
-// MI PERFIL
-// =========================================================
 
 async function abrirPerfilUsuario() {
     cerrarMenuUsuario();
@@ -5740,10 +5705,6 @@ async function guardarPerfil() {
     renderPerfil();
 }
 
-// =========================================================
-// NOTIFICACIONES
-// =========================================================
-
 async function abrirNotificaciones() {
     cerrarMenuUsuario();
     ocultarNivelesSuperiores();
@@ -5779,10 +5740,6 @@ async function renderNotificaciones() {
         '</div>'
     ).join("");
 }
-
-// =========================================================
-// DATOS Y SINCRONIZACIÓN
-// =========================================================
 
 async function abrirDatosSincronizacion() {
     cerrarMenuUsuario();
@@ -5835,10 +5792,6 @@ setTimeout(async function() {
     }
 }, 2000);
 
-// =========================================================
-// MIS LOTES
-// =========================================================
-
 const paletaLotes = ["#2d8f4e", "#3b82c4", "#c9a227", "#8e5fc4", "#c4633b", "#2aa39a", "#c45c94", "#5a7a3c", "#b8622e", "#4a6fa5"];
 
 function colorPorLote(id) {
@@ -5853,10 +5806,6 @@ function colorPorLote(id) {
 let loteEditandoId = null;
 let loteActivoId = null;
 let medicionPendienteSufijo = null;
-
-// =========================================================
-// LOTES — CAPA DE DATOS (Supabase)
-// =========================================================
 
 function rowToLote(row) {
     return {
@@ -6440,10 +6389,6 @@ async function exportarInformeLote(id) {
     document.body.classList.remove("imprimiendo-lote");
 }
 
-// =========================================================
-// BIBLIOTECA — VISTA INTERNA
-// =========================================================
-
 function abrirBiblioteca() {
     ocultarNivelesSuperiores();
     document.getElementById("vistaBiblioteca").style.display = "block";
@@ -6507,10 +6452,6 @@ function toggleFichaBiblioteca(elemento) {
     }
 }
 
-// =========================================================
-// PRODUCCIÓN — RESUMEN
-// =========================================================
-
 function abrirProduccion() {
     ocultarNivelesSuperiores();
     document.getElementById("vistaProduccion").style.display = "block";
@@ -6555,10 +6496,6 @@ async function renderProduccion() {
     });
     cont.innerHTML = html;
 }
-
-// =========================================================
-// NECESIDADES DE LA MAJADA
-// =========================================================
 
 function abrirNecesidades() {
     ocultarNivelesSuperiores();
@@ -6606,10 +6543,6 @@ async function calcularNecesidades() {
     document.getElementById("necesidadesResultado").innerHTML = html;
 }
 
-// =========================================================
-// AGENDA DE CAMPO
-// =========================================================
-
 const iconosTrabajo = { "Corte": "✂️", "Aplicación": "🧪", "Riego": "💧", "Siembra": "🌱", "Otro": "📌" };
 
 function abrirAgendaCampo() {
@@ -6641,13 +6574,13 @@ function renderTrabajosFicha(lote) {
     const realizados = trabajosRealizados(lote);
     const hoy = new Date().toISOString().slice(0, 10);
     const colorLote = colorPorLote(lote.id);
-    
+
     let html = '<div class="trabajos-caja">';
     html += '<div class="trabajos-caja-titulo">';
     html += '<h4>🗓️ Trabajos pendientes</h4>';
     html += '<button class="trabajo-agregar-btn" onclick="toggleFormularioTrabajo(\'' + lote.id + '\')">➕ AGREGAR</button>';
     html += '</div>';
-    
+
     if (pendientes.length === 0) {
         html += '<div class="trabajos-vacio">Sin trabajos programados para este lote.</div>';
     } else {
@@ -6671,7 +6604,7 @@ function renderTrabajosFicha(lote) {
             html += '</div>';
         });
     }
-    
+
     html += '<div id="trabajoFormPanel_' + lote.id + '" class="trabajo-form-panel">';
     html += '<div class="form-group"><label>Tipo de trabajo</label><select id="trabajoTipo_' + lote.id + '" onchange="actualizarCampoProductoTrabajo(\'' + lote.id + '\')"><option value="Corte">Corte</option><option value="Aplicación">Aplicación</option><option value="Riego">Riego</option><option value="Siembra">Siembra</option><option value="Otro">Otro</option></select></div>';
     html += '<div class="form-group" id="trabajoProductoGrupo_' + lote.id + '" style="display:none;"><label>Producto</label><input id="trabajoProducto_' + lote.id + '" type="text" placeholder="Ej: 2,4-D"></div>';
@@ -6679,7 +6612,7 @@ function renderTrabajosFicha(lote) {
     html += '<div class="form-group"><label>Notas (opcional)</label><input id="trabajoNotas_' + lote.id + '" type="text" placeholder="Ej: dosis, observaciones"></div>';
     html += '<button class="calcular" onclick="guardarTrabajo(\'' + lote.id + '\')">GUARDAR TRABAJO →</button>';
     html += '</div>';
-    
+
     if (realizados.length > 0) {
         html += '<div class="trabajos-historial-toggle" onclick="toggleHistorialTrabajos(\'' + lote.id + '\')">';
         html += '📋 Ver ' + realizados.length + ' trabajo(s) realizados <span class="flecha" id="historialFlecha_' + lote.id + '">▾</span>';
@@ -6697,7 +6630,7 @@ function renderTrabajosFicha(lote) {
         });
         html += '</div>';
     }
-    
+
     html += '</div>';
     return html;
 }
@@ -6819,7 +6752,7 @@ async function renderAgendaCampo() {
     if (filtroTipo !== "todos") {
         lotesFiltrados = lotes.filter(l => l.tipo === filtroTipo);
     }
-    
+
     lotesFiltrados.sort((a, b) => {
         const pendA = trabajosPendientes(a);
         const pendB = trabajosPendientes(b);
@@ -6827,7 +6760,7 @@ async function renderAgendaCampo() {
         const fechaB = pendB.length > 0 ? pendB[0].fechaPlan : "9999-99-99";
         return fechaA.localeCompare(fechaB);
     });
-    
+
     const hoy = new Date().toISOString().slice(0, 10);
     let totalVencidos = 0;
     lotes.forEach(l => {
@@ -6835,7 +6768,7 @@ async function renderAgendaCampo() {
             if (t.fechaPlan < hoy) totalVencidos++;
         });
     });
-    
+
     const badge = document.getElementById("agendaBadgeVencidos");
     if (totalVencidos > 0) {
         badge.style.display = "inline-flex";
@@ -6843,12 +6776,12 @@ async function renderAgendaCampo() {
     } else {
         badge.style.display = "none";
     }
-    
+
     let html = "";
     if (!climaDiarioActual) {
         html += '<div class="agenda-sin-clima">ℹ️ El clima todavía no cargó — las alertas climáticas aparecerán apenas esté disponible.</div>';
     }
-    
+
     if (lotesFiltrados.length === 0) {
         if (lotes.length === 0) {
             html += '<div class="agenda-vacia">Todavía no tenés lotes cargados.<br><button class="btn-ir-lotes" onclick="irAMisLotesDesdeAgenda()">IR A MIS LOTES</button></div>';
@@ -6872,19 +6805,11 @@ function onClimaActualizado() {
     }
 }
 
-// =========================================================
-// INICIALIZACIÓN
-// =========================================================
-
 sincronizarAsesor();
 actualizarVentanaCosecha();
 sincronizarAsesorSilo();
 actualizarCategoria("");
 actualizarCategoria("Silo");
-
-// =========================================================
-// SERVICE WORKER
-// =========================================================
 
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", function() {
