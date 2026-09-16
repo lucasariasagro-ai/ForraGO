@@ -90,7 +90,16 @@ body::before {
     image-rendering:crisp-edges;
     -webkit-backface-visibility:hidden;
     backface-visibility:hidden;
-    filter:contrast(1.05) saturate(1.08);
+    filter:contrast(0.92) saturate(0.9) brightness(1.12);
+}
+
+body::after {
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    background:rgba(255,255,255,.4);
+    pointer-events:none;
 }
 
 /* Sin viñeta — la imagen se ve 100% nítida */
@@ -103,6 +112,9 @@ body::before {
 
 @media print {
     body::before {
+        display:none!important;
+    }
+    body::after {
         display:none!important;
     }
 }
@@ -3814,9 +3826,9 @@ body::before {
                     <span class="tipo-tab-flecha">›</span>
                 </div>
                 <div class="tipo-tab-features">
-                    <span>🌿 Calidad nutricional</span>
-                    <span>📈 Rendimiento estimado</span>
-                    <span>🛡️ Recomendaciones personalizadas</span>
+                    <span>📏 Kg de MS por hectárea y del lote</span>
+                    <span>🐄 Cuántos animales alcanza</span>
+                    <span>💾 Se guarda en tus lotes</span>
                 </div>
             </button>
             <button class="tipo-tab" data-tipo="silaje" onclick="mostrarTipo('silaje')" style="--color-acento:#d6b640;">
@@ -3830,9 +3842,9 @@ body::before {
                     <span class="tipo-tab-flecha">›</span>
                 </div>
                 <div class="tipo-tab-features">
-                    <span>💧 Humedad óptima</span>
-                    <span>🔬 Análisis avanzado</span>
-                    <span>🛡️ Mejores resultados</span>
+                    <span>📏 Toneladas de MS del lote</span>
+                    <span>🎯 Ventana de cosecha según % MS</span>
+                    <span>💾 Se guarda en tus lotes</span>
                 </div>
             </button>
         </div>
