@@ -4213,7 +4213,7 @@ body {
             <div class="silo-kpi-grid"><div><span>Materia verde total</span><strong id="mvTotalSilo">-</strong><small>t MV</small></div><div><span>MS usada</span><strong id="msUsadaSilo">-</strong><small>%</small></div><div><span>MS utilizable</span><strong id="msUtilizableSilo">-</strong><small>t MS · según pérdida indicada</small></div><div><span>Superficie</span><strong id="superficieResultadoSilo">-</strong><small>ha</small></div></div>
             <div id="siloRangoAlerta" class="silo-range-alert"></div>
             <div class="cosecha-badge"><span id="cosechaIcono">🎯</span><div><strong id="cosechaEstado">-</strong><span id="cosechaDetalle">-</span></div></div>
-            <div class="grafico"><div class="grafico-top"><span>Rendimiento vs referencia</span><span id="siloReferenciaPct">-</span></div><div class="barra"><div id="marcadorSilo" class="marcador"></div></div><div class="escala"><span>Muy bajo</span><span>Bajo</span><span>Medio</span><span>Bueno</span><span>Muy bueno</span></div></div>
+            <div class="grafico"><div class="grafico-top"><span>Rendimiento vs referencia</span><span id="siloReferenciaPct">-</span></div><div class="barra"><div id="marcadorSilo" class="marcador"></div></div><div class="escala"><span>0%</span><span>50%</span><span>75%</span><span>100%</span><span>≥125%</span></div></div>
             <div id="mensajeSilo" class="mensaje"></div>
             <div class="silo-decision-card"><div class="decision-icon">→</div><div><span>¿Qué me dice este resultado?</span><strong id="siloDecisionTecnica">-</strong><small id="siloDecisionAccion">-</small></div></div>
             <div class="silo-quality-card"><div class="silo-section-title"><span>04</span><div><strong>Calidad y conservación</strong><small>Datos opcionales para profundizar el diagnóstico.</small></div></div><div class="silo-quality-grid"><div><span>Estado de MS</span><strong id="siloEstadoMs">-</strong></div><div><span>Pérdida considerada</span><strong id="siloPerdida">-</strong></div><div><span>MS después de pérdida</span><strong id="siloMsDespuesPerdida">-</strong></div></div><div class="silo-quality-note">La calidad final no se infiere solo del rendimiento: después del ensilado conviene evaluar fermentación y análisis de laboratorio cuando el material haya estabilizado.</div></div>
@@ -4780,10 +4780,12 @@ function calcularSilaje() {
     document.getElementById("cosechaEstado").textContent = estadoMs.texto + " · " + numero(ms, 1) + "% MS";
     document.getElementById("cosechaDetalle").textContent = estadoMs.detalle + (fuenteMs === "medida" ? " Dato medido." : " Valor estimado desde el objetivo.");
     document.getElementById("msHaSilo").textContent = numero(msHa) + " kg MS/ha";
-    const referenciaEscala = Math.max(cultivo.categorias[cultivo.categorias.length - 1].hasta, cultivo.referencia * 1.25);
-    const posicion = Math.max(0, Math.min(msHa / referenciaEscala * 100, 100));
+    // La barra compara directamente el rendimiento del lote con la referencia del cultivo.
+    // 100% = referencia; 50% = mitad de la referencia; 125% = tope visual.
+    const porcentajeReferencia = (msHa / cultivo.referencia) * 100;
+    const posicion = Math.max(0, Math.min(porcentajeReferencia, 125)) / 1.25;
     document.getElementById("marcadorSilo").style.left = posicion + "%";
-    document.getElementById("siloReferenciaPct").textContent = numero(msHa / cultivo.referencia * 100, 0) + "% de referencia";
+    document.getElementById("siloReferenciaPct").textContent = numero(porcentajeReferencia, 0) + "% de referencia";
     document.getElementById("mensajeSilo").textContent = "Producción: " + numero(msHa) + " kg MS/ha. Referencia contextual: " + numero(cultivo.referencia) + " kg MS/ha. " + (perdidas ? "Aplicando " + numero(perdidas, 1) + "% de pérdidas indicadas, quedan " + numero(msUtilizableT, 1) + " t MS utilizables." : "No se aplicaron pérdidas: el valor utilizable coincide con la MS producida.");
     document.getElementById("siloRangoAlerta").innerHTML = rangoMs ? '<strong>⚠️ Estimación con incertidumbre</strong><span>Como no se midió la MS, el resultado puede variar dentro de la ventana aceptable: <b>' + numero(rangoMs.min, 1) + '–' + numero(rangoMs.max, 1) + ' t MS</b>.</span>' : '<strong>✓ Menor incertidumbre</strong><span>La producción se calculó con el porcentaje de MS que ingresaste como medido.</span>';
     document.getElementById("siloDecisionTecnica").textContent = estadoMs.texto + ". " + numero(msHa) + " kg MS/ha en " + numero(superficie, 2) + " ha.";
