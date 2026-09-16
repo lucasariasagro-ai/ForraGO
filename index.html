@@ -63,7 +63,7 @@ html {
 }
 
 /* =========================================================
-   FONDO — IMAGEN AÉREA (img_20.png) SIN VIÑETA
+   FONDO
 ========================================================= */
 
 body {
@@ -73,50 +73,6 @@ body {
     padding:0;
     position:relative;
     background-color:#eef3ef;
-}
-
-body::before {
-    content:"";
-    position:fixed;
-    inset:0;
-    z-index:-2;
-    background-image:url("img/img_20.png");
-    background-size:cover;
-    background-position:center;
-    background-repeat:no-repeat;
-    will-change:transform;
-    transform:translateZ(0);
-    image-rendering:-webkit-optimize-contrast;
-    image-rendering:crisp-edges;
-    -webkit-backface-visibility:hidden;
-    backface-visibility:hidden;
-    filter:contrast(0.92) saturate(0.9) brightness(1.12);
-}
-
-body::after {
-    content:"";
-    position:fixed;
-    inset:0;
-    z-index:-1;
-    background:rgba(255,255,255,.4);
-    pointer-events:none;
-}
-
-/* Sin viñeta — la imagen se ve 100% nítida */
-
-@media (max-width:600px) {
-    body::before {
-        background-position:center 30%;
-    }
-}
-
-@media print {
-    body::before {
-        display:none!important;
-    }
-    body::after {
-        display:none!important;
-    }
 }
 
 /* =========================================================
@@ -401,29 +357,25 @@ body::after {
     width:22px;
     height:3px;
     border-radius:3px;
-    background:#ffffff;
-    box-shadow:0 1px 6px rgba(0,0,0,.4);
+    background:var(--verde);
     flex-shrink:0;
 }
 .evaluar-header-icono {
     font-size:20px;
     flex-shrink:0;
-    filter:drop-shadow(0 1px 4px rgba(0,0,0,.4));
 }
 .evaluar-header-texto h2 {
     font-size:22px;
     font-weight:900;
     letter-spacing:-.4px;
-    color:#ffffff;
-    text-shadow:0 2px 14px rgba(0,0,0,.5), 0 1px 4px rgba(0,0,0,.4);
+    color:var(--texto);
     margin:0;
 }
 .evaluar-header-texto p {
     margin-top:2px;
     font-size:12.5px;
     font-weight:600;
-    color:rgba(255,255,255,.92);
-    text-shadow:0 1px 6px rgba(0,0,0,.4);
+    color:var(--gris);
 }
 
 @media(max-width:600px) {
@@ -722,6 +674,10 @@ body::after {
     box-shadow:0 12px 36px rgba(26,107,60,.38);
 }
 .btn-gestionar:active { transform:scale(.98); }
+.btn-gestionar-icono {
+    font-size:18px;
+    flex-shrink:0;
+}
 .btn-gestionar-flecha {
     font-size:15px;
     font-weight:400;
@@ -3850,6 +3806,7 @@ body::after {
         </div>
 
         <button class="btn-gestionar" onclick="abrirGestionar()">
+            <span class="btn-gestionar-icono">🚜</span>
             <span>GESTIONAR MI PRODUCCIÓN</span>
             <span class="btn-gestionar-flecha">→</span>
         </button>
