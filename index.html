@@ -3563,1018 +3563,7 @@ body {
     align-items:center;
     gap:4px;
 }
-
-/* =========================================================
-   FORRAGO AGTECH PREMIUM — HOME
-   Capa visual: no altera la lógica existente.
-========================================================= */
-
-:root{
-    --ag-dark:#073b2a;
-    --ag-deep:#0b4f37;
-    --ag-green:#11834b;
-    --ag-bright:#45d982;
-    --ag-lime:#b9ef62;
-    --ag-mint:#e8f7ee;
-    --ag-ink:#0b3327;
-    --ag-muted:#6d8379;
-    --ag-line:rgba(14,92,59,.12);
-}
-
-body{
-    background:
-        radial-gradient(900px 500px at 50% -80px, rgba(117,216,155,.28), transparent 70%),
-        linear-gradient(180deg,#f4fbf7 0%,#e5f1ea 52%,#d5e6dc 100%);
-}
-
-/* Header de producto */
-.agtech-header{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:14px;
-    padding:8px 2px 16px;
-}
-.agtech-brand{
-    display:flex;
-    align-items:center;
-    gap:10px;
-}
-.agtech-brand img{
-    width:48px;
-    height:48px;
-    object-fit:contain;
-}
-.agtech-brand strong{
-    display:block;
-    color:var(--ag-dark);
-    font-size:21px;
-    line-height:1;
-    letter-spacing:-.8px;
-}
-.agtech-brand strong::first-letter{color:var(--ag-green);}
-.agtech-brand span{
-    display:block;
-    margin-top:4px;
-    color:var(--ag-muted);
-    font-size:9px;
-    font-weight:700;
-    letter-spacing:.2px;
-}
-.agtech-header-actions{display:flex;gap:8px}
-.agtech-icon-btn{
-    position:relative;
-    width:40px;height:40px;
-    border:1px solid rgba(17,131,75,.13);
-    border-radius:50%;
-    background:rgba(255,255,255,.78);
-    color:var(--ag-dark);
-    box-shadow:0 8px 24px rgba(7,59,42,.10);
-    font-size:20px;
-    cursor:pointer;
-}
-.agtech-dot{
-    position:absolute;right:8px;top:7px;
-    width:7px;height:7px;border-radius:50%;
-    background:var(--ag-bright);
-    box-shadow:0 0 0 3px white;
-}
-
-/* =========================================================
-   ROTADOR FOTOGRÁFICO — CAMPO + DATOS
-========================================================= */
-#appShell .rotador-foto{
-    overflow:hidden;
-    isolation:isolate;
-}
-#appShell .rotador-foto::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    z-index:0;
-    background-position:center;
-    background-size:cover;
-    transform:scale(1.02);
-}
-#appShell .rotador-foto-campo::before{background-image:url("img/img_04.jpg");}
-#appShell .rotador-foto-clima::before{background-image:url("img/img_05.jpg");}
-#appShell .rotador-foto-alerta::before{background-image:url("img/img_10.jpg");}
-#appShell .rotador-foto-noticia::before{background-image:url("img/img_18.jpg");}
-#appShell .rotador-foto-overlay{
-    position:absolute; inset:0; z-index:1; pointer-events:none;
-    background:linear-gradient(90deg,rgba(2,30,20,.92) 0%,rgba(4,57,37,.70) 48%,rgba(3,37,25,.28) 100%),
-               linear-gradient(0deg,rgba(2,27,19,.58),transparent 58%);
-}
-#appShell .rotador-foto-contenido{position:relative;z-index:3;}
-#appShell .rotador-foto-campo .rotador-foto-contenido{
-    align-self:flex-start; text-align:left; align-items:flex-start; margin-left:8px;
-}
-#appShell .rotador-foto-campo .rotador-logo img{height:84px;width:auto;filter:brightness(0) invert(1);}
-#appShell .rotador-foto-kicker{display:block;margin-top:12px;color:var(--ag-bright);font-size:9px;font-weight:800;letter-spacing:1.5px;}
-#appShell .rotador-foto-campo strong{display:block;margin-top:6px;color:white;font-size:21px;letter-spacing:-.4px;font-weight:800;}
-#appShell .rotador-slide-label{
-    position:absolute;left:24px;bottom:18px;z-index:4;color:rgba(255,255,255,.72);
-    font-size:8px;font-weight:800;letter-spacing:1.25px;
-}
-#appShell .rotador-foto .rotador-clima-temp,#appShell .rotador-foto .rotador-clima-desc,#appShell .rotador-foto .rotador-clima-extra{color:#fff}
-#appShell .rotador-foto .rotador-clima-temp small{color:rgba(255,255,255,.7)}
-#appShell .rotador-foto .rotador-clima-dia{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.24);backdrop-filter:blur(8px);}
-#appShell .rotador-foto .rotador-clima-dia.dia-hoy{background:rgba(184,217,108,.2);border-color:rgba(184,217,108,.75);}
-#appShell .rotador-foto .rotador-clima-dia .nombre,#appShell .rotador-foto .rotador-clima-dia .temp-sep{color:rgba(255,255,255,.7)}
-#appShell .rotador-foto .rotador-clima-dia .temp-max,#appShell .rotador-foto .rotador-clima-dia .temp-min{color:#fff}
-#appShell .rotador-foto .rotador-alerta .mensaje,#appShell .rotador-foto .rotador-alerta .detalle{color:#fff}
-#appShell .rotador-foto .rotador-noticia-titulo{color:#fff}
-#appShell .rotador-foto .rotador-noticia-meta{color:rgba(255,255,255,.7)}
-
-/* Iconografía premium del Centro de Control */
-#appShell .metric-icon{
-    width:40px;height:40px;border-radius:13px;display:flex;align-items:center;justify-content:center;
-    background:linear-gradient(145deg,rgba(184,217,108,.24),rgba(26,107,60,.08));
-    border:1px solid rgba(184,217,108,.28);
-    box-shadow:inset 0 1px 0 rgba(255,255,255,.75),0 8px 18px rgba(26,107,60,.08);
-    flex:0 0 40px;
-}
-#appShell .metric-icon svg{width:20px;height:20px;fill:none;stroke:var(--ag-dark);stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;}
-#appShell .field-metric{display:flex;align-items:center;gap:11px;}
-#appShell .field-metric small{display:block;font-size:8px;letter-spacing:1.1px;font-weight:800;color:var(--gris);}
-#appShell .field-metric b{display:block;margin-top:2px;font-size:17px;color:var(--ag-dark);font-weight:850;}
-
-/* El rotador es el protagonista: oscuro, fotográfico y tecnológico */
-#appShell .rotador{
-    height:250px;
-    margin-bottom:22px;
-    padding:0;
-    border:1px solid rgba(255,255,255,.55);
-    border-radius:26px;
-    overflow:hidden;
-    background:
-        linear-gradient(110deg,rgba(3,34,24,.96) 0%,rgba(5,65,42,.78) 48%,rgba(5,65,42,.20) 100%),
-        url("img/img_10.jpg") center/cover;
-    box-shadow:0 22px 50px rgba(5,62,39,.23);
-}
-#appShell .rotador::before{
-    content:"INTELIGENCIA FORRAJERA  •  DATOS DE CAMPO";
-    position:absolute;
-    z-index:10;
-    top:16px;left:18px;
-    color:rgba(255,255,255,.74);
-    font-size:8px;font-weight:800;letter-spacing:1.15px;
-}
-#appShell .rotador::after{
-    content:"";
-    position:absolute;inset:auto 0 0;
-    height:58px;
-    z-index:9;
-    pointer-events:none;
-    background:linear-gradient(transparent,rgba(2,27,19,.55));
-}
-#appShell .rotador-panel{
-    padding:42px 22px 30px;
-    color:white;
-}
-#appShell .rotador-panel[data-panel="logo"]{
-    align-items:flex-start;
-    justify-content:center;
-    text-align:left;
-    padding-left:24px;
-}
-#appShell .rotador-logo img{
-    height:100px;
-    filter:brightness(0) invert(1);
-    opacity:.98;
-}
-#appShell .rotador-panel[data-panel="logo"]::after{
-    content:"Medí  ·  Analizá  ·  Decidí";
-    display:block;
-    margin-top:10px;
-    color:var(--ag-bright);
-    font-size:11px;
-    font-weight:800;
-    letter-spacing:.5px;
-}
-#appShell .rotador-clima{
-    justify-content:flex-start;
-    gap:18px;
-}
-#appShell .rotador-clima-temp,
-#appShell .rotador-clima-desc,
-#appShell .rotador-clima-extra{
-    color:white;
-}
-#appShell .rotador-clima-temp{font-size:48px}
-#appShell .rotador-clima-separador{background:rgba(255,255,255,.25)}
-#appShell .rotador-clima-dia{
-    background:rgba(255,255,255,.10);
-    border-color:rgba(255,255,255,.20);
-    backdrop-filter:blur(8px);
-}
-#appShell .rotador-clima-dia.dia-hoy{
-    background:rgba(69,217,130,.18);
-    border-color:rgba(69,217,130,.65);
-}
-#appShell .rotador-clima-dia .nombre,
-#appShell .rotador-clima-dia .temp-sep{color:rgba(255,255,255,.65)}
-#appShell .rotador-dots{
-    z-index:20;
-    bottom:12px;
-}
-#appShell .rotador-dots span{
-    width:7px;height:7px;
-    background:rgba(255,255,255,.38);
-}
-#appShell .rotador-dots span.activo{background:var(--ag-bright);width:22px;border-radius:8px}
-
-/* Título de sección */
-#appShell #tituloEvaluar{
-    margin:4px 0 14px;
-    justify-content:flex-start;
-    text-align:left;
-}
-#appShell #tituloEvaluar h2{
-    color:var(--ag-dark);
-    font-size:25px;
-    letter-spacing:-1px;
-}
-#appShell #tituloEvaluar h2::before{
-    content:"";
-    display:inline-block;
-    width:28px;height:4px;
-    margin:0 10px 6px 0;
-    border-radius:8px;
-    background:var(--ag-bright);
-}
-
-/* Tarjetas principales */
-#appShell .tipo-tabs{
-    gap:12px;
-    margin-bottom:14px;
-}
-#appShell .tipo-tab{
-    min-height:132px;
-    padding:16px 14px;
-    gap:12px;
-    border:1px solid rgba(255,255,255,.85);
-    border-left:5px solid var(--ag-green);
-    border-radius:22px;
-    background:rgba(255,255,255,.91);
-    box-shadow:0 16px 34px rgba(7,59,42,.12);
-    backdrop-filter:blur(12px);
-}
-#appShell .tipo-tab.agtech-card-silaje{
-    border-left-color:#e5b81d;
-}
-#appShell .tipo-media{
-    width:64px;height:64px;
-    flex:0 0 64px;
-    display:flex;align-items:center;justify-content:center;
-    border-radius:19px;
-    background:linear-gradient(145deg,#e9f8d8,#cdeecf);
-}
-#appShell .agtech-card-silaje .tipo-media{
-    background:linear-gradient(145deg,#fff5c9,#e9f0d2);
-}
-#appShell .tipo-tab .icono{font-size:36px}
-#appShell .tipo-tab .texto{gap:3px;min-width:0}
-#appShell .tipo-tab .texto strong{
-    color:var(--ag-dark);
-    font-size:20px;
-    letter-spacing:-.5px;
-}
-#appShell .tipo-tab .texto span{
-    color:var(--ag-muted);
-    font-size:10.5px;
-}
-#appShell .tipo-tab .texto small{
-    margin-top:6px;
-    color:#8b9a93;
-    font-size:8px;
-    font-weight:700;
-    white-space:nowrap;
-}
-#appShell .tipo-tab .texto small b{color:var(--ag-green)}
-#appShell .tipo-arrow{
-    margin-left:auto;
-    width:38px;height:38px;
-    flex:0 0 38px;
-    display:flex;align-items:center;justify-content:center;
-    border-radius:50%;
-    background:#e8f6eb;
-    color:var(--ag-deep);
-    font-size:22px;
-    font-weight:500;
-}
-#appShell .agtech-card-silaje .tipo-arrow{background:#fff5d5}
-#appShell .tipo-tab.activo{
-    background:linear-gradient(135deg,var(--ag-dark),var(--ag-green));
-    border-color:transparent;
-}
-#appShell .tipo-tab.activo .texto strong{color:white}
-#appShell .tipo-tab.activo .texto span,
-#appShell .tipo-tab.activo .texto small{color:rgba(255,255,255,.72)}
-#appShell .tipo-tab.activo .tipo-arrow{background:rgba(255,255,255,.16);color:white}
-
-/* CTA */
-#appShell .btn-gestionar{
-    min-height:62px;
-    margin-top:4px;
-    border-radius:22px;
-    background:linear-gradient(110deg,#075d3c,#159b58);
-    box-shadow:0 16px 34px rgba(7,93,60,.27);
-    font-size:11px;
-    letter-spacing:.9px;
-}
-#appShell .btn-gestionar-flecha{
-    width:38px;height:38px;
-    display:flex;align-items:center;justify-content:center;
-    border:1px solid rgba(255,255,255,.25);
-    border-radius:50%;
-}
-
-/* Footer más discreto */
-#appShell .footer{
-    color:#82958d;
-    padding-top:18px;
-}
-#appShell .footer strong{color:var(--ag-green)}
-
-/* El botón flotante queda como menú contextual */
-#appShell .boton-cuenta-flotante{
-    width:48px;height:48px;
-    border:none;
-    background:white;
-    color:var(--ag-dark);
-    box-shadow:0 12px 30px rgba(7,59,42,.18);
-    font-size:20px;
-}
-
-@media(max-width:600px){
-    .app{padding:12px 14px 34px}
-    .agtech-header{padding-top:4px}
-    #appShell .rotador{height:238px;border-radius:24px}
-    #appShell .rotador-panel{padding:40px 18px 28px}
-    #appShell .rotador-logo img{height:88px}
-    #appShell .rotador-clima{gap:12px}
-    #appShell .rotador-clima-temp{font-size:42px}
-    #appShell .rotador-clima-dias{gap:5px}
-    #appShell .rotador-clima-dia{padding:6px 7px}
-    #appShell .rotador-clima-dia .icono{font-size:20px}
-    #appShell #tituloEvaluar h2{font-size:22px}
-    #appShell .tipo-tab{min-height:118px;padding:13px 11px;gap:9px}
-    #appShell .tipo-media{width:55px;height:55px;flex-basis:55px;border-radius:16px}
-    #appShell .tipo-tab .icono{font-size:30px}
-    #appShell .tipo-tab .texto strong{font-size:18px}
-    #appShell .tipo-tab .texto span{font-size:9.5px}
-    #appShell .tipo-tab .texto small{font-size:7px}
-    #appShell .tipo-arrow{width:34px;height:34px;flex-basis:34px}
-}
-@media(max-width:390px){
-    #appShell .rotador{height:220px}
-    #appShell .rotador-logo img{height:76px}
-    #appShell .tipo-tab .texto small{display:none}
-}
-
-
-/* =========================================================
-   FORRAGO — AGTECH FINAL VISUAL PASS
-   La lógica existente se conserva.
-========================================================= */
-
-body{
-    background:
-      radial-gradient(900px 420px at 50% -140px,rgba(75,207,128,.25),transparent 68%),
-      linear-gradient(180deg,#f5faf7 0%,#e9f3ed 45%,#dcebe3 100%);
-}
-
-#appShell{
-    position:relative;
-    max-width:620px;
-    margin:0 auto;
-    padding:0 16px 92px;
-}
-
-/* Header */
-.agtech-header{
-    padding:14px 2px 13px;
-}
-.agtech-brand img{
-    width:42px;height:42px;
-}
-.agtech-brand strong{
-    font-size:20px;
-}
-.agtech-header-actions .agtech-icon-btn:first-child{
-    font-size:0;
-}
-.agtech-header-actions .agtech-icon-btn:first-child::before{
-    content:"◔";
-    font-size:19px;
-}
-.agtech-icon-btn{
-    width:38px;height:38px;
-    background:rgba(255,255,255,.7);
-}
-
-/* Hero / rotador */
-#appShell .rotador{
-    height:248px;
-    margin:0 0 14px;
-    border-radius:28px;
-    border:1px solid rgba(255,255,255,.65);
-    background:
-      radial-gradient(500px 220px at 100% 0%,rgba(85,218,137,.30),transparent 62%),
-      linear-gradient(125deg,#042e20 0%,#075b3b 55%,#0b7045 100%);
-    box-shadow:
-      0 25px 55px rgba(5,67,43,.23),
-      inset 0 1px 0 rgba(255,255,255,.18);
-}
-#appShell .rotador::before{
-    content:"FORRAGO AI  /  FIELD INTELLIGENCE";
-    top:17px;left:20px;
-    font-size:8px;
-    letter-spacing:1.45px;
-    color:rgba(255,255,255,.62);
-}
-#appShell .rotador::after{
-    height:75px;
-    background:linear-gradient(transparent,rgba(1,27,18,.62));
-}
-
-/* Decorative field-grid / tech texture */
-#appShell .rotador > .rotador-panel::before{
-    content:"";
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    opacity:.12;
-    background-image:
-      linear-gradient(rgba(255,255,255,.22) 1px,transparent 1px),
-      linear-gradient(90deg,rgba(255,255,255,.22) 1px,transparent 1px);
-    background-size:34px 34px;
-    mask-image:linear-gradient(to bottom,black,transparent 75%);
-}
-
-/* Logo slide */
-#appShell .rotador-panel[data-panel="logo"]{
-    align-items:flex-start;
-    justify-content:flex-end;
-    padding:30px 22px 38px;
-}
-#appShell .rotador-logo img{
-    height:76px;
-    width:auto;
-    filter:brightness(0) invert(1);
-}
-#appShell .rotador-panel[data-panel="logo"]::after{
-    margin-top:9px;
-    font-size:10px;
-    letter-spacing:1.1px;
-    color:#65e99a;
-}
-
-/* Climate slide */
-#appShell .rotador-panel[data-panel="clima"]{
-    align-items:flex-start;
-    text-align:left;
-    padding:50px 22px 32px;
-}
-#appShell .rotador-clima{
-    justify-content:flex-start;
-    gap:16px;
-}
-#appShell .rotador-clima-temp{
-    font-size:55px;
-    letter-spacing:-2px;
-}
-#appShell .rotador-clima-desc{
-    font-size:13px;
-}
-#appShell .rotador-clima-dia{
-    border-radius:14px;
-    padding:7px 8px;
-}
-
-/* Dots */
-#appShell .rotador-dots{
-    bottom:12px;
-    z-index:30;
-}
-#appShell .rotador-dots span{
-    height:5px;width:5px;
-    background:rgba(255,255,255,.35);
-}
-#appShell .rotador-dots span.activo{
-    width:24px;
-    background:#65e99a;
-}
-
-/* Estado del campo */
-.agtech-field-strip{
-    margin:0 0 19px;
-    padding:15px 16px 14px;
-    border-radius:21px;
-    border:1px solid rgba(255,255,255,.85);
-    background:rgba(255,255,255,.73);
-    box-shadow:0 13px 32px rgba(10,76,49,.09);
-    backdrop-filter:blur(14px);
-}
-.field-strip-head{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:12px;
-}
-.field-strip-head .eyebrow{
-    display:block;
-    color:#729086;
-    font-size:7px;
-    font-weight:900;
-    letter-spacing:1.4px;
-}
-.field-strip-head strong{
-    display:block;
-    margin-top:3px;
-    color:#093d2b;
-    font-size:15px;
-    letter-spacing:-.3px;
-}
-.live-pill{
-    padding:5px 8px;
-    border-radius:99px;
-    background:#e5f8ea;
-    color:#16834c;
-    font-size:7px;
-    font-weight:900;
-    letter-spacing:.7px;
-}
-.live-pill i{
-    display:inline-block;
-    width:5px;height:5px;
-    margin-right:4px;
-    border-radius:50%;
-    background:#39d77b;
-    box-shadow:0 0 0 3px rgba(57,215,123,.12);
-}
-.field-metrics{
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-    gap:8px;
-}
-.field-metric{
-    display:flex;
-    align-items:center;
-    gap:7px;
-    min-width:0;
-    padding:9px 7px;
-    border-radius:13px;
-    background:#f4faf6;
-}
-.metric-icon{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    width:25px;height:25px;
-    flex:0 0 25px;
-    border-radius:8px;
-    background:#dff2e5;
-    color:#12824b;
-    font-size:12px;
-}
-.field-metric small{
-    display:block;
-    color:#8a9c94;
-    font-size:6.5px;
-    font-weight:900;
-    letter-spacing:.5px;
-    white-space:nowrap;
-}
-.field-metric b{
-    display:block;
-    margin-top:2px;
-    color:#0b3d2c;
-    font-size:11px;
-}
-
-/* Section */
-#appShell #tituloEvaluar{
-    display:block;
-    margin:0 2px 13px;
-}
-#appShell #tituloEvaluar h2{
-    margin:0;
-    font-size:23px;
-    letter-spacing:-1px;
-}
-#appShell #tituloEvaluar h2::before{
-    width:22px;height:4px;
-    margin-right:8px;
-}
-.agtech-section-subtitle{
-    margin:5px 0 0 31px;
-    color:#7a8d85;
-    font-size:10px;
-    line-height:1.45;
-}
-
-/* Cards */
-#appShell .tipo-tabs{
-    gap:10px;
-    margin-bottom:12px;
-}
-#appShell .tipo-tab{
-    position:relative;
-    min-height:122px;
-    padding:14px;
-    border:1px solid rgba(255,255,255,.92);
-    border-left:4px solid #27a763;
-    border-radius:21px;
-    background:rgba(255,255,255,.88);
-    box-shadow:0 14px 30px rgba(8,72,46,.10);
-    overflow:hidden;
-}
-#appShell .tipo-tab::after{
-    content:"";
-    position:absolute;
-    right:-35px;top:-45px;
-    width:130px;height:130px;
-    border-radius:50%;
-    background:radial-gradient(circle,rgba(71,210,126,.13),transparent 68%);
-    pointer-events:none;
-}
-#appShell .tipo-media{
-    width:58px;height:58px;
-    flex-basis:58px;
-    border-radius:17px;
-}
-#appShell .tipo-tab .icono{
-    font-size:31px;
-}
-#appShell .tipo-tab .texto strong{
-    font-size:18px;
-}
-#appShell .tipo-tab .texto span{
-    font-size:9.5px;
-}
-#appShell .tipo-tab .texto small{
-    display:block;
-    margin-top:7px;
-    font-size:7px;
-    letter-spacing:.2px;
-}
-#appShell .tipo-arrow{
-    width:34px;height:34px;
-    flex-basis:34px;
-    font-size:18px;
-    background:#e4f5e9;
-}
-#appShell .agtech-card-silaje{
-    border-left-color:#d3aa20;
-}
-
-/* Production module */
-#appShell .btn-gestionar{
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    min-height:72px;
-    padding:12px 14px 12px 18px;
-    border-radius:21px;
-    text-align:left;
-    background:
-      radial-gradient(250px 100px at 100% 0%,rgba(85,226,143,.24),transparent 65%),
-      linear-gradient(110deg,#063d2a,#08774a);
-}
-#appShell .btn-gestionar > span:first-child{
-    display:flex;
-    flex-direction:column;
-    gap:4px;
-    font-size:11px;
-}
-#appShell .btn-gestionar > span:first-child b{
-    font-size:11px;
-    letter-spacing:.8px;
-}
-#appShell .btn-gestionar > span:first-child small{
-    color:rgba(255,255,255,.65);
-    font-size:8px;
-    font-weight:600;
-    letter-spacing:0;
-}
-#appShell .btn-gestionar-flecha{
-    width:42px;height:42px;
-    border-radius:50%;
-    background:rgba(255,255,255,.12);
-    font-size:21px;
-}
-
-/* Bottom navigation */
-.agtech-bottom-nav{
-    position:fixed;
-    left:50%;
-    bottom:10px;
-    z-index:55;
-    transform:translateX(-50%);
-    width:min(590px,calc(100% - 28px));
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    padding:7px;
-    border:1px solid rgba(255,255,255,.85);
-    border-radius:21px;
-    background:rgba(249,253,250,.88);
-    box-shadow:0 15px 40px rgba(4,52,34,.20);
-    backdrop-filter:blur(18px);
-}
-.agtech-bottom-nav button{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    gap:2px;
-    min-height:46px;
-    border:0;
-    border-radius:15px;
-    background:transparent;
-    color:#7a8d85;
-    font-family:inherit;
-    cursor:pointer;
-}
-.agtech-bottom-nav button span{
-    font-size:17px;
-    line-height:1;
-}
-.agtech-bottom-nav button small{
-    font-size:7px;
-    font-weight:800;
-    letter-spacing:.2px;
-}
-.agtech-bottom-nav button.active{
-    color:#08774a;
-    background:#e3f4e9;
-}
-.agtech-bottom-nav button.active span{
-    font-weight:900;
-}
-
-/* Keep account menu above bottom nav */
-#appShell .cuenta-flotante-wrap{
-    bottom:82px;
-    right:16px;
-}
-#appShell .boton-cuenta-flotante{
-    width:42px;height:42px;
-    font-size:18px;
-}
-
-@media(max-width:600px){
-    #appShell{padding-left:13px;padding-right:13px}
-    #appShell .rotador{height:238px}
-    .field-metrics{gap:5px}
-    .field-metric{padding:8px 5px}
-    .metric-icon{width:23px;height:23px;flex-basis:23px}
-    .field-metric small{font-size:6px}
-    .field-metric b{font-size:10px}
-}
-@media(max-width:390px){
-    #appShell .rotador{height:220px}
-    .agtech-field-strip{padding:13px 11px}
-    .field-metric{display:block;text-align:center}
-    .metric-icon{margin:0 auto 4px}
-    #appShell .tipo-tab{min-height:112px}
-    #appShell .tipo-tab .texto small{display:none}
-}
-
-
-/* =========================================================
-   FORRAGO — RESPONSIVE DESKTOP / TABLET
-   Mobile mantiene el diseño anterior.
-   >= 900px se transforma en dashboard de escritorio.
-========================================================= */
-
-@media (min-width: 900px){
-    body{
-        min-height:100vh;
-        background:
-          radial-gradient(1000px 500px at 55% -100px,rgba(76,211,132,.18),transparent 70%),
-          linear-gradient(135deg,#eef7f1,#dcebe3);
-    }
-
-    #appShell{
-        max-width:none;
-        min-height:100vh;
-        padding:0 42px 42px 282px;
-        margin:0;
-    }
-
-    /* Sidebar */
-    #appShell::before{
-        content:"";
-        position:fixed;
-        z-index:45;
-        inset:0 auto 0 0;
-        width:244px;
-        background:linear-gradient(180deg,#063a28 0%,#07543a 55%,#063a29 100%);
-        box-shadow:12px 0 40px rgba(3,49,32,.16);
-    }
-
-    #appShell::after{
-        content:"ForraGO\A Inteligencia Forrajera\A\A  ●  Inicio\A\A  ◈  Mis lotes\A\A  ◫  Producción\A\A  ◌  Mediciones\A\A  ☰  Menú";
-        white-space:pre;
-        position:fixed;
-        z-index:46;
-        left:32px;
-        top:32px;
-        width:185px;
-        color:rgba(255,255,255,.78);
-        font-size:11px;
-        line-height:2.05;
-        font-weight:700;
-        letter-spacing:.25px;
-        pointer-events:none;
-    }
-
-    .agtech-header{
-        position:relative;
-        z-index:2;
-        max-width:1200px;
-        margin:0 auto;
-        padding:24px 0 18px;
-    }
-
-    .agtech-brand img{width:44px;height:44px}
-    .agtech-brand strong{font-size:22px}
-    .agtech-header-actions .agtech-icon-btn{
-        width:42px;height:42px;
-    }
-
-    /* Main two-column dashboard */
-    #appShell .rotador{
-        width:100%;
-        max-width:1200px;
-        height:300px;
-        margin:0 auto 18px;
-        border-radius:30px;
-    }
-
-    #appShell .rotador-panel[data-panel="logo"]{
-        padding:45px 48px 48px;
-    }
-
-    #appShell .rotador-logo img{height:90px}
-
-    #appShell .rotador-panel[data-panel="clima"]{
-        padding:56px 48px 35px;
-    }
-
-    .agtech-field-strip{
-        max-width:1200px;
-        margin:0 auto 20px;
-        padding:17px 20px;
-    }
-
-    .field-metrics{
-        grid-template-columns:repeat(3,minmax(150px,1fr));
-    }
-
-    #appShell #tituloEvaluar{
-        max-width:1200px;
-        margin:0 auto 14px;
-    }
-
-    #appShell #tituloEvaluar h2{font-size:26px}
-
-    /* Cards in two columns on desktop */
-    #appShell .tipo-tabs{
-        max-width:1200px;
-        margin:0 auto 14px;
-        display:grid;
-        grid-template-columns:1fr 1fr;
-        gap:14px;
-    }
-
-    #appShell .tipo-tab{
-        min-height:165px;
-        padding:20px;
-        border-radius:24px;
-    }
-
-    #appShell .tipo-media{
-        width:70px;height:70px;flex-basis:70px;
-    }
-
-    #appShell .tipo-tab .icono{font-size:38px}
-    #appShell .tipo-tab .texto strong{font-size:20px}
-    #appShell .tipo-tab .texto span{font-size:11px}
-    #appShell .tipo-tab .texto small{font-size:8px}
-
-    #appShell .tipo-arrow{
-        width:42px;height:42px;flex-basis:42px;
-    }
-
-    #appShell .btn-gestionar{
-        max-width:1200px;
-        margin:0 auto;
-        min-height:82px;
-        border-radius:24px;
-        padding-left:24px;
-    }
-
-    #appShell .btn-gestionar > span:first-child b{font-size:12px}
-    #appShell .btn-gestionar > span:first-child small{font-size:9px}
-
-    /* Bottom nav disappears: desktop uses sidebar */
-    .agtech-bottom-nav{display:none!important}
-
-    #appShell .cuenta-flotante-wrap{
-        top:22px;
-        bottom:auto;
-        right:42px;
-    }
-
-    #appShell .boton-cuenta-flotante{
-        width:42px;height:42px;
-    }
-
-    /* Footer */
-    #appShell .footer{
-        max-width:1200px;
-        margin:0 auto;
-        padding:20px 0;
-    }
-}
-
-@media (min-width: 1200px){
-    #appShell{
-        padding-left:320px;
-        padding-right:70px;
-    }
-
-    #appShell .rotador,
-    .agtech-field-strip,
-    #appShell #tituloEvaluar,
-    #appShell .tipo-tabs,
-    #appShell .btn-gestionar,
-    #appShell .footer{
-        max-width:1280px;
-    }
-
-    #appShell .rotador{
-        height:330px;
-    }
-
-    /* On wide monitors, hero + metrics become a true dashboard composition */
-    .agtech-field-strip{
-        padding:18px 22px;
-    }
-
-    .field-metrics{
-        grid-template-columns:repeat(3,1fr);
-    }
-}
-
 </style>
-
-<style id="forrago-centro-control-fix">
-/* Centro de Control — layout limpio y estable */
-#appShell .agtech-field-strip{
-  width:100%; box-sizing:border-box;
-  margin:0 0 20px; padding:16px;
-  border-radius:22px;
-  background:rgba(255,255,255,.94);
-  border:1px solid rgba(211,225,216,.95);
-  box-shadow:0 12px 30px rgba(10,70,45,.10);
-  backdrop-filter:blur(12px);
-}
-#appShell .field-strip-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;}
-#appShell .field-strip-head > div{min-width:0;}
-#appShell .field-strip-head .eyebrow{font-size:8px;line-height:1.2;color:#759187;letter-spacing:1.3px;font-weight:900;}
-#appShell .field-strip-head strong{font-size:16px;line-height:1.2;color:#0b3d2c;font-weight:850;}
-#appShell .live-pill{display:inline-flex;align-items:center;white-space:nowrap;padding:6px 9px;border-radius:999px;background:#e7f7ec;color:#16834c;font-size:7px;font-weight:900;}
-#appShell .field-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px;}
-#appShell .field-metric{min-width:0;display:flex;align-items:center;gap:9px;padding:10px;border:1px solid #e4ece7;border-radius:15px;background:#f7faf8;}
-#appShell .field-metric .metric-icon{width:34px;height:34px;flex:0 0 34px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:linear-gradient(145deg,#e9f6df,#d9eee1);border:1px solid #d6e8da;box-shadow:none;}
-#appShell .field-metric .metric-icon svg{width:18px;height:18px;fill:none;stroke:#176b45;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
-#appShell .field-metric > div{min-width:0;}
-#appShell .field-metric small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#81938b;font-size:7px;line-height:1.2;letter-spacing:.8px;font-weight:900;}
-#appShell .field-metric b{display:block;margin-top:3px;color:#0b3d2c;font-size:15px;line-height:1.15;font-weight:850;white-space:nowrap;}
-@media(max-width:600px){
-  #appShell .agtech-field-strip{padding:13px;border-radius:19px;margin-bottom:17px;}
-  #appShell .field-strip-head{margin-bottom:10px;}
-  #appShell .field-strip-head strong{font-size:14px;}
-  #appShell .field-metrics{gap:6px;}
-  #appShell .field-metric{display:flex;text-align:left;gap:6px;padding:8px 6px;border-radius:12px;}
-  #appShell .field-metric .metric-icon{width:27px;height:27px;flex-basis:27px;border-radius:8px;}
-  #appShell .field-metric .metric-icon svg{width:15px;height:15px;}
-  #appShell .field-metric small{font-size:5.8px;letter-spacing:.45px;}
-  #appShell .field-metric b{font-size:10px;margin-top:2px;}
-}
-@media(max-width:390px){
-  #appShell .field-metrics{grid-template-columns:1fr;}
-  #appShell .field-metric{padding:8px 9px;}
-  #appShell .field-metric .metric-icon{width:30px;height:30px;flex-basis:30px;}
-  #appShell .field-metric b{font-size:11px;}
-}
-</style>
-
 </head>
 <body>
 
@@ -4642,20 +3631,6 @@ body{
 
 <div id="appShell" class="app-shell-hidden">
 
-    <header class="agtech-header">
-        <div class="agtech-brand">
-            <img src="img/img_19.png" alt="ForraGO">
-            <div>
-                <strong>ForraGO</strong>
-                <span>Inteligencia Forrajera</span>
-            </div>
-        </div>
-        <div class="agtech-header-actions">
-            <button class="agtech-icon-btn" type="button" aria-label="Notificaciones">♧<span class="agtech-dot"></span></button>
-            <button class="agtech-icon-btn" type="button" aria-label="Perfil">◯</button>
-        </div>
-    </header>
-
     <div class="cuenta-flotante-wrap">
         <button id="btnMenuUsuario" class="boton-cuenta-flotante" onclick="toggleMenuUsuario(event)" title="Menú" aria-label="Menú de usuario">☰</button>
         <div id="menuUsuarioPanel" class="menu-usuario-panel">
@@ -4690,18 +3665,14 @@ body{
     ========================================================= -->
 
     <div id="rotador" class="rotador">
-        <div class="rotador-panel activo rotador-foto rotador-foto-campo" data-panel="logo">
-            <div class="rotador-foto-overlay"></div>
-            <div class="rotador-logo rotador-foto-contenido">
+        <div class="rotador-panel activo" data-panel="logo">
+            <div class="rotador-logo">
                 <img src="img/img_19.png" alt="ForraGO" id="rotadorLogo">
-                <span class="rotador-foto-kicker">INTELIGENCIA FORRAJERA</span>
-                <strong>Tu campo, medido con datos.</strong>
             </div>
         </div>
 
-        <div class="rotador-panel rotador-foto rotador-foto-clima" data-panel="clima">
-            <div class="rotador-foto-overlay"></div>
-            <div class="rotador-foto-contenido rotador-clima">
+        <div class="rotador-panel" data-panel="clima">
+            <div class="rotador-clima">
                 <div class="rotador-clima-actual">
                     <div class="rotador-clima-temp" id="rotadorTemp">--<small>°C</small></div>
                     <div class="rotador-clima-desc" id="rotadorDesc">Cargando...</div>
@@ -4726,22 +3697,18 @@ body{
                     </div>
                 </div>
             </div>
-            <span class="rotador-slide-label">CLIMA DE CAMPO</span>
         </div>
 
-        <div class="rotador-panel rotador-foto rotador-foto-alerta" data-panel="alertas" id="rotadorAlertas" data-disponible="0">
-            <div class="rotador-foto-overlay"></div>
-            <div class="rotador-alerta rotador-foto-contenido" id="rotadorAlertaBox">
+        <div class="rotador-panel" data-panel="alertas" id="rotadorAlertas" data-disponible="0">
+            <div class="rotador-alerta" id="rotadorAlertaBox">
                 <div class="icono-alerta-badge"><span class="icono-alerta" id="alertaIcono">⚠️</span></div>
                 <div class="mensaje" id="alertaMensaje">-</div>
                 <div class="detalle" id="alertaDetalle">-</div>
             </div>
-            <span class="rotador-slide-label">MONITOREO DEL CAMPO</span>
         </div>
 
-        <div class="rotador-panel rotador-foto rotador-foto-noticia" data-panel="noticias" id="rotadorNoticias" data-disponible="0">
-            <div class="rotador-foto-overlay"></div>
-            <div class="rotador-noticia rotador-foto-contenido" id="rotadorNoticiaBox" onclick="event.stopPropagation(); abrirNoticiaActual();">
+        <div class="rotador-panel" data-panel="noticias" id="rotadorNoticias" data-disponible="0">
+            <div class="rotador-noticia" id="rotadorNoticiaBox" onclick="event.stopPropagation(); abrirNoticiaActual();">
                 <span class="rotador-kicker">Novedades agropecuarias</span>
                 <div class="rotador-noticia-titulo" id="noticiaTitulo">-</div>
                 <div class="rotador-noticia-meta">
@@ -4750,42 +3717,17 @@ body{
                     <span id="noticiaFecha">-</span>
                 </div>
             </div>
-            <span class="rotador-slide-label">ACTUALIDAD AGRO</span>
         </div>
 
         <div class="rotador-dots" id="rotadorDots"></div>
     </div>
-
-    <section class="agtech-field-strip" aria-label="Resumen del campo">
-        <div class="field-strip-head">
-            <div>
-                <span class="eyebrow">CENTRO DE CONTROL</span>
-                <strong>Estado del campo</strong>
-            </div>
-            <span class="live-pill"><i></i> ACTIVO</span>
-        </div>
-        <div class="field-metrics">
-            <div class="field-metric">
-                <span class="metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 5.5 12 3l8 2.5v13L12 21l-8-2.5z"/><path d="M12 3v18M4 5.5 12 8l8-2.5"/></svg></span>
-                <div><small>LOTES</small><b id="ccLotes">—</b></div>
-            </div>
-            <div class="field-metric">
-                <span class="metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 19 19 5M7 5h12v12"/><path d="M5 5v4M9 5v2M13 5v4M17 5v2M19 5v4"/></svg></span>
-                <div><small>SUPERFICIE</small><b id="ccSuperficie">— ha</b></div>
-            </div>
-            <div class="field-metric">
-                <span class="metric-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7v5l3 2"/></svg></span>
-                <div><small>ÚLTIMA MEDICIÓN</small><b id="ccUltima">—</b></div>
-            </div>
-        </div>
-    </section>
 
     <!-- =========================================================
        "¿QUÉ QUERÉS EVALUAR?"
     ========================================================= -->
 
     <div id="tituloEvaluar" class="seccion seccion-simple titulo-principal">
-        <h2>¿Qué querés analizar?</h2><p class="agtech-section-subtitle">Seleccioná el recurso forrajero para comenzar una evaluación.</p>
+        <h2>¿Qué querés evaluar?</h2>
     </div>
 
     <!-- =========================================================
@@ -4794,28 +3736,24 @@ body{
 
     <div id="vistaCalculadora">
         <div class="tipo-tabs" id="tipoTabs">
-            <button class="tipo-tab agtech-card-forraje" data-tipo="forraje" onclick="mostrarTipo('forraje')">
-                <span class="tipo-media"><span class="icono">🌿</span></span>
+            <button class="tipo-tab" data-tipo="forraje" onclick="mostrarTipo('forraje')">
+                <span class="icono">🌾</span>
                 <span class="texto">
                     <strong>Forraje</strong>
                     <span>Para heno o pastoreo</span>
-                    <small><b>MS</b> · Calidad · Rendimiento</small>
                 </span>
-                <span class="tipo-arrow">→</span>
             </button>
-            <button class="tipo-tab agtech-card-silaje" data-tipo="silaje" onclick="mostrarTipo('silaje')">
-                <span class="tipo-media"><span class="icono">🌽</span></span>
+            <button class="tipo-tab" data-tipo="silaje" onclick="mostrarTipo('silaje')">
+                <span class="icono">🌽</span>
                 <span class="texto">
                     <strong>Silaje</strong>
                     <span>Maíz o sorgo picado</span>
-                    <small><b>MS</b> · Humedad · Conservación</small>
                 </span>
-                <span class="tipo-arrow">→</span>
             </button>
         </div>
 
         <button class="btn-gestionar" onclick="abrirGestionar()">
-            <span><b>MI PRODUCCIÓN</b><small>Lotes · mediciones · evolución</small></span>
+            <span>GESTIONAR MI PRODUCCIÓN</span>
             <span class="btn-gestionar-flecha">→</span>
         </button>
     </div>
@@ -7035,35 +5973,6 @@ async function migrarLotesViejos() {
     mostrarListaLotes();
 }
 
-async function actualizarCentroControl() {
-    try {
-        const lotes = await cargarLotes();
-        const total = Array.isArray(lotes) ? lotes.length : 0;
-        let superficie = 0;
-        let ultimaFecha = null;
-
-        (lotes || []).forEach(lote => {
-            superficie += Number(lote.superficie) || 0;
-            const mediciones = Array.isArray(lote.mediciones) ? lote.mediciones : [];
-            mediciones.forEach(m => {
-                if (m && m.fecha) {
-                    const f = new Date(m.fecha);
-                    if (!isNaN(f.getTime()) && (!ultimaFecha || f > ultimaFecha)) ultimaFecha = f;
-                }
-            });
-        });
-
-        const elLotes = document.getElementById("ccLotes");
-        const elSup = document.getElementById("ccSuperficie");
-        const elUlt = document.getElementById("ccUltima");
-        if (elLotes) elLotes.textContent = total;
-        if (elSup) elSup.textContent = numero(superficie, 1) + " ha";
-        if (elUlt) elUlt.textContent = ultimaFecha ? formatearFecha(ultimaFecha.toISOString()) : "Sin datos";
-    } catch (e) {
-        console.warn("No se pudo actualizar Centro de Control", e);
-    }
-}
-
 function ocultarNivelesSuperiores() {
     document.getElementById("tituloEvaluar").style.display = "none";
     document.getElementById("vistaCalculadora").style.display = "none";
@@ -7078,8 +5987,6 @@ function ocultarNivelesSuperiores() {
     document.getElementById("vistaPerfil").style.display = "none";
     document.getElementById("vistaDatos").style.display = "none";
     document.getElementById("vistaNotificaciones").style.display = "none";
-    const centroControl = document.querySelector(".agtech-field-strip");
-    if (centroControl) centroControl.style.display = "none";
     document.querySelector(".header").style.display = "none";
     document.querySelector(".hero").style.display = "none";
     document.getElementById("rotador").style.display = "none";
@@ -7093,20 +6000,16 @@ function restaurarBloqueActivo() {
 }
 
 function mostrarHome() {
-    actualizarCentroControl();
     document.getElementById("tituloEvaluar").style.display = "";
     document.getElementById("vistaCalculadora").style.display = "";
     document.querySelector(".header").style.display = "";
     document.querySelector(".hero").style.display = "";
-    const centroControl = document.querySelector(".agtech-field-strip");
-    if (centroControl) centroControl.style.display = "";
     document.getElementById("rotador").style.display = "";
     restaurarBloqueActivo();
 }
 
 function abrirGestionar() {
     ocultarNivelesSuperiores();
-    document.getElementById("rotador").style.display = "none";
     document.getElementById("vistaGestionar").style.display = "block";
     renderResumenGestionar();
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -7978,7 +6881,6 @@ actualizarVentanaCosecha();
 sincronizarAsesorSilo();
 actualizarCategoria("");
 actualizarCategoria("Silo");
-actualizarCentroControl();
 
 // =========================================================
 // SERVICE WORKER
@@ -7998,5 +6900,3 @@ if ("serviceWorker" in navigator) {
 
 </body>
 </html>
-
-
