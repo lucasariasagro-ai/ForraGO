@@ -2641,10 +2641,29 @@ body {
     background:linear-gradient(100deg, rgba(6,26,15,.94) 0%, rgba(6,26,15,.8) 34%, rgba(6,26,15,.35) 62%, rgba(6,26,15,.05) 85%);
 }
 
-.rotador-panel[data-panel="logo"] { background-image:url(img/img_03.jpg); }
-.rotador-panel[data-panel="clima"] { background-image:url(img/img_15.jpg); }
+.rotador-panel[data-panel="clima"] { background-image:url(img/img_03.jpg); }
 .rotador-panel[data-panel="alertas"] { background-image:url(img/img_18.jpg); }
 .rotador-panel[data-panel="noticias"] { background-image:url(img/img_11.jpg); }
+
+.rotador-panel[data-panel="logo"] {
+    background-image:none;
+    background:
+        radial-gradient(130% 100% at 100% 0%, rgba(184,217,108,.28) 0%, rgba(184,217,108,0) 55%),
+        radial-gradient(100% 90% at 0% 100%, rgba(26,107,60,.16) 0%, rgba(26,107,60,0) 55%),
+        linear-gradient(180deg, #ffffff 0%, #f3f8f4 100%);
+    align-items:center;
+    justify-content:center;
+    padding:20px 20px 46px;
+}
+.rotador-panel[data-panel="logo"]::before {
+    content:none;
+}
+.rotador-logo-grande {
+    position:relative;
+    z-index:2;
+    height:180px;
+    width:auto;
+}
 
 .rp-contenido {
     position:relative;
@@ -2820,6 +2839,9 @@ body {
     .rotador-panel {
         padding:20px 20px 42px;
     }
+    .rotador-logo-grande {
+        height:130px;
+    }
     .rp-contenido {
         max-width:76%;
     }
@@ -2846,6 +2868,9 @@ body {
     }
     .rotador-panel {
         padding:16px 16px 38px;
+    }
+    .rotador-logo-grande {
+        height:102px;
     }
     .rp-contenido {
         max-width:88%;
@@ -3562,11 +3587,7 @@ body {
 
     <div id="rotador" class="rotador">
         <div class="rotador-panel activo" data-panel="logo">
-            <div class="rp-contenido">
-                <div class="rp-badge"><span class="rp-badge-icono">🌱</span> FORRAGO</div>
-                <h3 class="rp-titulo">Medí. Entendé. <span class="rp-resaltado">Decidí.</span></h3>
-                <p class="rp-texto">Inteligencia forrajera para tu campo, en segundos.</p>
-            </div>
+            <img src="img/img_19.png" alt="ForraGO" class="rotador-logo-grande">
         </div>
 
         <div class="rotador-panel" data-panel="clima">
