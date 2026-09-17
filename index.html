@@ -3505,7 +3505,7 @@ body {
 .an-summary-card strong { display:block; margin-top:4px; font-size:20px; font-weight:800; color:var(--verde); }
 
 .an-lotes-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
-.an-lote-card { background:var(--blanco); border:1px solid var(--borde); border-radius:var(--radio-peq); padding:18px; cursor:pointer; box-shadow:var(--sombra); transition:var(--transicion); }
+.an-lote-card { position:relative; background:var(--blanco); border:1px solid var(--borde); border-radius:var(--radio-peq); padding:18px; cursor:pointer; box-shadow:var(--sombra); transition:var(--transicion); }
 .an-lote-card:hover { box-shadow:var(--sombra-hover); transform:translateY(-2px); }
 .an-lote-card-header { display:flex; justify-content:space-between; align-items:flex-start; }
 .an-lote-name { font-weight:800; font-size:16px; color:var(--texto); }
@@ -3523,7 +3523,14 @@ body {
 .an-detalle-header { display:flex; justify-content:space-between; align-items:flex-end; gap:12px; margin-bottom:16px; flex-wrap:wrap; }
 .an-detalle-header h3 { margin:8px 0 2px; font-size:22px; color:var(--verde); font-weight:800; }
 .an-detalle-header p { margin:0; color:var(--gris); font-size:11.5px; }
-.an-detalle-metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:16px; }
+.an-detalle-metrics { display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin-bottom:12px; }
+.an-detalle-extra { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:16px; }
+.an-extra-card { background:var(--fondo); border:1px solid var(--borde); border-radius:14px; padding:14px; }
+.an-extra-card span { display:block; font-size:10px; color:var(--gris); }
+.an-extra-card strong { display:block; margin-top:3px; font-size:16px; color:var(--texto); font-weight:800; }
+.an-extra-card small { display:block; margin-top:3px; font-size:9px; color:var(--gris); }
+.an-detalle-actions { display:flex; gap:8px; flex-wrap:wrap; }
+.an-lote-delete { position:absolute; top:14px; right:14px; width:30px; height:30px; border:0; border-radius:9px; background:#fde8e8; color:#b33c3c; cursor:pointer; font-size:14px; z-index:2; }
 .an-metric-card { background:var(--blanco); border:1px solid var(--borde); border-radius:14px; padding:14px; box-shadow:var(--sombra); }
 .an-metric-card span { display:block; font-size:10px; color:var(--gris); }
 .an-metric-card strong { display:block; margin-top:3px; font-size:18px; color:var(--verde); font-weight:800; }
@@ -3568,12 +3575,13 @@ body {
 
 @media (max-width:850px) {
     .an-summary, .an-detalle-metrics { grid-template-columns:1fr 1fr; }
+    .an-detalle-extra { grid-template-columns:1fr 1fr; }
     .an-lotes-grid { grid-template-columns:1fr; }
     .an-categoria-row { grid-template-columns:1fr 1fr; }
     .an-detalle-header { flex-direction:column; align-items:flex-start; }
 }
 @media (max-width:550px) {
-    .an-summary, .an-detalle-metrics { grid-template-columns:1fr; }
+    .an-summary, .an-detalle-metrics, .an-detalle-extra { grid-template-columns:1fr; }
     .an-form-grid { grid-template-columns:1fr; }
     .an-categoria-row { grid-template-columns:1fr; }
 }
@@ -3954,7 +3962,10 @@ body {
                     <h3 id="anDetalleNombre">—</h3>
                     <p id="anDetalleDescripcion">—</p>
                 </div>
-                <button class="btn-secundario" id="anBtnEditarLote">Editar lote</button>
+                <div class="an-detalle-actions">
+                    <button class="btn-secundario" id="anBtnEditarLote">Editar lote</button>
+                    <button class="btn-secundario" id="anBtnEliminarLote" style="color:#b33c3c;border-color:#e8bcbc;">Eliminar lote</button>
+                </div>
             </div>
 
             <div class="an-detalle-metrics">
@@ -3962,6 +3973,12 @@ body {
                 <div class="an-metric-card"><span>EV totales</span><strong id="anDetalleEV">0,0</strong></div>
                 <div class="an-metric-card"><span>MS / día</span><strong id="anDetalleMS">0 kg</strong></div>
                 <div class="an-metric-card" id="anSurfaceMetric"><span>EV / ha</span><strong id="anDetalleEVHa">—</strong></div>
+            </div>
+
+            <div class="an-detalle-extra">
+                <div class="an-extra-card"><span>MS / animal / día</span><strong id="anDetalleMSAnimal">—</strong><small>Promedio del lote</small></div>
+                <div class="an-extra-card"><span>MS estimada / mes</span><strong id="anDetalleMSMes">—</strong><small>30 días</small></div>
+                <div class="an-extra-card"><span>MS estimada / año</span><strong id="anDetalleMSAnio">—</strong><small>365 días</small></div>
             </div>
 
             <div class="an-card">
@@ -4105,6 +4122,19 @@ body {
         </div>
 
     </div>
+
+        <!-- MODAL — ELIMINAR LOTE -->
+        <div id="anModalEliminarLote" class="modal-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="anEliminarLoteTitulo">
+            <div class="an-modal-dialog small">
+                <div style="width:42px;height:42px;border-radius:12px;background:#fde8e8;color:#b33c3c;display:grid;place-items:center;font-size:20px;margin-bottom:10px;">🗑</div>
+                <h3 id="anEliminarLoteTitulo" style="margin:0;color:var(--texto);">Eliminar lote</h3>
+                <p id="anEliminarLoteTexto" style="margin:8px 0 0;color:var(--texto-suave);font-size:12px;line-height:1.5;">¿Querés eliminar este lote?</p>
+                <div class="modal-botones" style="margin-top:18px;">
+                    <button id="anBtnCancelarEliminar" class="btn-secundario">Cancelar</button>
+                    <button id="anBtnConfirmarEliminar" class="btn-primary" style="background:#b33c3c;border-color:#b33c3c;">Eliminar lote</button>
+                </div>
+            </div>
+        </div>
 
     <div id="bloqueForraje" class="bloque-tipo" style="display:none;">
         <section class="panel">
@@ -7078,7 +7108,16 @@ if ("serviceWorker" in navigator) {
       ev += result.ev;
       ms += result.ms;
     });
-    return { animals, ev, ms, evHa: lot.surfaceHa > 0 ? ev / lot.surfaceHa : null };
+    return {
+      animals,
+      ev,
+      ms,
+      msMonth: ms * 30,
+      msYear: ms * 365,
+      msPerAnimal: animals > 0 ? ms / animals : 0,
+      evPerAnimal: animals > 0 ? ev / animals : 0,
+      evHa: lot.surfaceHa > 0 ? ev / lot.surfaceHa : null
+    };
   }
 
 
@@ -7115,6 +7154,7 @@ if ("serviceWorker" in navigator) {
         .join(" · ") || "Sin categorías cargadas";
 
       card.innerHTML = `
+        <button class="an-lote-delete" type="button" data-an-delete-lot="${lot.id}" title="Eliminar lote" aria-label="Eliminar lote">🗑</button>
         <div class="an-lote-card-header">
           <div class="an-lote-name">${anEscapeHTML(lot.name)}</div>
           <span class="an-species-badge">${AN_SPECIES_NAMES[lot.species] || lot.species}</span>
@@ -7134,7 +7174,14 @@ if ("serviceWorker" in navigator) {
         </div>
       `;
 
-      card.addEventListener("click", () => anOpenLot(lot.id));
+      card.addEventListener("click", e => {
+        if (e.target.closest("[data-an-delete-lot]")) return;
+        anOpenLot(lot.id);
+      });
+      card.querySelector("[data-an-delete-lot]").addEventListener("click", e => {
+        e.stopPropagation();
+        anAskDeleteLot(lot.id);
+      });
       container.appendChild(card);
     });
 
@@ -7188,6 +7235,9 @@ if ("serviceWorker" in navigator) {
     document.getElementById("anDetalleAnimales").textContent = anFormatNumber(result.animals,0);
     document.getElementById("anDetalleEV").textContent = anFormatNumber(result.ev,1);
     document.getElementById("anDetalleMS").textContent = `${anFormatNumber(result.ms,0)} kg`;
+    document.getElementById("anDetalleMSAnimal").textContent = result.animals > 0 ? `${anFormatNumber(result.msPerAnimal,2)} kg` : "—";
+    document.getElementById("anDetalleMSMes").textContent = `${anFormatNumber(result.msMonth / 1000,2)} t`;
+    document.getElementById("anDetalleMSAnio").textContent = `${anFormatNumber(result.msYear / 1000,2)} t`;
 
     const surfaceMetric = document.getElementById("anSurfaceMetric");
     if (result.evHa !== null) {
@@ -7471,6 +7521,48 @@ if ("serviceWorker" in navigator) {
 
 
   /* ============================================================
+     ELIMINAR LOTE
+     ============================================================ */
+
+  let anDeleteLotId = null;
+  const anDeleteModal = document.getElementById("anModalEliminarLote");
+
+  function anAskDeleteLot(lotId) {
+    const lot = anLots.find(item => item.id === lotId);
+    if (!lot) return;
+    anDeleteLotId = lotId;
+    document.getElementById("anEliminarLoteTexto").innerHTML = `Vas a eliminar <strong>${anEscapeHTML(lot.name)}</strong> y todas sus categorías. Esta acción no se puede deshacer.`;
+    anDeleteModal.style.display = "flex";
+  }
+
+  function anCloseDeleteModal() {
+    anDeleteLotId = null;
+    anDeleteModal.style.display = "none";
+  }
+
+  document.getElementById("anBtnEliminarLote").addEventListener("click", () => {
+    if (anCurrentLotId !== null) anAskDeleteLot(anCurrentLotId);
+  });
+
+  document.getElementById("anBtnCancelarEliminar").addEventListener("click", anCloseDeleteModal);
+
+  document.getElementById("anBtnConfirmarEliminar").addEventListener("click", () => {
+    if (anDeleteLotId === null) return;
+    const id = anDeleteLotId;
+    anLots = anLots.filter(lot => lot.id !== id);
+    anSaveLots();
+    anCloseDeleteModal();
+    if (anCurrentLotId === id) {
+      anCurrentLotId = null;
+      document.getElementById("anDetalleLote").style.display = "none";
+      document.getElementById("anListaLotes").style.display = "grid";
+      document.querySelector("#vistaAnimales .seccion").style.display = "flex";
+      document.querySelector("#vistaAnimales .an-summary").style.display = "grid";
+    }
+    anRenderLots();
+  });
+
+  /* ============================================================
      MODAL — EDITAR LOTE
      ============================================================ */
 
@@ -7493,6 +7585,7 @@ if ("serviceWorker" in navigator) {
 
   document.getElementById("anBtnCerrarModalEditar").addEventListener("click", anCloseEditModal);
   document.getElementById("anBtnCancelarEditarLote").addEventListener("click", anCloseEditModal);
+  anDeleteModal.addEventListener("click", e => { if (e.target === anDeleteModal) anCloseDeleteModal(); });
 
   document.getElementById("anBtnGuardarEdicionLote").addEventListener("click", () => {
     if (anCurrentLotId === null) return;
