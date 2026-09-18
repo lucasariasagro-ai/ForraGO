@@ -3606,6 +3606,45 @@ body {
     .an-categoria-row .an-remove-category { grid-column:auto; justify-self:end; }
 }
 
+
+/* ===== ANIMALES Y CARGA — nueva interfaz productiva ===== */
+.an-system-badge{display:inline-flex;align-items:center;gap:5px;margin-left:6px;background:var(--fondo);color:var(--texto-suave);border:1px solid var(--borde);border-radius:99px;padding:4px 9px;font-size:10px;font-weight:700;}
+.an-lote-badges{margin-top:7px;display:flex;gap:6px;flex-wrap:wrap;}
+.an-lote-target{margin-top:12px;padding:8px 10px;border-radius:10px;background:var(--lima-claro);color:var(--verde);font-size:10.5px;font-weight:700;}
+.an-performance-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px;}
+.an-performance-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+.an-performance-kpis>div,.an-carga-grid>div{background:var(--fondo);border:1px solid var(--borde);border-radius:11px;padding:11px;}
+.an-performance-kpis span,.an-carga-grid span{display:block;font-size:9px;color:var(--gris);text-transform:uppercase;letter-spacing:.35px;}
+.an-performance-kpis strong,.an-carga-grid strong{display:block;margin-top:4px;font-size:15px;color:var(--texto);font-weight:800;}
+.an-target-box{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;padding:10px;border:1px dashed var(--borde);border-radius:11px;}
+.an-target-box span{display:block;font-size:9px;color:var(--gris);text-transform:uppercase;}
+.an-target-box strong{display:block;margin-top:3px;color:var(--verde);font-size:15px;}
+.an-food-summary{display:flex;flex-direction:column;gap:7px;min-height:72px;}
+.an-food-summary>div{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 10px;border-radius:10px;background:var(--fondo);}
+.an-food-summary strong{font-size:10.5px;color:var(--texto);}
+.an-food-summary span{font-size:9.5px;color:var(--gris);text-align:right;}
+.an-expected-gdp{margin-top:10px;padding:11px;border-radius:11px;background:var(--verde-claro);}
+.an-expected-gdp span,.an-expected-gdp small{display:block;font-size:9px;color:var(--texto-suave);}
+.an-expected-gdp strong{display:block;margin:3px 0;font-size:18px;color:var(--verde);}
+.an-carga-card{margin-bottom:12px;}
+.an-carga-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+.an-weight-timeline{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:8px;margin-bottom:12px;}
+.an-weight-point{padding:10px;border:1px solid var(--borde);border-radius:11px;background:var(--fondo);}
+.an-weight-point span,.an-weight-point small{display:block;color:var(--gris);font-size:9px;}
+.an-weight-point strong{display:block;margin:3px 0;font-size:15px;color:var(--texto);}
+.an-history-empty{padding:18px;border:1px dashed var(--borde);border-radius:11px;color:var(--gris);font-size:11px;text-align:center;}
+.an-weight-chart{height:170px;border:1px solid var(--borde);border-radius:13px;background:linear-gradient(to top,rgba(26,107,60,.035) 1px,transparent 1px);background-size:100% 25%;position:relative;overflow:hidden;}
+.an-chart-axis{position:absolute;left:8px;top:8px;bottom:8px;width:42px;display:flex;flex-direction:column;justify-content:space-between;color:var(--gris);font-size:8px;}
+.an-chart-area{position:absolute;left:50px;right:12px;top:10px;bottom:10px;}
+.an-chart-area:before{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px dashed var(--borde);}
+.an-chart-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--verde2);transform:translate(-50%,50%);box-shadow:0 0 0 4px rgba(45,143,78,.12);}
+.an-chart-dot span{position:absolute;bottom:14px;left:50%;transform:translateX(-50%);font-size:8px;font-weight:800;color:var(--verde);white-space:nowrap;}
+.an-categoria-row{grid-template-columns:repeat(2,minmax(0,1fr)) 32px;}
+.an-categoria-row .form-group:nth-child(1){grid-column:span 1;}
+.an-categoria-row .form-group:nth-child(5),.an-categoria-row .form-group:nth-child(6){grid-column:span 1;}
+@media(max-width:900px){.an-performance-grid{grid-template-columns:1fr}.an-carga-grid{grid-template-columns:1fr 1fr}.an-lotes-grid{grid-template-columns:1fr}.an-categoria-row{grid-template-columns:1fr 1fr}.an-categoria-row .an-remove-category{grid-column:1/-1;justify-self:end;}}
+@media(max-width:600px){.an-detalle-metrics{grid-template-columns:1fr 1fr}.an-performance-kpis{grid-template-columns:1fr}.an-food-summary>div{align-items:flex-start;flex-direction:column}.an-food-summary span{text-align:left}.an-carga-grid{grid-template-columns:1fr 1fr}.an-weight-timeline{grid-template-columns:1fr 1fr}.an-categoria-row{grid-template-columns:1fr}.an-categoria-row .an-remove-category{grid-column:auto}.an-detalle-header h3{font-size:20px}.an-system-badge{margin-left:0;margin-top:6px}.an-weight-chart{height:150px}}
+
 </style>
 </head>
 <body>
@@ -3948,227 +3987,163 @@ body {
     </div>
 
     <div id="vistaAnimales" style="display:none;">
-        <div class="lotes-header">
-            <button class="btn-back" onclick="cerrarAnimales()">Volver</button>
-            <h2>🐄 Animales y carga</h2>
-        </div>
+    <div class="lotes-header">
+        <button class="btn-back" onclick="cerrarAnimales()">Volver</button>
+        <h2>🐄 Animales y carga</h2>
+    </div>
 
-        <div class="agenda-sin-clima" style="text-align:left;background:var(--lima-claro);border:1px solid var(--lima);border-radius:12px;padding:10px 14px;margin-bottom:16px;color:var(--verde);">
-            🧪 Módulo en prueba — todavía no está enlazado a "Gestionar mi producción". Por ahora solo se ve desde este menú.
-        </div>
+    <div class="agenda-sin-clima" style="text-align:left;background:var(--lima-claro);border:1px solid var(--lima);border-radius:12px;padding:10px 14px;margin-bottom:16px;color:var(--verde);">
+        📊 Seguimiento de peso, desempeño, alimentación y carga. Pensado para bovinos y ovinos, a campo o en feedlot.
+    </div>
 
-        <div class="seccion">
+    <div class="seccion">
+        <div>
+            <p>Registrá un lote y seguí cuánto pesa, qué está comiendo y cómo evoluciona.</p>
+        </div>
+        <button class="btn-primary" id="anBtnNuevoLote">+ Nuevo lote</button>
+    </div>
+
+    <div id="anListaLotes" class="an-lotes-grid"></div>
+
+    <div id="anDetalleLote" class="an-detalle" style="display:none;">
+        <div class="an-detalle-header">
             <div>
-                <p>Organizá tus lotes de animales y estimá su demanda de materia seca.</p>
+                <button class="btn-back" id="anBtnVolverLotes">Volver</button>
+                <span id="anDetalleEspecie" class="an-species-badge"></span>
+                <span id="anDetalleSistema" class="an-system-badge"></span>
+                <h3 id="anDetalleNombre">—</h3>
+                <p id="anDetalleDescripcion">—</p>
             </div>
-            <button class="btn-primary" id="anBtnNuevoLote">+ Nuevo lote</button>
+            <div class="an-detalle-actions">
+                <button class="btn-secundario" id="anBtnEditarLote">Editar lote</button>
+                <button class="btn-secundario" id="anBtnEliminarLote" style="color:#b33c3c;border-color:#e8bcbc;">Eliminar lote</button>
+            </div>
         </div>
 
-        <div class="an-lotes-grid" id="anListaLotes"></div>
+        <div class="an-detalle-metrics">
+            <div class="an-metric-card"><span>Animales</span><strong id="anDetalleAnimales">0</strong></div>
+            <div class="an-metric-card"><span>EV totales</span><strong id="anDetalleEV">0,0</strong></div>
+            <div class="an-metric-card"><span>MS / día</span><strong id="anDetalleMS">0 kg</strong></div>
+            <div class="an-metric-card" id="anSurfaceMetric"><span>EV / ha</span><strong id="anDetalleEVHa">—</strong></div>
+        </div>
 
-        <div id="anDetalleLote" class="an-detalle" style="display:none;">
-
-            <div class="an-detalle-header">
-                <div>
-                    <button class="btn-back" id="anBtnVolverLotes">Volver</button>
-                    <span id="anDetalleEspecie" class="an-species-badge"></span>
-                    <h3 id="anDetalleNombre">—</h3>
-                    <p id="anDetalleDescripcion">—</p>
+        <div class="an-performance-grid">
+            <div class="an-card">
+                <div class="an-card-header"><div><h3>⚖️ Desempeño</h3><p>Resultado observado del lote.</p></div></div>
+                <div class="an-performance-kpis">
+                    <div><span>Peso inicial</span><strong id="anPesoInicial">—</strong></div>
+                    <div><span>Peso actual</span><strong id="anPesoActual">—</strong></div>
+                    <div><span>GDP observado</span><strong id="anGDPObservado">—</strong></div>
                 </div>
-                <div class="an-detalle-actions">
-                    <button class="btn-secundario" id="anBtnEditarLote">Editar lote</button>
-                    <button class="btn-secundario" id="anBtnEliminarLote" style="color:#b33c3c;border-color:#e8bcbc;">Eliminar lote</button>
+                <div class="an-target-box">
+                    <div><span>Objetivo</span><strong id="anPesoObjetivo">—</strong></div>
+                    <div><span>Días estimados</span><strong id="anDiasObjetivo">—</strong></div>
                 </div>
-            </div>
-
-            <div class="an-detalle-metrics">
-                <div class="an-metric-card"><span>Animales</span><strong id="anDetalleAnimales">0</strong></div>
-                <div class="an-metric-card"><span>EV totales</span><strong id="anDetalleEV">0,0</strong></div>
-                <div class="an-metric-card"><span>MS / día</span><strong id="anDetalleMS">0 kg</strong></div>
-                <div class="an-metric-card" id="anSurfaceMetric"><span>EV / ha</span><strong id="anDetalleEVHa">—</strong></div>
-            </div>
-
-            <div class="an-detalle-extra">
-                <div class="an-extra-card"><span>MS / animal / día</span><strong id="anDetalleMSAnimal">—</strong><small>Promedio del lote</small></div>
-                <div class="an-extra-card"><span>MS estimada / mes</span><strong id="anDetalleMSMes">—</strong><small>30 días</small></div>
-                <div class="an-extra-card"><span>MS estimada / año</span><strong id="anDetalleMSAnio">—</strong><small>365 días</small></div>
-            </div>
-
-
-            <div class="an-card an-permanencia">
-                <div class="an-card-header">
-                    <div>
-                        <h3>📅 Permanencia y carga</h3>
-                        <p>Ingresá manualmente los días que el lote permanece en el período analizado.</p>
-                    </div>
-                </div>
-                <div class="an-permanencia-grid">
-                    <div class="an-permanencia-input">
-                        <label for="anDiasPermanencia">Días de permanencia</label>
-                        <input id="anDiasPermanencia" type="number" min="1" step="1" placeholder="Ej. 30">
-                    </div>
-                    <div class="an-permanencia-actions">
-                        <button class="btn-primary" id="anBtnCalcularPermanencia" type="button">Calcular indicadores</button>
-                    </div>
-                </div>
-                <p class="an-permanencia-help">Este cálculo es independiente del resto de los módulos. No utiliza oferta de forraje ni determina todavía cuántos días puede sostenerse el lote.</p>
-                <div id="anPermanenciaResultado" style="display:none;"></div>
             </div>
 
             <div class="an-card">
-                <div class="an-card-header">
-                    <div>
-                        <h3>Categorías</h3>
-                        <p>Composición del lote</p>
-                    </div>
-                    <button class="btn-secundario" id="anBtnAgregarCategoriaDetalle">+ Agregar categoría</button>
-                </div>
-
-                <div class="an-table-wrap">
-                    <table class="an-table">
-                        <thead>
-                            <tr>
-                                <th>Categoría</th>
-                                <th>Cantidad</th>
-                                <th>PV promedio</th>
-                                <th>Estado</th>
-                                <th>EV</th>
-                                <th>MS / día</th>
-                                <th></th>
-                            </tr>
-                        </thead>
-                        <tbody id="anTablaCategorias"></tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="an-methodology">
-                <button id="anBtnVerCalculo" class="an-methodology-btn">
-                    <span>ⓘ</span>
-                    <div>
-                        <strong>Ver cómo se calcula</strong>
-                        <small>Metodología y parámetros utilizados</small>
-                    </div>
-                    <span>⌄</span>
-                </button>
-                <div id="anCalculoContenido" class="an-methodology-content" style="display:none;">
-                    <div class="an-methodology-block">
-                        <strong>Equivalente Vaca (EV)</strong>
-                        <p>El EV es una unidad estandarizada utilizada para expresar y comparar la carga animal entre diferentes categorías.</p>
-                    </div>
-                    <div class="an-methodology-block">
-                        <strong>Demanda de materia seca</strong>
-                        <p>La demanda de MS se estima considerando, como mínimo, especie, categoría, peso vivo y estado fisiológico.</p>
-                    </div>
-                    <div class="an-methodology-warning">
-                        La demanda mostrada es una <strong>estimación técnica</strong>. No representa una medición directa del consumo.
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- MODAL — NUEVO LOTE -->
-        <div id="anModalNuevoLote" class="modal-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="anModalNuevoLoteTitulo">
-            <div class="an-modal-dialog">
-                <div class="an-modal-header">
-                    <div>
-                        <span class="section-eyebrow">NUEVO LOTE</span>
-                        <h3 id="anModalNuevoLoteTitulo" style="margin:4px 0 0;color:var(--texto);">Crear lote animal</h3>
-                    </div>
-                    <button id="anBtnCerrarModal" class="an-modal-close" aria-label="Cerrar ventana de nuevo lote">×</button>
-                </div>
-
-                <div class="an-form-grid">
-                    <div class="form-group full">
-                        <label for="anInputNombreLote">Nombre del lote</label>
-                        <input id="anInputNombreLote" type="text" placeholder="Ej. Rodeo de cría">
-                    </div>
-                    <div class="form-group">
-                        <label for="anInputEspecie">Especie</label>
-                        <select id="anInputEspecie">
-                            <option value="bovinos">🐄 Bovinos</option>
-                            <option value="ovinos">🐑 Ovinos</option>
-                            <option value="caprinos">🐐 Caprinos</option>
-                            <option value="equinos">🐎 Equinos</option>
-                            <option value="mixto">Mixto</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="anInputSuperficie">Superficie (opcional)</label>
-                        <input id="anInputSuperficie" type="number" min="0" step="0.1" placeholder="0">
-                    </div>
-                </div>
-
-                <div style="margin-top:18px;">
-                    <h4 style="margin:0 0 4px;font-size:13px;color:var(--texto);">Animales</h4>
-                    <p style="margin:0 0 10px;font-size:11px;color:var(--gris);">Agregá las categorías que componen el lote.</p>
-                    <div id="anCategoriasBuilder"></div>
-                    <button id="anBtnAgregarCategoriaForm" class="an-add-category" type="button">+ Agregar otra categoría</button>
-                </div>
-
-                <div class="modal-botones" style="margin-top:20px;">
-                    <button id="anBtnCancelarModal" class="btn-secundario">Cancelar</button>
-                    <button id="anBtnGuardarLote" class="btn-primary">Crear lote</button>
+                <div class="an-card-header"><div><h3>🌾 Alimentación</h3><p>La dieta se usa para orientar el GDP esperado.</p></div></div>
+                <div class="an-food-summary" id="anFoodSummary">—</div>
+                <div class="an-expected-gdp">
+                    <span>GDP esperado de referencia</span>
+                    <strong id="anGDPEsperado">—</strong>
+                    <small>Rango orientativo. Se puede ajustar manualmente.</small>
                 </div>
             </div>
         </div>
 
-        <!-- MODAL — EDITAR LOTE -->
-        <div id="anModalEditarLote" class="modal-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="anModalEditarLoteTitulo">
-            <div class="an-modal-dialog small">
-                <div class="an-modal-header">
-                    <div>
-                        <span class="section-eyebrow">EDITAR LOTE</span>
-                        <h3 id="anModalEditarLoteTitulo" style="margin:4px 0 0;color:var(--texto);">Editar datos del lote</h3>
-                    </div>
-                    <button id="anBtnCerrarModalEditar" class="an-modal-close" aria-label="Cerrar ventana de edición de lote">×</button>
-                </div>
+        <div class="an-card an-carga-card">
+            <div class="an-card-header"><div><h3>📐 Carga animal por cuadro</h3><p>Indicadores del lote sobre la superficie declarada.</p></div></div>
+            <div class="an-carga-grid">
+                <div><span>EV totales</span><strong id="anCargaEV">—</strong></div>
+                <div><span>EV / ha</span><strong id="anCargaEVHa">—</strong></div>
+                <div><span>Días del período</span><strong id="anCargaDias">—</strong></div>
+                <div><span>EV-día / ha</span><strong id="anCargaEVDiaHa">—</strong></div>
+            </div>
+            <p class="an-permanencia-help">La carga se expresa en EV. EV/ha no reemplaza el análisis de oferta forrajera ni indica por sí sola si la carga es sostenible.</p>
+        </div>
 
-                <div class="an-form-grid">
-                    <div class="form-group full">
-                        <label for="anEditNombreLote">Nombre del lote</label>
-                        <input id="anEditNombreLote" type="text" placeholder="Ej. Rodeo de cría">
-                    </div>
-                    <div class="form-group">
-                        <label for="anEditEspecie">Especie</label>
-                        <select id="anEditEspecie">
-                            <option value="bovinos">🐄 Bovinos</option>
-                            <option value="ovinos">🐑 Ovinos</option>
-                            <option value="caprinos">🐐 Caprinos</option>
-                            <option value="equinos">🐎 Equinos</option>
-                            <option value="mixto">Mixto</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="anEditSuperficie">Superficie (opcional)</label>
-                        <input id="anEditSuperficie" type="number" min="0" step="0.1" placeholder="0">
-                    </div>
-                </div>
+        <div class="an-card">
+            <div class="an-card-header">
+                <div><h3>📈 Evolución de peso</h3><p>Historial manual del lote.</p></div>
+                <button class="btn-secundario" id="anBtnRegistrarPeso">+ Registrar peso</button>
+            </div>
+            <div id="anPesoTimeline" class="an-weight-timeline"></div>
+            <div id="anPesoChart" class="an-weight-chart"></div>
+        </div>
 
-                <p class="an-modal-hint">Las categorías del lote se editan o eliminan directamente desde la tabla de categorías.</p>
-
-                <div class="modal-botones" style="margin-top:18px;">
-                    <button id="anBtnCancelarEditarLote" class="btn-secundario">Cancelar</button>
-                    <button id="anBtnGuardarEdicionLote" class="btn-primary">Guardar cambios</button>
-                </div>
+        <div class="an-card">
+            <div class="an-card-header">
+                <div><h3>Categorías</h3><p>Composición del lote.</p></div>
+                <button class="btn-secundario" id="anBtnAgregarCategoriaDetalle">+ Agregar categoría</button>
+            </div>
+            <div class="an-table-wrap">
+                <table class="an-table">
+                    <thead><tr><th>Categoría</th><th>Cantidad</th><th>PV actual</th><th>Alimento</th><th>EV</th><th>MS/día</th><th></th></tr></thead>
+                    <tbody id="anTablaCategorias"></tbody>
+                </table>
             </div>
         </div>
 
+        <div class="an-methodology">
+            <button id="anBtnVerCalculo" class="an-methodology-btn">
+                <span>ⓘ</span><div><strong>Ver cómo se calcula</strong><small>Metodología y supuestos del módulo</small></div><span>⌄</span>
+            </button>
+            <div id="anCalculoContenido" class="an-methodology-content" style="display:none;">
+                <div class="an-methodology-block"><strong>GDP observado</strong><p>(peso actual − peso inicial) ÷ días transcurridos. Es el desempeño registrado, no una atribución exclusiva al alimento.</p></div>
+                <div class="an-methodology-block"><strong>Días al peso objetivo</strong><p>(peso objetivo − peso actual) ÷ GDP esperado. El resultado es una estimación; si el GDP esperado cambia, también cambia el plazo.</p></div>
+                <div class="an-methodology-block"><strong>Alimentación</strong><p>El alimento se utiliza para seleccionar una referencia orientativa de GDP. La calidad real de la dieta, consumo, ambiente, genética, sanidad y manejo pueden modificar el resultado.</p></div>
+                <div class="an-methodology-block"><strong>Carga</strong><p>EV/ha = EV totales ÷ superficie. EV-día/ha = EV totales × días ÷ superficie.</p></div>
+                <div class="an-methodology-warning">Los GDP de referencia son orientativos y no constituyen una predicción nutricional ni sustituyen una formulación de dieta o evaluación profesional.</div>
+            </div>
+        </div>
     </div>
 
-        <!-- MODAL — ELIMINAR LOTE -->
-        <div id="anModalEliminarLote" class="modal-overlay" style="display:none;" role="dialog" aria-modal="true" aria-labelledby="anEliminarLoteTitulo">
-            <div class="an-modal-dialog small">
-                <div style="width:42px;height:42px;border-radius:12px;background:#fde8e8;color:#b33c3c;display:grid;place-items:center;font-size:20px;margin-bottom:10px;">🗑</div>
-                <h3 id="anEliminarLoteTitulo" style="margin:0;color:var(--texto);">Eliminar lote</h3>
-                <p id="anEliminarLoteTexto" style="margin:8px 0 0;color:var(--texto-suave);font-size:12px;line-height:1.5;">¿Querés eliminar este lote?</p>
-                <div class="modal-botones" style="margin-top:18px;">
-                    <button id="anBtnCancelarEliminar" class="btn-secundario">Cancelar</button>
-                    <button id="anBtnConfirmarEliminar" class="btn-primary" style="background:#b33c3c;border-color:#b33c3c;">Eliminar lote</button>
-                </div>
+    <div id="anModalNuevoLote" class="modal-overlay" style="display:none;" role="dialog" aria-modal="true">
+        <div class="an-modal-dialog">
+            <div class="an-modal-header"><div><span class="section-eyebrow">NUEVO LOTE</span><h3 style="margin:4px 0 0;color:var(--texto);">Crear lote animal</h3></div><button id="anBtnCerrarModal" class="an-modal-close">×</button></div>
+            <div class="an-form-grid">
+                <div class="form-group full"><label for="anInputNombreLote">Nombre del lote</label><input id="anInputNombreLote" type="text" placeholder="Ej. Novillos recría"></div>
+                <div class="form-group"><label for="anInputEspecie">Especie</label><select id="anInputEspecie"><option value="bovinos">🐄 Bovinos</option><option value="ovinos">🐑 Ovinos</option></select></div>
+                <div class="form-group"><label for="anInputSistema">Sistema</label><select id="anInputSistema"><option value="campo">🌱 A campo</option><option value="feedlot">🏭 Feedlot</option></select></div>
+                <div class="form-group"><label for="anInputSuperficie">Superficie (ha)</label><input id="anInputSuperficie" type="number" min="0" step="0.1" placeholder="Opcional en feedlot"></div>
+                <div class="form-group"><label for="anInputDiasPeriodo">Días del período</label><input id="anInputDiasPeriodo" type="number" min="1" step="1" placeholder="Ej. 60"></div>
             </div>
+            <div style="margin-top:18px;"><h4 style="margin:0 0 4px;font-size:13px;">Animales y alimentación</h4><p style="margin:0 0 10px;font-size:11px;color:var(--gris);">Para cada categoría cargá peso, objetivo y alimento principal.</p><div id="anCategoriasBuilder"></div><button id="anBtnAgregarCategoriaForm" class="an-add-category" type="button">+ Agregar otra categoría</button></div>
+            <div class="modal-botones" style="margin-top:20px;"><button id="anBtnCancelarModal" class="btn-secundario">Cancelar</button><button id="anBtnGuardarLote" class="btn-primary">Crear lote</button></div>
         </div>
+    </div>
+
+    <div id="anModalEditarLote" class="modal-overlay" style="display:none;" role="dialog" aria-modal="true">
+        <div class="an-modal-dialog small">
+            <div class="an-modal-header"><div><span class="section-eyebrow">EDITAR LOTE</span><h3 style="margin:4px 0 0;color:var(--texto);">Editar datos del lote</h3></div><button id="anBtnCerrarModalEditar" class="an-modal-close">×</button></div>
+            <div class="an-form-grid">
+                <div class="form-group full"><label for="anEditNombreLote">Nombre del lote</label><input id="anEditNombreLote" type="text"></div>
+                <div class="form-group"><label for="anEditEspecie">Especie</label><select id="anEditEspecie"><option value="bovinos">🐄 Bovinos</option><option value="ovinos">🐑 Ovinos</option></select></div>
+                <div class="form-group"><label for="anEditSistema">Sistema</label><select id="anEditSistema"><option value="campo">🌱 A campo</option><option value="feedlot">🏭 Feedlot</option></select></div>
+                <div class="form-group"><label for="anEditSuperficie">Superficie (ha)</label><input id="anEditSuperficie" type="number" min="0" step="0.1"></div>
+                <div class="form-group"><label for="anEditDiasPeriodo">Días del período</label><input id="anEditDiasPeriodo" type="number" min="1" step="1"></div>
+            </div>
+            <p class="an-modal-hint">Las categorías, pesos y alimentación se editan desde el detalle del lote.</p>
+            <div class="modal-botones" style="margin-top:18px;"><button id="anBtnCancelarEditarLote" class="btn-secundario">Cancelar</button><button id="anBtnGuardarEdicionLote" class="btn-primary">Guardar cambios</button></div>
+        </div>
+    </div>
+
+    <div id="anModalRegistrarPeso" class="modal-overlay" style="display:none;" role="dialog" aria-modal="true">
+        <div class="an-modal-dialog small">
+            <div class="an-modal-header"><div><span class="section-eyebrow">NUEVA MEDICIÓN</span><h3 style="margin:4px 0 0;color:var(--texto);">Registrar peso</h3></div><button id="anBtnCerrarPesoModal" class="an-modal-close">×</button></div>
+            <div class="an-form-grid">
+                <div class="form-group"><label for="anPesoFecha">Fecha</label><input id="anPesoFecha" type="date"></div>
+                <div class="form-group"><label for="anPesoMedicion">Peso promedio (kg)</label><input id="anPesoMedicion" type="number" min="1" step="1" placeholder="Ej. 365"></div>
+            </div>
+            <div class="modal-botones" style="margin-top:18px;"><button id="anBtnCancelarPesoModal" class="btn-secundario">Cancelar</button><button id="anBtnGuardarPeso" class="btn-primary">Guardar medición</button></div>
+        </div>
+    </div>
+
+    <div id="anModalEliminarLote" class="modal-overlay" style="display:none;" role="dialog" aria-modal="true">
+        <div class="an-modal-dialog small"><div style="width:42px;height:42px;border-radius:12px;background:#fde8e8;color:#b33c3c;display:grid;place-items:center;font-size:20px;margin-bottom:10px;">🗑</div><h3 style="margin:0;color:var(--texto);">Eliminar lote</h3><p id="anEliminarLoteTexto" style="margin:8px 0 0;color:var(--texto-suave);font-size:12px;line-height:1.5;">¿Querés eliminar este lote?</p><div class="modal-botones" style="margin-top:18px;"><button id="anBtnCancelarEliminar" class="btn-secundario">Cancelar</button><button id="anBtnConfirmarEliminar" class="btn-primary" style="background:#b33c3c;border-color:#b33c3c;">Eliminar lote</button></div></div>
+    </div>
+</div>
 
     <div id="bloqueForraje" class="bloque-tipo" style="display:none;">
         <section class="panel">
@@ -6983,749 +6958,250 @@ if ("serviceWorker" in navigator) {
      ============================================================ -->
 <script>
 (function () {
+  /* ============================================================
+     ANIMALES Y CARGA — seguimiento productivo simplificado
+     Solo bovinos y ovinos. Sistema: campo / feedlot.
+     La alimentación orienta un GDP de referencia; no predice
+     por sí sola el desempeño real.
+     ============================================================ */
 
-  /*
-    IMPORTANTE:
-    NO usar EV como sustituto del consumo de MS.
-    EV = unidad de comparación/carga.
-    MS = demanda estimada según peso, categoría y estado.
-    Estos parámetros deberán trasladarse a Supabase (tabla propia,
-    separada de "lotes") para poder versionarlos.
-  */
+  const AN_STORAGE_KEY = "forrago_animal_lots_v2";
+  const AN_OLD_STORAGE_KEY = "forrago_animal_lots_v1";
+  const AN_COUNTER_KEY = "forrago_animal_category_counter_v2";
 
   const AN_PARAMS = {
     bovinos: {
-      vaca:       { ev: 1.00, cmsFactor: { mantenimiento: 0.024, gestante: 0.026, lactancia: 0.028 } },
-      vaquillona: { ev: 0.75, cmsFactor: { recria: 0.028, servicio: 0.026, gestante: 0.026 } },
-      ternero:    { ev: 0.65, cmsFactor: { lactante: 0.025, recria: 0.030, mantenimiento: 0.030 } },
-      novillo:    { ev: 0.78, cmsFactor: { recria: 0.028, mantenimiento: 0.026 } },
-      toro:       { ev: 1.03, cmsFactor: { mantenimiento: 0.024, servicio: 0.026 } }
+      vaca:       { ev:1.00, cms:{mantenimiento:.024,gestante:.026,lactancia:.028} },
+      vaquillona: { ev:.75,  cms:{recria:.028,servicio:.026,gestante:.026} },
+      ternero:    { ev:.65,  cms:{recria:.030,lactante:.025,mantenimiento:.030} },
+      novillo:    { ev:.78,  cms:{recria:.028,mantenimiento:.026} },
+      toro:       { ev:1.03, cms:{mantenimiento:.024,servicio:.026} }
     },
     ovinos: {
-      oveja:  { ev: 0.16, cmsFactor: { mantenimiento: 0.025, gestante: 0.028, lactancia: 0.030 } },
-      borrega:{ ev: 0.13, cmsFactor: { recria: 0.028, mantenimiento: 0.025 } },
-      cordero:{ ev: 0.10, cmsFactor: { recria: 0.030, mantenimiento: 0.028 } },
-      capon:  { ev: 0.15, cmsFactor: { mantenimiento: 0.025 } },
-      carnero:{ ev: 0.20, cmsFactor: { mantenimiento: 0.025, servicio: 0.028 } }
-    },
-    caprinos: {
-      cabra:  { ev: 0.16, cmsFactor: { mantenimiento: 0.025, gestante: 0.028, lactancia: 0.030 } },
-      cabrita:{ ev: 0.13, cmsFactor: { recria: 0.028 } },
-      cabrito:{ ev: 0.10, cmsFactor: { recria: 0.030 } },
-      chivo:  { ev: 0.16, cmsFactor: { mantenimiento: 0.025, servicio: 0.028 } }
-    },
-    equinos: {
-      yegua:   { ev: 1.20, cmsFactor: { mantenimiento: 0.022, gestante: 0.024, lactancia: 0.026 } },
-      potrillo:{ ev: 0.70, cmsFactor: { recria: 0.025 } },
-      caballo: { ev: 1.20, cmsFactor: { mantenimiento: 0.022 } },
-      padrillo:{ ev: 1.25, cmsFactor: { mantenimiento: 0.023, servicio: 0.026 } }
+      oveja:  { ev:.16, cms:{mantenimiento:.025,gestante:.028,lactancia:.030} },
+      borrega:{ ev:.13, cms:{recria:.028,mantenimiento:.025} },
+      cordero:{ ev:.10, cms:{recria:.030,mantenimiento:.028} },
+      capon:  { ev:.15, cms:{mantenimiento:.025} },
+      carnero:{ ev:.20, cms:{mantenimiento:.025,servicio:.028} }
     }
-  };
-
-  // Mapa inverso categoría -> especie (no hay nombres repetidos
-  // entre especies), así se puede calcular en lotes "mixto" sin
-  // pedir la especie por fila.
-  const AN_CATEGORY_SPECIES = {};
-  Object.keys(AN_PARAMS).forEach(species => {
-    Object.keys(AN_PARAMS[species]).forEach(cat => {
-      AN_CATEGORY_SPECIES[cat] = species;
-    });
-  });
-
-  const AN_SPECIES_NAMES = {
-    bovinos: "🐄 Bovinos", ovinos: "🐑 Ovinos", caprinos: "🐐 Caprinos",
-    equinos: "🐎 Equinos", mixto: "🐄 Mixto"
-  };
-
-  const AN_CATEGORY_NAMES = {
-    vaca: "vacas", vaquillona: "vaquillonas", ternero: "terneros/as", novillo: "novillos", toro: "toros",
-    oveja: "ovejas", borrega: "borregas", cordero: "corderos/as", capon: "capones", carnero: "carneros",
-    cabra: "cabras", cabrita: "cabritas", cabrito: "cabritos/as", chivo: "chivos",
-    yegua: "yeguas", potrillo: "potrillos/as", caballo: "caballos", padrillo: "padrillos"
   };
 
   const AN_CATEGORY_LABELS = {
-    vaca: "Vaca", vaquillona: "Vaquillona", ternero: "Ternero/a", novillo: "Novillo", toro: "Toro",
-    oveja: "Oveja", borrega: "Borrega", cordero: "Cordero/a", capon: "Capón", carnero: "Carnero",
-    cabra: "Cabra", cabrita: "Cabrita", cabrito: "Cabrito/a", chivo: "Chivo",
-    yegua: "Yegua", potrillo: "Potrillo/a", caballo: "Caballo", padrillo: "Padrillo"
+    vaca:"Vaca",vaquillona:"Vaquillona",ternero:"Ternero/a",novillo:"Novillo",toro:"Toro",
+    oveja:"Oveja",borrega:"Borrega",cordero:"Cordero/a",capon:"Capón",carnero:"Carnero"
   };
-
-  const AN_STATE_OPTIONS = [
-    ["mantenimiento", "Mantenimiento"],
-    ["gestante", "Gestante"],
-    ["lactancia", "Lactancia"],
-    ["recria", "Recría"],
-    ["servicio", "Servicio"],
-    ["lactante", "Lactante"]
-  ];
+  const AN_CATEGORY_NAMES = {
+    vaca:"vacas",vaquillona:"vaquillonas",ternero:"terneros/as",novillo:"novillos",toro:"toros",
+    oveja:"ovejas",borrega:"borregas",cordero:"corderos/as",capon:"capones",carnero:"carneros"
+  };
+  const AN_SPECIES_NAMES = {bovinos:"🐄 Bovinos",ovinos:"🐑 Ovinos"};
+  const AN_STATE_OPTIONS = [["mantenimiento","Mantenimiento"],["gestante","Gestante"],["lactancia","Lactancia"],["recria","Recría"],["servicio","Servicio"],["lactante","Lactante"]];
   const AN_STATE_NAMES = Object.fromEntries(AN_STATE_OPTIONS);
 
-  function anBuildStateOptionsHTML(selected) {
-    return AN_STATE_OPTIONS
-      .map(([value, label]) => `<option value="${value}" ${value === selected ? "selected" : ""}>${label}</option>`)
-      .join("");
-  }
+  /* GDP de referencia: deliberadamente expresado como rango.
+     Son valores orientativos para iniciar el cálculo y deben poder
+     ajustarse por el usuario según la dieta y su establecimiento. */
+  const AN_FEEDS = {
+    campo_alfalfa: {label:"Alfalfa", gdp:{bovinos:[.55,.90],ovinos:[.16,.25]}},
+    campo_pastura: {label:"Pastura de alta calidad", gdp:{bovinos:[.50,.85],ovinos:[.15,.24]}},
+    campo_verdeo:  {label:"Verdeo", gdp:{bovinos:[.60,1.00],ovinos:[.16,.27]}},
+    campo_silaje:  {label:"Silaje + suplemento", gdp:{bovinos:[.70,1.05],ovinos:[.18,.30]}},
+    feedlot_maiz:  {label:"Maíz + ración", gdp:{bovinos:[1.00,1.45],ovinos:[.22,.34]}},
+    feedlot_racion:{label:"Ración balanceada", gdp:{bovinos:[1.05,1.55],ovinos:[.22,.36]}},
+    feedlot_silaje:{label:"Silaje + concentrado", gdp:{bovinos:[.85,1.30],ovinos:[.20,.33]}},
+    mixto:         {label:"Dieta mixta", gdp:{bovinos:[.65,1.05],ovinos:[.17,.29]}}
+  };
 
-  /* ============================================================
-     PERSISTENCIA (localStorage) — este módulo es un sandbox
-     separado de la tabla "lotes" de Supabase, hasta que se
-     defina cómo integrarlo.
-     ============================================================ */
-
-  const AN_STORAGE_KEY = "forrago_animal_lots_v1";
-  const AN_COUNTER_KEY = "forrago_animal_category_counter_v1";
+  const AN_CATEGORY_SPECIES = {};
+  Object.keys(AN_PARAMS).forEach(sp=>Object.keys(AN_PARAMS[sp]).forEach(cat=>AN_CATEGORY_SPECIES[cat]=sp));
 
   let anCategoryIdCounter = Number(localStorage.getItem(AN_COUNTER_KEY)) || 1;
-
-  function anNextCategoryId() {
-    anCategoryIdCounter += 1;
-    try { localStorage.setItem(AN_COUNTER_KEY, String(anCategoryIdCounter)); } catch (e) {}
-    return anCategoryIdCounter;
+  function anNextCategoryId(){ anCategoryIdCounter += 1; try{localStorage.setItem(AN_COUNTER_KEY,String(anCategoryIdCounter));}catch(e){} return anCategoryIdCounter; }
+  function anEscapeHTML(value){ return String(value ?? "").replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
+  function anFormatNumber(value,dec=1){ return Number(value||0).toLocaleString('es-AR',{minimumFractionDigits:dec,maximumFractionDigits:dec}); }
+  function anToday(){ return new Date().toISOString().slice(0,10); }
+  function anDaysBetween(a,b){ if(!a||!b)return 0; const da=new Date(a+'T00:00:00'); const db=new Date(b+'T00:00:00'); return Math.max(0,Math.round((db-da)/86400000)); }
+  function anBuildStateOptionsHTML(selected){ return AN_STATE_OPTIONS.map(([v,l])=>`<option value="${v}" ${v===selected?'selected':''}>${l}</option>`).join(''); }
+  function anFeedOptionsHTML(selected,species,system){
+    return Object.entries(AN_FEEDS).map(([key,f])=>{
+      const allowed = system==='feedlot' ? key.startsWith('feedlot_') || key==='mixto' : key.startsWith('campo_') || key==='mixto';
+      if(!allowed)return '';
+      return `<option value="${key}" ${key===selected?'selected':''}>${f.label}</option>`;
+    }).join('');
   }
-
-  function anLoadLots() {
-    try {
-      const raw = localStorage.getItem(AN_STORAGE_KEY);
-      if (raw) return JSON.parse(raw);
-    } catch (e) {
-      console.warn("Animales: no se pudieron leer los lotes guardados, se usan datos de ejemplo.", e);
-    }
-    return [
-      {
-        id: 1,
-        name: "Rodeo de cría",
-        species: "bovinos",
-        surfaceHa: 40,
-        categories: [
-          { id: anNextCategoryId(), category: "vaca", quantity: 80, liveWeight: 450, state: "lactancia" },
-          { id: anNextCategoryId(), category: "vaquillona", quantity: 30, liveWeight: 350, state: "recria" },
-          { id: anNextCategoryId(), category: "toro", quantity: 3, liveWeight: 650, state: "servicio" }
-        ]
-      }
-    ];
+  function anCategoryOptionsHTML(species,selected){
+    return Object.keys(AN_PARAMS[species]||{}).map(k=>`<option value="${k}" ${k===selected?'selected':''}>${AN_CATEGORY_LABELS[k]}</option>`).join('');
   }
-
-  function anSaveLots() {
-    try { localStorage.setItem(AN_STORAGE_KEY, JSON.stringify(anLots)); } catch (e) {
-      console.warn("Animales: no se pudieron guardar los lotes en este navegador.", e);
-    }
+  function anGetFeedRange(category){
+    const species=AN_CATEGORY_SPECIES[category.category];
+    const f=AN_FEEDS[category.feed] || AN_FEEDS.mixto;
+    return f.gdp[species] || [0,0];
   }
-
-  let anLots = anLoadLots();
-
-
-  /* ============================================================
-     CÁLCULO
-     ============================================================ */
-
-  function anCalculateCategory(category) {
-    const species = AN_CATEGORY_SPECIES[category.category];
-    const parameters = species ? AN_PARAMS[species]?.[category.category] : null;
-    if (!parameters) return { ev: 0, ms: 0, approximated: false };
-
-    const evTotal = parameters.ev * category.quantity;
-    const hasExactState = Object.prototype.hasOwnProperty.call(parameters.cmsFactor, category.state);
-    const usedState = hasExactState ? category.state : Object.keys(parameters.cmsFactor)[0];
-    const factor = parameters.cmsFactor[usedState];
-    const msIndividual = category.liveWeight * factor;
-    const msTotal = msIndividual * category.quantity;
-
-    return { ev: evTotal, ms: msTotal, msIndividual, approximated: !hasExactState, usedState };
+  function anGetExpectedGDP(category){
+    const r=anGetFeedRange(category);
+    const manual=Number(category.expectedGDP);
+    if(Number.isFinite(manual)&&manual>0)return manual;
+    return (r[0]+r[1])/2;
   }
+  function anGetFeedLabel(category){ return (AN_FEEDS[category.feed]||AN_FEEDS.mixto).label; }
 
-  function anCalculateLot(lot) {
-    let animals = 0, ev = 0, ms = 0;
-    lot.categories.forEach(category => {
-      const result = anCalculateCategory(category);
-      animals += Number(category.quantity) || 0;
-      ev += result.ev;
-      ms += result.ms;
-    });
+  function anLoadLots(){
+    try{
+      const raw=localStorage.getItem(AN_STORAGE_KEY) || localStorage.getItem(AN_OLD_STORAGE_KEY);
+      if(raw){ const parsed=JSON.parse(raw); if(Array.isArray(parsed)){ const normalized=parsed.map(anNormalizeLot); try{localStorage.setItem(AN_STORAGE_KEY,JSON.stringify(normalized));}catch(e){} return normalized; } }
+    }catch(e){console.warn('Animales: no se pudieron leer los lotes.',e);}
+    return [];
+  }
+  function anNormalizeLot(lot){
+    const species=lot.species==='ovinos'?'ovinos':'bovinos';
     return {
-      animals,
-      ev,
-      ms,
-      msMonth: ms * 30,
-      msYear: ms * 365,
-      msPerAnimal: animals > 0 ? ms / animals : 0,
-      evPerAnimal: animals > 0 ? ev / animals : 0,
-      evHa: lot.surfaceHa > 0 ? ev / lot.surfaceHa : null
+      id:lot.id||Date.now(),name:lot.name||'Lote sin nombre',species,
+      system:lot.system==='feedlot'?'feedlot':'campo',surfaceHa:Number(lot.surfaceHa)||0,
+      periodDays:Number(lot.periodDays)||Number(lot.permanenceDays)||0,
+      categories:Array.isArray(lot.categories)?lot.categories.map(c=>({
+        id:c.id||anNextCategoryId(),category:AN_PARAMS[species]?.[c.category]?c.category:Object.keys(AN_PARAMS[species])[0],
+        quantity:Number(c.quantity)||1,liveWeight:Number(c.liveWeight)||1,initialWeight:Number(c.initialWeight)||Number(c.liveWeight)||1,
+        targetWeight:Number(c.targetWeight)||0,state:c.state||'mantenimiento',feed:c.feed||(lot.system==='feedlot'?'feedlot_maiz':'campo_alfalfa'),expectedGDP:Number(c.expectedGDP)||0
+      })):[],
+      weights:Array.isArray(lot.weights)?lot.weights:[]
     };
   }
+  let anLots=anLoadLots();
+  function anSaveLots(){ try{localStorage.setItem(AN_STORAGE_KEY,JSON.stringify(anLots));}catch(e){console.warn('Animales: no se pudieron guardar los lotes.',e);} }
 
-
-  /* ============================================================
-     RENDER — LISTA DE LOTES
-     ============================================================ */
-
-  function anRenderLots() {
-    const container = document.getElementById("anListaLotes");
-    if (!container) return;
-    container.innerHTML = "";
-
-    if (!anLots.length) {
-      container.innerHTML = `
-        <div class="an-empty-state">
-          <strong>Todavía no tenés lotes cargados</strong>
-          <span>Creá tu primer lote para empezar a estimar la carga y demanda animal.</span>
-          <br>
-          <button class="btn-primary" id="anBtnPrimerLote" type="button">+ Crear el primer lote</button>
-        </div>
-      `;
-      document.getElementById("anBtnPrimerLote").addEventListener("click", anOpenCreateModal);
-      return;
+  function anCalculateCategory(c){
+    const sp=AN_CATEGORY_SPECIES[c.category], p=AN_PARAMS[sp]?.[c.category];
+    if(!p)return {ev:0,ms:0};
+    const ev=p.ev*(Number(c.quantity)||0);
+    const factor=p.cms[c.state] ?? Object.values(p.cms)[0];
+    const msInd=(Number(c.liveWeight)||0)*factor;
+    return {ev,ms:msInd*(Number(c.quantity)||0),msIndividual:msInd};
+  }
+  function anCalculateLot(lot){
+    let animals=0,ev=0,ms=0;
+    lot.categories.forEach(c=>{const r=anCalculateCategory(c);animals+=Number(c.quantity)||0;ev+=r.ev;ms+=r.ms;});
+    return {animals,ev,ms,evHa:lot.surfaceHa>0?ev/lot.surfaceHa:null,msPerAnimal:animals?ms/animals:0};
+  }
+  function anAverageInitial(lot){
+    const n=lot.categories.reduce((a,c)=>a+(Number(c.quantity)||0),0); if(!n)return 0;
+    return lot.categories.reduce((a,c)=>a+(Number(c.initialWeight)||0)*(Number(c.quantity)||0),0)/n;
+  }
+  function anAverageCurrent(lot){
+    const n=lot.categories.reduce((a,c)=>a+(Number(c.quantity)||0),0); if(!n)return 0;
+    return lot.categories.reduce((a,c)=>a+(Number(c.liveWeight)||0)*(Number(c.quantity)||0),0)/n;
+  }
+  function anAverageTarget(lot){
+    const vals=lot.categories.filter(c=>Number(c.targetWeight)>0); const n=vals.reduce((a,c)=>a+(Number(c.quantity)||0),0); if(!n)return 0;
+    return vals.reduce((a,c)=>a+(Number(c.targetWeight)||0)*(Number(c.quantity)||0),0)/n;
+  }
+  function anGDPObserved(lot){
+    if(lot.weights && lot.weights.length>=2){
+      const sorted=[...lot.weights].sort((a,b)=>a.date.localeCompare(b.date)); const first=sorted[0],last=sorted[sorted.length-1]; const days=anDaysBetween(first.date,last.date); return days>0?(last.weight-first.weight)/days:null;
     }
+    const initial=anAverageInitial(lot), current=anAverageCurrent(lot), days=Number(lot.periodDays)||0;
+    return days>0?(current-initial)/days:null;
+  }
+  function anGDPExpected(lot){
+    const total=lot.categories.reduce((a,c)=>a+(Number(c.quantity)||0),0); if(!total)return 0;
+    return lot.categories.reduce((a,c)=>a+anGetExpectedGDP(c)*(Number(c.quantity)||0),0)/total;
+  }
+  function anDaysToTarget(lot){
+    const current=anAverageCurrent(lot),target=anAverageTarget(lot),gdp=anGDPExpected(lot); if(!current||!target||target<=current||gdp<=0)return null; return (target-current)/gdp; }
 
-    anLots.forEach(lot => {
-      const result = anCalculateLot(lot);
-      const card = document.createElement("div");
-      card.className = "an-lote-card";
-
-      const description = lot.categories
-        .map(c => `${c.quantity} ${AN_CATEGORY_NAMES[c.category] || c.category}`)
-        .join(" · ") || "Sin categorías cargadas";
-
-      card.innerHTML = `
-        <button class="an-lote-delete" type="button" data-an-delete-lot="${lot.id}" title="Eliminar lote" aria-label="Eliminar lote">🗑</button>
-        <div class="an-lote-card-header">
-          <div class="an-lote-name">${anEscapeHTML(lot.name)}</div>
-          <span class="an-species-badge">${AN_SPECIES_NAMES[lot.species] || lot.species}</span>
-        </div>
-        <div class="an-lote-description">${anEscapeHTML(description)}</div>
-        <div class="an-lote-metrics">
-          <div class="an-lote-metric"><span>EV totales</span><strong>${anFormatNumber(result.ev,1)}</strong></div>
-          <div class="an-lote-metric"><span>MS estimada/día</span><strong>${anFormatNumber(result.ms,0)} kg</strong></div>
-          ${
-            lot.surfaceHa
-            ? `
-              <div class="an-lote-metric"><span>Superficie</span><strong>${anFormatNumber(lot.surfaceHa,1)} ha</strong></div>
-              <div class="an-lote-metric"><span>EV/ha</span><strong>${anFormatNumber(result.evHa,2)}</strong></div>
-            `
-            : ""
-          }
-        </div>
-      `;
-
-      card.addEventListener("click", e => {
-        if (e.target.closest("[data-an-delete-lot]")) return;
-        anOpenLot(lot.id);
-      });
-      card.querySelector("[data-an-delete-lot]").addEventListener("click", e => {
-        e.stopPropagation();
-        anAskDeleteLot(lot.id);
-      });
+  function anRenderLots(){
+    const container=document.getElementById('anListaLotes'); if(!container)return; container.innerHTML='';
+    if(!anLots.length){container.innerHTML='<div class="an-empty-state"><strong>Todavía no tenés lotes cargados</strong><span>Creá un lote para empezar a seguir peso, alimentación y carga.</span><br><button class="btn-primary" id="anBtnPrimerLote">+ Crear el primer lote</button></div>';document.getElementById('anBtnPrimerLote').onclick=anOpenCreateModal;return;}
+    anLots.forEach(lot=>{
+      const r=anCalculateLot(lot), g=anGDPObserved(lot), e=anGDPExpected(lot), days=anDaysToTarget(lot);
+      const card=document.createElement('div'); card.className='an-lote-card';
+      const desc=lot.categories.map(c=>`${c.quantity} ${AN_CATEGORY_NAMES[c.category]||c.category}`).join(' · ');
+      card.innerHTML=`<button class="an-lote-delete" data-an-delete-lot="${lot.id}" title="Eliminar lote">🗑</button><div class="an-lote-card-header"><div class="an-lote-name">${anEscapeHTML(lot.name)}</div><span class="an-species-badge">${AN_SPECIES_NAMES[lot.species]}</span></div><div class="an-lote-badges"><span class="an-system-badge">${lot.system==='feedlot'?'🏭 Feedlot':'🌱 A campo'}</span></div><div class="an-lote-description">${anEscapeHTML(desc)}</div><div class="an-lote-metrics"><div class="an-lote-metric"><span>PV actual</span><strong>${anFormatNumber(anAverageCurrent(lot),0)} kg</strong></div><div class="an-lote-metric"><span>GDP</span><strong>${g!==null?anFormatNumber(g,2)+' kg/d':'—'}</strong></div><div class="an-lote-metric"><span>EV/ha</span><strong>${r.evHa!==null?anFormatNumber(r.evHa,2):'—'}</strong></div><div class="an-lote-metric"><span>Alimento</span><strong>${anEscapeHTML(anGetFeedLabel(lot.categories[0]||{}))}</strong></div></div>${days!==null?`<div class="an-lote-target">🎯 ${anFormatNumber(days,0)} días estimados al objetivo</div>`:''}`;
+      card.onclick=e2=>{if(!e2.target.closest('[data-an-delete-lot]'))anOpenLot(lot.id);};
+      card.querySelector('[data-an-delete-lot]').onclick=e2=>{e2.stopPropagation();anAskDeleteLot(lot.id);};
       container.appendChild(card);
     });
-
   }
 
+  let anCurrentLotId=null,anEditingCategoryId=null,anDeleteLotId=null;
+  function anOpenLot(id){
+    const lot=anLots.find(x=>x.id===id);if(!lot)return;anCurrentLotId=id;anEditingCategoryId=null;
+    document.getElementById('anListaLotes').style.display='none';document.querySelector('#vistaAnimales .seccion').style.display='none';document.getElementById('anDetalleLote').style.display='block';
+    document.getElementById('anDetalleNombre').textContent=lot.name;document.getElementById('anDetalleEspecie').textContent=AN_SPECIES_NAMES[lot.species];document.getElementById('anDetalleSistema').textContent=lot.system==='feedlot'?'🏭 Feedlot':'🌱 A campo';document.getElementById('anDetalleDescripcion').textContent=`${anCalculateLot(lot).animals} animales · ${lot.categories.length} categoría${lot.categories.length===1?'':'s'}`;
+    anRefreshDetail();
+  }
+  function anRefreshDetail(){
+    const lot=anLots.find(x=>x.id===anCurrentLotId);if(!lot)return;const r=anCalculateLot(lot), g=anGDPObserved(lot), e=anGDPExpected(lot), d=anDaysToTarget(lot);
+    document.getElementById('anDetalleAnimales').textContent=anFormatNumber(r.animals,0);document.getElementById('anDetalleEV').textContent=anFormatNumber(r.ev,1);document.getElementById('anDetalleMS').textContent=anFormatNumber(r.ms,0)+' kg';document.getElementById('anDetalleEVHa').textContent=r.evHa!==null?anFormatNumber(r.evHa,2):'—';
+    document.getElementById('anPesoInicial').textContent=anAverageInitial(lot)?anFormatNumber(anAverageInitial(lot),0)+' kg':'—';document.getElementById('anPesoActual').textContent=anAverageCurrent(lot)?anFormatNumber(anAverageCurrent(lot),0)+' kg':'—';document.getElementById('anGDPObservado').textContent=g!==null?anFormatNumber(g,2)+' kg/día':'—';document.getElementById('anPesoObjetivo').textContent=anAverageTarget(lot)?anFormatNumber(anAverageTarget(lot),0)+' kg':'—';document.getElementById('anDiasObjetivo').textContent=d!==null?anFormatNumber(d,0)+' días':'—';
+    const first=lot.categories[0]; const range=first?anGetFeedRange(first):[0,0]; document.getElementById('anFoodSummary').innerHTML=lot.categories.map(c=>`<div><strong>${anEscapeHTML(AN_CATEGORY_LABELS[c.category])}</strong><span>${anEscapeHTML(anGetFeedLabel(c))} · ${c.quantity} animales</span></div>`).join(''); document.getElementById('anGDPEsperado').textContent=e?anFormatNumber(e,2)+' kg/día':'—';
+    document.getElementById('anCargaEV').textContent=anFormatNumber(r.ev,1);document.getElementById('anCargaEVHa').textContent=r.evHa!==null?anFormatNumber(r.evHa,2):'—';document.getElementById('anCargaDias').textContent=lot.periodDays?anFormatNumber(lot.periodDays,0):'—';document.getElementById('anCargaEVDiaHa').textContent=r.evHa!==null&&lot.periodDays?anFormatNumber(r.ev*lot.periodDays/lot.surfaceHa,2):'—';
+    anRenderCategoryTable(lot);anRenderWeightHistory(lot);anRenderLots();
+  }
+  function anRenderCategoryTable(lot){
+    const tbody=document.getElementById('anTablaCategorias');tbody.innerHTML='';
+    lot.categories.forEach(c=>{const tr=document.createElement('tr');if(c.id===anEditingCategoryId)anRenderEditableCategoryRow(tr,lot,c);else anRenderStaticCategoryRow(tr,c);tbody.appendChild(tr);});
+    if(!lot.categories.length)tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--gris);padding:18px;">Sin categorías.</td></tr>';
+  }
+  function anRenderStaticCategoryRow(row,c){const r=anCalculateCategory(c);row.innerHTML=`<td><strong>${anEscapeHTML(AN_CATEGORY_LABELS[c.category])}</strong></td><td>${c.quantity}</td><td>${anFormatNumber(c.liveWeight,0)} kg</td><td>${anEscapeHTML(anGetFeedLabel(c))}</td><td>${anFormatNumber(r.ev,1)}</td><td>${anFormatNumber(r.ms,0)} kg</td><td><div class="an-row-actions"><button class="an-icon-btn edit" data-an-edit-cat="${c.id}">✎</button><button class="an-icon-btn remove" data-an-remove-cat="${c.id}">×</button></div></td>`;}
+  function anRenderEditableCategoryRow(row,lot,c){row.innerHTML=`<td><select class="an-cell-select" data-an-field="category">${anCategoryOptionsHTML(lot.species,c.category)}</select></td><td><input class="an-cell-input" data-an-field="quantity" type="number" min="1" value="${c.quantity}"></td><td><input class="an-cell-input" data-an-field="liveWeight" type="number" min="1" value="${c.liveWeight}"></td><td><select class="an-cell-select" data-an-field="feed">${anFeedOptionsHTML(c.feed,lot.species,lot.system)}</select></td><td colspan="2" style="font-size:11px;color:var(--gris);">Se recalcula al guardar</td><td><div class="an-row-actions"><button class="an-icon-btn edit" data-an-save-cat="${c.id}">✓</button><button class="an-icon-btn remove" data-an-cancel-edit-cat="${c.id}">✕</button></div></td>`;}
 
-  /* ============================================================
-     RESUMEN
-     ============================================================ */
-
-  function anUpdateSummary() {
-    // El resumen global fue retirado de la vista inicial de Animales y carga.
-    // Se conserva la función por compatibilidad con versiones anteriores.
+  function anRenderWeightHistory(lot){
+    const timeline=document.getElementById('anPesoTimeline'),chart=document.getElementById('anPesoChart');timeline.innerHTML='';chart.innerHTML='';
+    const points=[...(lot.weights||[])].sort((a,b)=>a.date.localeCompare(b.date));
+    if(!points.length){timeline.innerHTML='<div class="an-history-empty">Todavía no hay mediciones de peso registradas.</div>';return;}
+    timeline.innerHTML=points.map((p,i)=>`<div class="an-weight-point"><span>${new Date(p.date+'T00:00:00').toLocaleDateString('es-AR')}</span><strong>${anFormatNumber(p.weight,0)} kg</strong>${i?`<small>${anFormatNumber((p.weight-points[i-1].weight)/Math.max(1,anDaysBetween(points[i-1].date,p.date)),2)} kg/día desde la medición anterior</small>`:''}</div>`).join('');
+    const min=Math.min(...points.map(p=>p.weight)),max=Math.max(...points.map(p=>p.weight)),range=Math.max(1,max-min);chart.innerHTML='<div class="an-chart-axis"><span>'+anFormatNumber(max,0)+' kg</span><span>'+anFormatNumber(min,0)+' kg</span></div><div class="an-chart-area">'+points.map((p,i)=>{const left=points.length===1?50:(i/(points.length-1))*100;const bottom=((p.weight-min)/range)*80+10;return `<div class="an-chart-dot" style="left:${left}%;bottom:${bottom}%"><span>${anFormatNumber(p.weight,0)}</span></div>`;}).join('')+'</div>';
   }
 
-
-  /* ============================================================
-     DETALLE
-     ============================================================ */
-
-  let anCurrentLotId = null;
-  let anEditingCategoryId = null;
-
-  document.getElementById("anBtnCalcularPermanencia").addEventListener("click", anCalcularPermanencia);
-
-  function anOpenLot(id) {
-    const lot = anLots.find(item => item.id === id);
-    if (!lot) return;
-
-    anCurrentLotId = id;
-    anEditingCategoryId = null;
-    const result = anCalculateLot(lot);
-
-    document.getElementById("anListaLotes").style.display = "none";
-    document.querySelector("#vistaAnimales .seccion").style.display = "none";
-    document.getElementById("anDetalleLote").style.display = "block";
-
-    document.getElementById("anDetalleNombre").textContent = lot.name;
-    document.getElementById("anDetalleEspecie").textContent = AN_SPECIES_NAMES[lot.species] || lot.species;
-    document.getElementById("anDetalleDescripcion").textContent = `${result.animals} animales`;
-    document.getElementById("anDetalleAnimales").textContent = anFormatNumber(result.animals,0);
-    document.getElementById("anDetalleEV").textContent = anFormatNumber(result.ev,1);
-    document.getElementById("anDetalleMS").textContent = `${anFormatNumber(result.ms,0)} kg`;
-    document.getElementById("anDetalleMSAnimal").textContent = result.animals > 0 ? `${anFormatNumber(result.msPerAnimal,2)} kg` : "—";
-    document.getElementById("anDetalleMSMes").textContent = `${anFormatNumber(result.msMonth / 1000,2)} t`;
-    document.getElementById("anDetalleMSAnio").textContent = `${anFormatNumber(result.msYear / 1000,2)} t`;
-
-    const diasInput = document.getElementById("anDiasPermanencia");
-    const permanenciaBox = document.getElementById("anPermanenciaResultado");
-    diasInput.value = lot.permanenceDays || "";
-    permanenciaBox.style.display = "none";
-    permanenciaBox.innerHTML = "";
-    if (lot.permanenceDays) {
-      diasInput.value = lot.permanenceDays;
-    }
-
-    const surfaceMetric = document.getElementById("anSurfaceMetric");
-    if (result.evHa !== null) {
-      surfaceMetric.style.display = "";
-      document.getElementById("anDetalleEVHa").textContent = anFormatNumber(result.evHa,2);
-    } else {
-      surfaceMetric.style.display = "none";
-    }
-
-    anRenderCategoryTable(lot);
+  function anOpenCreateModal(){
+    document.getElementById('anInputNombreLote').value='';document.getElementById('anInputEspecie').value='bovinos';document.getElementById('anInputSistema').value='campo';document.getElementById('anInputSuperficie').value='';document.getElementById('anInputDiasPeriodo').value='';document.getElementById('anCategoriasBuilder').innerHTML='';anAddCategoryForm();document.getElementById('anModalNuevoLote').style.display='flex';
   }
-
-  function anRenderCategoryTable(lot) {
-    const tbody = document.getElementById("anTablaCategorias");
-    tbody.innerHTML = "";
-
-    lot.categories.forEach(category => {
-      const row = document.createElement("tr");
-      row.dataset.catId = category.id;
-      if (category.id === anEditingCategoryId) {
-        anRenderEditableCategoryRow(row, lot, category);
-      } else {
-        anRenderStaticCategoryRow(row, category);
-      }
-      tbody.appendChild(row);
-    });
-
-    if (!lot.categories.length) {
-      const emptyRow = document.createElement("tr");
-      emptyRow.innerHTML = `<td colspan="7" style="color:var(--gris);text-align:center;padding:20px;">Este lote todavía no tiene categorías cargadas.</td>`;
-      tbody.appendChild(emptyRow);
-    }
+  function anAddCategoryForm(){
+    const species=document.getElementById('anInputEspecie').value,system=document.getElementById('anInputSistema').value,row=document.createElement('div');row.className='an-categoria-row';
+    const defaultFeed=system==='feedlot'?'feedlot_maiz':'campo_alfalfa';row.innerHTML=`<div class="form-group"><label>Categoría</label><select class="an-categoria-select">${anCategoryOptionsHTML(species)}</select></div><div class="form-group"><label>Cantidad</label><input class="an-cantidad-input" type="number" min="1" placeholder="0"></div><div class="form-group"><label>Peso inicial (kg)</label><input class="an-peso-inicial-input" type="number" min="1" placeholder="320"></div><div class="form-group"><label>Peso actual (kg)</label><input class="an-peso-input" type="number" min="1" placeholder="365"></div><div class="form-group"><label>Peso objetivo (kg)</label><input class="an-peso-objetivo-input" type="number" min="0" placeholder="420"></div><div class="form-group"><label>Alimento</label><select class="an-feed-select">${anFeedOptionsHTML(defaultFeed,species,system)}</select></div><div class="form-group"><label>GDP esperado (kg/d)</label><input class="an-gdp-input" type="number" min="0.01" step="0.01" placeholder="Automático"></div><button class="an-icon-btn remove an-remove-category" type="button">×</button>`;
+    row.querySelector('.an-remove-category').onclick=()=>row.remove();row.querySelector('.an-feed-select').onchange=()=>{};document.getElementById('anCategoriasBuilder').appendChild(row);
   }
-
-  function anRenderStaticCategoryRow(row, category) {
-    const result = anCalculateCategory(category);
-    const stateCell = result.approximated
-      ? `${AN_STATE_NAMES[category.state] || category.state} <span class="an-state-warning" title="No hay un factor de MS específico para '${AN_STATE_NAMES[category.state] || category.state}' en esta categoría. Se usó el valor de '${AN_STATE_NAMES[result.usedState] || result.usedState}' como aproximación.">⚠</span>`
-      : (AN_STATE_NAMES[category.state] || category.state);
-
-    row.innerHTML = `
-      <td><strong>${AN_CATEGORY_LABELS[category.category] || category.category}</strong></td>
-      <td>${category.quantity}</td>
-      <td>${category.liveWeight} kg</td>
-      <td>${stateCell}</td>
-      <td>${anFormatNumber(result.ev,1)}</td>
-      <td>${anFormatNumber(result.ms,0)} kg</td>
-      <td>
-        <div class="an-row-actions">
-          <button class="an-icon-btn edit" type="button" data-an-edit-cat="${category.id}" aria-label="Editar categoría ${AN_CATEGORY_LABELS[category.category] || category.category}">✎</button>
-          <button class="an-icon-btn remove" type="button" data-an-remove-cat="${category.id}" aria-label="Eliminar categoría ${AN_CATEGORY_LABELS[category.category] || category.category}">×</button>
-        </div>
-      </td>
-    `;
+  function anCreateLot(){
+    const name=document.getElementById('anInputNombreLote').value.trim(),species=document.getElementById('anInputEspecie').value,system=document.getElementById('anInputSistema').value,surface=Number(document.getElementById('anInputSuperficie').value)||0,periodDays=Number(document.getElementById('anInputDiasPeriodo').value)||0;
+    if(!name){alert('Ingresá un nombre para el lote.');return;}
+    const categories=[];document.querySelectorAll('#anCategoriasBuilder .an-categoria-row').forEach(row=>{const category=row.querySelector('.an-categoria-select').value,quantity=Number(row.querySelector('.an-cantidad-input').value),initialWeight=Number(row.querySelector('.an-peso-inicial-input').value),liveWeight=Number(row.querySelector('.an-peso-input').value),targetWeight=Number(row.querySelector('.an-peso-objetivo-input').value)||0,feed=row.querySelector('.an-feed-select').value,expectedGDP=Number(row.querySelector('.an-gdp-input').value)||0;if(quantity>0&&initialWeight>0&&liveWeight>0)categories.push({id:anNextCategoryId(),category,quantity,initialWeight,liveWeight,targetWeight,feed,expectedGDP,state:'recria'});});
+    if(!categories.length){alert('Agregá al menos una categoría con cantidad y pesos válidos.');return;}
+    anLots.push({id:Date.now(),name,species,system,surfaceHa:surface,periodDays,categories,weights:[{date:anToday(),weight:liveWeightFromCategories(categories)}]});anSaveLots();document.getElementById('anModalNuevoLote').style.display='none';anRenderLots();
   }
+  function liveWeightFromCategories(cs){const n=cs.reduce((a,c)=>a+c.quantity,0);return n?cs.reduce((a,c)=>a+c.liveWeight*c.quantity,0)/n:0;}
 
-  function anRenderEditableCategoryRow(row, lot, category) {
-    const categoryOptionsHTML = anBuildCategoryOptionsHTML(lot.species, category.category);
-    row.innerHTML = `
-      <td><select class="an-cell-select" data-an-field="category">${categoryOptionsHTML}</select></td>
-      <td><input class="an-cell-input" data-an-field="quantity" type="number" min="1" value="${category.quantity}"></td>
-      <td><input class="an-cell-input" data-an-field="liveWeight" type="number" min="1" value="${category.liveWeight}"></td>
-      <td><select class="an-cell-select" data-an-field="state">${anBuildStateOptionsHTML(category.state)}</select></td>
-      <td colspan="2" style="color:var(--gris);font-size:12px;">Los totales se recalculan al guardar</td>
-      <td>
-        <div class="an-row-actions">
-          <button class="an-icon-btn edit" type="button" data-an-save-cat="${category.id}" aria-label="Guardar cambios de la categoría">✓</button>
-          <button class="an-icon-btn remove" type="button" data-an-cancel-edit-cat aria-label="Cancelar edición">✕</button>
-        </div>
-      </td>
-    `;
-  }
+  document.getElementById('anInputSistema').addEventListener('change',()=>{document.querySelectorAll('#anCategoriasBuilder .an-categoria-row').forEach(row=>{const feed=row.querySelector('.an-feed-select'),prev=feed.value;feed.innerHTML=anFeedOptionsHTML(prev,document.getElementById('anInputEspecie').value,document.getElementById('anInputSistema').value);});});
+  document.getElementById('anInputEspecie').addEventListener('change',()=>{document.querySelectorAll('#anCategoriasBuilder .an-categoria-row').forEach(row=>{row.querySelector('.an-categoria-select').innerHTML=anCategoryOptionsHTML(document.getElementById('anInputEspecie').value);});});
+  document.getElementById('anBtnNuevoLote').onclick=anOpenCreateModal;document.getElementById('anBtnCerrarModal').onclick=()=>document.getElementById('anModalNuevoLote').style.display='none';document.getElementById('anBtnCancelarModal').onclick=()=>document.getElementById('anModalNuevoLote').style.display='none';document.getElementById('anBtnAgregarCategoriaForm').onclick=anAddCategoryForm;document.getElementById('anBtnGuardarLote').onclick=anCreateLot;
 
-  document.getElementById("anTablaCategorias").addEventListener("click", e => {
-    if (anCurrentLotId === null) return;
-    const lot = anLots.find(item => item.id === anCurrentLotId);
-    if (!lot) return;
-
-    const removeBtn = e.target.closest("[data-an-remove-cat]");
-    if (removeBtn) { anRemoveCategoryFromLot(anCurrentLotId, Number(removeBtn.dataset.anRemoveCat)); return; }
-
-    const editBtn = e.target.closest("[data-an-edit-cat]");
-    if (editBtn) { anEditingCategoryId = Number(editBtn.dataset.anEditCat); anRenderCategoryTable(lot); return; }
-
-    const cancelBtn = e.target.closest("[data-an-cancel-edit-cat]");
-    if (cancelBtn) { anEditingCategoryId = null; anRenderCategoryTable(lot); return; }
-
-    const saveBtn = e.target.closest("[data-an-save-cat]");
-    if (saveBtn) {
-      const categoryId = Number(saveBtn.dataset.anSaveCat);
-      const row = saveBtn.closest("tr");
-      const category = lot.categories.find(c => c.id === categoryId);
-      if (!category) return;
-
-      const newCategory = row.querySelector('[data-an-field="category"]').value;
-      const newQuantity = Number(row.querySelector('[data-an-field="quantity"]').value);
-      const newWeight = Number(row.querySelector('[data-an-field="liveWeight"]').value);
-      const newState = row.querySelector('[data-an-field="state"]').value;
-
-      if (!(newQuantity > 0) || !(newWeight > 0)) {
-        alert("La cantidad y el peso vivo deben ser mayores a cero.");
-        return;
-      }
-
-      category.category = newCategory;
-      category.quantity = newQuantity;
-      category.liveWeight = newWeight;
-      category.state = newState;
-
-      anEditingCategoryId = null;
-      anSaveLots();
-      anRenderCategoryTable(lot);
-      anRenderLots();
-      anRefreshDetalleTotalsOnly(lot);
-    }
+  document.getElementById('anTablaCategorias').addEventListener('click',e=>{
+    const lot=anLots.find(x=>x.id===anCurrentLotId);if(!lot)return;
+    const rem=e.target.closest('[data-an-remove-cat]');if(rem){lot.categories=lot.categories.filter(c=>c.id!==Number(rem.dataset.anRemoveCat));anEditingCategoryId=null;anSaveLots();anRefreshDetail();return;}
+    const edit=e.target.closest('[data-an-edit-cat]');if(edit){anEditingCategoryId=Number(edit.dataset.anEditCat);anRenderCategoryTable(lot);return;}
+    const cancel=e.target.closest('[data-an-cancel-edit-cat]');if(cancel){anEditingCategoryId=null;anRenderCategoryTable(lot);return;}
+    const save=e.target.closest('[data-an-save-cat]');if(save){const c=lot.categories.find(x=>x.id===Number(save.dataset.anSaveCat));const row=save.closest('tr');if(!c||!row)return;c.category=row.querySelector('[data-an-field="category"]').value;c.quantity=Number(row.querySelector('[data-an-field="quantity"]').value);c.liveWeight=Number(row.querySelector('[data-an-field="liveWeight"]').value);c.feed=row.querySelector('[data-an-field="feed"]').value;if(!(c.quantity>0&&c.liveWeight>0)){alert('Cantidad y peso actual deben ser mayores a cero.');return;}anEditingCategoryId=null;anSaveLots();anRefreshDetail();}
   });
 
-  function anRefreshDetalleTotalsOnly(lot) {
-    const result = anCalculateLot(lot);
-    document.getElementById("anDetalleDescripcion").textContent = `${result.animals} animales`;
-    document.getElementById("anDetalleAnimales").textContent = anFormatNumber(result.animals,0);
-    document.getElementById("anDetalleEV").textContent = anFormatNumber(result.ev,1);
-    document.getElementById("anDetalleMS").textContent = `${anFormatNumber(result.ms,0)} kg`;
+  document.getElementById('anBtnAgregarCategoriaDetalle').onclick=()=>{const lot=anLots.find(x=>x.id===anCurrentLotId);if(!lot)return;const c={id:anNextCategoryId(),category:Object.keys(AN_PARAMS[lot.species])[0],quantity:1,initialWeight:1,liveWeight:1,targetWeight:0,feed:lot.system==='feedlot'?'feedlot_maiz':'campo_alfalfa',expectedGDP:0,state:'recria'};lot.categories.push(c);anEditingCategoryId=c.id;anSaveLots();anRefreshDetail();};
 
-    const surfaceMetric = document.getElementById("anSurfaceMetric");
-    if (result.evHa !== null) {
-      surfaceMetric.style.display = "";
-      document.getElementById("anDetalleEVHa").textContent = anFormatNumber(result.evHa,2);
-    } else {
-      surfaceMetric.style.display = "none";
-    }
-  }
+  document.getElementById('anBtnRegistrarPeso').onclick=()=>{if(anCurrentLotId===null)return;document.getElementById('anPesoFecha').value=anToday();document.getElementById('anPesoMedicion').value='';document.getElementById('anModalRegistrarPeso').style.display='flex';};
+  document.getElementById('anBtnCerrarPesoModal').onclick=()=>document.getElementById('anModalRegistrarPeso').style.display='none';document.getElementById('anBtnCancelarPesoModal').onclick=()=>document.getElementById('anModalRegistrarPeso').style.display='none';
+  document.getElementById('anBtnGuardarPeso').onclick=()=>{const lot=anLots.find(x=>x.id===anCurrentLotId),date=document.getElementById('anPesoFecha').value,weight=Number(document.getElementById('anPesoMedicion').value);if(!lot||!date||!(weight>0)){alert('Ingresá fecha y peso válidos.');return;}lot.weights=Array.isArray(lot.weights)?lot.weights:[];lot.weights.push({date,weight});lot.weights.sort((a,b)=>a.date.localeCompare(b.date));const total=lot.categories.reduce((a,c)=>a+c.quantity,0);if(total)lot.categories.forEach(c=>c.liveWeight=weight);anSaveLots();document.getElementById('anModalRegistrarPeso').style.display='none';anRefreshDetail();};
 
+  document.getElementById('anBtnVerCalculo').onclick=()=>{const d=document.getElementById('anCalculoContenido');d.style.display=d.style.display==='none'?'block':'none';};
+  document.getElementById('anBtnVolverLotes').onclick=()=>{document.getElementById('anDetalleLote').style.display='none';document.getElementById('anListaLotes').style.display='grid';document.querySelector('#vistaAnimales .seccion').style.display='flex';anCurrentLotId=null;};
 
-  function anCalcularPermanencia() {
-    if (anCurrentLotId === null) return;
-    const lot = anLots.find(item => item.id === anCurrentLotId);
-    if (!lot) return;
-    const dias = Number(document.getElementById("anDiasPermanencia").value);
-    if (!Number.isFinite(dias) || dias <= 0) {
-      alert("Ingresá una cantidad de días válida.");
-      return;
-    }
+  function anAskDeleteLot(id){anDeleteLotId=id;const lot=anLots.find(x=>x.id===id);document.getElementById('anEliminarLoteTexto').textContent=`¿Querés eliminar “${lot?lot.name:'este lote'}” y todo su historial?`;document.getElementById('anModalEliminarLote').style.display='flex';}
+  document.getElementById('anBtnCancelarEliminar').onclick=()=>document.getElementById('anModalEliminarLote').style.display='none';
+  document.getElementById('anBtnConfirmarEliminar').onclick=()=>{if(anDeleteLotId!==null)anLots=anLots.filter(x=>x.id!==anDeleteLotId);anSaveLots();document.getElementById('anModalEliminarLote').style.display='none';if(anCurrentLotId===anDeleteLotId){anCurrentLotId=null;document.getElementById('anDetalleLote').style.display='none';document.getElementById('anListaLotes').style.display='grid';document.querySelector('#vistaAnimales .seccion').style.display='flex';}anRenderLots();};
+  document.getElementById('anBtnEliminarLote').onclick=()=>{if(anCurrentLotId!==null)anAskDeleteLot(anCurrentLotId);};
 
-    lot.permanenceDays = dias;
-    anSaveLots();
+  document.getElementById('anBtnEditarLote').onclick=()=>{const lot=anLots.find(x=>x.id===anCurrentLotId);if(!lot)return;document.getElementById('anEditNombreLote').value=lot.name;document.getElementById('anEditEspecie').value=lot.species;document.getElementById('anEditSistema').value=lot.system;document.getElementById('anEditSuperficie').value=lot.surfaceHa||'';document.getElementById('anEditDiasPeriodo').value=lot.periodDays||'';document.getElementById('anModalEditarLote').style.display='flex';};
+  document.getElementById('anBtnCerrarModalEditar').onclick=()=>document.getElementById('anModalEditarLote').style.display='none';document.getElementById('anBtnCancelarEditarLote').onclick=()=>document.getElementById('anModalEditarLote').style.display='none';
+  document.getElementById('anBtnGuardarEdicionLote').onclick=()=>{const lot=anLots.find(x=>x.id===anCurrentLotId);if(!lot)return;lot.name=document.getElementById('anEditNombreLote').value.trim()||lot.name;lot.surfaceHa=Number(document.getElementById('anEditSuperficie').value)||0;lot.periodDays=Number(document.getElementById('anEditDiasPeriodo').value)||0;const newSystem=document.getElementById('anEditSistema').value;if(newSystem!==lot.system){lot.system=newSystem;lot.categories.forEach(c=>c.feed=newSystem==='feedlot'?'feedlot_maiz':'campo_alfalfa');}anSaveLots();document.getElementById('anModalEditarLote').style.display='none';anRefreshDetail();};
 
-    const result = anCalculateLot(lot);
-    const evDia = result.ev * dias;
-    const evDiaHa = result.evHa !== null ? evDia / lot.surfaceHa : null;
-    const box = document.getElementById("anPermanenciaResultado");
-
-    box.innerHTML = `
-      <div class="an-permanencia-result">
-        <div class="an-permanencia-metric"><span>EV-día</span><strong>${anFormatNumber(evDia,1)}</strong></div>
-        ${evDiaHa !== null ? `<div class="an-permanencia-metric"><span>EV-día / ha</span><strong>${anFormatNumber(evDiaHa,1)}</strong></div>` : `<div class="an-permanencia-metric"><span>Superficie</span><strong>Sin cargar</strong></div>`}
-      </div>
-      <button class="an-calc-toggle" type="button" id="anBtnVerCalculoPermanencia">ⓘ Ver cálculo</button>
-      <div class="an-calc-detail" id="anCalculoPermanencia" style="display:none;">
-        <strong>EV-día</strong> = EV totales × días de permanencia<br>
-        ${anFormatNumber(result.ev,1)} EV × ${anFormatNumber(dias,0)} días = <strong>${anFormatNumber(evDia,1)} EV-día</strong>
-        ${evDiaHa !== null ? `<br><br><strong>EV-día/ha</strong> = EV-día ÷ superficie<br>${anFormatNumber(evDia,1)} ÷ ${anFormatNumber(lot.surfaceHa,1)} ha = <strong>${anFormatNumber(evDiaHa,1)} EV-día/ha</strong>` : ""}
-      </div>`;
-    box.style.display = "block";
-    document.getElementById("anBtnVerCalculoPermanencia").addEventListener("click", () => {
-      const d = document.getElementById("anCalculoPermanencia");
-      d.style.display = d.style.display === "none" ? "block" : "none";
-    });
-  }
-
-  function anRemoveCategoryFromLot(lotId, categoryId) {
-    const lot = anLots.find(item => item.id === lotId);
-    if (!lot) return;
-    if (!confirm("¿Eliminar esta categoría del lote?")) return;
-
-    lot.categories = lot.categories.filter(c => c.id !== categoryId);
-    if (anEditingCategoryId === categoryId) anEditingCategoryId = null;
-
-    anSaveLots();
-    anRenderCategoryTable(lot);
-    anRefreshDetalleTotalsOnly(lot);
-    anRenderLots();
-  }
-
-  document.getElementById("anBtnAgregarCategoriaDetalle").addEventListener("click", () => {
-    if (anCurrentLotId === null) return;
-    const lot = anLots.find(item => item.id === anCurrentLotId);
-    if (!lot) return;
-
-    const defaultCategory = Object.keys(
-      lot.species === "mixto" ? AN_CATEGORY_SPECIES : (AN_PARAMS[lot.species] || {})
-    )[0];
-
-    const newCategory = { id: anNextCategoryId(), category: defaultCategory, quantity: 1, liveWeight: 1, state: "mantenimiento" };
-    lot.categories.push(newCategory);
-    anEditingCategoryId = newCategory.id;
-
-    anSaveLots();
-    anRenderCategoryTable(lot);
-    anRefreshDetalleTotalsOnly(lot);
-    anRenderLots();
-  });
-
-  document.getElementById("anBtnVolverLotes").addEventListener("click", () => {
-    document.getElementById("anDetalleLote").style.display = "none";
-    document.getElementById("anListaLotes").style.display = "grid";
-    document.querySelector("#vistaAnimales .seccion").style.display = "flex";
-    anCurrentLotId = null;
-    anEditingCategoryId = null;
-  });
-
-
-  /* ============================================================
-     MODAL — CREAR LOTE
-     ============================================================ */
-
-  const anModal = document.getElementById("anModalNuevoLote");
-  const anInputEspecie = document.getElementById("anInputEspecie");
-  const anCategoriasBuilder = document.getElementById("anCategoriasBuilder");
-
-  function anOpenCreateModal() {
-    document.getElementById("anInputNombreLote").value = "";
-    document.getElementById("anInputSuperficie").value = "";
-    anInputEspecie.value = "bovinos";
-    anCategoriasBuilder.innerHTML = "";
-    anAddCategoryForm();
-    anModal.style.display = "flex";
-    document.getElementById("anInputNombreLote").focus();
-  }
-
-  document.getElementById("anBtnNuevoLote").addEventListener("click", anOpenCreateModal);
-
-  function anCloseModal() { anModal.style.display = "none"; }
-
-  document.getElementById("anBtnCerrarModal").addEventListener("click", anCloseModal);
-  document.getElementById("anBtnCancelarModal").addEventListener("click", anCloseModal);
-
-  function anBuildCategoryOptionsHTML(species, selected) {
-    if (species === "mixto") {
-      return Object.keys(AN_PARAMS).map(sp => {
-        const opts = Object.keys(AN_PARAMS[sp])
-          .map(cat => `<option value="${cat}" ${cat === selected ? "selected" : ""}>${AN_CATEGORY_LABELS[cat]}</option>`)
-          .join("");
-        return `<optgroup label="${AN_SPECIES_NAMES[sp]}">${opts}</optgroup>`;
-      }).join("");
-    }
-    const categories = AN_PARAMS[species] || {};
-    return Object.keys(categories)
-      .map(cat => `<option value="${cat}" ${cat === selected ? "selected" : ""}>${AN_CATEGORY_LABELS[cat]}</option>`)
-      .join("");
-  }
-
-  function anRefreshAllCategorySelects() {
-    const species = anInputEspecie.value;
-    anCategoriasBuilder.querySelectorAll(".an-categoria-select").forEach(select => {
-      const previousValue = select.value;
-      const stillValid = AN_CATEGORY_SPECIES[previousValue] === species || species === "mixto";
-      select.innerHTML = anBuildCategoryOptionsHTML(species, stillValid ? previousValue : undefined);
-    });
-  }
-
-  anInputEspecie.addEventListener("change", anRefreshAllCategorySelects);
-
-  document.getElementById("anBtnAgregarCategoriaForm").addEventListener("click", () => anAddCategoryForm());
-
-  function anAddCategoryForm() {
-    const species = anInputEspecie.value;
-    const row = document.createElement("div");
-    row.className = "an-categoria-row";
-
-    row.innerHTML = `
-      <div class="form-group"><label>Categoría</label><select class="an-categoria-select">${anBuildCategoryOptionsHTML(species)}</select></div>
-      <div class="form-group"><label>Cantidad</label><input class="an-cantidad-input" type="number" min="1" placeholder="0"></div>
-      <div class="form-group"><label>Peso vivo (kg)</label><input class="an-peso-input" type="number" min="1" placeholder="0"></div>
-      <div class="form-group"><label>Estado</label><select class="an-estado-select">${anBuildStateOptionsHTML("mantenimiento")}</select></div>
-      <button class="an-icon-btn remove an-remove-category" type="button" aria-label="Quitar esta fila de categoría">×</button>
-    `;
-
-    row.querySelector(".an-remove-category").addEventListener("click", () => row.remove());
-    anCategoriasBuilder.appendChild(row);
-  }
-
-
-  /* ============================================================
-     GUARDAR LOTE NUEVO
-     ============================================================ */
-
-  document.getElementById("anBtnGuardarLote").addEventListener("click", anCreateLot);
-
-  function anCreateLot() {
-    const name = document.getElementById("anInputNombreLote").value.trim();
-    if (!name) { alert("Ingresá un nombre para el lote."); return; }
-
-    const species = anInputEspecie.value;
-    const surface = Number(document.getElementById("anInputSuperficie").value) || 0;
-    const rows = anCategoriasBuilder.querySelectorAll(".an-categoria-row");
-    const categories = [];
-
-    rows.forEach(row => {
-      const category = row.querySelector(".an-categoria-select").value;
-      const quantity = Number(row.querySelector(".an-cantidad-input").value);
-      const weight = Number(row.querySelector(".an-peso-input").value);
-      const state = row.querySelector(".an-estado-select").value;
-      if (quantity > 0 && weight > 0) {
-        categories.push({ id: anNextCategoryId(), category, quantity, liveWeight: weight, state });
-      }
-    });
-
-    if (!categories.length) { alert("Agregá al menos una categoría con cantidad y peso."); return; }
-
-    anLots.push({ id: Date.now(), name, species, surfaceHa: surface, categories });
-
-    anSaveLots();
-    anCloseModal();
-    anRenderLots();
-  }
-
-
-  /* ============================================================
-     ELIMINAR LOTE
-     ============================================================ */
-
-  let anDeleteLotId = null;
-  const anDeleteModal = document.getElementById("anModalEliminarLote");
-
-  function anAskDeleteLot(lotId) {
-    const lot = anLots.find(item => item.id === lotId);
-    if (!lot) return;
-    anDeleteLotId = lotId;
-    document.getElementById("anEliminarLoteTexto").innerHTML = `Vas a eliminar <strong>${anEscapeHTML(lot.name)}</strong> y todas sus categorías. Esta acción no se puede deshacer.`;
-    anDeleteModal.style.display = "flex";
-  }
-
-  function anCloseDeleteModal() {
-    anDeleteLotId = null;
-    anDeleteModal.style.display = "none";
-  }
-
-  document.getElementById("anBtnEliminarLote").addEventListener("click", () => {
-    if (anCurrentLotId !== null) anAskDeleteLot(anCurrentLotId);
-  });
-
-  document.getElementById("anBtnCancelarEliminar").addEventListener("click", anCloseDeleteModal);
-
-  document.getElementById("anBtnConfirmarEliminar").addEventListener("click", () => {
-    if (anDeleteLotId === null) return;
-    const id = anDeleteLotId;
-    anLots = anLots.filter(lot => lot.id !== id);
-    anSaveLots();
-    anCloseDeleteModal();
-    if (anCurrentLotId === id) {
-      anCurrentLotId = null;
-      document.getElementById("anDetalleLote").style.display = "none";
-      document.getElementById("anListaLotes").style.display = "grid";
-      document.querySelector("#vistaAnimales .seccion").style.display = "flex";
-      }
-    anRenderLots();
-  });
-
-  /* ============================================================
-     MODAL — EDITAR LOTE
-     ============================================================ */
-
-  const anEditModal = document.getElementById("anModalEditarLote");
-
-  document.getElementById("anBtnEditarLote").addEventListener("click", () => {
-    if (anCurrentLotId === null) return;
-    const lot = anLots.find(item => item.id === anCurrentLotId);
-    if (!lot) return;
-
-    document.getElementById("anEditNombreLote").value = lot.name;
-    document.getElementById("anEditEspecie").value = lot.species;
-    document.getElementById("anEditSuperficie").value = lot.surfaceHa || "";
-
-    anEditModal.style.display = "flex";
-    document.getElementById("anEditNombreLote").focus();
-  });
-
-  function anCloseEditModal() { anEditModal.style.display = "none"; }
-
-  document.getElementById("anBtnCerrarModalEditar").addEventListener("click", anCloseEditModal);
-  document.getElementById("anBtnCancelarEditarLote").addEventListener("click", anCloseEditModal);
-  anDeleteModal.addEventListener("click", e => { if (e.target === anDeleteModal) anCloseDeleteModal(); });
-
-  document.getElementById("anBtnGuardarEdicionLote").addEventListener("click", () => {
-    if (anCurrentLotId === null) return;
-    const lot = anLots.find(item => item.id === anCurrentLotId);
-    if (!lot) return;
-
-    const name = document.getElementById("anEditNombreLote").value.trim();
-    if (!name) { alert("Ingresá un nombre para el lote."); return; }
-
-    lot.name = name;
-    lot.species = document.getElementById("anEditEspecie").value;
-    lot.surfaceHa = Number(document.getElementById("anEditSuperficie").value) || 0;
-
-    anSaveLots();
-    anCloseEditModal();
-    anOpenLot(lot.id);
-    anRenderLots();
-  });
-
-
-  /* ============================================================
-     UTILIDADES
-     ============================================================ */
-
-  function anFormatNumber(value, decimals = 1) {
-    return new Intl.NumberFormat("es-AR", {
-      minimumFractionDigits: decimals,
-      maximumFractionDigits: decimals
-    }).format(value);
-  }
-
-  function anEscapeHTML(value) {
-    return String(value).replace(/[&<>"']/g, char => ({
-      "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
-    })[char]);
-  }
-
-
-  /* ============================================================
-     METODOLOGÍA
-     ============================================================ */
-
-  document.getElementById("anBtnVerCalculo").addEventListener("click", () => {
-    const content = document.getElementById("anCalculoContenido");
-    content.style.display = content.style.display === "none" ? "block" : "none";
-  });
-
-
-  /* ============================================================
-     APERTURA / CIERRE DE LA VISTA (integración con el menú)
-     ============================================================ */
-
-  window.abrirAnimales = function () {
-    if (typeof cerrarMenuUsuario === "function") cerrarMenuUsuario();
-    if (typeof ocultarNivelesSuperiores === "function") ocultarNivelesSuperiores();
-    document.getElementById("vistaAnimales").style.display = "block";
-    anRenderLots();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-  window.cerrarAnimales = function () {
-    document.getElementById("vistaAnimales").style.display = "none";
-    if (typeof mostrarHome === "function") mostrarHome();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  };
-
-
-  /* ============================================================
-     INICIO
-     ============================================================ */
-
+  window.anRenderLots=anRenderLots;
   anRenderLots();
-
 })();
 </script>
 
