@@ -7280,3 +7280,59 @@ document.addEventListener('mousedown', function(ev){
   ev.stopPropagation();
 }, true);
 </script>
+<style>
+/* ===== FIX FINAL DESKTOP — formulario de categorías Animales ===== */
+#anModalNuevoLote .an-modal-dialog{
+  position:relative !important;
+  overflow-y:auto !important;
+  overflow-x:hidden !important;
+}
+#anModalNuevoLote #anCategoriasBuilder{
+  position:relative !important;
+  z-index:1 !important;
+  isolation:isolate;
+}
+#anModalNuevoLote .an-categoria-row{
+  position:relative !important;
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:12px !important;
+  align-items:end !important;
+  padding:14px !important;
+  padding-right:52px !important;
+  overflow:visible !important;
+  z-index:1 !important;
+}
+#anModalNuevoLote .an-categoria-row .form-group{
+  position:relative !important;
+  min-width:0 !important;
+  z-index:auto !important;
+}
+#anModalNuevoLote .an-categoria-row input,
+#anModalNuevoLote .an-categoria-row select{
+  position:relative !important;
+  display:block !important;
+  width:100% !important;
+  min-width:0 !important;
+  box-sizing:border-box !important;
+  pointer-events:auto !important;
+  z-index:2 !important;
+  cursor:text !important;
+}
+#anModalNuevoLote .an-categoria-row select{cursor:pointer !important;}
+#anModalNuevoLote .an-categoria-row .an-remove-category{
+  position:absolute !important;
+  top:14px !important;
+  right:14px !important;
+  width:32px !important;
+  height:32px !important;
+  min-width:32px !important;
+  z-index:5 !important;
+}
+@media(max-width:700px){
+  #anModalNuevoLote .an-categoria-row{
+    grid-template-columns:1fr !important;
+    padding-right:52px !important;
+  }
+}
+</style>
