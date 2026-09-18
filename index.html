@@ -4093,12 +4093,11 @@ body {
 
         <div class="an-card">
             <div class="an-card-header">
-                <div><h3>Categorías</h3><p>Composición del lote.</p></div>
-                <button class="btn-secundario" id="anBtnAgregarCategoriaDetalle">+ Agregar categoría</button>
+                <div><h3>Categorías</h3><p>Composición actual del lote. Para modificarla, usá <strong>Editar lote</strong>.</p></div>
             </div>
             <div class="an-table-wrap">
                 <table class="an-table">
-                    <thead><tr><th>Categoría</th><th>Cantidad</th><th>PV inicial → actual</th><th>Alimento</th><th>EV</th><th>MS/día</th><th>Acciones</th></tr></thead>
+                    <thead><tr><th>Categoría</th><th>Cantidad</th><th>PV inicial → actual</th><th>Alimento</th><th>EV</th><th>MS/día</th></tr></thead>
                     <tbody id="anTablaCategorias"></tbody>
                 </table>
             </div>
@@ -4134,8 +4133,8 @@ body {
     </div>
 
     <div id="anModalEditarLote" class="modal-overlay" style="display:none;" role="dialog" aria-modal="true">
-        <div class="an-modal-dialog small">
-            <div class="an-modal-header"><div><span class="section-eyebrow">EDITAR LOTE</span><h3 style="margin:4px 0 0;color:var(--texto);">Editar datos del lote</h3></div><button id="anBtnCerrarModalEditar" class="an-modal-close">×</button></div>
+        <div class="an-modal-dialog" style="max-width:900px;max-height:90vh;overflow-y:auto;">
+            <div class="an-modal-header"><div><span class="section-eyebrow">EDITAR LOTE</span><h3 style="margin:4px 0 0;color:var(--texto);">Editar todos los datos</h3></div><button id="anBtnCerrarModalEditar" class="an-modal-close">×</button></div>
             <div class="an-form-grid">
                 <div class="form-group full"><label for="anEditNombreLote">Nombre del lote</label><input id="anEditNombreLote" type="text"></div>
                 <div class="form-group"><label for="anEditEspecie">Especie</label><select id="anEditEspecie"><option value="bovinos">🐄 Bovinos</option><option value="ovinos">🐑 Ovinos</option></select></div>
@@ -4143,8 +4142,14 @@ body {
                 <div class="form-group"><label for="anEditSuperficie">Superficie (ha)</label><input id="anEditSuperficie" type="number" min="0" step="0.1"></div>
                 <div class="form-group"><label for="anEditDiasPeriodo">Días del período</label><input id="anEditDiasPeriodo" type="number" min="1" step="1"></div>
             </div>
-            <p class="an-modal-hint">Las categorías, pesos y alimentación se editan desde el detalle del lote.</p>
-            <div class="modal-botones" style="margin-top:18px;"><button id="anBtnCancelarEditarLote" class="btn-secundario">Cancelar</button><button id="anBtnGuardarEdicionLote" class="btn-primary">Guardar cambios</button></div>
+            <div style="margin-top:20px;">
+                <div style="display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:10px;">
+                    <div><h4 style="margin:0 0 4px;font-size:13px;">Animales, pesos y alimentación</h4><p style="margin:0;font-size:11px;color:var(--gris);">Toda la información del lote se modifica desde este único lugar.</p></div>
+                </div>
+                <div id="anCategoriasEditBuilder"></div>
+                <button id="anBtnAgregarCategoriaEditar" class="an-add-category" type="button">+ Agregar categoría</button>
+            </div>
+            <div class="modal-botones" style="margin-top:20px;"><button id="anBtnCancelarEditarLote" class="btn-secundario">Cancelar</button><button id="anBtnGuardarEdicionLote" class="btn-primary">Guardar cambios</button></div>
         </div>
     </div>
 
@@ -7161,8 +7166,7 @@ if ("serviceWorker" in navigator) {
     lot.categories.forEach(c=>{const tr=document.createElement('tr');if(c.id===anEditingCategoryId)anRenderEditableCategoryRow(tr,lot,c);else anRenderStaticCategoryRow(tr,c);tbody.appendChild(tr);});
     if(!lot.categories.length)tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--gris);padding:18px;">Sin categorías.</td></tr>';
   }
-  function anRenderStaticCategoryRow(row,c){const r=anCalculateCategory(c);row.innerHTML=`<td><strong>${anEscapeHTML(AN_CATEGORY_LABELS[c.category])}</strong></td><td>${c.quantity}</td><td>${anFormatNumber(c.initialWeight||c.liveWeight,0)} kg → ${anFormatNumber(c.liveWeight,0)} kg</td><td>${anEscapeHTML(anGetFeedLabel(c))}</td><td>${anFormatNumber(r.ev,1)}</td><td>${anFormatNumber(r.ms,0)} kg</td><td><div class="an-row-actions"><button class="an-edit-text" data-an-edit-cat="${c.id}">Editar</button><button class="an-icon-btn remove" data-an-remove-cat="${c.id}">×</button></div></td>`;}
-  function anRenderEditableCategoryRow(row,lot,c){row.innerHTML=`<td><select class="an-cell-select" data-an-field="category">${anCategoryOptionsHTML(lot.species,c.category)}</select></td><td><input class="an-cell-input" data-an-field="quantity" type="number" min="1" value="${c.quantity}"></td><td><input class="an-cell-input" data-an-field="initialWeight" type="number" min="1" step="1" value="${c.initialWeight||c.liveWeight||''}" title="Peso inicial"></td><td><input class="an-cell-input" data-an-field="liveWeight" type="number" min="1" step="1" value="${c.liveWeight||''}" title="Peso actual"></td><td><select class="an-cell-select" data-an-field="feed">${anFeedOptionsHTML(c.feed,lot.species,lot.system)}</select></td><td><input class="an-cell-input" data-an-field="targetWeight" type="number" min="1" step="1" value="${c.targetWeight||''}" title="Peso objetivo"></td><td><div class="an-row-actions"><button class="an-icon-btn edit" data-an-save-cat="${c.id}" title="Guardar">✓</button><button class="an-icon-btn remove" data-an-cancel-edit-cat="${c.id}" title="Cancelar">✕</button></div></td>`;}
+  function anRenderStaticCategoryRow(row,c){const r=anCalculateCategory(c);row.innerHTML=`<td><strong>${anEscapeHTML(AN_CATEGORY_LABELS[c.category])}</strong></td><td>${c.quantity}</td><td>${anFormatNumber(c.initialWeight||c.liveWeight,0)} kg → ${anFormatNumber(c.liveWeight,0)} kg</td><td>${anEscapeHTML(anGetFeedLabel(c))}</td><td>${anFormatNumber(r.ev,1)}</td><td>${anFormatNumber(r.ms,0)} kg</td>`;}
 
   function anRenderWeightHistory(lot){
     const timeline=document.getElementById('anPesoTimeline'),chart=document.getElementById('anPesoChart');timeline.innerHTML='';chart.innerHTML='';
@@ -7193,15 +7197,40 @@ if ("serviceWorker" in navigator) {
   document.getElementById('anInputEspecie').addEventListener('change',()=>{document.querySelectorAll('#anCategoriasBuilder .an-categoria-row').forEach(row=>{row.querySelector('.an-categoria-select').innerHTML=anCategoryOptionsHTML(document.getElementById('anInputEspecie').value);});});
   document.getElementById('anBtnNuevoLote').onclick=anOpenCreateModal;document.getElementById('anBtnCerrarModal').onclick=()=>document.getElementById('anModalNuevoLote').style.display='none';document.getElementById('anBtnCancelarModal').onclick=()=>document.getElementById('anModalNuevoLote').style.display='none';document.getElementById('anBtnAgregarCategoriaForm').onclick=anAddCategoryForm;document.getElementById('anBtnGuardarLote').onclick=anCreateLot;
 
-  document.getElementById('anTablaCategorias').addEventListener('click',e=>{
-    const lot=anLots.find(x=>x.id===anCurrentLotId);if(!lot)return;
-    const rem=e.target.closest('[data-an-remove-cat]');if(rem){lot.categories=lot.categories.filter(c=>c.id!==Number(rem.dataset.anRemoveCat));anEditingCategoryId=null;anSaveLots();anRefreshDetail();return;}
-    const edit=e.target.closest('[data-an-edit-cat]');if(edit){anEditingCategoryId=Number(edit.dataset.anEditCat);anRenderCategoryTable(lot);return;}
-    const cancel=e.target.closest('[data-an-cancel-edit-cat]');if(cancel){anEditingCategoryId=null;anRenderCategoryTable(lot);return;}
-    const save=e.target.closest('[data-an-save-cat]');if(save){const c=lot.categories.find(x=>x.id===Number(save.dataset.anSaveCat));const row=save.closest('tr');if(!c||!row)return;c.category=row.querySelector('[data-an-field="category"]').value;c.quantity=Number(row.querySelector('[data-an-field="quantity"]').value);c.initialWeight=Number(row.querySelector('[data-an-field="initialWeight"]').value);c.liveWeight=Number(row.querySelector('[data-an-field="liveWeight"]').value);c.targetWeight=Number(row.querySelector('[data-an-field="targetWeight"]').value)||0;c.feed=row.querySelector('[data-an-field="feed"]').value;if(!(c.quantity>0&&c.initialWeight>0&&c.liveWeight>0)){alert('Cantidad, peso inicial y peso actual deben ser mayores a cero.');return;}anEditingCategoryId=null;anSaveLots();anRefreshDetail();}
-  });
-
-  document.getElementById('anBtnAgregarCategoriaDetalle').onclick=()=>{const lot=anLots.find(x=>x.id===anCurrentLotId);if(!lot)return;const c={id:anNextCategoryId(),category:Object.keys(AN_PARAMS[lot.species])[0],quantity:1,initialWeight:1,liveWeight:1,targetWeight:0,feed:lot.system==='feedlot'?'feedlot_maiz':'campo_alfalfa',expectedGDP:0,state:'recria'};lot.categories.push(c);anEditingCategoryId=c.id;anSaveLots();anRefreshDetail();};
+  function anBuildEditCategoryRow(c, lot){
+    const row=document.createElement('div'); row.className='an-categoria-row an-edit-category-row';
+    const feed=c.feed || (lot.system==='feedlot'?'feedlot_maiz':'campo_alfalfa');
+    row.innerHTML=`<div class="form-group"><label>Categoría</label><select class="an-categoria-select">${anCategoryOptionsHTML(lot.species,c.category)}</select></div><div class="form-group"><label>Cantidad</label><input class="an-cantidad-input" type="number" min="1" step="1" value="${c.quantity||1}"></div><div class="form-group"><label>Peso inicial (kg)</label><input class="an-peso-inicial-input" type="number" min="1" step="1" value="${c.initialWeight||c.liveWeight||''}"></div><div class="form-group"><label>Peso actual (kg)</label><input class="an-peso-input" type="number" min="1" step="1" value="${c.liveWeight||''}"></div><div class="form-group"><label>Peso objetivo (kg)</label><input class="an-peso-objetivo-input" type="number" min="0" step="1" value="${c.targetWeight||''}"></div><div class="form-group"><label>Alimento</label><select class="an-feed-select">${anFeedOptionsHTML(feed,lot.species,lot.system)}</select></div><button class="an-icon-btn remove an-remove-category" type="button" title="Eliminar categoría">×</button>`;
+    row.querySelector('.an-remove-category').onclick=()=>row.remove();
+    document.getElementById('anCategoriasEditBuilder').appendChild(row);
+  }
+  function anOpenUnifiedEditModal(){
+    const lot=anLots.find(x=>x.id===anCurrentLotId); if(!lot)return;
+    document.getElementById('anEditNombreLote').value=lot.name||'';
+    document.getElementById('anEditEspecie').value=lot.species||'bovinos';
+    document.getElementById('anEditSistema').value=lot.system||'campo';
+    document.getElementById('anEditSuperficie').value=lot.surfaceHa||'';
+    document.getElementById('anEditDiasPeriodo').value=lot.periodDays||'';
+    const b=document.getElementById('anCategoriasEditBuilder'); b.innerHTML='';
+    (lot.categories||[]).forEach(c=>anBuildEditCategoryRow(c,lot));
+    if(!lot.categories||!lot.categories.length) anBuildEditCategoryRow({category:Object.keys(AN_PARAMS[lot.species||'bovinos'])[0],quantity:1,initialWeight:'',liveWeight:'',targetWeight:'',feed:lot.system==='feedlot'?'feedlot_maiz':'campo_alfalfa'},lot);
+    document.getElementById('anModalEditarLote').style.display='flex';
+  }
+  document.getElementById('anBtnEditarLote').onclick=anOpenUnifiedEditModal;
+  document.getElementById('anBtnAgregarCategoriaEditar').onclick=()=>{const lot=anLots.find(x=>x.id===anCurrentLotId);if(lot)anBuildEditCategoryRow({category:Object.keys(AN_PARAMS[document.getElementById('anEditEspecie').value])[0],quantity:1,initialWeight:'',liveWeight:'',targetWeight:'',feed:document.getElementById('anEditSistema').value==='feedlot'?'feedlot_maiz':'campo_alfalfa'}, {...lot,species:document.getElementById('anEditEspecie').value,system:document.getElementById('anEditSistema').value});};
+  document.getElementById('anEditSistema').addEventListener('change',()=>{document.querySelectorAll('#anCategoriasEditBuilder .an-categoria-row').forEach(row=>{const feed=row.querySelector('.an-feed-select'),current=feed.value;feed.innerHTML=anFeedOptionsHTML(current,document.getElementById('anEditEspecie').value,document.getElementById('anEditSistema').value);});});
+  document.getElementById('anEditEspecie').addEventListener('change',()=>{document.querySelectorAll('#anCategoriasEditBuilder .an-categoria-row').forEach(row=>{row.querySelector('.an-categoria-select').innerHTML=anCategoryOptionsHTML(document.getElementById('anEditEspecie').value);});});
+  document.getElementById('anBtnCerrarModalEditar').onclick=()=>document.getElementById('anModalEditarLote').style.display='none';
+  document.getElementById('anBtnCancelarEditarLote').onclick=()=>document.getElementById('anModalEditarLote').style.display='none';
+  document.getElementById('anBtnGuardarEdicionLote').onclick=()=>{
+    const lot=anLots.find(x=>x.id===anCurrentLotId); if(!lot)return;
+    const species=document.getElementById('anEditEspecie').value, system=document.getElementById('anEditSistema').value;
+    const rows=[...document.querySelectorAll('#anCategoriasEditBuilder .an-categoria-row')]; const categories=[];
+    rows.forEach((row,i)=>{const quantity=Number(row.querySelector('.an-cantidad-input').value),initialWeight=Number(row.querySelector('.an-peso-inicial-input').value),liveWeight=Number(row.querySelector('.an-peso-input').value),targetWeight=Number(row.querySelector('.an-peso-objetivo-input').value)||0;if(quantity>0&&initialWeight>0&&liveWeight>0)categories.push({id:lot.categories[i]?.id||anNextCategoryId(),category:row.querySelector('.an-categoria-select').value,quantity,initialWeight,liveWeight,targetWeight,feed:row.querySelector('.an-feed-select').value,expectedGDP:lot.categories[i]?.expectedGDP||0,state:lot.categories[i]?.state||'recria'});});
+    if(!categories.length){alert('Agregá al menos una categoría con cantidad, peso inicial y peso actual válidos.');return;}
+    lot.name=document.getElementById('anEditNombreLote').value.trim()||lot.name; lot.species=species; lot.system=system; lot.surfaceHa=Number(document.getElementById('anEditSuperficie').value)||0; lot.periodDays=Number(document.getElementById('anEditDiasPeriodo').value)||0; lot.categories=categories;
+    anSaveLots(); document.getElementById('anModalEditarLote').style.display='none'; anRefreshDetail();
+  };
 
   document.getElementById('anBtnRegistrarPeso').onclick=()=>{if(anCurrentLotId===null)return;document.getElementById('anPesoFecha').value=anToday();document.getElementById('anPesoMedicion').value='';document.getElementById('anModalRegistrarPeso').style.display='flex';};
   document.getElementById('anBtnCerrarPesoModal').onclick=()=>document.getElementById('anModalRegistrarPeso').style.display='none';document.getElementById('anBtnCancelarPesoModal').onclick=()=>document.getElementById('anModalRegistrarPeso').style.display='none';
