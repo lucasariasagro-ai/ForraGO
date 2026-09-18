@@ -3607,6 +3607,24 @@ body {
 }
 
 
+/* ===== CORRECCIÓN FORMULARIO ANIMALES ===== */
+#anModalNuevoLote, #anModalEditarLote, #anModalRegistrarPeso, #anModalEliminarLote { z-index: 1000 !important; }
+#anModalNuevoLote .an-modal-dialog, #anModalEditarLote .an-modal-dialog, #anModalRegistrarPeso .an-modal-dialog, #anModalEliminarLote .an-modal-dialog { position:relative; z-index:1001; }
+#anModalNuevoLote input, #anModalNuevoLote select,
+#anModalEditarLote input, #anModalEditarLote select,
+#anModalRegistrarPeso input, #anModalRegistrarPeso select {
+  pointer-events:auto !important;
+  position:relative;
+  z-index:1002;
+  box-sizing:border-box;
+}
+#anCategoriasBuilder { position:relative; z-index:1001; }
+#anCategoriasBuilder .an-categoria-row { grid-template-columns:repeat(2,minmax(0,1fr)) 32px !important; }
+#anCategoriasBuilder .an-categoria-row .form-group { min-width:0; }
+#anCategoriasBuilder .an-categoria-row input,
+#anCategoriasBuilder .an-categoria-row select { width:100%; min-width:0; }
+@media(max-width:600px){ #anCategoriasBuilder .an-categoria-row { grid-template-columns:1fr !important; } }
+
 /* ===== ANIMALES Y CARGA — nueva interfaz productiva ===== */
 .an-system-badge{display:inline-flex;align-items:center;gap:5px;margin-left:6px;background:var(--fondo);color:var(--texto-suave);border:1px solid var(--borde);border-radius:99px;padding:4px 9px;font-size:10px;font-weight:700;}
 .an-lote-badges{margin-top:7px;display:flex;gap:6px;flex-wrap:wrap;}
