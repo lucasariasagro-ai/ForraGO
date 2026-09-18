@@ -7243,3 +7243,40 @@ function cerrarAnimales() {
 
 </body>
 </html>
+<style>
+/* FIX DEFINITIVO — campos del formulario Animales */
+#anModalNuevoLote { pointer-events:auto !important; }
+#anModalNuevoLote > .an-modal-dialog { pointer-events:auto !important; }
+#anModalNuevoLote #anCategoriasBuilder,
+#anModalNuevoLote #anCategoriasBuilder * { pointer-events:auto !important; }
+#anModalNuevoLote .an-categoria-row { position:relative !important; z-index:1005 !important; }
+#anModalNuevoLote .an-categoria-row .form-group { position:relative !important; z-index:1006 !important; }
+#anModalNuevoLote .an-categoria-row input,
+#anModalNuevoLote .an-categoria-row select {
+  position:relative !important;
+  z-index:1007 !important;
+  pointer-events:auto !important;
+  user-select:text !important;
+  -webkit-user-select:text !important;
+  cursor:text !important;
+}
+#anModalNuevoLote .an-categoria-row select { cursor:pointer !important; }
+</style>
+<script>
+/* Delegación defensiva: los campos de peso/alimento siempre deben recibir interacción. */
+document.addEventListener('click', function(ev){
+  const el = ev.target.closest('#anModalNuevoLote input, #anModalNuevoLote select');
+  if(!el) return;
+  ev.stopPropagation();
+}, true);
+document.addEventListener('pointerdown', function(ev){
+  const el = ev.target.closest('#anModalNuevoLote input, #anModalNuevoLote select');
+  if(!el) return;
+  ev.stopPropagation();
+}, true);
+document.addEventListener('mousedown', function(ev){
+  const el = ev.target.closest('#anModalNuevoLote input, #anModalNuevoLote select');
+  if(!el) return;
+  ev.stopPropagation();
+}, true);
+</script>
