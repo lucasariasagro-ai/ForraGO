@@ -7205,5 +7205,23 @@ if ("serviceWorker" in navigator) {
 })();
 </script>
 
+<!-- Navegación global del módulo Animales y carga -->
+<script>
+function abrirAnimales() {
+    ocultarNivelesSuperiores();
+    const vista = document.getElementById("vistaAnimales");
+    if (vista) vista.style.display = "block";
+    if (typeof window.anRenderLots === "function") window.anRenderLots();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function cerrarAnimales() {
+    const vista = document.getElementById("vistaAnimales");
+    if (vista) vista.style.display = "none";
+    mostrarHome();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+</script>
+
 </body>
 </html>
