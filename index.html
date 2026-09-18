@@ -3535,6 +3535,21 @@ body {
 .an-metric-card span { display:block; font-size:10px; color:var(--gris); }
 .an-metric-card strong { display:block; margin-top:3px; font-size:18px; color:var(--verde); font-weight:800; }
 
+
+.an-permanencia { margin:16px 0; }
+.an-permanencia-grid { display:grid; grid-template-columns:minmax(180px,240px) 1fr; gap:16px; align-items:end; }
+.an-permanencia-input label { display:block; font-size:10px; color:var(--gris); font-weight:700; text-transform:uppercase; letter-spacing:.4px; margin-bottom:6px; }
+.an-permanencia-input input { width:100%; box-sizing:border-box; padding:11px 12px; border:1px solid var(--borde); border-radius:10px; background:var(--blanco); color:var(--texto); font-size:14px; }
+.an-permanencia-actions { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.an-permanencia-result { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:14px; }
+.an-permanencia-metric { background:var(--fondo); border:1px solid var(--borde); border-radius:12px; padding:13px; }
+.an-permanencia-metric span { display:block; font-size:10px; color:var(--gris); text-transform:uppercase; letter-spacing:.35px; }
+.an-permanencia-metric strong { display:block; margin-top:3px; font-size:18px; color:var(--verde); font-weight:800; }
+.an-permanencia-help { margin:8px 0 0; color:var(--gris); font-size:10.5px; }
+.an-calc-toggle { border:0; background:none; color:var(--verde); font-size:11px; font-weight:700; cursor:pointer; padding:6px 0; }
+.an-calc-detail { margin-top:5px; padding:10px 12px; background:var(--fondo); border-left:3px solid var(--lima); border-radius:8px; color:var(--texto-suave); font-size:11px; line-height:1.55; }
+@media (max-width:700px) { .an-permanencia-grid, .an-permanencia-result { grid-template-columns:1fr; } }
+
 .an-card { background:var(--blanco); border:1px solid var(--borde); border-radius:var(--radio); padding:20px; box-shadow:var(--sombra); }
 .an-card-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:14px; gap:10px; flex-wrap:wrap; }
 .an-card-header h3 { margin:0; font-size:15px; color:var(--texto); }
@@ -3977,6 +3992,27 @@ body {
                 <div class="an-extra-card"><span>MS / animal / día</span><strong id="anDetalleMSAnimal">—</strong><small>Promedio del lote</small></div>
                 <div class="an-extra-card"><span>MS estimada / mes</span><strong id="anDetalleMSMes">—</strong><small>30 días</small></div>
                 <div class="an-extra-card"><span>MS estimada / año</span><strong id="anDetalleMSAnio">—</strong><small>365 días</small></div>
+            </div>
+
+
+            <div class="an-card an-permanencia">
+                <div class="an-card-header">
+                    <div>
+                        <h3>📅 Permanencia y carga</h3>
+                        <p>Ingresá manualmente los días que el lote permanece en el período analizado.</p>
+                    </div>
+                </div>
+                <div class="an-permanencia-grid">
+                    <div class="an-permanencia-input">
+                        <label for="anDiasPermanencia">Días de permanencia</label>
+                        <input id="anDiasPermanencia" type="number" min="1" step="1" placeholder="Ej. 30">
+                    </div>
+                    <div class="an-permanencia-actions">
+                        <button class="btn-primary" id="anBtnCalcularPermanencia" type="button">Calcular indicadores</button>
+                    </div>
+                </div>
+                <p class="an-permanencia-help">Este cálculo es independiente del resto de los módulos. No utiliza oferta de forraje ni determina todavía cuántos días puede sostenerse el lote.</p>
+                <div id="anPermanenciaResultado" style="display:none;"></div>
             </div>
 
             <div class="an-card">
@@ -7202,6 +7238,8 @@ if ("serviceWorker" in navigator) {
   let anCurrentLotId = null;
   let anEditingCategoryId = null;
 
+  document.getElementById("anBtnCalcularPermanencia").addEventListener("click", anCalcularPermanencia);
+
   function anOpenLot(id) {
     const lot = anLots.find(item => item.id === id);
     if (!lot) return;
@@ -7223,6 +7261,15 @@ if ("serviceWorker" in navigator) {
     document.getElementById("anDetalleMSAnimal").textContent = result.animals > 0 ? `${anFormatNumber(result.msPerAnimal,2)} kg` : "—";
     document.getElementById("anDetalleMSMes").textContent = `${anFormatNumber(result.msMonth / 1000,2)} t`;
     document.getElementById("anDetalleMSAnio").textContent = `${anFormatNumber(result.msYear / 1000,2)} t`;
+
+    const diasInput = document.getElementById("anDiasPermanencia");
+    const permanenciaBox = document.getElementById("anPermanenciaResultado");
+    diasInput.value = lot.permanenceDays || "";
+    permanenciaBox.style.display = "none";
+    permanenciaBox.innerHTML = "";
+    if (lot.permanenceDays) {
+      diasInput.value = lot.permanenceDays;
+    }
 
     const surfaceMetric = document.getElementById("anSurfaceMetric");
     if (result.evHa !== null) {
@@ -7354,6 +7401,43 @@ if ("serviceWorker" in navigator) {
     } else {
       surfaceMetric.style.display = "none";
     }
+  }
+
+
+  function anCalcularPermanencia() {
+    if (anCurrentLotId === null) return;
+    const lot = anLots.find(item => item.id === anCurrentLotId);
+    if (!lot) return;
+    const dias = Number(document.getElementById("anDiasPermanencia").value);
+    if (!Number.isFinite(dias) || dias <= 0) {
+      alert("Ingresá una cantidad de días válida.");
+      return;
+    }
+
+    lot.permanenceDays = dias;
+    anSaveLots();
+
+    const result = anCalculateLot(lot);
+    const evDia = result.ev * dias;
+    const evDiaHa = result.evHa !== null ? evDia / lot.surfaceHa : null;
+    const box = document.getElementById("anPermanenciaResultado");
+
+    box.innerHTML = `
+      <div class="an-permanencia-result">
+        <div class="an-permanencia-metric"><span>EV-día</span><strong>${anFormatNumber(evDia,1)}</strong></div>
+        ${evDiaHa !== null ? `<div class="an-permanencia-metric"><span>EV-día / ha</span><strong>${anFormatNumber(evDiaHa,1)}</strong></div>` : `<div class="an-permanencia-metric"><span>Superficie</span><strong>Sin cargar</strong></div>`}
+      </div>
+      <button class="an-calc-toggle" type="button" id="anBtnVerCalculoPermanencia">ⓘ Ver cálculo</button>
+      <div class="an-calc-detail" id="anCalculoPermanencia" style="display:none;">
+        <strong>EV-día</strong> = EV totales × días de permanencia<br>
+        ${anFormatNumber(result.ev,1)} EV × ${anFormatNumber(dias,0)} días = <strong>${anFormatNumber(evDia,1)} EV-día</strong>
+        ${evDiaHa !== null ? `<br><br><strong>EV-día/ha</strong> = EV-día ÷ superficie<br>${anFormatNumber(evDia,1)} ÷ ${anFormatNumber(lot.surfaceHa,1)} ha = <strong>${anFormatNumber(evDiaHa,1)} EV-día/ha</strong>` : ""}
+      </div>`;
+    box.style.display = "block";
+    document.getElementById("anBtnVerCalculoPermanencia").addEventListener("click", () => {
+      const d = document.getElementById("anCalculoPermanencia");
+      d.style.display = d.style.display === "none" ? "block" : "none";
+    });
   }
 
   function anRemoveCategoryFromLot(lotId, categoryId) {
