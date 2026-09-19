@@ -3402,6 +3402,10 @@ body {
     border:1px dashed var(--borde);
 }
 .agenda-vacia strong { color:var(--verde); }
+.agenda-animales-header{margin:26px 0 12px;padding-top:14px;border-top:1px dashed var(--borde);}
+.agenda-animales-header h3{margin:0;font-size:14px;color:var(--texto);}
+.an-agenda-card{border-left:5px solid #a8703f;padding-left:14px;background:var(--blanco);border-radius:0 12px 12px 0;padding-top:10px;padding-bottom:10px;}
+.an-agenda-card .agenda-lote-header strong{color:#8a5a34;}
 .agenda-sin-clima {
     text-align:center;
     font-size:10px;
@@ -3621,6 +3625,14 @@ body {
 .an-gdp-nota.an-valor-ok{color:var(--verde);}
 .an-gdp-nota.an-valor-warn{color:var(--ambar-alerta);}
 .an-gdp-nota.an-valor-bad{color:var(--rojo-alerta);}
+.an-potreros-list{display:flex;flex-direction:column;gap:6px;max-height:180px;overflow-y:auto;border:1px solid var(--borde);border-radius:11px;padding:8px;}
+.an-potreros-empty{margin:4px;font-size:11.5px;color:var(--gris);}
+.an-potreros-item{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:8px;font-size:12px;color:var(--texto);}
+.an-potreros-item:hover{background:var(--fondo);}
+.an-potreros-item input{width:auto;flex-shrink:0;}
+.an-potreros-item .an-potreros-meta{color:var(--gris);font-size:10.5px;margin-left:auto;text-align:right;flex-shrink:0;}
+.an-forage-potreros{font-size:12px;color:var(--texto-suave);line-height:1.6;}
+.an-forage-potreros .an-forage-chip{display:inline-block;background:var(--verde-claro);color:var(--verde);border-radius:99px;padding:3px 10px;font-size:11px;font-weight:700;margin:0 6px 6px 0;}
 .an-food-summary{display:flex;flex-direction:column;gap:7px;min-height:72px;}
 .an-food-summary>div{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 10px;border-radius:10px;background:var(--fondo);}
 .an-food-summary strong{font-size:10.5px;color:var(--texto);}
@@ -4019,7 +4031,7 @@ body {
         </div>
 
         <div class="an-card an-carga-card">
-            <div class="an-card-header"><div><h3>📐 Carga animal por cuadro</h3><p>Indicadores del lote sobre la superficie declarada.</p></div></div>
+            <div class="an-card-header"><div><h3>📐 Carga animal por cuadro</h3><p>Indicadores del lote sobre la superficie vinculada o declarada.</p></div></div>
             <div class="an-carga-grid">
                 <div><span>EV totales</span><strong id="anCargaEV">—</strong></div>
                 <div><span>EV / ha</span><strong id="anCargaEVHa">—</strong></div>
@@ -4027,6 +4039,18 @@ body {
                 <div><span>EV-día / ha</span><strong id="anCargaEVDiaHa">—</strong></div>
             </div>
             <p class="an-permanencia-help">La carga se expresa en EV. EV/ha no reemplaza el análisis de oferta forrajera ni indica por sí sola si la carga es sostenible.</p>
+        </div>
+
+        <div class="an-card an-forage-card">
+            <div class="an-card-header"><div><h3>🌱 Forraje disponible</h3><p>Según los potreros de "Mis lotes" vinculados a este lote animal.</p></div></div>
+            <div id="anForagePotreros" class="an-forage-potreros">—</div>
+            <div class="an-carga-grid" style="margin-top:10px;">
+                <div><span>Superficie vinculada</span><strong id="anForageSuperficie">—</strong></div>
+                <div><span>MS disponible estimada</span><strong id="anForageMS">—</strong></div>
+                <div><span>Demanda del lote</span><strong id="anForageDemanda">—</strong></div>
+                <div><span>Autonomía estimada</span><strong id="anForageAutonomia">—</strong></div>
+            </div>
+            <p class="an-permanencia-help" id="anForageNota">Vinculá uno o más potreros desde "Editar lote" para ver la autonomía forrajera real.</p>
         </div>
 
         <div class="an-card">
@@ -4071,9 +4095,10 @@ body {
                 <div class="form-group full"><label for="anInputNombreLote">Nombre del lote</label><input id="anInputNombreLote" type="text" placeholder="Ej. Novillos recría"></div>
                 <div class="form-group"><label for="anInputEspecie">Especie</label><select id="anInputEspecie"><option value="bovinos">🐄 Bovinos</option><option value="ovinos">🐑 Ovinos</option></select></div>
                 <div class="form-group"><label for="anInputSistema">Sistema</label><select id="anInputSistema"><option value="campo">🌱 A campo</option><option value="feedlot">🏭 Feedlot</option></select></div>
-                <div class="form-group"><label for="anInputSuperficie">Superficie (ha)</label><input id="anInputSuperficie" type="number" min="0" step="0.1" placeholder="Opcional en feedlot"></div>
+                <div class="form-group"><label for="anInputSuperficie">Superficie manual (ha)</label><input id="anInputSuperficie" type="number" min="0" step="0.1" placeholder="Si no vinculás potreros"></div>
                 <div class="form-group"><label for="anInputDiasPeriodo">Días del período</label><input id="anInputDiasPeriodo" type="number" min="1" step="1" placeholder="Ej. 60"></div>
             </div>
+            <div style="margin-top:14px;"><label style="display:block;margin-bottom:6px;font-size:12px;font-weight:700;color:var(--texto);">Potreros de "Mis lotes" vinculados (opcional)</label><div id="anPotrerosBuilder" class="an-potreros-list"><p class="an-potreros-empty">Cargando potreros…</p></div></div>
             <div style="margin-top:18px;"><h4 style="margin:0 0 4px;font-size:13px;">Animales y alimentación</h4><p style="margin:0 0 10px;font-size:11px;color:var(--gris);">Para cada categoría cargá peso, objetivo y alimento principal.</p><div id="anCategoriasBuilder"></div><button id="anBtnAgregarCategoriaForm" class="an-add-category" type="button">+ Agregar otra categoría</button></div>
             <div class="modal-botones" style="margin-top:20px;"><button id="anBtnCancelarModal" class="btn-secundario">Cancelar</button><button id="anBtnGuardarLote" class="btn-primary">Crear lote</button></div>
         </div>
@@ -4086,9 +4111,10 @@ body {
                 <div class="form-group full"><label for="anEditNombreLote">Nombre del lote</label><input id="anEditNombreLote" type="text"></div>
                 <div class="form-group"><label for="anEditEspecie">Especie</label><select id="anEditEspecie"><option value="bovinos">🐄 Bovinos</option><option value="ovinos">🐑 Ovinos</option></select></div>
                 <div class="form-group"><label for="anEditSistema">Sistema</label><select id="anEditSistema"><option value="campo">🌱 A campo</option><option value="feedlot">🏭 Feedlot</option></select></div>
-                <div class="form-group"><label for="anEditSuperficie">Superficie (ha)</label><input id="anEditSuperficie" type="number" min="0" step="0.1"></div>
+                <div class="form-group"><label for="anEditSuperficie">Superficie manual (ha)</label><input id="anEditSuperficie" type="number" min="0" step="0.1"></div>
                 <div class="form-group"><label for="anEditDiasPeriodo">Días del período</label><input id="anEditDiasPeriodo" type="number" min="1" step="1"></div>
             </div>
+            <div style="margin-top:14px;"><label style="display:block;margin-bottom:6px;font-size:12px;font-weight:700;color:var(--texto);">Potreros de "Mis lotes" vinculados (opcional)</label><div id="anEditPotrerosBuilder" class="an-potreros-list"><p class="an-potreros-empty">Cargando potreros…</p></div></div>
             <div style="margin-top:20px;">
                 <div style="display:flex;justify-content:space-between;align-items:end;gap:12px;margin-bottom:10px;">
                     <div><h4 style="margin:0 0 4px;font-size:13px;">Animales, pesos y alimentación</h4><p style="margin:0;font-size:11px;color:var(--gris);">Toda la información del lote se modifica desde este único lugar.</p></div>
@@ -4619,6 +4645,7 @@ body {
                     <option value="todos">Todos los lotes</option>
                     <option value="forraje">Forraje</option>
                     <option value="silaje">Silaje</option>
+                    <option value="animales">🐄 Animales</option>
                 </select>
                 <span class="lotes-header-badge" id="agendaBadgeVencidos" style="display:none;">⚠️ 0 vencidos</span>
             </div>
@@ -6835,13 +6862,16 @@ async function renderAgendaCampo() {
     }
 
     if (lotesFiltrados.length === 0) {
-        if (lotes.length === 0) {
+        if (lotes.length === 0 && filtroTipo !== "animales") {
             html += '<div class="agenda-vacia">Todavía no tenés lotes cargados.<br><button class="btn-ir-lotes" onclick="irAMisLotesDesdeAgenda()">IR A MIS LOTES</button></div>';
-        } else {
+        } else if (filtroTipo !== "animales" && filtroTipo !== "todos") {
             html += '<div class="agenda-vacia">No hay lotes del tipo seleccionado.</div>';
         }
     } else {
         lotesFiltrados.forEach(lote => { html += renderLoteAgendaCard(lote); });
+    }
+    if ((filtroTipo === "todos" || filtroTipo === "animales") && typeof window.anRenderAgendaSection === "function") {
+        html += window.anRenderAgendaSection();
     }
     cont.innerHTML = html;
 }
@@ -7002,6 +7032,32 @@ if ("serviceWorker" in navigator) {
   let anLots=anLoadLots();
   function anSaveLots(){ try{localStorage.setItem(AN_STORAGE_KEY,JSON.stringify(anLots));}catch(e){console.warn('Animales: no se pudieron guardar los lotes.',e);} }
 
+  let anMisLotesCache = null;
+  async function anLoadMisLotesCache(force){
+    if(anMisLotesCache && !force) return anMisLotesCache;
+    try { anMisLotesCache = (typeof cargarLotes==='function') ? await cargarLotes() : []; }
+    catch(e){ anMisLotesCache = []; }
+    return anMisLotesCache;
+  }
+  function anLinkedPotreros(lot){
+    if(!anMisLotesCache || !Array.isArray(lot.linkedLoteIds) || !lot.linkedLoteIds.length) return [];
+    return lot.linkedLoteIds.map(id=>anMisLotesCache.find(l=>String(l.id)===String(id))).filter(Boolean);
+  }
+  function anEffectiveSurface(lot){
+    const potreros=anLinkedPotreros(lot);
+    if(potreros.length) return potreros.reduce((a,l)=>a+(Number(l.superficie)||0),0);
+    return Number(lot.surfaceHa)||0;
+  }
+  function anForageAvailable(lot){
+    const potreros=anLinkedPotreros(lot);
+    if(!potreros.length) return null;
+    let kgMsTotal=0, conMedicion=0;
+    potreros.forEach(l=>{
+      const ultima=(l.mediciones||[])[l.mediciones.length-1];
+      if(ultima && ultima.msHa){ kgMsTotal += ultima.msHa*(Number(l.superficie)||0); conMedicion++; }
+    });
+    return {potreros,kgMsTotal,conMedicion};
+  }
   function anCalculateCategory(c){
     const sp=AN_CATEGORY_SPECIES[c.category], p=AN_PARAMS[sp]?.[c.category];
     if(!p)return {ev:0,ms:0};
@@ -7013,7 +7069,8 @@ if ("serviceWorker" in navigator) {
   function anCalculateLot(lot){
     let animals=0,ev=0,ms=0;
     lot.categories.forEach(c=>{const r=anCalculateCategory(c);animals+=Number(c.quantity)||0;ev+=r.ev;ms+=r.ms;});
-    return {animals,ev,ms,evHa:lot.surfaceHa>0?ev/lot.surfaceHa:null,msPerAnimal:animals?ms/animals:0};
+    const surface=anEffectiveSurface(lot);
+    return {animals,ev,ms,evHa:surface>0?ev/surface:null,msPerAnimal:animals?ms/animals:0,surface};
   }
   function anAverageInitial(lot){
     const n=lot.categories.reduce((a,c)=>a+(Number(c.quantity)||0),0); if(!n)return 0;
@@ -7096,7 +7153,31 @@ if ("serviceWorker" in navigator) {
     else diasEl.textContent=d!==null?anFormatNumber(d,0)+' días':'—';
     const feeds=new Set(lot.categories.map(c=>c.feed));
     document.getElementById('anFoodSummary').innerHTML=lot.categories.map(c=>`<div><strong>${anEscapeHTML(AN_CATEGORY_LABELS[c.category])}</strong><span>${anEscapeHTML(anGetFeedLabel(c))} · ${c.quantity} animales</span></div>`).join(''); document.getElementById('anGDPEsperado').textContent=e?anFormatNumber(e,2)+' kg/día':'—';
-    document.getElementById('anCargaEV').textContent=anFormatNumber(r.ev,1);document.getElementById('anCargaEVHa').textContent=r.evHa!==null?anFormatNumber(r.evHa,2):'—';document.getElementById('anCargaDias').textContent=lot.periodDays?anFormatNumber(lot.periodDays,0):'—';document.getElementById('anCargaEVDiaHa').textContent=r.evHa!==null&&lot.periodDays?anFormatNumber(r.ev*lot.periodDays/lot.surfaceHa,2):'—';
+    document.getElementById('anCargaEV').textContent=anFormatNumber(r.ev,1);document.getElementById('anCargaEVHa').textContent=r.evHa!==null?anFormatNumber(r.evHa,2):'—';document.getElementById('anCargaDias').textContent=lot.periodDays?anFormatNumber(lot.periodDays,0):'—';document.getElementById('anCargaEVDiaHa').textContent=r.evHa!==null&&lot.periodDays?anFormatNumber(r.ev*lot.periodDays/r.surface,2):'—';
+    const forage=anForageAvailable(lot);
+    const potrerosEl=document.getElementById('anForagePotreros'), notaForageEl=document.getElementById('anForageNota');
+    if(!forage){
+      potrerosEl.textContent='Sin potreros vinculados.';
+      document.getElementById('anForageSuperficie').textContent=lot.surfaceHa?anFormatNumber(lot.surfaceHa,1)+' ha (manual)':'—';
+      document.getElementById('anForageMS').textContent='—';
+      document.getElementById('anForageDemanda').textContent=r.ms?anFormatNumber(r.ms,0)+' kg MS/día':'—';
+      document.getElementById('anForageAutonomia').textContent='—';
+      notaForageEl.textContent='Vinculá uno o más potreros desde "Editar lote" para ver la autonomía forrajera real.';
+    } else {
+      potrerosEl.innerHTML=forage.potreros.map(l=>`<span class="an-forage-chip">${anEscapeHTML(l.nombre)}</span>`).join('');
+      document.getElementById('anForageSuperficie').textContent=anFormatNumber(r.surface,1)+' ha';
+      document.getElementById('anForageDemanda').textContent=r.ms?anFormatNumber(r.ms,0)+' kg MS/día':'—';
+      if(forage.conMedicion<forage.potreros.length){
+        document.getElementById('anForageMS').textContent=forage.kgMsTotal?anFormatNumber(forage.kgMsTotal,0)+' kg (parcial)':'—';
+        notaForageEl.textContent='Alguno de los potreros vinculados todavía no tiene mediciones de rendimiento cargadas en "Mis lotes".';
+        document.getElementById('anForageAutonomia').textContent='—';
+      } else {
+        document.getElementById('anForageMS').textContent=anFormatNumber(forage.kgMsTotal,0)+' kg';
+        const autonomia=r.ms>0?forage.kgMsTotal/r.ms:null;
+        document.getElementById('anForageAutonomia').textContent=autonomia!==null?anFormatNumber(autonomia,0)+' días':'—';
+        notaForageEl.textContent='Estimado con la última medición de MS/ha cargada en cada potrero.';
+      }
+    }
     anRenderCategoryTable(lot);anRenderWeightHistory(lot);anRenderLots();
   }
   function anRenderCategoryTable(lot){
@@ -7121,6 +7202,22 @@ if ("serviceWorker" in navigator) {
 
   function anOpenCreateModal(){
     document.getElementById('anInputNombreLote').value='';document.getElementById('anInputEspecie').value='bovinos';document.getElementById('anInputSistema').value='campo';document.getElementById('anInputSuperficie').value='';document.getElementById('anInputDiasPeriodo').value='';document.getElementById('anCategoriasBuilder').innerHTML='';anAddCategoryForm();document.getElementById('anModalNuevoLote').style.display='flex';
+    anRenderPotrerosPicker('anPotrerosBuilder',[]);
+  }
+  async function anRenderPotrerosPicker(containerId,selectedIds){
+    const cont=document.getElementById(containerId); if(!cont)return;
+    cont.innerHTML='<p class="an-potreros-empty">Cargando potreros…</p>';
+    const potreros=await anLoadMisLotesCache();
+    if(!potreros.length){cont.innerHTML='<p class="an-potreros-empty">Todavía no tenés potreros cargados en "Mis lotes".</p>';return;}
+    const sel=(selectedIds||[]).map(String);
+    cont.innerHTML=potreros.map(l=>{
+      const ultima=(l.mediciones||[])[l.mediciones.length-1];
+      const meta=`${anFormatNumber(l.superficie||0,1)} ha`+(ultima&&ultima.msHa?` · ${anFormatNumber(ultima.msHa,0)} kg MS/ha`:' · sin medición');
+      return `<label class="an-potreros-item"><input type="checkbox" value="${l.id}" ${sel.includes(String(l.id))?'checked':''}><span>${anEscapeHTML(l.nombre)}</span><span class="an-potreros-meta">${meta}</span></label>`;
+    }).join('');
+  }
+  function anReadPotrerosPicker(containerId){
+    return [...document.querySelectorAll('#'+containerId+' input:checked')].map(i=>i.value);
   }
   function anAddCategoryForm(){
     const species=document.getElementById('anInputEspecie').value,system=document.getElementById('anInputSistema').value,row=document.createElement('div');row.className='an-categoria-row';
@@ -7133,7 +7230,7 @@ if ("serviceWorker" in navigator) {
     const categories=[];let targetInvalido=false;document.querySelectorAll('#anCategoriasBuilder .an-categoria-row').forEach(row=>{const category=row.querySelector('.an-categoria-select').value,quantity=Number(row.querySelector('.an-cantidad-input').value),initialWeight=Number(row.querySelector('.an-peso-inicial-input').value),liveWeight=Number(row.querySelector('.an-peso-input').value),targetWeight=Number(row.querySelector('.an-peso-objetivo-input').value)||0,feed=row.querySelector('.an-feed-select').value,expectedGDP=Number(row.querySelector('.an-gdp-input').value)||0;if(targetWeight>0&&liveWeight>0&&targetWeight<=liveWeight)targetInvalido=true;if(quantity>0&&initialWeight>0&&liveWeight>0)categories.push({id:anNextCategoryId(),category,quantity,initialWeight,liveWeight,targetWeight,feed,expectedGDP,state:'recria'});});
     if(!categories.length){alert('Agregá al menos una categoría con cantidad y pesos válidos.');return;}
     if(targetInvalido){alert('El peso objetivo debe ser mayor al peso actual en todas las categorías.');return;}
-    const newLot={id:Date.now(),name,species,system,surfaceHa:surface,periodDays,categories,weights:[{date:anToday(),weight:liveWeightFromCategories(categories)}]};
+    const newLot={id:Date.now(),name,species,system,surfaceHa:surface,linkedLoteIds:anReadPotrerosPicker('anPotrerosBuilder'),periodDays,categories,weights:[{date:anToday(),weight:liveWeightFromCategories(categories)}]};
     anLots.push(newLot);anSaveLots();document.getElementById('anModalNuevoLote').style.display='none';anRenderLots();anOpenLot(newLot.id);
   }
   function liveWeightFromCategories(cs){const n=cs.reduce((a,c)=>a+c.quantity,0);return n?cs.reduce((a,c)=>a+c.liveWeight*c.quantity,0)/n:0;}
@@ -7156,6 +7253,7 @@ if ("serviceWorker" in navigator) {
     document.getElementById('anEditSistema').value=lot.system||'campo';
     document.getElementById('anEditSuperficie').value=lot.surfaceHa||'';
     document.getElementById('anEditDiasPeriodo').value=lot.periodDays||'';
+    anRenderPotrerosPicker('anEditPotrerosBuilder',lot.linkedLoteIds||[]);
     const b=document.getElementById('anCategoriasEditBuilder'); b.innerHTML='';
     (lot.categories||[]).forEach(c=>anBuildEditCategoryRow(c,lot));
     if(!lot.categories||!lot.categories.length) anBuildEditCategoryRow({category:Object.keys(AN_PARAMS[lot.species||'bovinos'])[0],quantity:1,initialWeight:'',liveWeight:'',targetWeight:'',feed:lot.system==='feedlot'?'feedlot_maiz':'campo_alfalfa'},lot);
@@ -7174,7 +7272,7 @@ if ("serviceWorker" in navigator) {
     rows.forEach((row,i)=>{const quantity=Number(row.querySelector('.an-cantidad-input').value),initialWeight=Number(row.querySelector('.an-peso-inicial-input').value),liveWeight=Number(row.querySelector('.an-peso-input').value),targetWeight=Number(row.querySelector('.an-peso-objetivo-input').value)||0;if(targetWeight>0&&liveWeight>0&&targetWeight<=liveWeight)targetInvalido=true;if(quantity>0&&initialWeight>0&&liveWeight>0)categories.push({id:lot.categories[i]?.id||anNextCategoryId(),category:row.querySelector('.an-categoria-select').value,quantity,initialWeight,liveWeight,targetWeight,feed:row.querySelector('.an-feed-select').value,expectedGDP:lot.categories[i]?.expectedGDP||0,state:lot.categories[i]?.state||'recria'});});
     if(!categories.length){alert('Agregá al menos una categoría con cantidad, peso inicial y peso actual válidos.');return;}
     if(targetInvalido){alert('El peso objetivo debe ser mayor al peso actual en todas las categorías.');return;}
-    lot.name=document.getElementById('anEditNombreLote').value.trim()||lot.name; lot.species=species; lot.system=system; lot.surfaceHa=Number(document.getElementById('anEditSuperficie').value)||0; lot.periodDays=Number(document.getElementById('anEditDiasPeriodo').value)||0; lot.categories=categories;
+    lot.name=document.getElementById('anEditNombreLote').value.trim()||lot.name; lot.species=species; lot.system=system; lot.surfaceHa=Number(document.getElementById('anEditSuperficie').value)||0; lot.linkedLoteIds=anReadPotrerosPicker('anEditPotrerosBuilder'); lot.periodDays=Number(document.getElementById('anEditDiasPeriodo').value)||0; lot.categories=categories;
     anSaveLots(); document.getElementById('anModalEditarLote').style.display='none'; anRefreshDetail();
   };
 
@@ -7230,6 +7328,36 @@ if ("serviceWorker" in navigator) {
   document.getElementById('anBtnEliminarLote').onclick=()=>{if(anCurrentLotId!==null)anAskDeleteLot(anCurrentLotId);};
 
   window.anRenderLots=anRenderLots;
+  window.anLoadMisLotesCache=anLoadMisLotesCache;
+  window.anRefreshDetail=anRefreshDetail;
+  function anLotAlerts(lot){
+    const alerts=[];
+    const target=anAverageTarget(lot), current=anAverageCurrent(lot);
+    const g=anGDPObserved(lot), e=anGDPExpected(lot), nivel=anPerformanceLevel(g,e);
+    if(target>0&&current>0&&current>=target) alerts.push({tono:'bueno',texto:'🎯 Objetivo de peso alcanzado — evaluar destino o venta.'});
+    else if(nivel==='bad') alerts.push({tono:'atencion',texto:'🔻 GDP observado muy por debajo del esperado.'});
+    else if(nivel==='warn') alerts.push({tono:'atencion',texto:'⚠ GDP observado por debajo del esperado.'});
+    const pesos=lot.weights||[];
+    if(pesos.length){
+      const diasSinPesar=anDaysBetween(pesos[pesos.length-1].date,anToday());
+      if(diasSinPesar>=21) alerts.push({tono:'atencion',texto:`Hace ${diasSinPesar} días que no registrás un peso nuevo.`});
+    }
+    return alerts;
+  }
+  function anRenderAgendaSection(){
+    if(!anLots.length) return '';
+    const conAlertas=anLots.map(l=>({lot:l,alerts:anLotAlerts(l)})).filter(x=>x.alerts.length);
+    let html='<div class="agenda-animales-header"><h3>🐄 Alertas de hacienda</h3></div>';
+    if(!conAlertas.length){ html+='<div class="agenda-vacia">Sin alertas pendientes en tus lotes de animales.</div>'; return html; }
+    conAlertas.forEach(({lot,alerts})=>{
+      html+=`<div class="agenda-lote-card an-agenda-card"><div class="agenda-lote-header"><div><strong>${AN_SPECIES_NAMES[lot.species]?.split(' ')[0]||'🐄'} ${anEscapeHTML(lot.name)}</strong><span>${anCalculateLot(lot).animals} animales</span></div><button class="btn-secundario" onclick="abrirAnimales();window.anOpenLotFromAgenda(${lot.id})">VER FICHA</button></div>`;
+      alerts.forEach(a=>{ html+=`<div class="trabajo-alerta-linea" style="margin:6px 0;">${a.tono==='bueno'?'✅':'⚠️'} ${anEscapeHTML(a.texto)}</div>`; });
+      html+='</div>';
+    });
+    return html;
+  }
+  window.anRenderAgendaSection=anRenderAgendaSection;
+  window.anOpenLotFromAgenda=function(id){ if(typeof anOpenLot==='function') anOpenLot(id); };
   anRenderLots();
 })();
 </script>
@@ -7241,6 +7369,12 @@ function abrirAnimales() {
     const vista = document.getElementById("vistaAnimales");
     if (vista) vista.style.display = "block";
     if (typeof window.anRenderLots === "function") window.anRenderLots();
+    if (typeof window.anLoadMisLotesCache === "function") {
+        window.anLoadMisLotesCache().then(() => {
+            if (typeof window.anRenderLots === "function") window.anRenderLots();
+            if (typeof window.anRefreshDetail === "function") window.anRefreshDetail();
+        });
+    }
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
