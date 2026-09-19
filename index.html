@@ -4067,18 +4067,6 @@ body {
             <div id="anPesoChart" class="an-weight-chart"></div>
         </div>
 
-        <div class="an-card">
-            <div class="an-card-header">
-                <div><h3>Categorías</h3><p>Composición actual del lote. Para modificarla, usá <strong>Editar lote</strong>.</p></div>
-            </div>
-            <div class="an-table-wrap">
-                <table class="an-table">
-                    <thead><tr><th>Categoría</th><th>Cantidad</th><th>PV inicial → actual</th><th>Alimento</th></tr></thead>
-                    <tbody id="anTablaCategorias"></tbody>
-                </table>
-            </div>
-        </div>
-
         <div class="an-methodology">
             <button id="anBtnVerCalculo" class="an-methodology-btn">
                 <span>ⓘ</span><div><strong>Ver cómo se calcula</strong><small>Metodología y supuestos del módulo</small></div><span>⌄</span>
@@ -7220,7 +7208,7 @@ if ("serviceWorker" in navigator) {
     if(target>0&&current>0&&current>=target)document.getElementById('anResumenDias').textContent='🎯 Alcanzado';
     else document.getElementById('anResumenDias').textContent=d!==null?anFormatNumber(d,0)+' días':'—';
     document.getElementById('anResumenGDPEsperado').textContent=e?anFormatNumber(e,2)+' kg/día':'—';
-    document.getElementById('anFoodSummary').innerHTML=lot.categories.map(c=>`<div><strong>${anEscapeHTML(AN_CATEGORY_LABELS[c.category])}</strong><span>${anEscapeHTML(anGetFeedLabel(c))} · ${c.quantity} animales</span></div>`).join('');
+    document.getElementById('anFoodSummary').innerHTML=lot.categories.map(c=>`<div><strong>${anEscapeHTML(AN_CATEGORY_LABELS[c.category])}</strong><span>${anEscapeHTML(anGetFeedLabel(c))} · ${c.quantity} animales · ${anFormatNumber(c.initialWeight||c.liveWeight,0)} kg → ${anFormatNumber(c.liveWeight,0)} kg</span></div>`).join('');
     document.getElementById('anCargaEV').textContent=anFormatNumber(r.ev,1);document.getElementById('anCargaEVHa').textContent=r.evHa!==null?anFormatNumber(r.evHa,2):'—';document.getElementById('anCargaDias').textContent=lot.periodDays?anFormatNumber(lot.periodDays,0):'—';document.getElementById('anCargaEVDiaHa').textContent=r.evHa!==null&&lot.periodDays?anFormatNumber(r.ev*lot.periodDays/r.surface,2):'—';
     const forage=anForageAvailable(lot);
     const potrerosEl=document.getElementById('anForagePotreros'), notaForageEl=document.getElementById('anForageNota');
@@ -7246,15 +7234,8 @@ if ("serviceWorker" in navigator) {
         notaForageEl.textContent='Estimado con la última medición de MS/ha cargada en cada potrero.';
       }
     }
-    anRenderCategoryTable(lot);anRenderWeightHistory(lot);anRenderLots();
+    anRenderWeightHistory(lot);anRenderLots();
   }
-  function anRenderCategoryTable(lot){
-    const tbody=document.getElementById('anTablaCategorias');tbody.innerHTML='';
-    lot.categories.forEach(c=>{const tr=document.createElement('tr');anRenderStaticCategoryRow(tr,c);tbody.appendChild(tr);});
-    if(!lot.categories.length)tbody.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--gris);padding:18px;">Sin categorías.</td></tr>';
-  }
-  function anRenderStaticCategoryRow(row,c){row.innerHTML=`<td><strong>${anEscapeHTML(AN_CATEGORY_LABELS[c.category])}</strong></td><td>${c.quantity}</td><td>${anFormatNumber(c.initialWeight||c.liveWeight,0)} kg → ${anFormatNumber(c.liveWeight,0)} kg</td><td>${anEscapeHTML(anGetFeedLabel(c))}</td>`;}
-
   function anRenderWeightHistory(lot){
     const timeline=document.getElementById('anPesoTimeline'),chart=document.getElementById('anPesoChart');timeline.innerHTML='';chart.innerHTML='';
     const points=[...(lot.weights||[])].sort((a,b)=>a.date.localeCompare(b.date));
