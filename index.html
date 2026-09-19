@@ -3484,9 +3484,9 @@ body {
 .an-lotes-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; }
 .an-lote-card { position:relative; background:var(--blanco); border:1px solid var(--borde); border-radius:var(--radio-peq); padding:18px; cursor:pointer; box-shadow:var(--sombra); transition:var(--transicion); }
 .an-lote-card:hover { box-shadow:var(--sombra-hover); transform:translateY(-2px); }
-.an-lote-card-header { display:flex; justify-content:space-between; align-items:flex-start; }
-.an-lote-name { font-weight:800; font-size:16px; color:var(--texto); }
-.an-species-badge { background:var(--verde-claro); color:var(--verde); border-radius:99px; padding:4px 10px; font-size:10.5px; font-weight:700; }
+.an-lote-card-header { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; padding-right:38px; }
+.an-lote-name { font-weight:800; font-size:16px; color:var(--texto); min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.an-species-badge { background:var(--verde-claro); color:var(--verde); border-radius:99px; padding:4px 10px; font-size:10.5px; font-weight:700; white-space:nowrap; flex-shrink:0; }
 .an-lote-description { margin-top:6px; color:var(--texto-suave); font-size:12.5px; }
 .an-lote-metrics { display:flex; gap:20px; flex-wrap:wrap; margin-top:14px; }
 .an-lote-metric span { display:block; font-size:9.5px; color:var(--gris); text-transform:uppercase; letter-spacing:.4px; }
@@ -7133,7 +7133,8 @@ if ("serviceWorker" in navigator) {
     const categories=[];let targetInvalido=false;document.querySelectorAll('#anCategoriasBuilder .an-categoria-row').forEach(row=>{const category=row.querySelector('.an-categoria-select').value,quantity=Number(row.querySelector('.an-cantidad-input').value),initialWeight=Number(row.querySelector('.an-peso-inicial-input').value),liveWeight=Number(row.querySelector('.an-peso-input').value),targetWeight=Number(row.querySelector('.an-peso-objetivo-input').value)||0,feed=row.querySelector('.an-feed-select').value,expectedGDP=Number(row.querySelector('.an-gdp-input').value)||0;if(targetWeight>0&&liveWeight>0&&targetWeight<=liveWeight)targetInvalido=true;if(quantity>0&&initialWeight>0&&liveWeight>0)categories.push({id:anNextCategoryId(),category,quantity,initialWeight,liveWeight,targetWeight,feed,expectedGDP,state:'recria'});});
     if(!categories.length){alert('Agregá al menos una categoría con cantidad y pesos válidos.');return;}
     if(targetInvalido){alert('El peso objetivo debe ser mayor al peso actual en todas las categorías.');return;}
-    anLots.push({id:Date.now(),name,species,system,surfaceHa:surface,periodDays,categories,weights:[{date:anToday(),weight:liveWeightFromCategories(categories)}]});anSaveLots();document.getElementById('anModalNuevoLote').style.display='none';anRenderLots();
+    const newLot={id:Date.now(),name,species,system,surfaceHa:surface,periodDays,categories,weights:[{date:anToday(),weight:liveWeightFromCategories(categories)}]};
+    anLots.push(newLot);anSaveLots();document.getElementById('anModalNuevoLote').style.display='none';anRenderLots();anOpenLot(newLot.id);
   }
   function liveWeightFromCategories(cs){const n=cs.reduce((a,c)=>a+c.quantity,0);return n?cs.reduce((a,c)=>a+c.liveWeight*c.quantity,0)/n:0;}
 
