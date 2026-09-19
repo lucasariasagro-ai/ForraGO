@@ -697,6 +697,11 @@ body {
 .btn-gestionar-animal:hover {
     box-shadow:0 12px 36px rgba(138,90,52,.38);
 }
+.an-btn-primario{
+    background:linear-gradient(135deg, #8a5a34, #a8703f);
+    box-shadow:0 4px 16px rgba(138,90,52,.28);
+}
+.an-btn-primario:hover{ box-shadow:0 8px 24px rgba(138,90,52,.38); }
 
 /* =========================================================
    PANEL
@@ -3615,9 +3620,11 @@ body {
 .an-performance-kpis>div,.an-carga-grid>div{background:var(--fondo);border:1px solid var(--borde);border-radius:11px;padding:11px;}
 .an-performance-kpis span,.an-carga-grid span{display:block;font-size:9px;color:var(--gris);text-transform:uppercase;letter-spacing:.35px;}
 .an-performance-kpis strong,.an-carga-grid strong{display:block;margin-top:4px;font-size:15px;color:var(--texto);font-weight:800;}
-.an-target-box{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;padding:10px;border:1px dashed var(--borde);border-radius:11px;}
-.an-target-box span{display:block;font-size:9px;color:var(--gris);text-transform:uppercase;}
-.an-target-box strong{display:block;margin-top:3px;color:var(--verde);font-size:15px;}
+.an-resumen-clave{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;padding:18px 14px;border-radius:18px;background:linear-gradient(135deg,#8a5a34,#a8703f);box-shadow:0 10px 28px rgba(138,90,52,.25);}
+.an-resumen-clave div{text-align:center;}
+.an-resumen-clave span{display:block;font-size:9.5px;font-weight:700;color:rgba(255,255,255,.82);text-transform:uppercase;letter-spacing:.3px;}
+.an-resumen-clave strong{display:block;margin-top:5px;font-size:19px;font-weight:800;color:#fff;line-height:1.2;}
+@media (max-width:520px){.an-resumen-clave{grid-template-columns:1fr;gap:12px;}}
 .an-performance-kpis strong.an-valor-ok,.an-lote-metric strong.an-valor-ok{color:var(--verde);}
 .an-performance-kpis strong.an-valor-warn,.an-lote-metric strong.an-valor-warn{color:var(--ambar-alerta);}
 .an-performance-kpis strong.an-valor-bad,.an-lote-metric strong.an-valor-bad{color:var(--rojo-alerta);}
@@ -3637,9 +3644,6 @@ body {
 .an-food-summary>div{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:8px 10px;border-radius:10px;background:var(--fondo);}
 .an-food-summary strong{font-size:10.5px;color:var(--texto);}
 .an-food-summary span{font-size:9.5px;color:var(--gris);text-align:right;}
-.an-expected-gdp{margin-top:10px;padding:11px;border-radius:11px;background:var(--verde-claro);}
-.an-expected-gdp span,.an-expected-gdp small{display:block;font-size:9px;color:var(--texto-suave);}
-.an-expected-gdp strong{display:block;margin:3px 0;font-size:18px;color:var(--verde);}
 .an-carga-card{margin-bottom:12px;}
 .an-carga-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
 .an-weight-timeline{display:flex;align-items:stretch;gap:18px;overflow-x:auto;margin-bottom:12px;padding:4px 2px 10px;}
@@ -3978,7 +3982,7 @@ body {
         <div>
             <p>Registrá un lote y seguí cuánto pesa, qué está comiendo y cómo evoluciona.</p>
         </div>
-        <button class="btn-primary" id="anBtnNuevoLote">+ Nuevo lote</button>
+        <button class="btn-primary an-btn-primario" id="anBtnNuevoLote">+ Nuevo lote</button>
     </div>
 
     <div id="anListaLotes" class="an-lotes-grid"></div>
@@ -3999,6 +4003,12 @@ body {
             </div>
         </div>
 
+        <div class="an-resumen-clave">
+            <div><span>🎯 Objetivo</span><strong id="anResumenObjetivo">—</strong></div>
+            <div><span>📅 Días estimados</span><strong id="anResumenDias">—</strong></div>
+            <div><span>📈 GDP esperado</span><strong id="anResumenGDPEsperado">—</strong></div>
+        </div>
+
         <div class="an-detalle-metrics">
             <div class="an-metric-card"><span>Animales</span><strong id="anDetalleAnimales">0</strong></div>
             <div class="an-metric-card"><span>EV totales</span><strong id="anDetalleEV">0,0</strong></div>
@@ -4014,20 +4024,11 @@ body {
                     <div><span>Peso actual</span><strong id="anPesoActual">—</strong></div>
                     <div><span>GDP observado</span><strong id="anGDPObservado">—</strong><small id="anGDPNota" class="an-gdp-nota"></small></div>
                 </div>
-                <div class="an-target-box">
-                    <div><span>Objetivo</span><strong id="anPesoObjetivo">—</strong></div>
-                    <div><span>Días estimados</span><strong id="anDiasObjetivo">—</strong></div>
-                </div>
             </div>
 
             <div class="an-card">
                 <div class="an-card-header"><div><h3>🌾 Alimentación</h3><p>La dieta se usa para orientar el GDP esperado.</p></div></div>
                 <div class="an-food-summary" id="anFoodSummary">—</div>
-                <div class="an-expected-gdp">
-                    <span>GDP esperado de referencia</span>
-                    <strong id="anGDPEsperado">—</strong>
-                    <small>Rango orientativo. Se puede ajustar manualmente.</small>
-                </div>
             </div>
         </div>
 
@@ -4069,7 +4070,7 @@ body {
             </div>
             <div class="an-table-wrap">
                 <table class="an-table">
-                    <thead><tr><th>Categoría</th><th>Cantidad</th><th>PV inicial → actual</th><th>Alimento</th><th>EV</th><th>MS/día</th></tr></thead>
+                    <thead><tr><th>Categoría</th><th>Cantidad</th><th>PV inicial → actual</th><th>Alimento</th></tr></thead>
                     <tbody id="anTablaCategorias"></tbody>
                 </table>
             </div>
@@ -4101,7 +4102,7 @@ body {
             </div>
             <div style="margin-top:14px;"><label style="display:block;margin-bottom:6px;font-size:12px;font-weight:700;color:var(--texto);">Potreros de "Mis lotes" vinculados (opcional)</label><div id="anPotrerosBuilder" class="an-potreros-list"><p class="an-potreros-empty">Cargando potreros…</p></div></div>
             <div style="margin-top:18px;"><h4 style="margin:0 0 4px;font-size:13px;">Animales y alimentación</h4><p style="margin:0 0 10px;font-size:11px;color:var(--gris);">Para cada categoría cargá peso, objetivo y alimento principal.</p><div id="anCategoriasBuilder"></div><button id="anBtnAgregarCategoriaForm" class="an-add-category" type="button">+ Agregar otra categoría</button></div>
-            <div class="modal-botones" style="margin-top:20px;"><button id="anBtnCancelarModal" class="btn-secundario">Cancelar</button><button id="anBtnGuardarLote" class="btn-primary">Crear lote</button></div>
+            <div class="modal-botones" style="margin-top:20px;"><button id="anBtnCancelarModal" class="btn-secundario">Cancelar</button><button id="anBtnGuardarLote" class="btn-primary an-btn-primario">Crear lote</button></div>
         </div>
     </div>
 
@@ -4123,7 +4124,7 @@ body {
                 <div id="anCategoriasEditBuilder"></div>
                 <button id="anBtnAgregarCategoriaEditar" class="an-add-category" type="button">+ Agregar categoría</button>
             </div>
-            <div class="modal-botones" style="margin-top:20px;"><button id="anBtnCancelarEditarLote" class="btn-secundario">Cancelar</button><button id="anBtnGuardarEdicionLote" class="btn-primary">Guardar cambios</button></div>
+            <div class="modal-botones" style="margin-top:20px;"><button id="anBtnCancelarEditarLote" class="btn-secundario">Cancelar</button><button id="anBtnGuardarEdicionLote" class="btn-primary an-btn-primario">Guardar cambios</button></div>
         </div>
     </div>
 
@@ -4135,7 +4136,7 @@ body {
                 <div class="form-group" id="anPesoUnicoWrap"><label for="anPesoMedicion">Peso promedio (kg)</label><input id="anPesoMedicion" type="number" min="1" step="1" placeholder="Ej. 365"></div>
             </div>
             <div id="anPesoCategoriasWrap" class="an-form-grid" style="margin-top:10px;"></div>
-            <div class="modal-botones" style="margin-top:18px;"><button id="anBtnCancelarPesoModal" class="btn-secundario">Cancelar</button><button id="anBtnGuardarPeso" class="btn-primary">Guardar medición</button></div>
+            <div class="modal-botones" style="margin-top:18px;"><button id="anBtnCancelarPesoModal" class="btn-secundario">Cancelar</button><button id="anBtnGuardarPeso" class="btn-primary an-btn-primario">Guardar medición</button></div>
         </div>
     </div>
 
@@ -7165,7 +7166,7 @@ if ("serviceWorker" in navigator) {
 
   function anRenderLots(){
     const container=document.getElementById('anListaLotes'); if(!container)return; container.innerHTML='';
-    if(!anLots.length){container.innerHTML='<div class="an-empty-state"><strong>Todavía no tenés lotes cargados</strong><span>Creá un lote para empezar a seguir peso, alimentación y carga.</span><br><button class="btn-primary" id="anBtnPrimerLote">+ Crear el primer lote</button></div>';document.getElementById('anBtnPrimerLote').onclick=anOpenCreateModal;return;}
+    if(!anLots.length){container.innerHTML='<div class="an-empty-state"><strong>Todavía no tenés lotes cargados</strong><span>Creá un lote para empezar a seguir peso, alimentación y carga.</span><br><button class="btn-primary an-btn-primario" id="anBtnPrimerLote">+ Crear el primer lote</button></div>';document.getElementById('anBtnPrimerLote').onclick=anOpenCreateModal;return;}
     anLots.forEach(lot=>{
       const r=anCalculateLot(lot), g=anGDPObserved(lot), e=anGDPExpected(lot), days=anDaysToTarget(lot);
       const card=document.createElement('div'); card.className='an-lote-card';
@@ -7176,7 +7177,7 @@ if ("serviceWorker" in navigator) {
       const gdpClass=nivelCard?' an-valor-'+nivelCard:'';
       const target=anAverageTarget(lot), current=anAverageCurrent(lot);
       const objetivoTexto = target>0&&current>0&&current>=target ? '🎯 Objetivo alcanzado' : (days!==null?`🎯 ${anFormatNumber(days,0)} días estimados al objetivo`:null);
-      card.innerHTML=`<button class="an-lote-delete" data-an-delete-lot="${lot.id}" title="Eliminar lote">🗑</button><div class="an-lote-card-header"><div class="an-lote-name">${anEscapeHTML(lot.name)}</div><span class="an-species-badge">${AN_SPECIES_NAMES[lot.species]}</span></div><div class="an-lote-badges"><span class="an-system-badge">${lot.system==='feedlot'?'🏭 Feedlot':'🌱 A campo'}</span></div><div class="an-lote-description">${anEscapeHTML(desc)}</div><div class="an-lote-metrics"><div class="an-lote-metric"><span>PV actual</span><strong>${anFormatNumber(current,0)} kg</strong></div><div class="an-lote-metric"><span>GDP</span><strong class="${gdpClass}">${g!==null?anFormatNumber(g,2)+' kg/d':'—'}</strong></div><div class="an-lote-metric"><span>EV/ha</span><strong>${r.evHa!==null?anFormatNumber(r.evHa,2):'—'}</strong></div><div class="an-lote-metric"><span>Alimento</span><strong>${anEscapeHTML(feedLabel)}</strong></div></div>${objetivoTexto?`<div class="an-lote-target">${objetivoTexto}</div>`:''}`;
+      card.innerHTML=`<button class="an-lote-delete" data-an-delete-lot="${lot.id}" title="Eliminar lote">🗑</button><div class="an-lote-card-header"><div class="an-lote-name">${anEscapeHTML(lot.name)}</div><span class="an-species-badge">${AN_SPECIES_NAMES[lot.species]}</span></div><div class="an-lote-badges"><span class="an-system-badge">${lot.system==='feedlot'?'🏭 Feedlot':'🌱 A campo'}</span></div><div class="an-lote-description">${anEscapeHTML(desc)}</div><div class="an-lote-metrics"><div class="an-lote-metric"><span>PV actual</span><strong>${anFormatNumber(current,0)} kg</strong></div><div class="an-lote-metric"><span>GDP</span><strong class="${gdpClass}">${g!==null?anFormatNumber(g,2)+' kg/d':'—'}</strong></div><div class="an-lote-metric"><span>PV objetivo</span><strong>${target?anFormatNumber(target,0)+' kg':'—'}</strong></div><div class="an-lote-metric"><span>Alimento</span><strong>${anEscapeHTML(feedLabel)}</strong></div></div>${objetivoTexto?`<div class="an-lote-target">${objetivoTexto}</div>`:''}`;
       card.onclick=e2=>{if(!e2.target.closest('[data-an-delete-lot]'))anOpenLot(lot.id);};
       card.querySelector('[data-an-delete-lot]').onclick=e2=>{e2.stopPropagation();anAskDeleteLot(lot.id);};
       container.appendChild(card);
@@ -7212,12 +7213,11 @@ if ("serviceWorker" in navigator) {
       else if(nivel==='warn')notaEl.textContent='⚠ Por debajo de lo esperado';
       else notaEl.textContent='🔻 Muy por debajo de lo esperado';
     }
-    document.getElementById('anPesoObjetivo').textContent=target?anFormatNumber(target,0)+' kg':'—';
-    const diasEl=document.getElementById('anDiasObjetivo');
-    if(target>0&&current>0&&current>=target)diasEl.textContent='🎯 Objetivo alcanzado';
-    else diasEl.textContent=d!==null?anFormatNumber(d,0)+' días':'—';
-    const feeds=new Set(lot.categories.map(c=>c.feed));
-    document.getElementById('anFoodSummary').innerHTML=lot.categories.map(c=>`<div><strong>${anEscapeHTML(AN_CATEGORY_LABELS[c.category])}</strong><span>${anEscapeHTML(anGetFeedLabel(c))} · ${c.quantity} animales</span></div>`).join(''); document.getElementById('anGDPEsperado').textContent=e?anFormatNumber(e,2)+' kg/día':'—';
+    document.getElementById('anResumenObjetivo').textContent=target?anFormatNumber(target,0)+' kg':'—';
+    if(target>0&&current>0&&current>=target)document.getElementById('anResumenDias').textContent='🎯 Alcanzado';
+    else document.getElementById('anResumenDias').textContent=d!==null?anFormatNumber(d,0)+' días':'—';
+    document.getElementById('anResumenGDPEsperado').textContent=e?anFormatNumber(e,2)+' kg/día':'—';
+    document.getElementById('anFoodSummary').innerHTML=lot.categories.map(c=>`<div><strong>${anEscapeHTML(AN_CATEGORY_LABELS[c.category])}</strong><span>${anEscapeHTML(anGetFeedLabel(c))} · ${c.quantity} animales</span></div>`).join('');
     document.getElementById('anCargaEV').textContent=anFormatNumber(r.ev,1);document.getElementById('anCargaEVHa').textContent=r.evHa!==null?anFormatNumber(r.evHa,2):'—';document.getElementById('anCargaDias').textContent=lot.periodDays?anFormatNumber(lot.periodDays,0):'—';document.getElementById('anCargaEVDiaHa').textContent=r.evHa!==null&&lot.periodDays?anFormatNumber(r.ev*lot.periodDays/r.surface,2):'—';
     const forage=anForageAvailable(lot);
     const potrerosEl=document.getElementById('anForagePotreros'), notaForageEl=document.getElementById('anForageNota');
@@ -7247,10 +7247,10 @@ if ("serviceWorker" in navigator) {
   }
   function anRenderCategoryTable(lot){
     const tbody=document.getElementById('anTablaCategorias');tbody.innerHTML='';
-    lot.categories.forEach(c=>{const tr=document.createElement('tr');if(c.id===anEditingCategoryId)anRenderEditableCategoryRow(tr,lot,c);else anRenderStaticCategoryRow(tr,c);tbody.appendChild(tr);});
-    if(!lot.categories.length)tbody.innerHTML='<tr><td colspan="7" style="text-align:center;color:var(--gris);padding:18px;">Sin categorías.</td></tr>';
+    lot.categories.forEach(c=>{const tr=document.createElement('tr');anRenderStaticCategoryRow(tr,c);tbody.appendChild(tr);});
+    if(!lot.categories.length)tbody.innerHTML='<tr><td colspan="4" style="text-align:center;color:var(--gris);padding:18px;">Sin categorías.</td></tr>';
   }
-  function anRenderStaticCategoryRow(row,c){const r=anCalculateCategory(c);row.innerHTML=`<td><strong>${anEscapeHTML(AN_CATEGORY_LABELS[c.category])}</strong></td><td>${c.quantity}</td><td>${anFormatNumber(c.initialWeight||c.liveWeight,0)} kg → ${anFormatNumber(c.liveWeight,0)} kg</td><td>${anEscapeHTML(anGetFeedLabel(c))}</td><td>${anFormatNumber(r.ev,1)}</td><td>${anFormatNumber(r.ms,0)} kg</td>`;}
+  function anRenderStaticCategoryRow(row,c){row.innerHTML=`<td><strong>${anEscapeHTML(AN_CATEGORY_LABELS[c.category])}</strong></td><td>${c.quantity}</td><td>${anFormatNumber(c.initialWeight||c.liveWeight,0)} kg → ${anFormatNumber(c.liveWeight,0)} kg</td><td>${anEscapeHTML(anGetFeedLabel(c))}</td>`;}
 
   function anRenderWeightHistory(lot){
     const timeline=document.getElementById('anPesoTimeline'),chart=document.getElementById('anPesoChart');timeline.innerHTML='';chart.innerHTML='';
