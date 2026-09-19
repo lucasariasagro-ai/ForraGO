@@ -3982,6 +3982,7 @@ body {
     </div>
 
     <div id="anListaLotes" class="an-lotes-grid"></div>
+    <div class="asesor-link" onclick="window.anMigrarLotesLocales && window.anMigrarLotesLocales()">¿Tenías lotes de animales guardados en este dispositivo? Subirlos a tu cuenta</div>
 
     <div id="anDetalleLote" class="an-detalle" style="display:none;">
         <div class="an-detalle-header">
@@ -6870,8 +6871,9 @@ async function renderAgendaCampo() {
     } else {
         lotesFiltrados.forEach(lote => { html += renderLoteAgendaCard(lote); });
     }
-    if ((filtroTipo === "todos" || filtroTipo === "animales") && typeof window.anRenderAgendaSection === "function") {
-        html += window.anRenderAgendaSection();
+    if (filtroTipo === "todos" || filtroTipo === "animales") {
+        if (typeof window.anCargarYRenderizar === "function") await window.anCargarYRenderizar();
+        if (typeof window.anRenderAgendaSection === "function") html += window.anRenderAgendaSection();
     }
     cont.innerHTML = html;
 }
@@ -7008,18 +7010,12 @@ if ("serviceWorker" in navigator) {
   }
   function anGetFeedLabel(category){ return (AN_FEEDS[category.feed]||AN_FEEDS.mixto).label; }
 
-  function anLoadLots(){
-    try{
-      const raw=localStorage.getItem(AN_STORAGE_KEY) || localStorage.getItem(AN_OLD_STORAGE_KEY);
-      if(raw){ const parsed=JSON.parse(raw); if(Array.isArray(parsed)){ const normalized=parsed.map(anNormalizeLot); try{localStorage.setItem(AN_STORAGE_KEY,JSON.stringify(normalized));}catch(e){} return normalized; } }
-    }catch(e){console.warn('Animales: no se pudieron leer los lotes.',e);}
-    return [];
-  }
   function anNormalizeLot(lot){
     const species=lot.species==='ovinos'?'ovinos':'bovinos';
     return {
-      id:lot.id||Date.now(),name:lot.name||'Lote sin nombre',species,
+      id:lot.id||null,name:lot.name||'Lote sin nombre',species,
       system:lot.system==='feedlot'?'feedlot':'campo',surfaceHa:Number(lot.surfaceHa)||0,
+      linkedLoteIds:Array.isArray(lot.linkedLoteIds)?lot.linkedLoteIds:[],
       periodDays:Number(lot.periodDays)||Number(lot.permanenceDays)||0,
       categories:Array.isArray(lot.categories)?lot.categories.map(c=>({
         id:c.id||anNextCategoryId(),category:AN_PARAMS[species]?.[c.category]?c.category:Object.keys(AN_PARAMS[species])[0],
@@ -7029,8 +7025,77 @@ if ("serviceWorker" in navigator) {
       weights:Array.isArray(lot.weights)?lot.weights:[]
     };
   }
-  let anLots=anLoadLots();
-  function anSaveLots(){ try{localStorage.setItem(AN_STORAGE_KEY,JSON.stringify(anLots));}catch(e){console.warn('Animales: no se pudieron guardar los lotes.',e);} }
+  function anRowToLot(row){
+    return {
+      id:row.id,name:row.name||'Lote sin nombre',
+      species:row.species==='ovinos'?'ovinos':'bovinos',
+      system:row.system==='feedlot'?'feedlot':'campo',
+      surfaceHa:Number(row.surface_ha)||0,
+      linkedLoteIds:Array.isArray(row.linked_lote_ids)?row.linked_lote_ids:[],
+      periodDays:Number(row.period_days)||0,
+      categories:Array.isArray(row.categories)?row.categories:[],
+      weights:Array.isArray(row.weights)?row.weights:[]
+    };
+  }
+  function anLotToRow(lot){
+    return {
+      name:lot.name,species:lot.species,system:lot.system,
+      surface_ha:Number(lot.surfaceHa)||0,
+      linked_lote_ids:lot.linkedLoteIds||[],
+      period_days:Number(lot.periodDays)||0,
+      categories:lot.categories||[],
+      weights:lot.weights||[]
+    };
+  }
+  async function anCargarLotesRemote(){
+    if(typeof sb==='undefined')return [];
+    const { data, error } = await sb.from('lotes_animales').select('*').order('created_at',{ascending:true});
+    if(error){ console.error('Animales: error cargando lotes de Supabase.', error); return []; }
+    return (data||[]).map(anRowToLot);
+  }
+  async function anGuardarLoteRemote(lot){
+    if(typeof sb==='undefined'){ alert('No se pudo conectar con la base de datos.'); return null; }
+    if(lot.id){
+      const { error } = await sb.from('lotes_animales').update(anLotToRow(lot)).eq('id', lot.id);
+      if(error){ alert('No se pudo guardar el lote animal: '+error.message); return null; }
+      return lot.id;
+    } else {
+      const { data, error } = await sb.from('lotes_animales').insert(anLotToRow(lot)).select('id').single();
+      if(error){ alert('No se pudo guardar el lote animal: '+error.message); return null; }
+      return data.id;
+    }
+  }
+  async function anEliminarLoteRemote(id){
+    if(typeof sb==='undefined')return false;
+    const { error } = await sb.from('lotes_animales').delete().eq('id', id);
+    if(error){ alert('No se pudo eliminar el lote: '+error.message); return false; }
+    return true;
+  }
+  let anLots=[];
+  async function anCargarYRenderizar(){
+    anLots = await anCargarLotesRemote();
+    anRenderLots();
+    if(anCurrentLotId!==null) anRefreshDetail();
+  }
+  async function anMigrarLotesLocales(){
+    const raw = localStorage.getItem(AN_STORAGE_KEY) || localStorage.getItem(AN_OLD_STORAGE_KEY);
+    if(!raw){ alert('No encontré lotes de animales guardados en este dispositivo.'); return; }
+    let lotesLocales;
+    try{ lotesLocales = JSON.parse(raw).map(anNormalizeLot); }
+    catch(e){ alert('No pude leer los datos guardados en este dispositivo.'); return; }
+    if(!Array.isArray(lotesLocales) || !lotesLocales.length){ alert('No encontré lotes de animales guardados en este dispositivo.'); return; }
+    const nombres = lotesLocales.map(l=>l.name).join(', ');
+    if(!confirm(`Encontré ${lotesLocales.length} lote(s) de animales en este dispositivo: ${nombres}.\n\n¿Los subo a tu cuenta?`)) return;
+    let exitosos=0;
+    for(const lot of lotesLocales){
+      const id = await anGuardarLoteRemote({...lot,id:null});
+      if(id) exitosos++;
+    }
+    alert(`Subí ${exitosos} de ${lotesLocales.length} lote(s) de animales a tu cuenta.`);
+    if(exitosos===lotesLocales.length){ localStorage.removeItem(AN_STORAGE_KEY); localStorage.removeItem(AN_OLD_STORAGE_KEY); }
+    await anCargarYRenderizar();
+  }
+  window.anMigrarLotesLocales=anMigrarLotesLocales;
 
   let anMisLotesCache = null;
   async function anLoadMisLotesCache(force){
@@ -7224,14 +7289,18 @@ if ("serviceWorker" in navigator) {
     const defaultFeed=system==='feedlot'?'feedlot_maiz':'campo_alfalfa';row.innerHTML=`<div class="form-group"><label>Categoría</label><select class="an-categoria-select">${anCategoryOptionsHTML(species)}</select></div><div class="form-group"><label>Cantidad</label><input class="an-cantidad-input" type="number" min="1" placeholder="0"></div><div class="form-group"><label>Peso inicial (kg)</label><input class="an-peso-inicial-input" type="number" min="1" placeholder="320"></div><div class="form-group"><label>Peso actual (kg)</label><input class="an-peso-input" type="number" min="1" placeholder="365"></div><div class="form-group"><label>Peso objetivo (kg)</label><input class="an-peso-objetivo-input" type="number" min="0" placeholder="420"></div><div class="form-group"><label>Alimento</label><select class="an-feed-select">${anFeedOptionsHTML(defaultFeed,species,system)}</select></div><div class="form-group"><label>GDP esperado (kg/d)</label><input class="an-gdp-input" type="number" min="0.01" step="0.01" placeholder="Automático"></div><button class="an-icon-btn remove an-remove-category" type="button">×</button>`;
     row.querySelector('.an-remove-category').onclick=()=>row.remove();row.querySelector('.an-feed-select').onchange=()=>{};document.getElementById('anCategoriasBuilder').appendChild(row);
   }
-  function anCreateLot(){
+  async function anCreateLot(){
     const name=document.getElementById('anInputNombreLote').value.trim(),species=document.getElementById('anInputEspecie').value,system=document.getElementById('anInputSistema').value,surface=Number(document.getElementById('anInputSuperficie').value)||0,periodDays=Number(document.getElementById('anInputDiasPeriodo').value)||0;
     if(!name){alert('Ingresá un nombre para el lote.');return;}
     const categories=[];let targetInvalido=false;document.querySelectorAll('#anCategoriasBuilder .an-categoria-row').forEach(row=>{const category=row.querySelector('.an-categoria-select').value,quantity=Number(row.querySelector('.an-cantidad-input').value),initialWeight=Number(row.querySelector('.an-peso-inicial-input').value),liveWeight=Number(row.querySelector('.an-peso-input').value),targetWeight=Number(row.querySelector('.an-peso-objetivo-input').value)||0,feed=row.querySelector('.an-feed-select').value,expectedGDP=Number(row.querySelector('.an-gdp-input').value)||0;if(targetWeight>0&&liveWeight>0&&targetWeight<=liveWeight)targetInvalido=true;if(quantity>0&&initialWeight>0&&liveWeight>0)categories.push({id:anNextCategoryId(),category,quantity,initialWeight,liveWeight,targetWeight,feed,expectedGDP,state:'recria'});});
     if(!categories.length){alert('Agregá al menos una categoría con cantidad y pesos válidos.');return;}
     if(targetInvalido){alert('El peso objetivo debe ser mayor al peso actual en todas las categorías.');return;}
-    const newLot={id:Date.now(),name,species,system,surfaceHa:surface,linkedLoteIds:anReadPotrerosPicker('anPotrerosBuilder'),periodDays,categories,weights:[{date:anToday(),weight:liveWeightFromCategories(categories)}]};
-    anLots.push(newLot);anSaveLots();document.getElementById('anModalNuevoLote').style.display='none';anRenderLots();anOpenLot(newLot.id);
+    const btn=document.getElementById('anBtnGuardarLote'); if(btn){btn.disabled=true;btn.textContent='Guardando…';}
+    const newLot={id:null,name,species,system,surfaceHa:surface,linkedLoteIds:anReadPotrerosPicker('anPotrerosBuilder'),periodDays,categories,weights:[{date:anToday(),weight:liveWeightFromCategories(categories)}]};
+    const id=await anGuardarLoteRemote(newLot);
+    if(btn){btn.disabled=false;btn.textContent='Crear lote';}
+    if(!id)return;
+    newLot.id=id; anLots.push(newLot);document.getElementById('anModalNuevoLote').style.display='none';anRenderLots();anOpenLot(newLot.id);
   }
   function liveWeightFromCategories(cs){const n=cs.reduce((a,c)=>a+c.quantity,0);return n?cs.reduce((a,c)=>a+c.liveWeight*c.quantity,0)/n:0;}
 
@@ -7265,15 +7334,20 @@ if ("serviceWorker" in navigator) {
   document.getElementById('anEditEspecie').addEventListener('change',()=>{document.querySelectorAll('#anCategoriasEditBuilder .an-categoria-row').forEach(row=>{row.querySelector('.an-categoria-select').innerHTML=anCategoryOptionsHTML(document.getElementById('anEditEspecie').value);});});
   document.getElementById('anBtnCerrarModalEditar').onclick=()=>document.getElementById('anModalEditarLote').style.display='none';
   document.getElementById('anBtnCancelarEditarLote').onclick=()=>document.getElementById('anModalEditarLote').style.display='none';
-  document.getElementById('anBtnGuardarEdicionLote').onclick=()=>{
+  document.getElementById('anBtnGuardarEdicionLote').onclick=async()=>{
     const lot=anLots.find(x=>x.id===anCurrentLotId); if(!lot)return;
     const species=document.getElementById('anEditEspecie').value, system=document.getElementById('anEditSistema').value;
     const rows=[...document.querySelectorAll('#anCategoriasEditBuilder .an-categoria-row')]; const categories=[]; let targetInvalido=false;
     rows.forEach((row,i)=>{const quantity=Number(row.querySelector('.an-cantidad-input').value),initialWeight=Number(row.querySelector('.an-peso-inicial-input').value),liveWeight=Number(row.querySelector('.an-peso-input').value),targetWeight=Number(row.querySelector('.an-peso-objetivo-input').value)||0;if(targetWeight>0&&liveWeight>0&&targetWeight<=liveWeight)targetInvalido=true;if(quantity>0&&initialWeight>0&&liveWeight>0)categories.push({id:lot.categories[i]?.id||anNextCategoryId(),category:row.querySelector('.an-categoria-select').value,quantity,initialWeight,liveWeight,targetWeight,feed:row.querySelector('.an-feed-select').value,expectedGDP:lot.categories[i]?.expectedGDP||0,state:lot.categories[i]?.state||'recria'});});
     if(!categories.length){alert('Agregá al menos una categoría con cantidad, peso inicial y peso actual válidos.');return;}
     if(targetInvalido){alert('El peso objetivo debe ser mayor al peso actual en todas las categorías.');return;}
+    const btn=document.getElementById('anBtnGuardarEdicionLote'); btn.disabled=true; btn.textContent='Guardando…';
+    const backup={...lot};
     lot.name=document.getElementById('anEditNombreLote').value.trim()||lot.name; lot.species=species; lot.system=system; lot.surfaceHa=Number(document.getElementById('anEditSuperficie').value)||0; lot.linkedLoteIds=anReadPotrerosPicker('anEditPotrerosBuilder'); lot.periodDays=Number(document.getElementById('anEditDiasPeriodo').value)||0; lot.categories=categories;
-    anSaveLots(); document.getElementById('anModalEditarLote').style.display='none'; anRefreshDetail();
+    const ok=await anGuardarLoteRemote(lot);
+    btn.disabled=false; btn.textContent='Guardar cambios';
+    if(!ok){ Object.assign(lot,backup); return; }
+    document.getElementById('anModalEditarLote').style.display='none'; anRefreshDetail();
   };
 
   document.getElementById('anBtnRegistrarPeso').onclick=()=>{
@@ -7297,10 +7371,11 @@ if ("serviceWorker" in navigator) {
     document.getElementById('anModalRegistrarPeso').style.display='flex';
   };
   document.getElementById('anBtnCerrarPesoModal').onclick=()=>document.getElementById('anModalRegistrarPeso').style.display='none';document.getElementById('anBtnCancelarPesoModal').onclick=()=>document.getElementById('anModalRegistrarPeso').style.display='none';
-  document.getElementById('anBtnGuardarPeso').onclick=()=>{
+  document.getElementById('anBtnGuardarPeso').onclick=async()=>{
     const lot=anLots.find(x=>x.id===anCurrentLotId),date=document.getElementById('anPesoFecha').value;
     if(!lot||!date){alert('Ingresá una fecha válida.');return;}
     let avgWeight;
+    const backupCategories=lot.categories.map(c=>({...c})), backupWeights=[...lot.weights];
     if(lot.categories.length>1){
       const rows=[...document.querySelectorAll('.an-peso-cat-input')];
       const values=rows.map(inp=>({id:Number(inp.dataset.catId),weight:Number(inp.value)}));
@@ -7316,7 +7391,11 @@ if ("serviceWorker" in navigator) {
     lot.weights=Array.isArray(lot.weights)?lot.weights:[];
     lot.weights.push({date,weight:avgWeight});
     lot.weights.sort((a,b)=>a.date.localeCompare(b.date));
-    anSaveLots(); document.getElementById('anModalRegistrarPeso').style.display='none'; anRefreshDetail();
+    const btn=document.getElementById('anBtnGuardarPeso'); btn.disabled=true; btn.textContent='Guardando…';
+    const ok=await anGuardarLoteRemote(lot);
+    btn.disabled=false; btn.textContent='Guardar medición';
+    if(!ok){ lot.categories=backupCategories; lot.weights=backupWeights; return; }
+    document.getElementById('anModalRegistrarPeso').style.display='none'; anRefreshDetail();
   };
 
   document.getElementById('anBtnVerCalculo').onclick=()=>{const d=document.getElementById('anCalculoContenido');d.style.display=d.style.display==='none'?'block':'none';};
@@ -7324,7 +7403,17 @@ if ("serviceWorker" in navigator) {
 
   function anAskDeleteLot(id){anDeleteLotId=id;const lot=anLots.find(x=>x.id===id);document.getElementById('anEliminarLoteTexto').textContent=`¿Querés eliminar “${lot?lot.name:'este lote'}” y todo su historial?`;document.getElementById('anModalEliminarLote').style.display='flex';}
   document.getElementById('anBtnCancelarEliminar').onclick=()=>document.getElementById('anModalEliminarLote').style.display='none';
-  document.getElementById('anBtnConfirmarEliminar').onclick=()=>{if(anDeleteLotId!==null)anLots=anLots.filter(x=>x.id!==anDeleteLotId);anSaveLots();document.getElementById('anModalEliminarLote').style.display='none';if(anCurrentLotId===anDeleteLotId){anCurrentLotId=null;document.getElementById('anDetalleLote').style.display='none';document.getElementById('anListaLotes').style.display='grid';document.querySelector('#vistaAnimales .seccion').style.display='flex';}anRenderLots();};
+  document.getElementById('anBtnConfirmarEliminar').onclick=async()=>{
+    if(anDeleteLotId===null)return;
+    const btn=document.getElementById('anBtnConfirmarEliminar'); btn.disabled=true; btn.textContent='Eliminando…';
+    const ok=await anEliminarLoteRemote(anDeleteLotId);
+    btn.disabled=false; btn.textContent='Eliminar lote';
+    if(!ok)return;
+    anLots=anLots.filter(x=>x.id!==anDeleteLotId);
+    document.getElementById('anModalEliminarLote').style.display='none';
+    if(anCurrentLotId===anDeleteLotId){anCurrentLotId=null;document.getElementById('anDetalleLote').style.display='none';document.getElementById('anListaLotes').style.display='grid';document.querySelector('#vistaAnimales .seccion').style.display='flex';}
+    anRenderLots();
+  };
   document.getElementById('anBtnEliminarLote').onclick=()=>{if(anCurrentLotId!==null)anAskDeleteLot(anCurrentLotId);};
 
   window.anRenderLots=anRenderLots;
@@ -7350,15 +7439,21 @@ if ("serviceWorker" in navigator) {
     let html='<div class="agenda-animales-header"><h3>🐄 Alertas de hacienda</h3></div>';
     if(!conAlertas.length){ html+='<div class="agenda-vacia">Sin alertas pendientes en tus lotes de animales.</div>'; return html; }
     conAlertas.forEach(({lot,alerts})=>{
-      html+=`<div class="agenda-lote-card an-agenda-card"><div class="agenda-lote-header"><div><strong>${AN_SPECIES_NAMES[lot.species]?.split(' ')[0]||'🐄'} ${anEscapeHTML(lot.name)}</strong><span>${anCalculateLot(lot).animals} animales</span></div><button class="btn-secundario" onclick="abrirAnimales();window.anOpenLotFromAgenda(${lot.id})">VER FICHA</button></div>`;
+      html+=`<div class="agenda-lote-card an-agenda-card"><div class="agenda-lote-header"><div><strong>${AN_SPECIES_NAMES[lot.species]?.split(' ')[0]||'🐄'} ${anEscapeHTML(lot.name)}</strong><span>${anCalculateLot(lot).animals} animales</span></div><button class="btn-secundario" onclick="window.anAbrirLoteDesdeAgenda(${lot.id})">VER FICHA</button></div>`;
       alerts.forEach(a=>{ html+=`<div class="trabajo-alerta-linea" style="margin:6px 0;">${a.tono==='bueno'?'✅':'⚠️'} ${anEscapeHTML(a.texto)}</div>`; });
       html+='</div>';
     });
     return html;
   }
   window.anRenderAgendaSection=anRenderAgendaSection;
-  window.anOpenLotFromAgenda=function(id){ if(typeof anOpenLot==='function') anOpenLot(id); };
-  anRenderLots();
+  window.anAbrirLoteDesdeAgenda=async function(id){
+    if(typeof ocultarNivelesSuperiores==='function') ocultarNivelesSuperiores();
+    const vista=document.getElementById('vistaAnimales'); if(vista) vista.style.display='block';
+    await anCargarYRenderizar();
+    anOpenLot(id);
+    window.scrollTo({top:0,behavior:'smooth'});
+  };
+  window.anCargarYRenderizar=anCargarYRenderizar;
 })();
 </script>
 
@@ -7368,7 +7463,7 @@ function abrirAnimales() {
     ocultarNivelesSuperiores();
     const vista = document.getElementById("vistaAnimales");
     if (vista) vista.style.display = "block";
-    if (typeof window.anRenderLots === "function") window.anRenderLots();
+    if (typeof window.anCargarYRenderizar === "function") window.anCargarYRenderizar();
     if (typeof window.anLoadMisLotesCache === "function") {
         window.anLoadMisLotesCache().then(() => {
             if (typeof window.anRenderLots === "function") window.anRenderLots();
