@@ -48,6 +48,9 @@
     --rojo-alerta-claro:#fde8e8;
     --ambar-alerta:#b8791a;
     --ambar-alerta-claro:#fbf0dc;
+    --hacienda:#a6541f;
+    --hacienda2:#d68a42;
+    --hacienda-claro:#f8ead9;
     --sombra:0 8px 30px rgba(26,107,60,.08);
     --sombra-hover:0 12px 40px rgba(26,107,60,.14);
     --radio:24px;
@@ -691,17 +694,17 @@ body {
     transform:translateX(4px);
 }
 .btn-gestionar-animal {
-    background:linear-gradient(135deg, #8a5a34, #a8703f);
-    box-shadow:0 8px 28px rgba(138,90,52,.28);
+    background:linear-gradient(135deg, var(--hacienda), var(--hacienda2));
+    box-shadow:0 8px 28px rgba(166,84,31,.28), inset 0 1px 0 rgba(255,255,255,.18);
 }
 .btn-gestionar-animal:hover {
-    box-shadow:0 12px 36px rgba(138,90,52,.38);
+    box-shadow:0 12px 36px rgba(166,84,31,.38), inset 0 1px 0 rgba(255,255,255,.22);
 }
 .an-btn-primario{
-    background:linear-gradient(135deg, #8a5a34, #a8703f);
-    box-shadow:0 4px 16px rgba(138,90,52,.28);
+    background:linear-gradient(135deg, var(--hacienda), var(--hacienda2));
+    box-shadow:0 4px 16px rgba(166,84,31,.3), inset 0 1px 0 rgba(255,255,255,.18);
 }
-.an-btn-primario:hover{ box-shadow:0 8px 24px rgba(138,90,52,.38); }
+.an-btn-primario:hover{ box-shadow:0 8px 24px rgba(166,84,31,.4), inset 0 1px 0 rgba(255,255,255,.22); }
 
 /* =========================================================
    PANEL
@@ -3409,8 +3412,8 @@ body {
 .agenda-vacia strong { color:var(--verde); }
 .agenda-animales-header{margin:26px 0 12px;padding-top:14px;border-top:1px dashed var(--borde);}
 .agenda-animales-header h3{margin:0;font-size:14px;color:var(--texto);}
-.an-agenda-card{border-left:5px solid #a8703f;padding-left:14px;background:var(--blanco);border-radius:0 12px 12px 0;padding-top:10px;padding-bottom:10px;}
-.an-agenda-card .agenda-lote-header strong{color:#8a5a34;}
+.an-agenda-card{border-left:5px solid var(--hacienda2);padding-left:14px;background:var(--blanco);border-radius:0 12px 12px 0;padding-top:10px;padding-bottom:10px;}
+.an-agenda-card .agenda-lote-header strong{color:var(--hacienda);}
 .agenda-sin-clima {
     text-align:center;
     font-size:10px;
@@ -3620,7 +3623,7 @@ body {
 .an-performance-kpis>div,.an-carga-grid>div{background:var(--fondo);border:1px solid var(--borde);border-radius:11px;padding:11px;}
 .an-performance-kpis span,.an-carga-grid span{display:block;font-size:9px;color:var(--gris);text-transform:uppercase;letter-spacing:.35px;}
 .an-performance-kpis strong,.an-carga-grid strong{display:block;margin-top:4px;font-size:15px;color:var(--texto);font-weight:800;}
-.an-resumen-clave{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;padding:18px 14px;border-radius:18px;background:linear-gradient(135deg,#8a5a34,#a8703f);box-shadow:0 10px 28px rgba(138,90,52,.25);}
+.an-resumen-clave{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px;padding:18px 14px;border-radius:18px;background:linear-gradient(135deg,var(--hacienda),var(--hacienda2));box-shadow:0 10px 28px rgba(166,84,31,.28), inset 0 1px 0 rgba(255,255,255,.18);}
 .an-resumen-clave div{text-align:center;}
 .an-resumen-clave span{display:block;font-size:9.5px;font-weight:700;color:rgba(255,255,255,.82);text-transform:uppercase;letter-spacing:.3px;}
 .an-resumen-clave strong{display:block;margin-top:5px;font-size:19px;font-weight:800;color:#fff;line-height:1.2;}
@@ -3982,7 +3985,7 @@ body {
         <div>
             <p>Registrá un lote y seguí cuánto pesa, qué está comiendo y cómo evoluciona.</p>
         </div>
-        <button class="btn-primary an-btn-primario" id="anBtnNuevoLote">+ Nuevo lote</button>
+        <button class="btn btn-primary an-btn-primario" id="anBtnNuevoLote">+ Nuevo lote</button>
     </div>
 
     <div id="anListaLotes" class="an-lotes-grid"></div>
@@ -4102,7 +4105,7 @@ body {
             </div>
             <div style="margin-top:14px;"><label style="display:block;margin-bottom:6px;font-size:12px;font-weight:700;color:var(--texto);">Potreros de "Mis lotes" vinculados (opcional)</label><div id="anPotrerosBuilder" class="an-potreros-list"><p class="an-potreros-empty">Cargando potreros…</p></div></div>
             <div style="margin-top:18px;"><h4 style="margin:0 0 4px;font-size:13px;">Animales y alimentación</h4><p style="margin:0 0 10px;font-size:11px;color:var(--gris);">Para cada categoría cargá peso, objetivo y alimento principal.</p><div id="anCategoriasBuilder"></div><button id="anBtnAgregarCategoriaForm" class="an-add-category" type="button">+ Agregar otra categoría</button></div>
-            <div class="modal-botones" style="margin-top:20px;"><button id="anBtnCancelarModal" class="btn-secundario">Cancelar</button><button id="anBtnGuardarLote" class="btn-primary an-btn-primario">Crear lote</button></div>
+            <div class="modal-botones" style="margin-top:20px;"><button id="anBtnCancelarModal" class="btn-secundario">Cancelar</button><button id="anBtnGuardarLote" class="btn btn-primary an-btn-primario">Crear lote</button></div>
         </div>
     </div>
 
@@ -4124,7 +4127,7 @@ body {
                 <div id="anCategoriasEditBuilder"></div>
                 <button id="anBtnAgregarCategoriaEditar" class="an-add-category" type="button">+ Agregar categoría</button>
             </div>
-            <div class="modal-botones" style="margin-top:20px;"><button id="anBtnCancelarEditarLote" class="btn-secundario">Cancelar</button><button id="anBtnGuardarEdicionLote" class="btn-primary an-btn-primario">Guardar cambios</button></div>
+            <div class="modal-botones" style="margin-top:20px;"><button id="anBtnCancelarEditarLote" class="btn-secundario">Cancelar</button><button id="anBtnGuardarEdicionLote" class="btn btn-primary an-btn-primario">Guardar cambios</button></div>
         </div>
     </div>
 
@@ -4136,7 +4139,7 @@ body {
                 <div class="form-group" id="anPesoUnicoWrap"><label for="anPesoMedicion">Peso promedio (kg)</label><input id="anPesoMedicion" type="number" min="1" step="1" placeholder="Ej. 365"></div>
             </div>
             <div id="anPesoCategoriasWrap" class="an-form-grid" style="margin-top:10px;"></div>
-            <div class="modal-botones" style="margin-top:18px;"><button id="anBtnCancelarPesoModal" class="btn-secundario">Cancelar</button><button id="anBtnGuardarPeso" class="btn-primary an-btn-primario">Guardar medición</button></div>
+            <div class="modal-botones" style="margin-top:18px;"><button id="anBtnCancelarPesoModal" class="btn-secundario">Cancelar</button><button id="anBtnGuardarPeso" class="btn btn-primary an-btn-primario">Guardar medición</button></div>
         </div>
     </div>
 
@@ -7166,7 +7169,7 @@ if ("serviceWorker" in navigator) {
 
   function anRenderLots(){
     const container=document.getElementById('anListaLotes'); if(!container)return; container.innerHTML='';
-    if(!anLots.length){container.innerHTML='<div class="an-empty-state"><strong>Todavía no tenés lotes cargados</strong><span>Creá un lote para empezar a seguir peso, alimentación y carga.</span><br><button class="btn-primary an-btn-primario" id="anBtnPrimerLote">+ Crear el primer lote</button></div>';document.getElementById('anBtnPrimerLote').onclick=anOpenCreateModal;return;}
+    if(!anLots.length){container.innerHTML='<div class="an-empty-state"><strong>Todavía no tenés lotes cargados</strong><span>Creá un lote para empezar a seguir peso, alimentación y carga.</span><br><button class="btn btn-primary an-btn-primario" id="anBtnPrimerLote">+ Crear el primer lote</button></div>';document.getElementById('anBtnPrimerLote').onclick=anOpenCreateModal;return;}
     anLots.forEach(lot=>{
       const r=anCalculateLot(lot), g=anGDPObserved(lot), e=anGDPExpected(lot), days=anDaysToTarget(lot);
       const card=document.createElement('div'); card.className='an-lote-card';
