@@ -3670,6 +3670,33 @@ body {
 @media(max-width:600px){.an-detalle-metrics{grid-template-columns:1fr 1fr}.an-performance-kpis{grid-template-columns:1fr}.an-food-summary>div{align-items:flex-start;flex-direction:column}.an-food-summary span{text-align:left}.an-carga-grid{grid-template-columns:1fr 1fr}.an-weight-timeline{grid-template-columns:1fr 1fr}.an-categoria-row{grid-template-columns:1fr}.an-categoria-row .an-remove-category{grid-column:auto}.an-detalle-header h3{font-size:20px}.an-system-badge{margin-left:0;margin-top:6px}.an-weight-chart{height:150px}}
 
 .an-edit-text{border:1px solid var(--verde3);background:var(--lima-claro);color:var(--verde);border-radius:8px;padding:6px 10px;font:700 10px inherit;cursor:pointer;white-space:nowrap}.an-edit-text:hover{filter:brightness(.97)}.an-table input.an-cell-input,.an-table select.an-cell-select{width:100%;min-width:80px;box-sizing:border-box;padding:7px 6px;font-size:10px;border:1px solid var(--borde);border-radius:7px;background:var(--blanco)}
+
+/* ===== Módulo Trazabilidad (independiente) ===== */
+.an-trz-header-actions{display:flex;gap:10px;flex-wrap:wrap;margin-left:auto;}
+.an-trz-selector-bar{display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap;background:var(--blanco);border:1px solid var(--borde);border-radius:var(--radio-peq);padding:14px;margin-bottom:16px;}
+.an-trz-selector-bar .form-group{margin:0;min-width:220px;flex:1 1 220px;}
+.an-trz-toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:14px;flex-wrap:wrap;}
+.an-trz-toolbar h3{margin:0;font-size:15px;color:var(--texto);}
+.an-trz-timeline{display:flex;flex-direction:column;gap:0;}
+.an-trz-evento{display:grid;grid-template-columns:34px 1fr;gap:0 14px;position:relative;}
+.an-trz-evento:not(:last-child) .an-trz-linea{position:absolute;left:16px;top:34px;bottom:-8px;width:2px;background:var(--borde);}
+.an-trz-icono{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-size:15px;background:var(--verde-claro);border:2px solid var(--blanco);box-shadow:0 0 0 1px var(--borde);z-index:1;}
+.an-trz-card{background:var(--blanco);border:1px solid var(--borde);border-radius:var(--radio-peq);padding:12px 14px;margin-bottom:18px;flex:1;}
+.an-trz-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+.an-trz-fecha{font-size:10px;color:var(--gris);font-weight:700;text-transform:uppercase;letter-spacing:.03em;}
+.an-trz-tipo{font-size:14px;font-weight:800;color:var(--texto);margin:2px 0 6px;}
+.an-trz-detalle{font-size:12px;color:var(--texto-suave);line-height:1.6;}
+.an-trz-detalle strong{color:var(--texto);}
+.an-trz-obs{margin-top:6px;font-size:11.5px;color:var(--gris);font-style:italic;}
+.an-trz-acciones{display:flex;gap:6px;flex-shrink:0;}
+.an-trz-accion-btn{border:0;background:var(--fondo);width:28px;height:28px;border-radius:8px;cursor:pointer;font-size:12px;color:var(--texto-suave);}
+.an-trz-accion-btn:hover{background:var(--gris-claro);}
+.an-trz-tipo-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px;}
+.an-trz-tipo-opcion{border:1px solid var(--borde);background:var(--fondo);border-radius:11px;padding:10px 6px;text-align:center;cursor:pointer;font-size:10.5px;font-weight:700;color:var(--texto-suave);display:flex;flex-direction:column;align-items:center;gap:4px;}
+.an-trz-tipo-opcion span{font-size:18px;}
+.an-trz-tipo-opcion.activo{border-color:var(--verde3);background:var(--verde-claro);color:var(--verde);}
+@media(max-width:700px){.an-trz-tipo-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:480px){.an-trz-tipo-grid{grid-template-columns:repeat(2,1fr);}.an-trz-evento{grid-template-columns:28px 1fr;}.an-trz-icono{width:28px;height:28px;font-size:12px;}.an-trz-evento:not(:last-child) .an-trz-linea{left:13px;}}
 </style>
 </head>
 <body>
@@ -3975,6 +4002,7 @@ body {
     <div class="lotes-header">
         <button class="btn-back" onclick="cerrarAnimales()">Volver</button>
         <h2>🐄 Animales y carga</h2>
+        <div class="an-trz-header-actions"><button class="btn-secundario" id="anTrzBtnAbrir">🕒 Trazabilidad</button></div>
     </div>
 
     <div class="agenda-sin-clima" style="text-align:left;background:var(--lima-claro);border:1px solid var(--lima);border-radius:12px;padding:10px 14px;margin-bottom:16px;color:var(--verde);">
@@ -4078,6 +4106,49 @@ body {
                 <div class="an-methodology-block"><strong>Carga</strong><p>EV/ha = EV totales ÷ superficie. EV-día/ha = EV totales × días ÷ superficie.</p></div>
                 <div class="an-methodology-warning">Los GDP de referencia son orientativos y no constituyen una predicción nutricional ni sustituyen una formulación de dieta o evaluación profesional.</div>
             </div>
+        </div>
+    </div>
+
+    <!-- ===== Módulo Trazabilidad (independiente) ===== -->
+    <div id="anTrzView" style="display:none;">
+        <div class="an-detalle-header">
+            <div>
+                <button class="btn-back" id="anTrzBtnVolver">Volver</button>
+                <h3 style="margin:10px 0 0;">🕒 Trazabilidad de lotes</h3>
+                <p style="margin:2px 0 0;color:var(--gris);font-size:12px;">Reconstruí la historia de un lote: ingreso, movimientos, pesajes, alimentación, sanidad y salida.</p>
+            </div>
+        </div>
+
+        <div class="an-trz-selector-bar">
+            <div class="form-group">
+                <label for="anTrzSelectLote">Seleccionar lote</label>
+                <select id="anTrzSelectLote"><option value="">Elegí un lote…</option></select>
+            </div>
+        </div>
+
+        <div id="anTrzVacio" class="an-history-empty">Seleccioná un lote para ver su historial.</div>
+
+        <div id="anTrzContenido" style="display:none;">
+            <div class="an-trz-toolbar">
+                <h3>Historial del lote</h3>
+                <button class="btn btn-primary an-btn-primario" id="anTrzBtnNuevoEvento">+ Registrar evento</button>
+            </div>
+            <div id="anTrzTimeline" class="an-trz-timeline"></div>
+        </div>
+    </div>
+
+    <div id="anModalTrzEvento" class="modal-overlay" style="display:none;" role="dialog" aria-modal="true">
+        <div class="an-modal-dialog">
+            <div class="an-modal-header"><div><span class="section-eyebrow" id="anTrzModalEyebrow">NUEVO EVENTO</span><h3 style="margin:4px 0 0;color:var(--texto);" id="anTrzModalTitulo">Registrar evento</h3></div><button id="anTrzBtnCerrarModal" class="an-modal-close">×</button></div>
+
+            <div id="anTrzTipoSelector">
+                <label style="display:block;margin:4px 0 8px;font-size:12px;font-weight:700;color:var(--texto);">Tipo de evento</label>
+                <div class="an-trz-tipo-grid" id="anTrzTipoGrid"></div>
+            </div>
+
+            <div id="anTrzCamposEvento" class="an-form-grid" style="display:none;"></div>
+
+            <div class="modal-botones" style="margin-top:20px;"><button id="anTrzBtnCancelarModal" class="btn-secundario">Cancelar</button><button id="anTrzBtnGuardarEvento" class="btn btn-primary an-btn-primario" style="display:none;">Guardar evento</button></div>
         </div>
     </div>
 
@@ -7438,6 +7509,304 @@ if ("serviceWorker" in navigator) {
     window.scrollTo({top:0,behavior:'smooth'});
   };
   window.anCargarYRenderizar=anCargarYRenderizar;
+})();
+</script>
+
+<!-- ===== Módulo Trazabilidad (independiente, no depende de la lógica de Animales) ===== -->
+<script>
+(function(){
+  const AN_TRZ_TABLE = 'animal_traceability_events';
+
+  const AN_TRZ_TIPOS = {
+    ingreso:      { icono:'🟢', label:'Ingreso' },
+    movimiento:   { icono:'🔵', label:'Movimiento de cuadro' },
+    pesaje:       { icono:'⚖️', label:'Pesaje' },
+    alimentacion: { icono:'🌾', label:'Alimentación' },
+    sanitario:    { icono:'💉', label:'Tratamiento sanitario' },
+    cantidad:     { icono:'🔁', label:'Cambio de cantidad' },
+    salida:       { icono:'🔴', label:'Salida' },
+    otro:         { icono:'📌', label:'Otro evento' }
+  };
+
+  function trzEscapeHTML(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function trzFechaLarga(iso){
+    if(!iso) return '—';
+    const [y,m,d]=iso.split('-');
+    return `${d}/${m}/${y}`;
+  }
+
+  let anTrzLotes=[];
+  let anTrzLoteActualId=null;
+  let anTrzEventos=[];
+  let anTrzTipoSeleccionado=null;
+  let anTrzEditandoId=null;
+
+  async function anTrzCargarLotes(){
+    if(typeof sb==='undefined') return [];
+    const { data, error } = await sb.from('lotes_animales').select('id,name,species').order('name',{ascending:true});
+    if(error){ console.error('Trazabilidad: error cargando lotes.', error); return []; }
+    return data||[];
+  }
+
+  function anTrzRenderSelectorLotes(){
+    const sel=document.getElementById('anTrzSelectLote');
+    const actual=sel.value;
+    sel.innerHTML='<option value="">Elegí un lote…</option>'+anTrzLotes.map(l=>`<option value="${l.id}">${trzEscapeHTML(l.name)}</option>`).join('');
+    if(actual) sel.value=actual;
+  }
+
+  async function anTrzAbrir(){
+    if(typeof ocultarNivelesSuperiores==='function') ocultarNivelesSuperiores();
+    const vistaAnimales=document.getElementById('vistaAnimales');
+    if(vistaAnimales) vistaAnimales.style.display='block';
+    document.getElementById('anListaLotes').style.display='none';
+    document.getElementById('anDetalleLote').style.display='none';
+    const seccion=document.querySelector('#vistaAnimales .seccion');
+    if(seccion) seccion.style.display='none';
+    document.getElementById('anTrzView').style.display='block';
+    document.getElementById('anTrzContenido').style.display='none';
+    document.getElementById('anTrzVacio').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+    anTrzLotes = await anTrzCargarLotes();
+    anTrzRenderSelectorLotes();
+  }
+
+  function anTrzVolver(){
+    document.getElementById('anTrzView').style.display='none';
+    document.getElementById('anListaLotes').style.display='grid';
+    const seccion=document.querySelector('#vistaAnimales .seccion');
+    if(seccion) seccion.style.display='flex';
+    anTrzLoteActualId=null;
+    anTrzEventos=[];
+  }
+
+  async function anTrzCargarEventos(loteId){
+    if(typeof sb==='undefined') return [];
+    const { data, error } = await sb.from(AN_TRZ_TABLE).select('*').eq('lot_id', loteId).order('event_date',{ascending:true}).order('created_at',{ascending:true});
+    if(error){ console.error('Trazabilidad: error cargando eventos.', error); alert('No se pudo cargar el historial del lote.'); return []; }
+    return data||[];
+  }
+
+  async function anTrzSeleccionarLote(loteId){
+    anTrzLoteActualId=loteId||null;
+    if(!anTrzLoteActualId){
+      document.getElementById('anTrzContenido').style.display='none';
+      document.getElementById('anTrzVacio').style.display='block';
+      return;
+    }
+    document.getElementById('anTrzVacio').style.display='none';
+    document.getElementById('anTrzContenido').style.display='block';
+    document.getElementById('anTrzTimeline').innerHTML='<div class="an-history-empty">Cargando historial…</div>';
+    anTrzEventos = await anTrzCargarEventos(anTrzLoteActualId);
+    anTrzRenderTimeline();
+  }
+
+  function anTrzDetalleEvento(ev){
+    const d=ev.data||{};
+    switch(ev.event_type){
+      case 'ingreso':
+        return `<strong>${d.cantidad??'—'}</strong> animales — <strong>${d.peso_promedio??'—'} kg</strong> promedio${d.cuadro?` · Cuadro: <strong>${trzEscapeHTML(d.cuadro)}</strong>`:''}${d.origen?` · Origen: <strong>${trzEscapeHTML(d.origen)}</strong>`:''}`;
+      case 'movimiento':
+        return `<strong>${trzEscapeHTML(d.cuadro_anterior||'—')}</strong> → <strong>${trzEscapeHTML(d.cuadro_nuevo||'—')}</strong>${d.cantidad?` · ${d.cantidad} animales`:''}`;
+      case 'pesaje':
+        return `<strong>${d.peso_promedio??'—'} kg</strong> promedio${d.cantidad?` · ${d.cantidad} animales`:''}`;
+      case 'alimentacion':
+        return `<strong>${trzEscapeHTML(d.tipo_alimentacion||'—')}</strong>${d.racion?` · Ración: <strong>${trzEscapeHTML(d.racion)}</strong>`:''}`;
+      case 'sanitario':
+        return `<strong>${trzEscapeHTML(d.tipo_tratamiento||'—')}</strong>${d.producto?` · Producto: <strong>${trzEscapeHTML(d.producto)}</strong>`:''}`;
+      case 'cantidad':
+        return `<strong>${d.cantidad_anterior??'—'}</strong> → <strong>${d.cantidad_nueva??'—'}</strong> animales${d.motivo?` · Motivo: <strong>${trzEscapeHTML(d.motivo)}</strong>`:''}`;
+      case 'salida':
+        return `<strong>${d.cantidad??'—'}</strong> animales${d.peso_promedio?` — <strong>${d.peso_promedio} kg</strong> promedio`:''}${d.destino?` · Destino: <strong>${trzEscapeHTML(d.destino)}</strong>`:''}`;
+      case 'otro':
+        return `<strong>${trzEscapeHTML(d.titulo||'Evento')}</strong>${d.descripcion?`<br>${trzEscapeHTML(d.descripcion)}`:''}`;
+      default: return '';
+    }
+  }
+
+  function anTrzRenderTimeline(){
+    const cont=document.getElementById('anTrzTimeline');
+    if(!anTrzEventos.length){ cont.innerHTML='<div class="an-history-empty">Todavía no hay eventos registrados para este lote.</div>'; return; }
+    cont.innerHTML = anTrzEventos.map(ev=>{
+      const tipo=AN_TRZ_TIPOS[ev.event_type]||{icono:'📌',label:ev.event_type};
+      return `<div class="an-trz-evento">
+        <div><div class="an-trz-icono">${tipo.icono}</div><div class="an-trz-linea"></div></div>
+        <div class="an-trz-card">
+          <div class="an-trz-card-top">
+            <div><div class="an-trz-fecha">${trzFechaLarga(ev.event_date)}</div><div class="an-trz-tipo">${tipo.label}</div></div>
+            <div class="an-trz-acciones">
+              <button class="an-trz-accion-btn" title="Editar" data-trz-editar="${ev.id}">✎</button>
+              <button class="an-trz-accion-btn" title="Eliminar" data-trz-eliminar="${ev.id}">🗑</button>
+            </div>
+          </div>
+          <div class="an-trz-detalle">${anTrzDetalleEvento(ev)}</div>
+          ${ev.notes?`<div class="an-trz-obs">${trzEscapeHTML(ev.notes)}</div>`:''}
+        </div>
+      </div>`;
+    }).join('');
+    cont.querySelectorAll('[data-trz-editar]').forEach(btn=>btn.onclick=()=>anTrzAbrirModal(btn.getAttribute('data-trz-editar')));
+    cont.querySelectorAll('[data-trz-eliminar]').forEach(btn=>btn.onclick=()=>anTrzEliminarEvento(btn.getAttribute('data-trz-eliminar')));
+  }
+
+  async function anTrzEliminarEvento(id){
+    if(!confirm('¿Eliminar este evento del historial?')) return;
+    if(typeof sb==='undefined') return;
+    const { error } = await sb.from(AN_TRZ_TABLE).delete().eq('id', id);
+    if(error){ alert('No se pudo eliminar el evento: '+error.message); return; }
+    anTrzEventos = anTrzEventos.filter(e=>e.id!==id);
+    anTrzRenderTimeline();
+  }
+
+  function anTrzCamposPorTipo(tipo, d){
+    d=d||{};
+    const campo=(id,label,opts)=>{
+      opts=opts||{};
+      const tag=opts.textarea?'textarea':'input';
+      const tipoInput=opts.type||'text';
+      const val=d[opts.key||id]!=null?d[opts.key||id]:'';
+      const inputHtml = tag==='textarea'
+        ? `<textarea id="${id}" rows="2" placeholder="${opts.placeholder||''}">${trzEscapeHTML(val)}</textarea>`
+        : `<input id="${id}" type="${tipoInput}" ${opts.step?`step="${opts.step}"`:''} ${opts.min!==undefined?`min="${opts.min}"`:''} placeholder="${opts.placeholder||''}" value="${trzEscapeHTML(val)}">`;
+      const full = opts.full ? ' full' : '';
+      return `<div class="form-group${full}"><label for="${id}">${label}</label>${inputHtml}</div>`;
+    };
+    const fecha = campo('anTrzFecha','Fecha',{type:'date',key:'event_date'});
+    const obs = campo('anTrzObs','Observaciones (opcional)',{textarea:true,full:true,key:'notes'});
+    let especificos='';
+    switch(tipo){
+      case 'ingreso':
+        especificos = campo('anTrzCantidad','Cantidad de animales',{type:'number',min:0,key:'cantidad'})
+          + campo('anTrzPeso','Peso promedio (kg)',{type:'number',min:0,step:'0.1',key:'peso_promedio'})
+          + campo('anTrzCuadro','Cuadro/potrero',{key:'cuadro'})
+          + campo('anTrzOrigen','Origen',{key:'origen'});
+        break;
+      case 'movimiento':
+        especificos = campo('anTrzCuadroAnterior','Cuadro/potrero anterior',{key:'cuadro_anterior'})
+          + campo('anTrzCuadroNuevo','Nuevo cuadro/potrero',{key:'cuadro_nuevo'})
+          + campo('anTrzCantidad','Cantidad de animales',{type:'number',min:0,key:'cantidad'});
+        break;
+      case 'pesaje':
+        especificos = campo('anTrzCantidad','Cantidad de animales',{type:'number',min:0,key:'cantidad'})
+          + campo('anTrzPeso','Peso promedio (kg)',{type:'number',min:0,step:'0.1',key:'peso_promedio'});
+        break;
+      case 'alimentacion':
+        especificos = campo('anTrzTipoAlim','Tipo de alimentación',{key:'tipo_alimentacion'})
+          + campo('anTrzRacion','Cantidad/ración (opcional)',{key:'racion'});
+        break;
+      case 'sanitario':
+        especificos = campo('anTrzTipoTrat','Tipo de tratamiento',{key:'tipo_tratamiento'})
+          + campo('anTrzProducto','Producto/principio activo (opcional)',{key:'producto'});
+        break;
+      case 'cantidad':
+        especificos = campo('anTrzCantAnterior','Cantidad anterior',{type:'number',min:0,key:'cantidad_anterior'})
+          + campo('anTrzCantNueva','Cantidad nueva',{type:'number',min:0,key:'cantidad_nueva'})
+          + campo('anTrzMotivo','Motivo',{key:'motivo',full:true});
+        break;
+      case 'salida':
+        especificos = campo('anTrzCantidad','Cantidad de animales',{type:'number',min:0,key:'cantidad'})
+          + campo('anTrzPeso','Peso promedio (opcional)',{type:'number',min:0,step:'0.1',key:'peso_promedio'})
+          + campo('anTrzDestino','Destino',{key:'destino'});
+        break;
+      case 'otro':
+        especificos = campo('anTrzTitulo','Título del evento',{full:true,key:'titulo'})
+          + campo('anTrzDescripcion','Descripción',{textarea:true,full:true,key:'descripcion'});
+        break;
+    }
+    return fecha + especificos + obs;
+  }
+
+  function anTrzRenderTipoGrid(){
+    const grid=document.getElementById('anTrzTipoGrid');
+    grid.innerHTML = Object.entries(AN_TRZ_TIPOS).map(([key,t])=>
+      `<div class="an-trz-tipo-opcion" data-trz-tipo="${key}"><span>${t.icono}</span>${t.label}</div>`
+    ).join('');
+    grid.querySelectorAll('[data-trz-tipo]').forEach(el=>{
+      el.onclick=()=>anTrzElegirTipo(el.getAttribute('data-trz-tipo'));
+    });
+  }
+
+  function anTrzElegirTipo(tipo, datosExistentes){
+    anTrzTipoSeleccionado=tipo;
+    document.querySelectorAll('#anTrzTipoGrid [data-trz-tipo]').forEach(el=>{
+      el.classList.toggle('activo', el.getAttribute('data-trz-tipo')===tipo);
+    });
+    const campos=document.getElementById('anTrzCamposEvento');
+    campos.style.display='grid';
+    campos.innerHTML=anTrzCamposPorTipo(tipo, datosExistentes);
+    document.getElementById('anTrzBtnGuardarEvento').style.display='inline-flex';
+  }
+
+  function anTrzAbrirModal(eventoId){
+    anTrzEditandoId=eventoId||null;
+    const evento = eventoId ? anTrzEventos.find(e=>e.id===eventoId) : null;
+    document.getElementById('anTrzModalEyebrow').textContent = evento ? 'EDITAR EVENTO' : 'NUEVO EVENTO';
+    document.getElementById('anTrzModalTitulo').textContent = evento ? 'Editar evento' : 'Registrar evento';
+    anTrzRenderTipoGrid();
+    document.getElementById('anTrzCamposEvento').style.display='none';
+    document.getElementById('anTrzCamposEvento').innerHTML='';
+    document.getElementById('anTrzBtnGuardarEvento').style.display='none';
+    anTrzTipoSeleccionado=null;
+    if(evento){
+      const datos=Object.assign({}, evento.data||{}, {event_date:evento.event_date, notes:evento.notes});
+      anTrzElegirTipo(evento.event_type, datos);
+    }
+    document.getElementById('anModalTrzEvento').style.display='flex';
+  }
+
+  function anTrzCerrarModal(){
+    document.getElementById('anModalTrzEvento').style.display='none';
+    anTrzEditandoId=null;
+    anTrzTipoSeleccionado=null;
+  }
+
+  function anTrzRecolectarDatos(tipo){
+    const val=id=>{ const el=document.getElementById(id); return el?el.value.trim():''; };
+    const num=id=>{ const v=val(id); return v===''?null:Number(v); };
+    switch(tipo){
+      case 'ingreso': return { cantidad:num('anTrzCantidad'), peso_promedio:num('anTrzPeso'), cuadro:val('anTrzCuadro'), origen:val('anTrzOrigen') };
+      case 'movimiento': return { cuadro_anterior:val('anTrzCuadroAnterior'), cuadro_nuevo:val('anTrzCuadroNuevo'), cantidad:num('anTrzCantidad') };
+      case 'pesaje': return { cantidad:num('anTrzCantidad'), peso_promedio:num('anTrzPeso') };
+      case 'alimentacion': return { tipo_alimentacion:val('anTrzTipoAlim'), racion:val('anTrzRacion') };
+      case 'sanitario': return { tipo_tratamiento:val('anTrzTipoTrat'), producto:val('anTrzProducto') };
+      case 'cantidad': return { cantidad_anterior:num('anTrzCantAnterior'), cantidad_nueva:num('anTrzCantNueva'), motivo:val('anTrzMotivo') };
+      case 'salida': return { cantidad:num('anTrzCantidad'), peso_promedio:num('anTrzPeso'), destino:val('anTrzDestino') };
+      case 'otro': return { titulo:val('anTrzTitulo'), descripcion:val('anTrzDescripcion') };
+      default: return {};
+    }
+  }
+
+  async function anTrzGuardarEvento(){
+    if(!anTrzTipoSeleccionado){ alert('Elegí un tipo de evento.'); return; }
+    if(!anTrzLoteActualId){ alert('Seleccioná un lote primero.'); return; }
+    const fecha=document.getElementById('anTrzFecha').value;
+    if(!fecha){ alert('Ingresá la fecha del evento.'); return; }
+    const notes=document.getElementById('anTrzObs').value.trim();
+    const data=anTrzRecolectarDatos(anTrzTipoSeleccionado);
+    const btn=document.getElementById('anTrzBtnGuardarEvento');
+    btn.disabled=true; btn.textContent='Guardando…';
+    let error;
+    if(anTrzEditandoId){
+      ({ error } = await sb.from(AN_TRZ_TABLE).update({ event_type:anTrzTipoSeleccionado, event_date:fecha, data, notes:notes||null }).eq('id', anTrzEditandoId));
+    } else {
+      ({ error } = await sb.from(AN_TRZ_TABLE).insert({ lot_id:anTrzLoteActualId, event_type:anTrzTipoSeleccionado, event_date:fecha, data, notes:notes||null }));
+    }
+    btn.disabled=false; btn.textContent='Guardar evento';
+    if(error){ alert('No se pudo guardar el evento: '+error.message); return; }
+    anTrzCerrarModal();
+    anTrzEventos = await anTrzCargarEventos(anTrzLoteActualId);
+    anTrzRenderTimeline();
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const btnAbrir=document.getElementById('anTrzBtnAbrir'); if(btnAbrir) btnAbrir.onclick=anTrzAbrir;
+    const btnVolver=document.getElementById('anTrzBtnVolver'); if(btnVolver) btnVolver.onclick=anTrzVolver;
+    const selectLote=document.getElementById('anTrzSelectLote'); if(selectLote) selectLote.onchange=()=>anTrzSeleccionarLote(selectLote.value);
+    const btnNuevoEvento=document.getElementById('anTrzBtnNuevoEvento'); if(btnNuevoEvento) btnNuevoEvento.onclick=()=>anTrzAbrirModal(null);
+    const btnCerrarModal=document.getElementById('anTrzBtnCerrarModal'); if(btnCerrarModal) btnCerrarModal.onclick=anTrzCerrarModal;
+    const btnCancelarModal=document.getElementById('anTrzBtnCancelarModal'); if(btnCancelarModal) btnCancelarModal.onclick=anTrzCerrarModal;
+    const btnGuardarEvento=document.getElementById('anTrzBtnGuardarEvento'); if(btnGuardarEvento) btnGuardarEvento.onclick=anTrzGuardarEvento;
+    const overlay=document.getElementById('anModalTrzEvento'); if(overlay) overlay.addEventListener('click',(e)=>{ if(e.target===overlay) anTrzCerrarModal(); });
+  });
 })();
 </script>
 
