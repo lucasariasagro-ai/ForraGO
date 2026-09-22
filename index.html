@@ -3715,6 +3715,10 @@ body {
 .csq-card-acciones{display:flex;gap:6px;margin-top:4px;}
 .csq-card-acciones button{border:0;background:var(--fondo);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:10.5px;font-weight:700;color:var(--texto-suave);}
 .csq-card-acciones button:hover{background:var(--gris-claro);}
+.csq-sugerencia{margin-top:2px;padding:9px 11px;border-radius:10px;background:var(--lima-claro);color:var(--verde);font-size:11px;line-height:1.5;}
+.csq-sugerencia.regular{background:var(--ambar-alerta-claro);color:#76551f;}
+.csq-sugerencia.mala{background:var(--rojo-alerta-claro);color:var(--rojo-alerta);}
+.csq-sugerencia ul{margin:4px 0 0;padding-left:16px;}
 </style>
 </head>
 <body>
@@ -7927,6 +7931,19 @@ if ("serviceWorker" in navigator) {
     compactacion:{firme:'Bien compactado',suelto:'Suelto/aireado',humedo:'Excesivamente húmedo'},
     temperatura:{ambiente:'Temperatura ambiente',tibio:'Tibio al tacto',caliente:'Caliente al tacto'}
   };
+  const CSQ_SUGERENCIAS = {
+    color:{oscuro:'El oscurecimiento suele indicar sobrecalentamiento por ingreso de aire o mal sellado: descartá las capas superficiales afectadas.',decolorado:'El color grisáceo/blanquecino sugiere hongos: retirá y descartá esa porción antes de ofrecerlo.'},
+    olor:{alcohol:'El olor a alcohol indica fermentación alcohólica (exceso de azúcares o sellado tardío); reduce la palatabilidad pero no suele ser peligroso. Conviene airear un rato antes de ofrecerlo.',rancio:'El olor rancio/pútrido indica una fermentación deficiente. No se recomienda para consumo animal.',amoniacal:'El olor amoniacal indica degradación de proteínas por mala fermentación. No se recomienda para consumo animal.'},
+    textura:{deshecha:'La estructura deshecha (tipo barro) suele deberse a exceso de humedad o mala compactación. Revisá el punto de humedad y el picado del próximo silo.'},
+    hongos:{puntual:'Retirá y descartá la zona afectada; si no hay otros signos alterados, el resto del silo puede aprovecharse.',generalizado:'No se recomienda su uso para consumo animal: el riesgo de micotoxinas es alto.'},
+    compactacion:{suelto:'La falta de compactación favorece el ingreso de aire y el deterioro. Reforzá el compactado en el próximo silo.',humedo:'El exceso de humedad favorece efluentes y fermentaciones indeseadas. Revisá la humedad de picado del próximo silo.'},
+    temperatura:{tibio:'La temperatura tibia sugiere actividad microbiana por ingreso de aire. Revisá el sellado y el avance del frente de silo.',caliente:'El calor es un fuerte indicio de deterioro aeróbico. Retirá el material afectado y evitá dejar el frente expuesto por mucho tiempo.'}
+  };
+  const CSQ_MENSAJE_VEREDICTO = {
+    buena:'El silaje se observa en buenas condiciones para el consumo animal.',
+    regular:'Conviene revisar antes de usarlo a gran escala: descartá las zonas señaladas y controlá el resto del silo de cerca.',
+    mala:'No se recomienda su uso sin antes descartar el material comprometido.'
+  };
 
   function csqEscapeHTML(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
   function csqFechaLarga(iso){ if(!iso) return '—'; const [y,m,d]=iso.split('-'); return `${d}/${m}/${y}`; }
@@ -8000,12 +8017,17 @@ if ("serviceWorker" in navigator) {
         .map(k=>`<span class="flag">⚠ ${csqEscapeHTML(CSQ_LABELS[k][row[k]]||'')}</span>`);
       const detalle = Object.keys(CSQ_CRITERIOS).filter(k=>(CSQ_CRITERIOS[k][row[k]]??0)===0)
         .map(k=>csqEscapeHTML(CSQ_LABELS[k][row[k]]||'')).concat(flags).join(' · ');
+      const puntosSugerencia = Object.keys(CSQ_CRITERIOS)
+        .filter(k=>(CSQ_CRITERIOS[k][row[k]]??0)>0 && CSQ_SUGERENCIAS[k] && CSQ_SUGERENCIAS[k][row[k]])
+        .map(k=>`<li>${csqEscapeHTML(CSQ_SUGERENCIAS[k][row[k]])}</li>`);
+      const sugerenciaHtml = `<div class="csq-sugerencia ${v.veredicto}"><strong>💡 Sugerencia:</strong> ${csqEscapeHTML(CSQ_MENSAJE_VEREDICTO[v.veredicto])}${puntosSugerencia.length?`<ul>${puntosSugerencia.join('')}</ul>`:''}</div>`;
       return `<div class="csq-card">
         <div class="csq-card-top">
           <div><div class="csq-card-titulo">${csqEscapeHTML(titulo)}</div><div class="csq-card-fecha">${csqFechaLarga(row.check_date)}</div></div>
           <span class="csq-badge ${v.veredicto}">${v.texto}</span>
         </div>
         <div class="csq-card-detalle">${detalle}</div>
+        ${sugerenciaHtml}
         ${row.notes?`<div class="csq-card-obs">${csqEscapeHTML(row.notes)}</div>`:''}
         <div class="csq-card-acciones">
           <button data-csq-editar="${row.id}">✎ Editar</button>
