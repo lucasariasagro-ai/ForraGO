@@ -3698,6 +3698,23 @@ body {
 .an-trz-tipo-opcion.activo{border-color:var(--verde3);background:var(--verde-claro);color:var(--verde);}
 @media(max-width:700px){.an-trz-tipo-grid{grid-template-columns:repeat(3,1fr);}}
 @media(max-width:480px){.an-trz-tipo-grid{grid-template-columns:repeat(2,1fr);}.an-trz-evento{grid-template-columns:28px 1fr;}.an-trz-icono{width:28px;height:28px;font-size:12px;}.an-trz-evento:not(:last-child) .an-trz-linea{left:13px;}}
+
+/* ===== Módulo Calidad de silaje (independiente) ===== */
+.csq-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+.csq-card{background:var(--blanco);border:1px solid var(--borde);border-radius:var(--radio-peq);padding:14px 16px;display:flex;flex-direction:column;gap:8px;}
+.csq-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+.csq-card-titulo{font-size:14px;font-weight:800;color:var(--texto);}
+.csq-card-fecha{font-size:10px;color:var(--gris);font-weight:700;text-transform:uppercase;letter-spacing:.03em;margin-top:2px;}
+.csq-badge{font-size:10px;font-weight:800;padding:5px 10px;border-radius:20px;white-space:nowrap;}
+.csq-badge.buena{background:var(--verde-claro);color:var(--verde);}
+.csq-badge.regular{background:var(--ambar-alerta-claro);color:var(--ambar-alerta);}
+.csq-badge.mala{background:var(--rojo-alerta-claro);color:var(--rojo-alerta);}
+.csq-card-detalle{font-size:11.5px;color:var(--texto-suave);line-height:1.6;}
+.csq-card-detalle span.flag{color:var(--rojo-alerta);font-weight:700;}
+.csq-card-obs{font-size:11px;color:var(--gris);font-style:italic;}
+.csq-card-acciones{display:flex;gap:6px;margin-top:4px;}
+.csq-card-acciones button{border:0;background:var(--fondo);padding:6px 12px;border-radius:8px;cursor:pointer;font-size:10.5px;font-weight:700;color:var(--texto-suave);}
+.csq-card-acciones button:hover{background:var(--gris-claro);}
 </style>
 </head>
 <body>
@@ -3927,6 +3944,14 @@ body {
             </div>
         </div>
 
+        <div class="lotes-banner" id="csqBtnAbrir">
+            <span class="lotes-banner-icono">🧪</span>
+            <div class="lotes-banner-texto">
+                <strong>Calidad de silaje</strong>
+                <span>Evaluá tus silos a simple vista: color, olor, textura y más</span>
+            </div>
+        </div>
+
         <div class="lotes-banner" onclick="abrirProduccion()">
             <span class="lotes-banner-icono">📊</span>
             <div class="lotes-banner-texto">
@@ -3950,6 +3975,73 @@ body {
             <h2>📊 Producción</h2>
         </div>
         <div id="produccionContenido"></div>
+    </div>
+
+    <!-- ===== Módulo Calidad de silaje (independiente) ===== -->
+    <div id="vistaCalidadSilaje" style="display:none;">
+        <div class="lotes-header">
+            <button class="btn-back" id="csqBtnVolver">Volver</button>
+            <h2>🧪 Calidad de silaje</h2>
+        </div>
+
+        <div class="agenda-sin-clima" style="text-align:left;background:var(--lima-claro);border:1px solid var(--lima);border-radius:12px;padding:10px 14px;margin-bottom:16px;color:var(--verde);">
+            🔍 Evaluación a simple vista: color, olor, textura, hongos, compactación y temperatura del material.
+        </div>
+
+        <div class="seccion">
+            <div><p>Registrá lo que observás en cada silo y obtené un veredicto rápido de calidad.</p></div>
+            <button class="btn btn-primary an-btn-primario" id="csqBtnNuevo">+ Nuevo chequeo</button>
+        </div>
+
+        <div id="csqVacio" class="an-history-empty" style="display:none;">Todavía no registraste ningún chequeo de calidad.</div>
+        <div id="csqLista" class="csq-grid"></div>
+    </div>
+
+    <div id="csqModal" class="modal-overlay" style="display:none;" role="dialog" aria-modal="true">
+        <div class="an-modal-dialog">
+            <div class="an-modal-header"><div><span class="section-eyebrow" id="csqModalEyebrow">NUEVO CHEQUEO</span><h3 style="margin:4px 0 0;color:var(--texto);" id="csqModalTitulo">Chequeo de calidad</h3></div><button id="csqBtnCerrarModal" class="an-modal-close">×</button></div>
+
+            <div class="an-form-grid">
+                <div class="form-group"><label for="csqFecha">Fecha</label><input id="csqFecha" type="date"></div>
+                <div class="form-group"><label for="csqSelectLote">Lote (opcional)</label><select id="csqSelectLote"><option value="">— Sin vincular —</option></select></div>
+                <div class="form-group full"><label for="csqNombreSilo">Nombre del silo (opcional)</label><input id="csqNombreSilo" type="text" placeholder='Ej. "Silo bolsa 3", "Silo pit norte"'></div>
+
+                <div class="form-group"><label for="csqColor">Color</label><select id="csqColor">
+                    <option value="normal">Normal (verde oliva / amarillento)</option>
+                    <option value="oscuro">Oscuro (marrón-negro, indicio de calor)</option>
+                    <option value="decolorado">Decolorado (grisáceo/blanquecino, hongos)</option>
+                </select></div>
+                <div class="form-group"><label for="csqOlor">Olor</label><select id="csqOlor">
+                    <option value="agradable">Agradable (ácido, tipo vinagre suave)</option>
+                    <option value="alcohol">A alcohol</option>
+                    <option value="rancio">Rancio / pútrido</option>
+                    <option value="amoniacal">Amoniacal (a orina)</option>
+                </select></div>
+                <div class="form-group"><label for="csqTextura">Textura / estructura</label><select id="csqTextura">
+                    <option value="conservada">Se reconoce hoja y tallo</option>
+                    <option value="deshecha">Deshecha / pastosa (tipo barro)</option>
+                </select></div>
+                <div class="form-group"><label for="csqHongos">Hongos / moho visible</label><select id="csqHongos">
+                    <option value="no">No se observa</option>
+                    <option value="puntual">Puntual, en algunas zonas</option>
+                    <option value="generalizado">Generalizado</option>
+                </select></div>
+                <div class="form-group"><label for="csqCompactacion">Compactación al tacto</label><select id="csqCompactacion">
+                    <option value="firme">Firme y compacto</option>
+                    <option value="suelto">Suelto / aireado</option>
+                    <option value="humedo">Excesivamente húmedo (chorrea líquido)</option>
+                </select></div>
+                <div class="form-group"><label for="csqTemperatura">Temperatura al tacto</label><select id="csqTemperatura">
+                    <option value="ambiente">Temperatura ambiente</option>
+                    <option value="tibio">Tibio</option>
+                    <option value="caliente">Caliente</option>
+                </select></div>
+
+                <div class="form-group full"><label for="csqObs">Observaciones (opcional)</label><textarea id="csqObs" rows="2"></textarea></div>
+            </div>
+
+            <div class="modal-botones" style="margin-top:20px;"><button id="csqBtnCancelarModal" class="btn-secundario">Cancelar</button><button id="csqBtnGuardar" class="btn btn-primary an-btn-primario">Guardar chequeo</button></div>
+        </div>
     </div>
 
     <div id="vistaPerfil" style="display:none;">
@@ -6124,6 +6216,7 @@ function ocultarNivelesSuperiores() {
     document.getElementById("vistaAgenda").style.display = "none";
     document.getElementById("vistaBiblioteca").style.display = "none";
     document.getElementById("vistaProduccion").style.display = "none";
+    document.getElementById("vistaCalidadSilaje").style.display = "none";
     document.getElementById("vistaPerfil").style.display = "none";
     document.getElementById("vistaDatos").style.display = "none";
     document.getElementById("vistaNotificaciones").style.display = "none";
@@ -7809,6 +7902,194 @@ if ("serviceWorker" in navigator) {
     const btnCancelarModal=document.getElementById('anTrzBtnCancelarModal'); if(btnCancelarModal) btnCancelarModal.onclick=anTrzCerrarModal;
     const btnGuardarEvento=document.getElementById('anTrzBtnGuardarEvento'); if(btnGuardarEvento) btnGuardarEvento.onclick=anTrzGuardarEvento;
     const overlay=document.getElementById('anModalTrzEvento'); if(overlay) overlay.addEventListener('click',(e)=>{ if(e.target===overlay) anTrzCerrarModal(); });
+  });
+})();
+</script>
+
+<!-- ===== Módulo Calidad de silaje (independiente, no depende de la lógica de Silaje ni de Lotes) ===== -->
+<script>
+(function(){
+  const CSQ_TABLE = 'silage_quality_checks';
+
+  const CSQ_CRITERIOS = {
+    color:        { normal:0, oscuro:2, decolorado:2 },
+    olor:         { agradable:0, alcohol:1, rancio:2, amoniacal:2 },
+    textura:      { conservada:0, deshecha:2 },
+    hongos:       { no:0, puntual:1, generalizado:2 },
+    compactacion: { firme:0, suelto:1, humedo:2 },
+    temperatura:  { ambiente:0, tibio:1, caliente:2 }
+  };
+  const CSQ_LABELS = {
+    color:{normal:'Color normal',oscuro:'Color oscuro (calor)',decolorado:'Decolorado (hongos)'},
+    olor:{agradable:'Olor agradable',alcohol:'Olor a alcohol',rancio:'Olor rancio/pútrido',amoniacal:'Olor amoniacal'},
+    textura:{conservada:'Estructura conservada',deshecha:'Estructura deshecha'},
+    hongos:{no:'Sin hongos visibles',puntual:'Hongos puntuales',generalizado:'Hongos generalizados'},
+    compactacion:{firme:'Bien compactado',suelto:'Suelto/aireado',humedo:'Excesivamente húmedo'},
+    temperatura:{ambiente:'Temperatura ambiente',tibio:'Tibio al tacto',caliente:'Caliente al tacto'}
+  };
+
+  function csqEscapeHTML(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function csqFechaLarga(iso){ if(!iso) return '—'; const [y,m,d]=iso.split('-'); return `${d}/${m}/${y}`; }
+  function csqHoy(){ const d=new Date(); return d.toISOString().slice(0,10); }
+
+  function csqCalcularVeredicto(row){
+    let puntaje=0;
+    Object.keys(CSQ_CRITERIOS).forEach(k=>{ puntaje += CSQ_CRITERIOS[k][row[k]] ?? 0; });
+    let veredicto='buena', texto='Buena calidad';
+    if(puntaje>=5){ veredicto='mala'; texto='Calidad comprometida'; }
+    else if(puntaje>=2){ veredicto='regular'; texto='Calidad regular'; }
+    return { puntaje, veredicto, texto };
+  }
+
+  let csqChecks=[];
+  let csqLotes=[];
+  let csqEditandoId=null;
+
+  async function csqCargarLotes(){
+    if(typeof sb==='undefined') return [];
+    const { data, error } = await sb.from('lotes').select('id,nombre').order('nombre',{ascending:true});
+    if(error){ console.error('Calidad de silaje: error cargando lotes.', error); return []; }
+    return data||[];
+  }
+
+  function csqRenderSelectorLotes(){
+    const sel=document.getElementById('csqSelectLote');
+    sel.innerHTML='<option value="">— Sin vincular —</option>'+csqLotes.map(l=>`<option value="${l.id}">${csqEscapeHTML(l.nombre)}</option>`).join('');
+  }
+
+  async function csqCargarChecks(){
+    if(typeof sb==='undefined') return [];
+    const { data, error } = await sb.from(CSQ_TABLE).select('*').order('check_date',{ascending:false}).order('created_at',{ascending:false});
+    if(error){ console.error('Calidad de silaje: error cargando chequeos.', error); alert('No se pudieron cargar los chequeos de calidad.'); return []; }
+    return data||[];
+  }
+
+  async function csqAbrir(){
+    if(typeof ocultarNivelesSuperiores==='function') ocultarNivelesSuperiores();
+    document.getElementById('vistaCalidadSilaje').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+    document.getElementById('csqLista').innerHTML='<div class="an-history-empty">Cargando…</div>';
+    const [checks, lotes] = await Promise.all([csqCargarChecks(), csqCargarLotes()]);
+    csqChecks=checks; csqLotes=lotes;
+    csqRenderSelectorLotes();
+    csqRenderLista();
+  }
+
+  function csqVolver(){
+    document.getElementById('vistaCalidadSilaje').style.display='none';
+    document.getElementById('vistaGestionar').style.display='block';
+    if(typeof renderResumenGestionar==='function') renderResumenGestionar();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+
+  function csqNombreLote(loteId){
+    if(!loteId) return null;
+    const l=csqLotes.find(x=>String(x.id)===String(loteId));
+    return l?l.nombre:null;
+  }
+
+  function csqRenderLista(){
+    const cont=document.getElementById('csqLista');
+    const vacio=document.getElementById('csqVacio');
+    if(!csqChecks.length){ cont.innerHTML=''; vacio.style.display='block'; return; }
+    vacio.style.display='none';
+    cont.innerHTML = csqChecks.map(row=>{
+      const v=csqCalcularVeredicto(row);
+      const titulo = row.nombre_silo || csqNombreLote(row.lote_id) || 'Silo sin nombre';
+      const flags = Object.keys(CSQ_CRITERIOS).filter(k=>(CSQ_CRITERIOS[k][row[k]]??0)>0)
+        .map(k=>`<span class="flag">⚠ ${csqEscapeHTML(CSQ_LABELS[k][row[k]]||'')}</span>`);
+      const detalle = Object.keys(CSQ_CRITERIOS).filter(k=>(CSQ_CRITERIOS[k][row[k]]??0)===0)
+        .map(k=>csqEscapeHTML(CSQ_LABELS[k][row[k]]||'')).concat(flags).join(' · ');
+      return `<div class="csq-card">
+        <div class="csq-card-top">
+          <div><div class="csq-card-titulo">${csqEscapeHTML(titulo)}</div><div class="csq-card-fecha">${csqFechaLarga(row.check_date)}</div></div>
+          <span class="csq-badge ${v.veredicto}">${v.texto}</span>
+        </div>
+        <div class="csq-card-detalle">${detalle}</div>
+        ${row.notes?`<div class="csq-card-obs">${csqEscapeHTML(row.notes)}</div>`:''}
+        <div class="csq-card-acciones">
+          <button data-csq-editar="${row.id}">✎ Editar</button>
+          <button data-csq-eliminar="${row.id}">🗑 Eliminar</button>
+        </div>
+      </div>`;
+    }).join('');
+    cont.querySelectorAll('[data-csq-editar]').forEach(b=>b.onclick=()=>csqAbrirModal(b.getAttribute('data-csq-editar')));
+    cont.querySelectorAll('[data-csq-eliminar]').forEach(b=>b.onclick=()=>csqEliminar(b.getAttribute('data-csq-eliminar')));
+  }
+
+  async function csqEliminar(id){
+    if(!confirm('¿Eliminar este chequeo de calidad?')) return;
+    if(typeof sb==='undefined') return;
+    const { error } = await sb.from(CSQ_TABLE).delete().eq('id', id);
+    if(error){ alert('No se pudo eliminar el chequeo: '+error.message); return; }
+    csqChecks = csqChecks.filter(c=>c.id!==id);
+    csqRenderLista();
+  }
+
+  function csqAbrirModal(id){
+    csqEditandoId=id||null;
+    const row = id ? csqChecks.find(c=>c.id===id) : null;
+    document.getElementById('csqModalEyebrow').textContent = row?'EDITAR CHEQUEO':'NUEVO CHEQUEO';
+    document.getElementById('csqModalTitulo').textContent = row?'Editar chequeo':'Chequeo de calidad';
+    document.getElementById('csqFecha').value = row?row.check_date:csqHoy();
+    document.getElementById('csqSelectLote').value = row&&row.lote_id?String(row.lote_id):'';
+    document.getElementById('csqNombreSilo').value = row?(row.nombre_silo||''):'';
+    document.getElementById('csqColor').value = row?row.color:'normal';
+    document.getElementById('csqOlor').value = row?row.olor:'agradable';
+    document.getElementById('csqTextura').value = row?row.textura:'conservada';
+    document.getElementById('csqHongos').value = row?row.hongos:'no';
+    document.getElementById('csqCompactacion').value = row?row.compactacion:'firme';
+    document.getElementById('csqTemperatura').value = row?row.temperatura:'ambiente';
+    document.getElementById('csqObs').value = row?(row.notes||''):'';
+    document.getElementById('csqModal').style.display='flex';
+  }
+
+  function csqCerrarModal(){
+    document.getElementById('csqModal').style.display='none';
+    csqEditandoId=null;
+  }
+
+  async function csqGuardar(){
+    const fecha=document.getElementById('csqFecha').value;
+    if(!fecha){ alert('Ingresá la fecha del chequeo.'); return; }
+    const loteId=document.getElementById('csqSelectLote').value||null;
+    const nombreSilo=document.getElementById('csqNombreSilo').value.trim()||null;
+    if(!loteId && !nombreSilo){ alert('Elegí un lote o ingresá un nombre para el silo.'); return; }
+    const payload={
+      check_date:fecha,
+      lote_id:loteId,
+      nombre_silo:nombreSilo,
+      color:document.getElementById('csqColor').value,
+      olor:document.getElementById('csqOlor').value,
+      textura:document.getElementById('csqTextura').value,
+      hongos:document.getElementById('csqHongos').value,
+      compactacion:document.getElementById('csqCompactacion').value,
+      temperatura:document.getElementById('csqTemperatura').value,
+      notes:document.getElementById('csqObs').value.trim()||null
+    };
+    const btn=document.getElementById('csqBtnGuardar');
+    btn.disabled=true; btn.textContent='Guardando…';
+    let error;
+    if(csqEditandoId){
+      ({ error } = await sb.from(CSQ_TABLE).update(payload).eq('id', csqEditandoId));
+    } else {
+      ({ error } = await sb.from(CSQ_TABLE).insert(payload));
+    }
+    btn.disabled=false; btn.textContent='Guardar chequeo';
+    if(error){ alert('No se pudo guardar el chequeo: '+error.message); return; }
+    csqCerrarModal();
+    csqChecks = await csqCargarChecks();
+    csqRenderLista();
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const btnAbrir=document.getElementById('csqBtnAbrir'); if(btnAbrir) btnAbrir.onclick=csqAbrir;
+    const btnVolver=document.getElementById('csqBtnVolver'); if(btnVolver) btnVolver.onclick=csqVolver;
+    const btnNuevo=document.getElementById('csqBtnNuevo'); if(btnNuevo) btnNuevo.onclick=()=>csqAbrirModal(null);
+    const btnCerrarModal=document.getElementById('csqBtnCerrarModal'); if(btnCerrarModal) btnCerrarModal.onclick=csqCerrarModal;
+    const btnCancelarModal=document.getElementById('csqBtnCancelarModal'); if(btnCancelarModal) btnCancelarModal.onclick=csqCerrarModal;
+    const btnGuardar=document.getElementById('csqBtnGuardar'); if(btnGuardar) btnGuardar.onclick=csqGuardar;
+    const overlay=document.getElementById('csqModal'); if(overlay) overlay.addEventListener('click',(e)=>{ if(e.target===overlay) csqCerrarModal(); });
   });
 })();
 </script>
