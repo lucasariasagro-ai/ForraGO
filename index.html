@@ -48,6 +48,13 @@
     --rojo-alerta-claro:#fde8e8;
     --ambar-alerta:#b8791a;
     --ambar-alerta-claro:#fbf0dc;
+    --nivel-bajo:#b07a2e;
+    --nivel-bajo-claro:#fdf0dc;
+    --nivel-medio:#a08820;
+    --nivel-medio-claro:#fdf7d6;
+    --nivel-bueno:#2a7a42;
+    --nivel-bueno-claro:#e4f3e6;
+    --nivel-muybueno-claro:#d4ecd9;
     --hacienda:#a6541f;
     --hacienda2:#d68a42;
     --hacienda-claro:#f8ead9;
@@ -1108,7 +1115,7 @@ body {
         font-size:9px;
     }
     .estado-opcion span {
-        font-size:7.5px;
+        font-size:9px;
         display:none;
     }
     .destino { grid-template-columns:1fr; }
@@ -1295,11 +1302,11 @@ body {
     font-weight:800;
     letter-spacing:.3px;
 }
-.muy-bajo { background:#fde8e8; color:#b33c3c; }
-.bajo { background:#fdf0dc; color:#b07a2e; }
-.medio { background:#fdf7d6; color:#a08820; }
-.bueno { background:#e4f3e6; color:#2a7a42; }
-.muy-bueno { background:#d4ecd9; color:#1a6b3c; }
+.muy-bajo { background:var(--rojo-alerta-claro); color:var(--rojo-alerta); }
+.bajo { background:var(--nivel-bajo-claro); color:var(--nivel-bajo); }
+.medio { background:var(--nivel-medio-claro); color:var(--nivel-medio); }
+.bueno { background:var(--nivel-bueno-claro); color:var(--nivel-bueno); }
+.muy-bueno { background:var(--nivel-muybueno-claro); color:var(--verde); }
 
 .resultado-principal {
     padding:30px 0 10px;
@@ -1472,7 +1479,7 @@ body {
     display:flex;
     justify-content:space-between;
     margin-top:8px;
-    font-size:7.5px;
+    font-size:9px;
     font-weight:600;
     color:var(--gris);
 }
@@ -1995,8 +2002,8 @@ body {
 .lotes-header-badge {
     padding:4px 12px;
     border-radius:20px;
-    background:#fde8e8;
-    color:#b33c3c;
+    background:var(--rojo-alerta-claro);
+    color:var(--rojo-alerta);
     font-size:10px;
     font-weight:800;
     display:inline-flex;
@@ -2386,7 +2393,7 @@ body {
 }
 .historial-borrar:hover {
     opacity:1;
-    background:#fde8e8;
+    background:var(--rojo-alerta-claro);
 }
 
 .historial-grafico {
@@ -3001,10 +3008,10 @@ body {
     margin:6px 4px;
 }
 .menu-usuario-item-peligro {
-    color:#b33c3c;
+    color:var(--rojo-alerta);
 }
 .menu-usuario-item-peligro:hover {
-    background:#fdf1f0;
+    background:var(--rojo-alerta-claro);
 }
 
 @media(max-width:600px) {
@@ -3332,12 +3339,12 @@ body {
     color:var(--gris);
     white-space:nowrap;
 }
-.trabajo-fecha-badge.vencido { background:#fde8e8; color:#b33c3c; }
+.trabajo-fecha-badge.vencido { background:var(--rojo-alerta-claro); color:var(--rojo-alerta); }
 .trabajo-alerta-linea {
     margin-top:6px;
     font-size:10px;
     font-weight:700;
-    color:#b07a2e;
+    color:var(--nivel-bajo);
     display:flex;
     align-items:center;
     gap:5px;
@@ -3361,7 +3368,7 @@ body {
     white-space:nowrap;
 }
 .trabajo-btn-mini.hecho { border-color:var(--verde3); color:var(--verde); background:var(--verde-claro); }
-.trabajo-btn-mini.borrar:hover { background:#fde8e8; color:#b33c3c; }
+.trabajo-btn-mini.borrar:hover { background:var(--rojo-alerta-claro); color:var(--rojo-alerta); }
 .trabajo-btn-mini.historial { border-color:var(--borde); background:var(--fondo); color:var(--texto-suave); }
 .trabajo-btn-mini.historial:hover { background:var(--blanco); border-color:var(--verde3); }
 .trabajos-vacio {
@@ -3469,8 +3476,8 @@ body {
 .agenda-filtros .badge-vencidos {
     padding:4px 12px;
     border-radius:20px;
-    background:#fde8e8;
-    color:#b33c3c;
+    background:var(--rojo-alerta-claro);
+    color:var(--rojo-alerta);
     font-size:10px;
     font-weight:800;
     display:inline-flex;
@@ -3547,11 +3554,11 @@ body {
 .an-table { width:100%; border-collapse:collapse; font-size:12.5px; }
 .an-table th { text-align:left; color:var(--gris); font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.4px; padding:8px; border-bottom:1px solid var(--borde); }
 .an-table td { padding:11px 8px; border-bottom:1px solid var(--gris-claro); vertical-align:middle; color:var(--texto); }
-.an-state-warning { cursor:help; color:#b07a2e; margin-left:3px; }
+.an-state-warning { cursor:help; color:var(--nivel-bajo); margin-left:3px; }
 .an-row-actions { display:flex; gap:6px; }
 .an-icon-btn { border:0; border-radius:8px; width:28px; height:28px; cursor:pointer; font-size:13px; }
 .an-icon-btn.edit { background:var(--verde-claro); color:var(--verde); }
-.an-icon-btn.remove { background:#fde8e8; color:#b33c3c; }
+.an-icon-btn.remove { background:var(--rojo-alerta-claro); color:var(--rojo-alerta); }
 .an-cell-input, .an-cell-select { width:100%; border:1.5px solid var(--borde); border-radius:8px; padding:6px 7px; font-size:12.5px; font-family:inherit; background:var(--blanco); color:var(--texto); }
 
 .an-methodology { background:var(--fondo); border:1px solid var(--borde); border-radius:var(--radio-peq); margin-top:14px; }
@@ -4105,7 +4112,7 @@ body {
         </div>
         <div class="an-trz-header-actions">
             <button class="btn btn-primary an-btn-primario" id="anBtnNuevoLote">+ Nuevo lote</button>
-            <button class="btn btn-primary an-btn-primario" id="anTrzBtnAbrir" style="background:linear-gradient(135deg,var(--verde2),var(--verde));">🕒 Trazabilidad</button>
+            <button class="btn btn-primary an-btn-primario" id="anTrzBtnAbrir">🕒 Trazabilidad</button>
         </div>
     </div>
 
@@ -4123,7 +4130,7 @@ body {
             </div>
             <div class="an-detalle-actions">
                 <button class="btn-secundario" id="anBtnEditarLote">Editar lote</button>
-                <button class="btn-secundario" id="anBtnEliminarLote" style="color:#b33c3c;border-color:#e8bcbc;">Eliminar lote</button>
+                <button class="btn-secundario" id="anBtnEliminarLote" style="color:var(--rojo-alerta);border-color:#e8bcbc;">Eliminar lote</button>
             </div>
         </div>
 
@@ -6496,7 +6503,7 @@ async function verFichaLote(id) {
         '<button class="btn-secundario" onclick="verHistorialLote(\'' + lote.id + '\')">📊 HISTORIAL</button>' +
         '<button class="btn-secundario" onclick="editarLote(\'' + lote.id + '\')">✏️ EDITAR</button>' +
         '<button class="btn-secundario" onclick="exportarInformeLote(\'' + lote.id + '\')">📄 INFORME PDF</button>' +
-        '<button class="btn-secundario" style="color:#b3372c;border-color:#fde8e8;" onclick="eliminarLote(\'' + lote.id + '\')">🗑️ ELIMINAR</button>' +
+        '<button class="btn-secundario" style="color:var(--rojo-alerta);border-color:var(--rojo-alerta-claro);" onclick="eliminarLote(\'' + lote.id + '\')">🗑️ ELIMINAR</button>' +
         '</div>';
     document.getElementById("loteFicha").innerHTML = html;
     mostrarSubvistaLotes("loteFicha");
