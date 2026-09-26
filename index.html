@@ -662,76 +662,60 @@ body {
 }
 
 /* =========================================================
-   ACCESOS PRINCIPALES — PRODUCCIÓN / HACIENDA / INVENTARIO
+   ACCESOS PRINCIPALES — INTEGRADOS AL LENGUAJE FORRAGO
 ========================================================= */
 
 .accesos-gestion {
     display:grid;
-    grid-template-columns:repeat(3, minmax(0, 1fr));
-    gap:16px;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
     margin-top:20px;
     margin-bottom:6px;
 }
 
 .acceso-gestion {
     position:relative;
-    min-height:172px;
     display:flex;
     flex-direction:column;
-    align-items:flex-start;
-    justify-content:space-between;
-    padding:22px;
-    border:1px solid rgba(20,45,30,.09);
-    border-radius:22px;
-    overflow:hidden;
+    min-height:156px;
+    padding:20px;
+    border:1px solid var(--borde);
+    border-radius:20px;
+    background:var(--blanco);
+    color:var(--texto);
+    box-shadow:var(--sombra);
     cursor:pointer;
     text-align:left;
     font-family:inherit;
-    transition:transform .28s cubic-bezier(.2,.8,.2,1),
-               box-shadow .28s ease,
-               border-color .28s ease;
-    box-shadow:0 8px 26px rgba(25,55,35,.08);
-}
-
-.acceso-gestion::before {
-    content:"";
-    position:absolute;
-    width:150px;
-    height:150px;
-    right:-55px;
-    top:-55px;
-    border-radius:50%;
-    background:rgba(255,255,255,.22);
-    pointer-events:none;
+    transition:var(--transicion);
+    overflow:hidden;
 }
 
 .acceso-gestion:hover {
-    transform:translateY(-5px);
-    box-shadow:0 16px 36px rgba(25,55,35,.14);
+    transform:translateY(-3px);
+    box-shadow:var(--sombra-hover);
 }
 
 .acceso-gestion:active {
-    transform:translateY(-1px) scale(.99);
+    transform:scale(.99);
 }
 
-.acceso-produccion {
-    background:linear-gradient(145deg,#eaf6ed 0%,#d9eedf 100%);
-    color:#174f2d;
+.acceso-gestion::after {
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:4px;
+    background:var(--acceso-color,var(--verde));
+    border-radius:20px 0 0 20px;
 }
 
-.acceso-hacienda {
-    background:linear-gradient(145deg,#fbefe2 0%,#f4dfca 100%);
-    color:#7a3d18;
-}
-
-.acceso-inventario {
-    background:linear-gradient(145deg,#e8f3f7 0%,#d7eaf1 100%);
-    color:#245a73;
-}
+.acceso-produccion { --acceso-color:var(--verde2); }
+.acceso-hacienda { --acceso-color:var(--hacienda); }
+.acceso-inventario { --acceso-color:var(--inventario); }
 
 .acceso-gestion-top {
-    position:relative;
-    z-index:1;
     display:flex;
     align-items:center;
     justify-content:space-between;
@@ -739,19 +723,20 @@ body {
 }
 
 .acceso-gestion-icono {
-    width:50px;
-    height:50px;
+    width:46px;
+    height:46px;
     display:flex;
     align-items:center;
     justify-content:center;
-    border-radius:16px;
-    background:rgba(255,255,255,.72);
-    box-shadow:0 5px 16px rgba(0,0,0,.06);
+    border-radius:14px;
+    background:var(--fondo);
+    color:var(--acceso-color);
+    border:1px solid var(--borde);
 }
 
 .acceso-gestion-icono svg {
-    width:25px;
-    height:25px;
+    width:23px;
+    height:23px;
     fill:none;
     stroke:currentColor;
     stroke-width:1.8;
@@ -760,107 +745,107 @@ body {
 }
 
 .acceso-gestion-flecha {
-    width:34px;
-    height:34px;
+    width:30px;
+    height:30px;
     display:flex;
     align-items:center;
     justify-content:center;
     border-radius:50%;
-    background:rgba(255,255,255,.68);
-    font-size:20px;
-    font-weight:500;
-    transition:transform .25s ease, background .25s ease;
+    background:var(--fondo);
+    color:var(--acceso-color);
+    font-size:17px;
+    font-weight:600;
+    transition:var(--transicion);
 }
 
 .acceso-gestion:hover .acceso-gestion-flecha {
-    transform:translateX(3px);
-    background:rgba(255,255,255,.95);
+    background:var(--acceso-color);
+    color:white;
+    transform:translateX(2px);
 }
 
 .acceso-gestion-copy {
-    position:relative;
-    z-index:1;
-    margin-top:16px;
+    margin-top:auto;
+    padding-top:20px;
 }
 
 .acceso-gestion-copy strong {
     display:block;
-    font-size:17px;
-    line-height:1.15;
-    font-weight:850;
-    letter-spacing:-.35px;
+    color:var(--texto);
+    font-size:16px;
+    line-height:1.2;
+    font-weight:800;
+    letter-spacing:-.25px;
 }
 
 .acceso-gestion-copy span {
     display:block;
-    margin-top:6px;
+    margin-top:5px;
+    color:var(--gris);
     font-size:10.5px;
     line-height:1.45;
-    font-weight:600;
-    opacity:.68;
+    font-weight:500;
 }
 
 .acceso-gestion-etiqueta {
-    position:relative;
-    z-index:1;
-    margin-top:13px;
-    font-size:8.5px;
-    font-weight:800;
-    letter-spacing:1px;
-    text-transform:uppercase;
-    opacity:.58;
+    display:none;
 }
 
 @media(max-width:820px) {
     .accesos-gestion {
         grid-template-columns:1fr;
-        gap:12px;
+        gap:10px;
     }
 
     .acceso-gestion {
-        min-height:118px;
-        padding:18px;
+        min-height:94px;
+        padding:15px 16px;
+        flex-direction:row;
+        align-items:center;
+        gap:13px;
+    }
+
+    .acceso-gestion-top {
+        width:auto;
+        flex-shrink:0;
+    }
+
+    .acceso-gestion-flecha {
+        display:none;
     }
 
     .acceso-gestion-copy {
-        margin-top:10px;
+        padding-top:0;
+        margin-top:0;
+        flex:1;
     }
 
     .acceso-gestion-copy strong {
-        font-size:16px;
+        font-size:15px;
     }
 
     .acceso-gestion-copy span {
         font-size:10px;
-    }
-
-    .acceso-gestion-etiqueta {
-        display:none;
+        margin-top:3px;
     }
 }
 
 @media(max-width:420px) {
     .acceso-gestion {
-        min-height:110px;
-        border-radius:19px;
-        padding:16px;
+        min-height:88px;
+        border-radius:17px;
+        padding:13px 14px;
     }
 
     .acceso-gestion-icono {
-        width:44px;
-        height:44px;
-        border-radius:14px;
+        width:42px;
+        height:42px;
+        border-radius:13px;
     }
 
     .acceso-gestion-icono svg {
-        width:22px;
-        height:22px;
-    }
-
-    .acceso-gestion-flecha {
-        width:31px;
-        height:31px;
-        font-size:18px;
+        width:21px;
+        height:21px;
     }
 }
 
