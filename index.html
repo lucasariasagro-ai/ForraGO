@@ -58,6 +58,9 @@
     --hacienda:#a6541f;
     --hacienda2:#d68a42;
     --hacienda-claro:#f8ead9;
+    --inventario:#2d6f8f;
+    --inventario2:#4a94b8;
+    --inventario-claro:#e3f0f5;
     --sombra:0 8px 30px rgba(26,107,60,.08);
     --sombra-hover:0 12px 40px rgba(26,107,60,.14);
     --radio:24px;
@@ -706,6 +709,18 @@ body {
 .btn-gestionar-animal:hover {
     box-shadow:0 12px 36px rgba(166,84,31,.38), inset 0 1px 0 rgba(255,255,255,.22);
 }
+.btn-gestionar-inventario {
+    background:linear-gradient(135deg, var(--inventario), var(--inventario2));
+    box-shadow:0 8px 28px rgba(45,111,143,.28), inset 0 1px 0 rgba(255,255,255,.18);
+}
+.btn-gestionar-inventario:hover {
+    box-shadow:0 12px 36px rgba(45,111,143,.38), inset 0 1px 0 rgba(255,255,255,.22);
+}
+.btn-inventario-primario{
+    background:linear-gradient(135deg, var(--inventario), var(--inventario2));
+    box-shadow:0 4px 16px rgba(45,111,143,.3), inset 0 1px 0 rgba(255,255,255,.18);
+}
+.btn-inventario-primario:hover{ box-shadow:0 8px 24px rgba(45,111,143,.4), inset 0 1px 0 rgba(255,255,255,.22); }
 .an-btn-primario{
     background:linear-gradient(135deg, var(--hacienda), var(--hacienda2));
     box-shadow:0 4px 16px rgba(166,84,31,.3), inset 0 1px 0 rgba(255,255,255,.18);
@@ -3720,6 +3735,31 @@ body {
 .csq-sugerencia.regular{background:var(--ambar-alerta-claro);color:#76551f;}
 .csq-sugerencia.mala{background:var(--rojo-alerta-claro);color:var(--rojo-alerta);}
 .csq-sugerencia ul{margin:4px 0 0;padding-left:16px;}
+
+/* ===== Módulo Inventario (independiente) ===== */
+.inv-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.inv-tab{padding:10px 16px;border-radius:30px;border:1.5px solid var(--borde);background:var(--blanco);font-family:inherit;font-size:11px;font-weight:700;color:var(--texto-suave);cursor:pointer;transition:var(--transicion);white-space:nowrap;}
+.inv-tab:hover{border-color:var(--inventario2);}
+.inv-tab.activo{border-color:var(--inventario);background:var(--inventario-claro);color:var(--inventario);}
+.inv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px;}
+.inv-card{background:var(--blanco);border:1px solid var(--borde);border-radius:var(--radio-peq);padding:14px 16px;display:flex;flex-direction:column;gap:8px;}
+.inv-card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px;}
+.inv-card-nombre{font-size:14px;font-weight:800;color:var(--texto);}
+.inv-card-cat{font-size:9.5px;color:var(--gris);text-transform:uppercase;letter-spacing:.3px;font-weight:700;margin-top:2px;}
+.inv-card-cantidad{font-size:22px;font-weight:900;color:var(--inventario);letter-spacing:-.5px;}
+.inv-card-cantidad small{font-size:11px;font-weight:700;color:var(--gris);margin-left:4px;}
+.inv-badge-bajo{font-size:9.5px;font-weight:800;padding:4px 10px;border-radius:20px;background:var(--rojo-alerta-claro);color:var(--rojo-alerta);align-self:flex-start;}
+.inv-card-obs{font-size:11px;color:var(--gris);font-style:italic;}
+.inv-card-acciones{display:flex;gap:6px;flex-wrap:wrap;margin-top:2px;}
+.inv-card-acciones button{border:0;background:var(--fondo);padding:6px 11px;border-radius:8px;cursor:pointer;font-size:10.5px;font-weight:700;color:var(--texto-suave);}
+.inv-card-acciones button:hover{background:var(--gris-claro);}
+.inv-card-acciones button.ingreso{background:var(--verde-claro);color:var(--verde);}
+.inv-card-acciones button.salida{background:var(--ambar-alerta-claro);color:var(--ambar-alerta);}
+.inv-historial-toggle{font-size:10px;font-weight:700;color:var(--inventario);cursor:pointer;margin-top:2px;}
+.inv-historial-lista{display:none;margin-top:6px;padding-top:8px;border-top:1px dashed var(--borde);font-size:11px;color:var(--texto-suave);line-height:1.7;}
+.inv-historial-lista.mostrar{display:block;}
+.inv-historial-lista .mov-in{color:var(--verde);font-weight:700;}
+.inv-historial-lista .mov-out{color:var(--ambar-alerta);font-weight:700;}
 </style>
 </head>
 <body>
@@ -3923,6 +3963,12 @@ body {
             <span>GESTIONAR MI HACIENDA</span>
             <span class="btn-gestionar-flecha">→</span>
         </button>
+
+        <button class="btn-gestionar btn-gestionar-inventario" id="invBtnAbrirHome">
+            <span class="btn-gestionar-icono">📦</span>
+            <span>GESTIONAR INVENTARIO</span>
+            <span class="btn-gestionar-flecha">→</span>
+        </button>
     </div>
 
     <div id="vistaGestionar" style="display:none;">
@@ -4046,6 +4092,61 @@ body {
             </div>
 
             <div class="modal-botones" style="margin-top:20px;"><button id="csqBtnCancelarModal" class="btn-secundario">Cancelar</button><button id="csqBtnGuardar" class="btn btn-primary an-btn-primario">Guardar chequeo</button></div>
+        </div>
+    </div>
+
+    <!-- ===== Módulo Inventario (independiente) ===== -->
+    <div id="vistaInventario" style="display:none;">
+        <div class="lotes-header">
+            <button class="btn-back" id="invBtnVolver">Volver</button>
+            <h2>📦 Inventario</h2>
+        </div>
+
+        <div class="inv-tabs" id="invTabs">
+            <button class="inv-tab activo" data-inv-cat="insumo_produccion">🌱 Insumos de producción</button>
+            <button class="inv-tab" data-inv-cat="insumo_sanitario">💉 Insumos sanitarios</button>
+            <button class="inv-tab" data-inv-cat="forraje">🌾 Stock de forraje</button>
+            <button class="inv-tab" data-inv-cat="maquinaria">🚜 Maquinaria</button>
+        </div>
+
+        <div class="seccion">
+            <div><p>Llevá el control de lo que tenés guardado y cuándo entra o sale.</p></div>
+            <button class="btn btn-primary btn-inventario-primario" id="invBtnNuevo">+ Nuevo ítem</button>
+        </div>
+
+        <div id="invVacio" class="an-history-empty" style="display:none;">Todavía no cargaste ítems en esta categoría.</div>
+        <div id="invLista" class="inv-grid"></div>
+    </div>
+
+    <div id="invModalItem" class="modal-overlay" style="display:none;" role="dialog" aria-modal="true">
+        <div class="an-modal-dialog">
+            <div class="an-modal-header"><div><span class="section-eyebrow" id="invModalEyebrow">NUEVO ÍTEM</span><h3 style="margin:4px 0 0;color:var(--texto);" id="invModalTitulo">Nuevo ítem</h3></div><button id="invBtnCerrarModalItem" class="an-modal-close">×</button></div>
+            <div class="an-form-grid">
+                <div class="form-group full"><label for="invNombre">Nombre</label><input id="invNombre" type="text" placeholder='Ej. "Urea", "Vacuna aftosa", "Rollo de alfalfa", "Tractor Deutz"'></div>
+                <div class="form-group"><label for="invCategoria">Categoría</label><select id="invCategoria">
+                    <option value="insumo_produccion">🌱 Insumo de producción</option>
+                    <option value="insumo_sanitario">💉 Insumo sanitario</option>
+                    <option value="forraje">🌾 Stock de forraje</option>
+                    <option value="maquinaria">🚜 Maquinaria</option>
+                </select></div>
+                <div class="form-group"><label for="invUnidad">Unidad</label><input id="invUnidad" type="text" placeholder="kg, l, unidades, rollos, bolsas..."></div>
+                <div class="form-group" id="invCantidadWrap"><label for="invCantidad">Cantidad actual</label><input id="invCantidad" type="number" min="0" step="0.01" placeholder="0"></div>
+                <div class="form-group"><label for="invStockMinimo">Stock mínimo (opcional)</label><input id="invStockMinimo" type="number" min="0" step="0.01" placeholder="Alerta si baja de acá"></div>
+                <div class="form-group full"><label for="invObs">Observaciones (opcional)</label><textarea id="invObs" rows="2"></textarea></div>
+            </div>
+            <div class="modal-botones" style="margin-top:20px;"><button id="invBtnCancelarModalItem" class="btn-secundario">Cancelar</button><button id="invBtnGuardarItem" class="btn btn-primary btn-inventario-primario">Guardar ítem</button></div>
+        </div>
+    </div>
+
+    <div id="invModalMovimiento" class="modal-overlay" style="display:none;" role="dialog" aria-modal="true">
+        <div class="an-modal-dialog small">
+            <div class="an-modal-header"><div><span class="section-eyebrow">MOVIMIENTO</span><h3 style="margin:4px 0 0;color:var(--texto);" id="invMovTitulo">Registrar movimiento</h3></div><button id="invBtnCerrarModalMov" class="an-modal-close">×</button></div>
+            <div class="an-form-grid">
+                <div class="form-group"><label for="invMovFecha">Fecha</label><input id="invMovFecha" type="date"></div>
+                <div class="form-group"><label for="invMovCantidad">Cantidad</label><input id="invMovCantidad" type="number" min="0.01" step="0.01" placeholder="0"></div>
+                <div class="form-group full"><label for="invMovMotivo">Motivo (opcional)</label><input id="invMovMotivo" type="text" placeholder='Ej. "Compra", "Aplicación en Lote 2", "Tratamiento sanitario"'></div>
+            </div>
+            <div class="modal-botones" style="margin-top:18px;"><button id="invBtnCancelarModalMov" class="btn-secundario">Cancelar</button><button id="invBtnGuardarMov" class="btn btn-primary btn-inventario-primario">Guardar movimiento</button></div>
         </div>
     </div>
 
@@ -6214,6 +6315,7 @@ function ocultarNivelesSuperiores() {
     document.getElementById("vistaBiblioteca").style.display = "none";
     document.getElementById("vistaProduccion").style.display = "none";
     document.getElementById("vistaCalidadSilaje").style.display = "none";
+    document.getElementById("vistaInventario").style.display = "none";
     document.getElementById("vistaPerfil").style.display = "none";
     document.getElementById("vistaDatos").style.display = "none";
     document.getElementById("vistaNotificaciones").style.display = "none";
@@ -8105,6 +8207,231 @@ if ("serviceWorker" in navigator) {
     const btnCancelarModal=document.getElementById('csqBtnCancelarModal'); if(btnCancelarModal) btnCancelarModal.onclick=csqCerrarModal;
     const btnGuardar=document.getElementById('csqBtnGuardar'); if(btnGuardar) btnGuardar.onclick=csqGuardar;
     const overlay=document.getElementById('csqModal'); if(overlay) overlay.addEventListener('click',(e)=>{ if(e.target===overlay) csqCerrarModal(); });
+  });
+})();
+</script>
+
+<!-- ===== Módulo Inventario (independiente) ===== -->
+<script>
+(function(){
+  const INV_ITEMS_TABLE = 'inventory_items';
+  const INV_MOV_TABLE = 'inventory_movements';
+
+  const INV_CATEGORIAS = {
+    insumo_produccion: { icono:'🌱', label:'Insumo de producción' },
+    insumo_sanitario:  { icono:'💉', label:'Insumo sanitario' },
+    forraje:           { icono:'🌾', label:'Stock de forraje' },
+    maquinaria:        { icono:'🚜', label:'Maquinaria' }
+  };
+
+  function invEscapeHTML(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+  function invFechaLarga(iso){ if(!iso) return '—'; const [y,m,d]=iso.split('-'); return `${d}/${m}/${y}`; }
+  function invHoy(){ return new Date().toISOString().slice(0,10); }
+  function invNumero(n){ const v=Number(n)||0; return v % 1 === 0 ? v.toString() : v.toFixed(2).replace(/0+$/,'').replace(/\.$/,''); }
+
+  let invCategoriaActual = 'insumo_produccion';
+  let invItems = [];
+  let invEditandoId = null;
+  let invMovimientoItemId = null;
+  let invHistorialCache = {};
+
+  async function invCargarItems(){
+    if(typeof sb==='undefined') return [];
+    const { data, error } = await sb.from(INV_ITEMS_TABLE).select('*').order('nombre',{ascending:true});
+    if(error){ console.error('Inventario: error cargando ítems.', error); alert('No se pudieron cargar los ítems del inventario.'); return []; }
+    return data||[];
+  }
+
+  async function invAbrir(){
+    if(typeof ocultarNivelesSuperiores==='function') ocultarNivelesSuperiores();
+    document.getElementById('vistaInventario').style.display='block';
+    window.scrollTo({top:0,behavior:'smooth'});
+    document.getElementById('invLista').innerHTML='<div class="an-history-empty">Cargando…</div>';
+    invItems = await invCargarItems();
+    invRenderLista();
+  }
+
+  function invVolver(){
+    document.getElementById('vistaInventario').style.display='none';
+    mostrarHome();
+  }
+
+  function invCambiarTab(cat){
+    invCategoriaActual = cat;
+    document.querySelectorAll('#invTabs .inv-tab').forEach(t=>t.classList.toggle('activo', t.getAttribute('data-inv-cat')===cat));
+    invRenderLista();
+  }
+
+  function invRenderLista(){
+    const cont = document.getElementById('invLista');
+    const vacio = document.getElementById('invVacio');
+    const items = invItems.filter(it=>it.categoria===invCategoriaActual);
+    if(!items.length){ cont.innerHTML=''; vacio.style.display='block'; return; }
+    vacio.style.display='none';
+    cont.innerHTML = items.map(it=>{
+      const bajoStock = it.stock_minimo!=null && Number(it.cantidad) <= Number(it.stock_minimo);
+      const historial = invHistorialCache[it.id];
+      return `<div class="inv-card" data-inv-item="${it.id}">
+        <div class="inv-card-top">
+          <div><div class="inv-card-nombre">${invEscapeHTML(it.nombre)}</div><div class="inv-card-cat">${INV_CATEGORIAS[it.categoria]?.icono||'📦'} ${INV_CATEGORIAS[it.categoria]?.label||it.categoria}</div></div>
+        </div>
+        ${bajoStock?'<div class="inv-badge-bajo">⚠ Stock bajo</div>':''}
+        <div class="inv-card-cantidad">${invNumero(it.cantidad)}<small>${invEscapeHTML(it.unidad||'')}</small></div>
+        ${it.stock_minimo!=null?`<div style="font-size:10px;color:var(--gris);">Mínimo: ${invNumero(it.stock_minimo)} ${invEscapeHTML(it.unidad||'')}</div>`:''}
+        ${it.observaciones?`<div class="inv-card-obs">${invEscapeHTML(it.observaciones)}</div>`:''}
+        <div class="inv-card-acciones">
+          <button class="ingreso" data-inv-mov="${it.id}" data-inv-tipo="ingreso">＋ Ingreso</button>
+          <button class="salida" data-inv-mov="${it.id}" data-inv-tipo="salida">－ Salida</button>
+          <button data-inv-editar="${it.id}">✎ Editar</button>
+          <button data-inv-eliminar="${it.id}">🗑 Eliminar</button>
+        </div>
+        <div class="inv-historial-toggle" data-inv-historial="${it.id}">Ver historial de movimientos</div>
+        <div class="inv-historial-lista" id="invHist_${it.id}">${historial?invRenderHistorialHTML(historial):''}</div>
+      </div>`;
+    }).join('');
+    cont.querySelectorAll('[data-inv-mov]').forEach(b=>b.onclick=()=>invAbrirModalMovimiento(b.getAttribute('data-inv-mov'), b.getAttribute('data-inv-tipo')));
+    cont.querySelectorAll('[data-inv-editar]').forEach(b=>b.onclick=()=>invAbrirModalItem(b.getAttribute('data-inv-editar')));
+    cont.querySelectorAll('[data-inv-eliminar]').forEach(b=>b.onclick=()=>invEliminarItem(b.getAttribute('data-inv-eliminar')));
+    cont.querySelectorAll('[data-inv-historial]').forEach(b=>b.onclick=()=>invToggleHistorial(b.getAttribute('data-inv-historial')));
+  }
+
+  function invRenderHistorialHTML(movs){
+    if(!movs.length) return '<div style="color:var(--gris);">Sin movimientos registrados.</div>';
+    return movs.map(m=>{
+      const signo = m.movement_type==='salida' ? '−' : '+';
+      const claseTipo = m.movement_type==='salida' ? 'mov-out' : 'mov-in';
+      return `<div><span class="${claseTipo}">${signo}${invNumero(m.quantity)}</span> — ${invFechaLarga(m.movement_date)}${m.reason?` · ${invEscapeHTML(m.reason)}`:''}</div>`;
+    }).join('');
+  }
+
+  async function invToggleHistorial(itemId){
+    const panel = document.getElementById('invHist_'+itemId);
+    if(!panel) return;
+    const abrir = !panel.classList.contains('mostrar');
+    if(abrir && !invHistorialCache[itemId]){
+      panel.innerHTML = 'Cargando…';
+      const { data, error } = await sb.from(INV_MOV_TABLE).select('*').eq('item_id', itemId).order('movement_date',{ascending:false}).order('created_at',{ascending:false}).limit(20);
+      if(error){ panel.innerHTML='No se pudo cargar el historial.'; return; }
+      invHistorialCache[itemId] = data||[];
+      panel.innerHTML = invRenderHistorialHTML(invHistorialCache[itemId]);
+    }
+    panel.classList.toggle('mostrar', abrir);
+  }
+
+  function invAbrirModalItem(id){
+    invEditandoId = id||null;
+    const item = id ? invItems.find(i=>i.id===id) : null;
+    document.getElementById('invModalEyebrow').textContent = item?'EDITAR ÍTEM':'NUEVO ÍTEM';
+    document.getElementById('invModalTitulo').textContent = item?'Editar ítem':'Nuevo ítem';
+    document.getElementById('invNombre').value = item?item.nombre:'';
+    document.getElementById('invCategoria').value = item?item.categoria:invCategoriaActual;
+    document.getElementById('invUnidad').value = item?(item.unidad||''):'';
+    document.getElementById('invStockMinimo').value = item&&item.stock_minimo!=null?item.stock_minimo:'';
+    document.getElementById('invObs').value = item?(item.observaciones||''):'';
+    const cantWrap = document.getElementById('invCantidadWrap');
+    if(item){
+      cantWrap.style.display='none';
+    } else {
+      cantWrap.style.display='';
+      document.getElementById('invCantidad').value='';
+    }
+    document.getElementById('invModalItem').style.display='flex';
+  }
+
+  function invCerrarModalItem(){
+    document.getElementById('invModalItem').style.display='none';
+    invEditandoId=null;
+  }
+
+  async function invGuardarItem(){
+    const nombre = document.getElementById('invNombre').value.trim();
+    if(!nombre){ alert('Ingresá un nombre para el ítem.'); return; }
+    const categoria = document.getElementById('invCategoria').value;
+    const unidad = document.getElementById('invUnidad').value.trim()||null;
+    const stockMinimoRaw = document.getElementById('invStockMinimo').value;
+    const stockMinimo = stockMinimoRaw===''?null:Number(stockMinimoRaw);
+    const observaciones = document.getElementById('invObs').value.trim()||null;
+    const btn = document.getElementById('invBtnGuardarItem');
+    btn.disabled=true; btn.textContent='Guardando…';
+    let error;
+    if(invEditandoId){
+      ({ error } = await sb.from(INV_ITEMS_TABLE).update({ nombre, categoria, unidad, stock_minimo:stockMinimo, observaciones, updated_at:new Date().toISOString() }).eq('id', invEditandoId));
+    } else {
+      const cantidadInicial = Number(document.getElementById('invCantidad').value)||0;
+      ({ error } = await sb.from(INV_ITEMS_TABLE).insert({ nombre, categoria, unidad, cantidad:cantidadInicial, stock_minimo:stockMinimo, observaciones }));
+    }
+    btn.disabled=false; btn.textContent='Guardar ítem';
+    if(error){ alert('No se pudo guardar el ítem: '+error.message); return; }
+    invCerrarModalItem();
+    invItems = await invCargarItems();
+    if(categoria!==invCategoriaActual) invCambiarTab(categoria); else invRenderLista();
+  }
+
+  async function invEliminarItem(id){
+    if(!confirm('¿Eliminar este ítem y todo su historial de movimientos?')) return;
+    if(typeof sb==='undefined') return;
+    const { error } = await sb.from(INV_ITEMS_TABLE).delete().eq('id', id);
+    if(error){ alert('No se pudo eliminar el ítem: '+error.message); return; }
+    invItems = invItems.filter(i=>i.id!==id);
+    delete invHistorialCache[id];
+    invRenderLista();
+  }
+
+  function invAbrirModalMovimiento(itemId, tipo){
+    invMovimientoItemId = itemId;
+    const item = invItems.find(i=>i.id===itemId);
+    document.getElementById('invModalMovimiento').dataset.tipo = tipo;
+    document.getElementById('invMovTitulo').textContent = (tipo==='salida'?'Registrar salida — ':'Registrar ingreso — ') + (item?item.nombre:'');
+    document.getElementById('invMovFecha').value = invHoy();
+    document.getElementById('invMovCantidad').value = '';
+    document.getElementById('invMovMotivo').value = '';
+    document.getElementById('invModalMovimiento').style.display='flex';
+  }
+
+  function invCerrarModalMovimiento(){
+    document.getElementById('invModalMovimiento').style.display='none';
+    invMovimientoItemId=null;
+  }
+
+  async function invGuardarMovimiento(){
+    const item = invItems.find(i=>i.id===invMovimientoItemId);
+    if(!item){ alert('No se encontró el ítem.'); return; }
+    const tipo = document.getElementById('invModalMovimiento').dataset.tipo;
+    const fecha = document.getElementById('invMovFecha').value;
+    const cantidad = Number(document.getElementById('invMovCantidad').value);
+    if(!fecha){ alert('Ingresá la fecha del movimiento.'); return; }
+    if(!(cantidad>0)){ alert('Ingresá una cantidad mayor a 0.'); return; }
+    if(tipo==='salida' && cantidad>Number(item.cantidad)){
+      if(!confirm(`Vas a registrar una salida mayor al stock actual (${invNumero(item.cantidad)} ${item.unidad||''}). ¿Continuar igual?`)) return;
+    }
+    const motivo = document.getElementById('invMovMotivo').value.trim()||null;
+    const nuevaCantidad = tipo==='salida' ? Number(item.cantidad)-cantidad : Number(item.cantidad)+cantidad;
+    const btn = document.getElementById('invBtnGuardarMov');
+    btn.disabled=true; btn.textContent='Guardando…';
+    const { error: errorMov } = await sb.from(INV_MOV_TABLE).insert({ item_id:item.id, movement_type:tipo, movement_date:fecha, quantity:cantidad, reason:motivo });
+    if(errorMov){ btn.disabled=false; btn.textContent='Guardar movimiento'; alert('No se pudo guardar el movimiento: '+errorMov.message); return; }
+    const { error: errorItem } = await sb.from(INV_ITEMS_TABLE).update({ cantidad:nuevaCantidad, updated_at:new Date().toISOString() }).eq('id', item.id);
+    btn.disabled=false; btn.textContent='Guardar movimiento';
+    if(errorItem){ alert('El movimiento se guardó, pero no se pudo actualizar el stock del ítem: '+errorItem.message); }
+    invCerrarModalMovimiento();
+    delete invHistorialCache[item.id];
+    invItems = await invCargarItems();
+    invRenderLista();
+  }
+
+  document.addEventListener('DOMContentLoaded', ()=>{
+    const btnAbrirHome=document.getElementById('invBtnAbrirHome'); if(btnAbrirHome) btnAbrirHome.onclick=invAbrir;
+    const btnVolver=document.getElementById('invBtnVolver'); if(btnVolver) btnVolver.onclick=invVolver;
+    document.querySelectorAll('#invTabs .inv-tab').forEach(t=>t.onclick=()=>invCambiarTab(t.getAttribute('data-inv-cat')));
+    const btnNuevo=document.getElementById('invBtnNuevo'); if(btnNuevo) btnNuevo.onclick=()=>invAbrirModalItem(null);
+    const btnCerrarItem=document.getElementById('invBtnCerrarModalItem'); if(btnCerrarItem) btnCerrarItem.onclick=invCerrarModalItem;
+    const btnCancelarItem=document.getElementById('invBtnCancelarModalItem'); if(btnCancelarItem) btnCancelarItem.onclick=invCerrarModalItem;
+    const btnGuardarItem=document.getElementById('invBtnGuardarItem'); if(btnGuardarItem) btnGuardarItem.onclick=invGuardarItem;
+    const overlayItem=document.getElementById('invModalItem'); if(overlayItem) overlayItem.addEventListener('click',(e)=>{ if(e.target===overlayItem) invCerrarModalItem(); });
+    const btnCerrarMov=document.getElementById('invBtnCerrarModalMov'); if(btnCerrarMov) btnCerrarMov.onclick=invCerrarModalMovimiento;
+    const btnCancelarMov=document.getElementById('invBtnCancelarModalMov'); if(btnCancelarMov) btnCancelarMov.onclick=invCerrarModalMovimiento;
+    const btnGuardarMov=document.getElementById('invBtnGuardarMov'); if(btnGuardarMov) btnGuardarMov.onclick=invGuardarMovimiento;
+    const overlayMov=document.getElementById('invModalMovimiento'); if(overlayMov) overlayMov.addEventListener('click',(e)=>{ if(e.target===overlayMov) invCerrarModalMovimiento(); });
   });
 })();
 </script>
