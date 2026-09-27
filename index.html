@@ -632,6 +632,17 @@ body {
 .forraje-foto { background-image:url(img/img_04.jpg); }
 .silaje-foto { background-image:url(img/img_10.jpg); }
 
+.tipo-tab-linea {
+    position:absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    width:50%;
+    z-index:1;
+    pointer-events:none;
+    overflow:visible;
+}
+
 .tipo-tab-fila {
     position:relative;
     z-index:2;
@@ -709,6 +720,7 @@ body {
 
 @media(max-width:420px) {
     .tipo-tab-foto { width:40%; }
+    .tipo-tab-linea { width:40%; }
     .tipo-tab-features { gap:6px 10px; }
     .tipo-tab-features span { font-size:9px; }
     .tipo-tab-texto strong { font-size:16px; }
@@ -4115,6 +4127,9 @@ body {
         <div class="tipo-tabs" id="tipoTabs">
             <button class="tipo-tab" data-tipo="forraje" onclick="mostrarTipo('forraje')" style="--color-acento:#2d8f4e;">
                 <div class="tipo-tab-foto forraje-foto"></div>
+                <svg class="tipo-tab-linea" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                    <polyline points="44,0 42.8,10 39.4,20 34.5,30 28.5,40 22,50 15.5,60 9.5,70 4.6,80 1.2,90 0,100" fill="none" stroke="var(--color-acento)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
                 <div class="tipo-tab-fila">
                     <div class="tipo-tab-icono-box">🌾</div>
                     <div class="tipo-tab-texto">
@@ -4126,6 +4141,9 @@ body {
             </button>
             <button class="tipo-tab" data-tipo="silaje" onclick="mostrarTipo('silaje')" style="--color-acento:#d6b640;">
                 <div class="tipo-tab-foto silaje-foto"></div>
+                <svg class="tipo-tab-linea" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                    <polyline points="44,0 42.8,10 39.4,20 34.5,30 28.5,40 22,50 15.5,60 9.5,70 4.6,80 1.2,90 0,100" fill="none" stroke="var(--color-acento)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
                 <div class="tipo-tab-fila">
                     <div class="tipo-tab-icono-box">🌽</div>
                     <div class="tipo-tab-texto">
