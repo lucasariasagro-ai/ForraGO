@@ -4128,7 +4128,14 @@ body {
             <button class="tipo-tab" data-tipo="forraje" onclick="mostrarTipo('forraje')" style="--color-acento:#2d8f4e;">
                 <div class="tipo-tab-foto forraje-foto"></div>
                 <svg class="tipo-tab-linea" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                    <polyline points="44,0 42.8,10 39.4,20 34.5,30 28.5,40 22,50 15.5,60 9.5,70 4.6,80 1.2,90 0,100" fill="none" stroke="var(--color-acento)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="cintaForraje" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="var(--color-acento)" stop-opacity=".35"/>
+                            <stop offset="45%" stop-color="var(--color-acento)" stop-opacity="1"/>
+                            <stop offset="100%" stop-color="var(--color-acento)" stop-opacity=".35"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M 43.65,-0.04 L 41.57,9.72 L 37.48,19.20 L 32.10,28.69 L 25.82,38.33 L 19.23,48.20 L 12.82,58.33 L 7.10,68.69 L 2.68,79.20 L -0.03,89.72 L -0.35,99.96 L 0.35,100.04 L 2.43,90.28 L 6.52,80.80 L 11.90,71.31 L 18.18,61.67 L 24.77,51.80 L 31.18,41.67 L 36.90,31.31 L 41.32,20.80 L 44.03,10.28 L 44.35,0.04 Z" fill="url(#cintaForraje)"/>
                 </svg>
                 <div class="tipo-tab-fila">
                     <div class="tipo-tab-icono-box">🌾</div>
@@ -4142,7 +4149,14 @@ body {
             <button class="tipo-tab" data-tipo="silaje" onclick="mostrarTipo('silaje')" style="--color-acento:#d6b640;">
                 <div class="tipo-tab-foto silaje-foto"></div>
                 <svg class="tipo-tab-linea" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                    <polyline points="44,0 42.8,10 39.4,20 34.5,30 28.5,40 22,50 15.5,60 9.5,70 4.6,80 1.2,90 0,100" fill="none" stroke="var(--color-acento)" stroke-width="2" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round"/>
+                    <defs>
+                        <linearGradient id="cintaSilaje" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="var(--color-acento)" stop-opacity=".35"/>
+                            <stop offset="45%" stop-color="var(--color-acento)" stop-opacity="1"/>
+                            <stop offset="100%" stop-color="var(--color-acento)" stop-opacity=".35"/>
+                        </linearGradient>
+                    </defs>
+                    <path d="M 43.65,-0.04 L 41.57,9.72 L 37.48,19.20 L 32.10,28.69 L 25.82,38.33 L 19.23,48.20 L 12.82,58.33 L 7.10,68.69 L 2.68,79.20 L -0.03,89.72 L -0.35,99.96 L 0.35,100.04 L 2.43,90.28 L 6.52,80.80 L 11.90,71.31 L 18.18,61.67 L 24.77,51.80 L 31.18,41.67 L 36.90,31.31 L 41.32,20.80 L 44.03,10.28 L 44.35,0.04 Z" fill="url(#cintaSilaje)"/>
                 </svg>
                 <div class="tipo-tab-fila">
                     <div class="tipo-tab-icono-box">🌽</div>
