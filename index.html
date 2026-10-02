@@ -8794,3 +8794,133 @@ document.addEventListener('mousedown', function(ev){
   }
 }
 </style>
+<!-- ============================================================
+     ForraGO · HOME NUEVA
+     PEGAR ESTE BLOQUE COMPLETO justo ANTES de la etiqueta </body>
+     (la última del archivo). No hay que tocar nada más.
+     Para volver atrás: borrar este bloque.
+     ============================================================ -->
+<script>
+(function () {
+  if (document.getElementById("homeNuevaCss")) return;
+
+  var css = `
+#tituloEvaluar,
+#vistaCalculadora > .gestionemos-header,
+#vistaCalculadora > .accesos-gestion { display:none !important; }
+
+.home-hero{position:relative;overflow:hidden;border-radius:24px;padding:28px 22px;margin-bottom:14px;color:#fff;background:linear-gradient(135deg,#0f5c30,#2d8f4e);box-shadow:0 12px 34px rgba(15,92,48,.28);}
+.home-hero::after{content:"";position:absolute;right:-60px;top:-60px;width:210px;height:210px;border-radius:50%;background:rgba(184,217,108,.22);}
+.home-hero h2{position:relative;z-index:1;font-size:clamp(30px,7vw,42px);font-weight:900;letter-spacing:-1.2px;line-height:1.02;}
+.home-hero h2 em{font-style:normal;color:var(--lima);}
+.home-hero p{position:relative;z-index:1;margin-top:10px;max-width:420px;font-size:13px;line-height:1.55;opacity:.92;}
+.home-resumen{position:relative;z-index:1;display:inline-block;margin-top:16px;padding:8px 14px;border-radius:30px;background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.28);font-size:11.5px;font-weight:700;}
+
+.home-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:26px;}
+.home-card{position:relative;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;gap:16px;min-height:165px;padding:20px 18px;border:none;border-radius:24px;text-align:left;color:#fff;font-family:inherit;cursor:pointer;background:var(--g);box-shadow:0 12px 28px -10px rgba(0,0,0,.35);transition:transform .25s ease;}
+.home-card:hover{transform:translateY(-4px);}
+.home-card:active{transform:scale(.98);}
+.home-card::before{content:"";position:absolute;top:-35%;right:-20%;width:140px;height:140px;border-radius:50%;background:rgba(255,255,255,.14);}
+.home-card-ico{position:relative;z-index:1;font-size:36px;line-height:1;}
+.home-card strong{position:relative;z-index:1;display:block;font-size:20px;font-weight:900;letter-spacing:-.4px;}
+.home-card div span{position:relative;z-index:1;display:block;margin-top:5px;font-size:11.5px;line-height:1.4;opacity:.85;}
+.home-card-flecha{position:absolute;z-index:1;top:18px;right:18px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:700;}
+.home-card-prod{grid-column:1 / -1;min-height:200px;padding:26px 24px;}
+.home-card-prod .home-card-ico{font-size:46px;}
+.home-card-prod strong{font-size:28px;}
+
+.home-sec-titulo{display:flex;align-items:baseline;justify-content:space-between;margin:0 2px 10px;}
+.home-sec-titulo h3{font-size:18px;font-weight:900;letter-spacing:-.3px;color:var(--texto);}
+.home-sec-titulo span{font-size:10px;font-weight:700;color:var(--gris);}
+.home-scroll{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 10px;margin-bottom:22px;scrollbar-width:none;}
+.home-scroll::-webkit-scrollbar{display:none;}
+.home-chip{flex:0 0 160px;scroll-snap-align:start;display:flex;flex-direction:column;gap:4px;padding:16px 14px;text-align:left;font-family:inherit;cursor:pointer;background:#fff;border:1px solid var(--borde);border-radius:20px;box-shadow:var(--sombra);transition:transform .2s ease;}
+.home-chip:hover{transform:translateY(-3px);border-color:var(--verde3);}
+.home-chip span{font-size:26px;}
+.home-chip strong{font-size:13px;font-weight:800;color:var(--verde);}
+.home-chip small{font-size:10.5px;line-height:1.4;color:var(--gris);}
+
+.home-eval{margin:0 2px 12px;}
+.home-eval h3{font-size:16px;font-weight:800;color:var(--texto-suave);}
+.home-eval p{margin-top:2px;font-size:11.5px;color:var(--gris);}
+
+@media(max-width:420px){
+  .home-card{min-height:150px;padding:16px 14px;}
+  .home-card strong{font-size:17px;}
+  .home-card-prod strong{font-size:24px;}
+}
+`;
+
+  var html = `
+<section class="home-hero">
+  <h2>Tu campo,<br><em>completo.</em></h2>
+  <p>Producción, hacienda, inventario, agenda y mucho más. Todo en un solo lugar.</p>
+  <div class="home-resumen" id="homeResumen">Cargando tu campo…</div>
+</section>
+
+<div class="home-grid">
+  <button class="home-card home-card-prod" style="--g:linear-gradient(140deg,#1f8148,#0f5c30)" onclick="abrirGestionar()">
+    <span class="home-card-ico">🌱</span>
+    <div><strong>Producción</strong><span>Lotes, cultivos, rendimiento, agenda y calidad de silaje</span></div>
+    <span class="home-card-flecha">→</span>
+  </button>
+  <button class="home-card" style="--g:linear-gradient(140deg,#c97a34,#8a4f1c)" onclick="abrirAnimales()">
+    <span class="home-card-ico">🐄</span>
+    <div><strong>Hacienda</strong><span>Animales, carga, peso y trazabilidad</span></div>
+    <span class="home-card-flecha">→</span>
+  </button>
+  <button class="home-card" style="--g:linear-gradient(140deg,#3a86ab,#1f5876)" onclick="document.getElementById('invBtnAbrirHome').click()">
+    <span class="home-card-ico">📦</span>
+    <div><strong>Inventario</strong><span>Insumos, forraje y maquinaria</span></div>
+    <span class="home-card-flecha">→</span>
+  </button>
+</div>
+
+<div class="home-sec-titulo"><h3>✨ Descubrí más</h3><span>deslizá →</span></div>
+<div class="home-scroll">
+  <button class="home-chip" onclick="abrirAgendaCampo()"><span>📅</span><strong>Agenda inteligente</strong><small>Trabajos + alertas de clima</small></button>
+  <button class="home-chip" onclick="document.getElementById('csqBtnAbrir').click()"><span>🧪</span><strong>Calidad de silaje</strong><small>Evaluá tus silos a simple vista</small></button>
+  <button class="home-chip" onclick="abrirAnimales();document.getElementById('anTrzBtnAbrir').click()"><span>🕒</span><strong>Trazabilidad</strong><small>La historia completa de cada lote</small></button>
+  <button class="home-chip" onclick="abrirBiblioteca()"><span>📚</span><strong>Biblioteca</strong><small>Fichas técnicas de 14 cultivos</small></button>
+  <button class="home-chip" onclick="abrirProduccion()"><span>📊</span><strong>Resumen del campo</strong><small>Todo lo estimado en un vistazo</small></button>
+</div>
+
+<div class="home-eval">
+  <h3>⚡ Evaluación rápida</h3>
+  <p>¿Querés medir un forraje o un silaje ahora? Elegí una opción</p>
+</div>
+`;
+
+  var estilo = document.createElement("style");
+  estilo.id = "homeNuevaCss";
+  estilo.textContent = css;
+  document.head.appendChild(estilo);
+
+  var contenedor = document.getElementById("vistaCalculadora");
+  if (contenedor) contenedor.insertAdjacentHTML("afterbegin", html);
+
+  window.cargarResumenHome = async function () {
+    var el = document.getElementById("homeResumen");
+    if (!el) return;
+    try {
+      var s = await calcularEstadisticasCampo();
+      if (s.totalLotes === 0) {
+        el.textContent = "🌱 Empezá creando tu primer lote";
+      } else {
+        var t = "📍 " + s.totalLotes + " lote" + (s.totalLotes === 1 ? "" : "s") + " · " + numero(s.hectareasTotales, 1) + " ha";
+        if (s.lotesConMedicion > 0) t += " · " + numero(s.kgMsTotal) + " kg MS";
+        if (s.tareasPendientes > 0) t += " · 🔔 " + s.tareasPendientes;
+        el.textContent = t;
+      }
+    } catch (e) {
+      el.textContent = "🌾 Bienvenido a tu campo";
+    }
+  };
+
+  var abrirAppOriginal = window.abrirApp;
+  window.abrirApp = function () { abrirAppOriginal(); window.cargarResumenHome(); };
+
+  var mostrarHomeOriginal = window.mostrarHome;
+  window.mostrarHome = function () { mostrarHomeOriginal(); window.cargarResumenHome(); };
+})();
+</script>
