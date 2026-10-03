@@ -8924,3 +8924,33 @@ document.addEventListener('mousedown', function(ev){
   window.mostrarHome = function () { mostrarHomeOriginal(); window.cargarResumenHome(); };
 })();
 </script>
+<style>
+/* Banner: solo la línea de números */
+.home-hero{padding:12px 16px !important;margin-bottom:12px !important;text-align:center;}
+.home-hero h2,
+.home-hero p{display:none !important;}
+.home-hero::after{display:none !important;}
+.home-resumen{display:block !important;margin:0 !important;padding:0 !important;background:none !important;border:none !important;font-size:13px !important;}
+
+/* Tres botones principales, uno al lado del otro */
+.home-grid{grid-template-columns:repeat(3,1fr) !important;gap:10px !important;}
+.home-card,
+.home-card-prod{grid-column:auto !important;min-height:150px !important;padding:16px 12px !important;gap:10px !important;align-items:flex-start;}
+.home-card-ico,
+.home-card-prod .home-card-ico{font-size:34px !important;}
+.home-card strong,
+.home-card-prod strong{font-size:16px !important;}
+.home-card div span{font-size:10.5px !important;}
+.home-card-flecha{display:none !important;}
+
+@media(max-width:520px){
+  .home-grid{gap:8px !important;}
+  .home-card,
+  .home-card-prod{min-height:125px !important;padding:14px 10px !important;}
+  .home-card-ico,
+  .home-card-prod .home-card-ico{font-size:30px !important;}
+  .home-card strong,
+  .home-card-prod strong{font-size:13.5px !important;}
+  .home-card div span{display:none !important;}
+}
+</style>
