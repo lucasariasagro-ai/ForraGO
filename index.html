@@ -9169,10 +9169,13 @@ document.addEventListener('mousedown', function(ev){
 }
 </style>
 <style>
-/* Panel del logo: img_25 a todo el ancho, centrada, recortando arriba/abajo si hace falta */
+.rotador{ height:230px !important; }
+@media(max-width:600px){ .rotador{ height:215px !important; } }
+
 .rotador-panel[data-panel="logo"]{
   padding:0 !important;
   overflow:hidden;
+  --logo-zoom:.9;
 }
 .rotador-panel[data-panel="logo"] .rotador-logo-grande{
   position:absolute !important;
@@ -9181,13 +9184,8 @@ document.addEventListener('mousedown', function(ev){
   height:100% !important;
   max-width:none !important;
   object-fit:cover !important;
-  object-position:center center !important;
-  transform:scale(var(--logo-zoom, 1));
+  object-position:center 20% !important;
+  transform:scale(var(--logo-zoom));
   transform-origin:center center;
-}
-</style>
-<style>
-.rotador-panel[data-panel="logo"] .rotador-logo-grande{
-  object-position:center 25% !important;  /* 0% = muestra el tope, 50% = centro, 100% = base */
 }
 </style>
