@@ -9169,13 +9169,12 @@ document.addEventListener('mousedown', function(ev){
 }
 </style>
 <style>
-.rotador{ height:230px !important; }
-@media(max-width:600px){ .rotador{ height:215px !important; } }
+.rotador{ height:260px !important; }
+@media(max-width:600px){ .rotador{ height:210px !important; } }
 
 .rotador-panel[data-panel="logo"]{
   padding:0 !important;
   overflow:hidden;
-  --logo-zoom:.8;
 }
 .rotador-panel[data-panel="logo"] .rotador-logo-grande{
   position:absolute !important;
@@ -9184,8 +9183,7 @@ document.addEventListener('mousedown', function(ev){
   height:100% !important;
   max-width:none !important;
   object-fit:cover !important;
-  object-position:center 20% !important;
-  transform:scale(var(--logo-zoom));
-  transform-origin:center center;
+  object-position:center 70% !important;
+  transform:none !important;
 }
 </style>
