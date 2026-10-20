@@ -8990,3 +8990,164 @@ document.addEventListener('mousedown', function(ev){
   .home-grid .home-card div span{display:none !important;}
 }
 </style>
+<style>
+/* =========================================================
+   MEJORAS ESTÉTICAS v1: legibilidad + rotador compacto
+   (pegar al FINAL del archivo, después de todos los <style>)
+========================================================= */
+
+/* ---- 1. Contraste: grises más oscuros ---- */
+:root{
+  --gris:#5f6f63;
+  --texto-suave:#3f4f43;
+}
+
+/* ---- 1. Tipografía: mínimos legibles en celular ---- */
+.label{font-size:11px;letter-spacing:1px;}
+.mini{font-size:11px;}
+.estado{font-size:11px;padding:6px 14px;}
+.unidad,.input-box .unidad{font-size:11px;}
+.rango-ms{font-size:11.5px;opacity:.85;}
+.mensaje{font-size:13px;}
+.nota-referencia{font-size:11px;}
+.escala{font-size:10.5px;}
+.grafico-top{font-size:11.5px;}
+.footer{font-size:11px;}
+
+.btn-secundario{font-size:11px;}
+.carga-modo-tab{font-size:11.5px;}
+.asesor-link{font-size:11px;opacity:.8;}
+.asesor-panel p{font-size:11.5px;}
+
+.estado-opcion strong,.destino-opcion strong{font-size:12.5px;}
+.estado-opcion span,.destino-opcion span{font-size:11px;}
+
+.cultivo-info small{font-size:10px;}
+.cultivo-compacto-nombre{font-size:12px;}
+.cultivos-hint{font-size:11px;}
+
+.lote-card-sub,.lote-card-fecha{font-size:12px;}
+.lote-card-dato span{font-size:10px;}
+.lote-card-badge{font-size:10.5px;}
+.lote-card-mini-btn{font-size:11px;}
+.lote-card-trabajar{font-size:12px;}
+.ficha-lote-info-item .label{font-size:10px;}
+.ficha-stat-card .stat-label{font-size:10.5px;}
+.historial-tabla th{font-size:10.5px;}
+.historial-tabla td{font-size:12.5px;}
+
+.trabajo-info span{font-size:11.5px;}
+.trabajo-fecha-badge{font-size:10.5px;}
+.trabajo-btn-mini{font-size:10.5px;}
+.trabajo-alerta-linea{font-size:11.5px;}
+.agenda-sin-clima{font-size:11.5px;}
+
+.home-card div span{font-size:11px !important;}
+.home-chip small{font-size:11.5px;}
+.home-sec-titulo span{font-size:11px;}
+.home-eval p{font-size:12.5px;}
+
+/* Silaje */
+.silo-flow{font-size:10px;}
+.eyebrow{font-size:10px;}
+.silo-hero-copy p{font-size:12.5px;}
+.ventana-titulo small{font-size:11px;}
+.silo-ms-labels{font-size:10px;}
+.silo-ms-labels strong{font-size:11px;}
+.silo-tech-note{font-size:11px;}
+.silo-section-title small{font-size:11px;}
+.silo-loss-box small{font-size:10px;}
+.silo-kpi-label{font-size:10.5px;}
+.silo-kpi-side span,.silo-kpi-side small,
+.silo-kpi-grid span,.silo-kpi-grid small{font-size:10px;}
+.silo-range-alert span{font-size:11px;}
+.silo-decision-card span{font-size:10px;}
+.silo-decision-card small{font-size:11.5px;}
+.silo-quality-grid span{font-size:10px;}
+.silo-quality-grid strong{font-size:11.5px;}
+.silo-quality-note{font-size:11px;}
+.silo-result-subtitle{font-size:11px;}
+
+/* Hacienda */
+.an-summary-card span,.an-metric-card span,.an-extra-card span{font-size:11px;}
+.an-lote-metric span{font-size:10.5px;}
+.an-performance-kpis span,.an-carga-grid span{font-size:10.5px;}
+.an-permanencia-help{font-size:11.5px;}
+.an-weight-point span,.an-weight-point small{font-size:10.5px;}
+.an-system-badge{font-size:11px;}
+.an-species-badge{font-size:11px;}
+.an-table th{font-size:10.5px;}
+.an-trz-fecha{font-size:11px;}
+.an-trz-obs{font-size:12px;}
+.csq-card-fecha{font-size:11px;}
+.csq-badge{font-size:11px;}
+.csq-card-detalle,.csq-sugerencia{font-size:12px;}
+.inv-card-cat{font-size:10.5px;}
+.inv-badge-bajo{font-size:10.5px;}
+.inv-card-obs{font-size:12px;}
+.inv-historial-toggle{font-size:11.5px;}
+.inv-historial-lista{font-size:12px;}
+
+@media(max-width:600px){
+  .btn-secundario{font-size:11px;padding:12px 8px;}
+  .estado-opcion strong{font-size:11px;}
+  .historial-tabla{font-size:11.5px;}
+  .historial-tabla th{font-size:10px;}
+}
+@media(max-width:400px){
+  .estado-opcion strong{font-size:10.5px;}
+}
+
+/* ---- 2. Rotador compacto: las 3 tarjetas principales suben ---- */
+.rotador{height:200px;margin-bottom:12px;}
+.rotador-panel{padding:14px 22px 32px;}
+.rotador-panel[data-panel="logo"]{padding:12px 20px 30px;}
+.rotador-dots{bottom:10px;}
+.rotador-logo-grande{height:110px;}
+
+.rp-badge{margin-bottom:8px;}
+.rp-titulo{font-size:22px;margin-bottom:6px;}
+.rp-titulo-noticia{font-size:16px;-webkit-line-clamp:2;}
+.rp-texto{font-size:12px;line-height:1.4;margin-bottom:8px;}
+.rp-cta{padding:4px 6px 4px 14px;}
+
+#alertaDetalle{
+  display:-webkit-box;
+  -webkit-line-clamp:1;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+.rotador-panel[data-panel="clima"] .rp-titulo{
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.rotador-panel[data-panel="clima"] .rp-contenido{max-width:94%;}
+.rotador-clima-dia{padding:4px 9px;}
+.rotador-clima-dia .nombre{font-size:9.5px;}
+.rotador-clima-dia .icono{font-size:16px;margin:2px 0;}
+.rotador-clima-dia .temp-rango{font-size:11px;}
+
+@media(max-width:600px){
+  .rotador{height:190px;}
+  .rotador-panel{padding:12px 16px 30px;}
+  .rotador-panel[data-panel="logo"]{padding:10px 16px 28px;}
+  .rotador-logo-grande{height:90px;}
+  .rp-contenido{max-width:80%;}
+  .rp-titulo{font-size:18px;}
+  .rp-titulo-noticia{font-size:14.5px;}
+  .rp-texto{font-size:11.5px;}
+  .rotador-clima-dia .icono{font-size:15px;}
+  .rotador-clima-dia .temp-rango{font-size:10.5px;}
+}
+@media(max-width:390px){
+  .rotador{height:185px;}
+  .rotador-logo-grande{height:80px;}
+  .rp-titulo{font-size:17px;}
+  .rp-titulo-noticia{font-size:13.5px;}
+}
+
+/* ---- Margen inferior: el botón flotante ☰ no tapa el footer ---- */
+.app{padding-bottom:84px;}
+</style>
