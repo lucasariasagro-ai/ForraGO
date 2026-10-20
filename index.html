@@ -9151,3 +9151,20 @@ document.addEventListener('mousedown', function(ev){
 /* ---- Margen inferior: el botón flotante ☰ no tapa el footer ---- */
 .app{padding-bottom:84px;}
 </style>
+<style>
+/* Panel del logo: img_25 ocupa todo el ancho y queda centrada */
+.rotador-panel[data-panel="logo"]{
+  padding:0 !important;
+  align-items:stretch !important;
+  justify-content:stretch !important;
+}
+.rotador-panel[data-panel="logo"] .rotador-logo-grande{
+  width:100% !important;
+  height:100% !important;
+  max-width:none !important;
+  object-fit:contain !important;      /* mantiene ambos logos completos y centrados */
+  object-position:center center !important;
+  padding-bottom:18px;                /* deja lugar a las barritas de abajo */
+  box-sizing:border-box;
+}
+</style>
