@@ -9187,3 +9187,53 @@ document.addEventListener('mousedown', function(ev){
   transform:none !important;
 }
 </style>
+<!-- ============================================================
+     ForraGO · PANEL "CAMPO VIVO" EN EL ROTADOR
+     Para sacarlo: borrar este bloque.
+     ============================================================ -->
+<style id="rotadorJuegoCss">
+.rotador-panel[data-panel="juego"]{background-image:url(img/img_10.jpg);}
+.rotador-panel[data-panel="juego"]::before{
+    background:linear-gradient(100deg, rgba(8,24,12,.95) 0%, rgba(8,24,12,.78) 38%, rgba(8,24,12,.3) 70%, rgba(8,24,12,.05) 100%);
+}
+</style>
+<script>
+(function () {
+  if (document.getElementById("rotadorPanelJuego")) return;
+  var URL_JUEGO = "https://lucasariasagro-ai.github.io/Juego-Campo-vivo/";
+
+  var panel = document.createElement("div");
+  panel.className = "rotador-panel";
+  panel.id = "rotadorPanelJuego";
+  panel.setAttribute("data-panel", "juego");
+  panel.innerHTML =
+    '<div class="rp-contenido">' +
+      '<div class="rp-badge"><span class="rp-badge-icono">🚜</span> Jugá ahora</div>' +
+      '<h3 class="rp-titulo">Campo <span class="rp-resaltado">Vivo</span></h3>' +
+      '<p class="rp-texto">Simulador agropecuario · Alto Valle de Río Negro. Arás, sembrás, regás y cosechás.</p>' +
+      '<button class="rp-cta" id="rotadorBtnJuego"><span class="rp-cta-icono">→</span> Jugar</button>' +
+    '</div>';
+
+  var dots = document.getElementById("rotadorDots");
+  if (dots) dots.parentNode.insertBefore(panel, dots);
+
+  document.getElementById("rotadorBtnJuego").addEventListener("click", function (ev) {
+    ev.stopPropagation();
+    window.open(URL_JUEGO, "_blank");
+  });
+
+  // Tiempo que dura el panel en pantalla
+  if (typeof TIEMPOS_PANEL !== "undefined") TIEMPOS_PANEL.juego = 6000;
+
+  // Sumarlo al ciclo del rotador (queda último)
+  var obtenerOriginal = window.obtenerPanelesActivos;
+  window.obtenerPanelesActivos = function () {
+    var activos = obtenerOriginal();
+    if (activos.indexOf(panel) === -1) activos.push(panel);
+    return activos;
+  };
+
+  // Si el clima ya había cargado, refrescar las barritas de progreso
+  if (typeof actualizarDotsRotador === "function") actualizarDotsRotador();
+})();
+</script>
